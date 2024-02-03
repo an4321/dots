@@ -1,0 +1,54 @@
+import = ["/home/user/.config/alacritty/colors.toml"]
+live_config_reload = true
+
+[cursor]
+blink_interval = 400
+unfocused_hollow = false
+
+[cursor.style]
+blinking = "on"
+shape = "Block"
+
+[env]
+TERM = "alacritty"
+WINIT_X11_SCALE_FACTOR = "1.0"
+
+[font]
+size = 15.4
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+
+[font.italic]
+family = "MonaspaceRadon"
+
+[font.bold_italic]
+family = "MonaspaceRadon SemiBold"
+
+[[keyboard.bindings]]
+action = "ResetFontSize"
+key = "B"
+mods = "Alt"
+
+[mouse]
+hide_when_typing = true
+
+[shell]
+program = "/bin/fish"
+
+[window]
+decorations = "none"
+dynamic_title = true
+opacity = 0.81
+startup_mode = "Maximized"
+
+[window.dimensions]
+columns = 82
+lines = 24
+
+[window.padding]
+x = 4
+y = 7

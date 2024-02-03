@@ -1,0 +1,15 @@
+
+[directory]
+truncation_length = 4
+truncate_to_repo = false
+
+[jobs]
+format = ""
+
+[git_branch]
+symbol = ""
+format = "[$symbol$branch]($style) "
+
+[git_metrics]
+disabled = false
+

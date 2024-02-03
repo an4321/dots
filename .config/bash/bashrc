@@ -1,0 +1,56 @@
+#!/bin/bash
+
+source ~/Bin/alias.sh
+source ~/.config/bash/autojump.sh
+source ~/.config/bash/tmux.sh #TODO
+
+export PATH=$PATH:"$HOME/.bun/bin:$HOME/Bin:$HOME/.local/bin:$HOME/.cargo/bin"
+
+export HISTFILE=$HOME/.config/bash/history
+export INPUTRC=$HOME/.config/bash/inputrc
+
+export HISTFILESIZE=10000
+export HISTSIZE=1000
+
+export EDITOR=nvim
+export VISUAL=nvim
+
+export HISTCONTROL=erasedups:ignoredups:ignorespace # No duplicate lines or space
+shopt -s checkwinsize # Update Window
+shopt -s histappend # Resorect session history
+printf %b '\e]4;4;#6495ed\a'
+
+export PS1='\[\e[0;36m\]\u\[\e[0m\]@\[\e[0;32m\]\h\[\e[0m\]:\[\e[0;35m\]\w\[\e[0m\]> '
+eval "$(starship init bash)"
+
+# FUNCTIONS
+md(){
+	mkdir -p "$1"
+	cd "$1"
+}
+
+#Automatically do an ls after each cd
+cd(){
+	if [ -n "$1" ]; then
+		builtin cd "$@" && ls
+	else
+		builtin cd ~ && ls
+	fi
+}
+
+cpg(){
+	if [ -d "$2" ];then
+		cp "$1" "$2" && cd "$2"
+	else
+		cp "$1" "$2"
+	fi
+}
+
+mvg(){
+	if [ -d "$2" ];then
+		mv "$1" "$2" && cd "$2"
+	else
+		mv "$1" "$2"
+	fi
+}
+

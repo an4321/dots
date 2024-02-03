@@ -1,0 +1,6 @@
+#!/bin/bash
+
+"\ee": "vim\n"
+"\eq": "exit\n"
+"\ec": "clear\n"
+"\er": "ranger\n"
