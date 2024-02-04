@@ -1,0 +1,48 @@
+#!/bin/bash
+
+playlist=false
+shuffle=false
+ytdl_format="bestaudio"
+
+# Parse command line options
+while getopts "sp" opt; do
+    case $opt in
+        s) shuffle=true ;;
+        p) playlist=true ;;
+        \?) echo "Usage: $0 [-s] [-p] <yt-url>"; exit 1 ;;
+    esac
+done
+
+# Shift the options to process the remaining arguments
+shift $((OPTIND-1))
+url="$1"
+
+play_audio() {
+    video_url="https://www.youtube.com/watch?v=$1"
+
+    echo ""
+    title=$(curl -s "$video_url" | grep -oP '<title>\K[^<]*')
+    echo -e "\e[1;37mTitle:\e[0m \e[32m$title\e[0m"
+
+    mpv --ytdl-format="$ytdl_format" $2 "$video_url"
+}
+
+if $playlist; then
+    video_ids=$(youtube-dl --skip-download --get-id --flat-playlist "$url")
+
+    if $shuffle; then
+        while true; do
+            play_audio $(echo $video_ids | tr ' ' '\n' | shuf | tr '\n' ' ') '--no-resume-playback --speed=1 '
+            read -s -n1 -t1 keypress && [[ $keypress == $'q' ]] && break
+        done
+    else
+        for video_id in $video_ids; do
+            play_audio $video_id '--no-resume-playback --speed=1 '
+            read -s -n1 -t1 keypress && [[ $keypress == $'q' ]] && break
+        done
+    fi
+
+else
+    play_audio $(youtube-dl --skip-download --get-id "$url")
+fi
+
