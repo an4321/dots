@@ -9,12 +9,12 @@ zoxide init fish --cmd j | source
 starship init fish | source
 printf %b '\e]4;4;#6495ed\a'
 
-fish_add_path ~/Bin ~/.cargo/bin ~/.local/bin ~/.bun/bin ~/.cargo/bin
+fish_add_path ~/Dots/bin ~/.cargo/bin ~/.local/bin ~/.bun/bin ~/.cargo/bin
 # set --erase --universal fish_user_paths[5]
 
 source ~/.config/fish/functions.fish
 source ~/.config/fish/tmux.fish
-source ~/Bin/alias.sh
+source ~/Dots/bin/alias.sh
 
 bind \eq 'exit'
 bind \ec 'cd .; clear; commandline -f repaint'

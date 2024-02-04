@@ -1,0 +1,4 @@
+# tmux new -s Main -c '/home/user/Notes' -d 'nvim ~/Notes/index.md' \; attach || tmux attach -t Main
+# tmux new -s Main -d 'nvim ~/Notes/index.md' \; attach || tmux attach -t Main
+
+tmux new -s Main || tmux attach -t Main

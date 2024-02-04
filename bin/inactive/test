@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# -F / for files, -p */=>@|
+# -u time changed
+/bin/ls --color --group-directories-first -up
+# ll -o
+# la -A

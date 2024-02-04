@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/Bin/alias.sh
+source ~/Dots/bin/alias.sh
 source ~/.config/bash/autojump.sh
 source ~/.config/bash/tmux.sh #TODO
 
