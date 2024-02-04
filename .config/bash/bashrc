@@ -1,8 +1,6 @@
 #!/bin/bash
 
 source ~/Dots/bin/alias.sh
-source ~/.config/bash/autojump.sh
-source ~/.config/bash/tmux.sh #TODO
 
 export PATH=$PATH:"$HOME/.bun/bin:$HOME/Bin:$HOME/.local/bin:$HOME/.cargo/bin"
 
@@ -29,7 +27,6 @@ md(){
 	cd "$1"
 }
 
-#Automatically do an ls after each cd
 cd(){
 	if [ -n "$1" ]; then
 		builtin cd "$@" && ls

@@ -17,6 +17,13 @@ done
 shift $((OPTIND-1))
 url="$1"
 
+if [ -z "$url" ]; then
+    echo "Usage: $0 [-p] [-s] <yt-url>"
+    echo -e "\t -p Playlist in series"
+    echo -e "\t -s Shuffel playlist"
+    exit 1
+fi
+
 play_audio() {
     video_url="https://www.youtube.com/watch?v=$1"
 
