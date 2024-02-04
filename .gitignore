@@ -4,4 +4,6 @@
 .config/bash/history
 .config/fish/fish_variables
 .config/fish/config.fish.save
+.config/kitty/#kitty.conf#
+.config/nvim/spell
 
