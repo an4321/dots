@@ -29,27 +29,33 @@ play_audio() {
 
     echo ""
     title=$(curl -s "$video_url" | grep -oP '<title>\K[^<]*')
-    echo -e "\e[1;37mTitle:\e[0m \e[32m$title\e[0m"
+    echo -e "\e[0;37mTitle:\e[0m \e[32m$title\e[0m"
 
-    mpv --ytdl-format="$ytdl_format" $2 "$video_url"
+    # if resuming playback
+    if $2; then
+        mpv --ytdl-format="$ytdl_format" "$video_url"
+    else
+        mpv --ytdl-format="$ytdl_format"  --no-resume-playback --speed=1 "$video_url"
+    fi
+
 }
 
 if $playlist; then
-    video_ids=$(youtube-dl --skip-download --get-id --flat-playlist "$url")
+    video_ids=$(yt-dlp --skip-download --get-id --flat-playlist --no-warnings "$url")
 
     if $shuffle; then
         while true; do
-            play_audio $(echo $video_ids | tr ' ' '\n' | shuf | tr '\n' ' ') '--no-resume-playback --speed=1 '
+            play_audio $(echo $video_ids | tr ' ' '\n' | shuf | tr '\n' ' ') false
             read -s -n1 -t1 keypress && [[ $keypress == $'q' ]] && break
         done
     else
         for video_id in $video_ids; do
-            play_audio $video_id '--no-resume-playback --speed=1 '
+            play_audio $video_id false
             read -s -n1 -t1 keypress && [[ $keypress == $'q' ]] && break
         done
     fi
 
 else
-    play_audio $(youtube-dl --skip-download --get-id "$url")
+    play_audio $(yt-dlp --skip-download --get-id --no-warnings "$url") true
 fi
 
