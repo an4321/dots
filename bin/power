@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Suspend after 3 Min
-# swayidle timeout 180 'bash ~/Bin/lock'
+# swayidle timeout 180 'bash ~/Dots/bin/lock'
 
 # Define the options
-options="Shutdown\nSuspend\nReboot\nLogout\nLock"
+options="Shutdown\nReboot\nLogout\nLock"
 
 # Use Rofi to present the menu and get the user's choice
 choice=$(echo -e $options | tofi )
@@ -12,7 +12,7 @@ choice=$(echo -e $options | tofi )
 # Perform the chosen action
 case $choice in
     "Lock")
-        bash ~/Bin/lock
+        bash ~/Dots/bin/lock
         ;;
     "Logout")
         hyprctl dispatch exit 1
@@ -22,8 +22,5 @@ case $choice in
         ;;
     "Shutdown")
         systemctl poweroff
-        ;;
-    "Suspend")
-        bash ~/Bin/lock && systemctl suspend
         ;;
 esac
