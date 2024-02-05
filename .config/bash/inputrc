@@ -1,6 +1,10 @@
 #!/bin/bash
 
-"\ee": "vim\n"
 "\eq": "exit\n"
 "\ec": "clear\n"
+
+"\ee": "vim\n"
 "\ef": "yazi\n"
+
+"\ea": "tmux_attach\n"
+
