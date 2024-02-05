@@ -31,11 +31,10 @@ play_audio() {
     title=$(curl -s "$video_url" | grep -oP '<title>\K[^<]*')
     echo -e "\e[0;37mTitle:\e[0m \e[32m$title\e[0m"
 
-    # if resuming playback
-    if $2; then
+    if $resume_playback; then
         mpv --ytdl-format="$ytdl_format" "$video_url"
     else
-        mpv --ytdl-format="$ytdl_format"  --no-resume-playback --speed=1 "$video_url"
+        mpv --ytdl-format="$ytdl_format" --no-resume-playback --speed=1 "$video_url"
     fi
 
 }
@@ -45,17 +44,20 @@ if $playlist; then
 
     if $shuffle; then
         while true; do
-            play_audio $(echo $video_ids | tr ' ' '\n' | shuf | tr '\n' ' ') false
+            resume_playback=false
+            play_audio $(echo $video_ids | tr ' ' '\n' | shuf | tr '\n' ' ')
             read -s -n1 -t1 keypress && [[ $keypress == $'q' ]] && break
         done
     else
         for video_id in $video_ids; do
-            play_audio $video_id false
+            resume_playback=false
+            play_audio $video_id
             read -s -n1 -t1 keypress && [[ $keypress == $'q' ]] && break
         done
     fi
 
 else
-    play_audio $(yt-dlp --skip-download --get-id --no-warnings "$url") true
+    resume_playback=true
+    play_audio $(yt-dlp --skip-download --get-id --no-warnings "$url")
 fi
 

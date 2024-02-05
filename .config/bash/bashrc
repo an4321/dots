@@ -18,10 +18,18 @@ shopt -s checkwinsize # Update Window
 shopt -s histappend # Resorect session history
 printf %b '\e]4;4;#6495ed\a'
 
-export PS1='\[\e[0;36m\]\u\[\e[0m\]@\[\e[0;32m\]\h\[\e[0m\]:\[\e[0;35m\]\w\[\e[0m\]> '
-eval "$(starship init bash)"
+export PS1='\n\[\e[0;36m\]\u\[\e[0m\]@\[\e[0;32m\]\h\[\e[0m\]: \[\e[0;35m\]\w\[\e[0m\] '
+# eval "$(starship init bash)"
+eval "$(zoxide init bash --cmd j)"
+
+alias fh="history | fzf --tac --no-sort +s --reverse | sed 's/^[ ]*[0-9]*[ ]*//'"
 
 # FUNCTIONS
+j() {
+    echo -e "\e[1;31m\n$(zoxide query "$1")\e[0m"
+    cd "$(zoxide query "$1")"
+}
+
 md(){
 	mkdir -p "$1"
 	cd "$1"

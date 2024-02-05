@@ -54,3 +54,5 @@ alias f="ollama run mistral"
 # -i insensitive -I ignore binary -H print filename -r recursive -n print line number
 alias ft="grep --color=always --exclude-dir={.git,node_modules,.vscode,.next} -iIHrn"
 
+alias play="mpv --ytdl-format='bestaudio' --no-resume-playback --speed=1 --cache-secs=15"
+
