@@ -73,22 +73,25 @@ t() {
 }
 
 tmux_attach() {
-    local sessions=$(tmux ls | grep -o '^[^:]*')
-
     if [[ -z "$TMUX" ]]; then
-        if [[ $(echo "$sessions" | wc -l) -eq 1 ]]; then
-            tmux attach
-        elif [[ $(echo "$sessions" | wc -l) -eq 0 ]]; then
-            tmux new -s Main
-        else
-            echo -e "\n\n\e[1m\e[34mTmux Sessions:\e[0m"
 
-            local selected_session=$(gum choose --selected="Clone" --cursor=" " $sessions)
+        SHELL="/bin/bash"
+        local sessions=$(tmux ls 2>/dev/null | grep -o '^[^:]*')
 
-            if [[ -n "$selected_session" ]]; then
-                selected_session=$(echo "$selected_session" | cut -d ":" -f 1)
-                tmux attach -t "$selected_session"
+        if [[ -n "$sessions" ]]; then
+            if [[ $(echo "$sessions" | wc -l) -eq 1 ]]; then
+                tmux attach
+            elif [[ $(echo "$sessions" | wc -l) -gt 1 ]]; then
+                echo -e "\n\e[1m\e[34mTmux Sessions:\e[0m"
+                local selected_session=$(gum choose --selected="Clone" --cursor=" " $sessions)
+
+                if [[ -n "$selected_session" ]]; then
+                    selected_session=$(echo "$selected_session" | cut -d ":" -f 1)
+                    tmux attach -t "$selected_session"
+                fi
             fi
+        else
+            tmux new-session -s Main
         fi
     fi
     echo ""

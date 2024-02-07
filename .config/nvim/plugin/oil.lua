@@ -48,13 +48,13 @@ require("oil").setup({
     ["X"] = "actions.close",
     ["H"] = "actions.parent",
     ["<bs>"] = "actions.parent",
-    ["g."] = "actions.toggle_hidden",
+    ["."] = "actions.toggle_hidden",
   },
   -- Set to false to disable all of the above keymaps
   use_default_keymaps = true,
   view_options = {
     -- Show files and directories that start with "."
-    show_hidden = true,
+    show_hidden = false,
     -- This function defines what is considered a "hidden" file
     is_hidden_file = function(name, bufnr)
       return vim.startswith(name, ".")

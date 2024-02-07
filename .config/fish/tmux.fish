@@ -21,7 +21,7 @@ function tmux_attach
         if test (count $sessions) -eq 1
             tmux attach
         else if test (count $sessions) -eq 0
-            tmux new -s Main
+            tmux new-session -s Main
         else
             echo -e "\n\n\e[1m\e[34mTmux Sessions:\e[0m"
 
