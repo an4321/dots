@@ -9,25 +9,25 @@ end
 
 # BANG BANG!!
 function __history_previous_command
-  switch (commandline -t)
-  case "!"
-    commandline -t $history[1]; commandline -f repaint
-  case "*"
-    commandline -i !
-  end
+    switch (commandline -t)
+    case "!"
+        commandline -t $history[1]; commandline -f repaint
+    case "*"
+        commandline -i !
+    end
 end
 
 bind ! __history_previous_command
 bind '$' __history_previous_command_arguments
 
 function __history_previous_command_arguments
-  switch (commandline -t)
-  case "!"
-    commandline -t ""
-    commandline -f history-token-search-backward
-  case "*"
-    commandline -i '$'
-  end
+    switch (commandline -t)
+    case "!"
+        commandline -t ""
+        commandline -f history-token-search-backward
+    case "*"
+        commandline -i '$'
+    end
 end
 
 function _plugin-bang-bang_uninstall --on-event plugin-bang-bang_uninstall
@@ -46,11 +46,11 @@ function md -d "Create a directory and set CWD"
     command mkdir -p $argv
     if test $status = 0
         switch $argv[(count $argv)]
-            case '-*'
+        case '-*'
 
-            case '*'
-                cd $argv[(count $argv)]
-                return
+        case '*'
+            cd $argv[(count $argv)]
+            return
         end
     end
 end
@@ -83,31 +83,31 @@ end
 
 
 function cpg
-  if test -d "$argv[2]" 
-    cp "$argv[1]" "$argv[2]"
-    and cd "$argv[2]"
-  else 
-    cp "$argv[1]" "$argv[2]"
-  end
+    if test -d "$argv[2]" 
+        cp "$argv[1]" "$argv[2]"
+        and cd "$argv[2]"
+    else 
+        cp "$argv[1]" "$argv[2]"
+    end
 end
 
 
 function mvg
-  if test -d "$argv[2]"
-    mv "$argv[1]" "$argv[2]"
-    and cd "$argv[2]"
-  else
-    mv "$argv[1]" "$argv[2]"
-  end
+    if test -d "$argv[2]"
+        mv "$argv[1]" "$argv[2]"
+        and cd "$argv[2]"
+    else
+        mv "$argv[1]" "$argv[2]"
+    end
 end
 
 
 function ya
-	set tmp (mktemp -t "yazi-cwd.XXXXX")
-	yazi $argv --cwd-file="$tmp"
+    set tmp (mktemp -t "yazi-cwd.XXXXX")
+    yazi $argv --cwd-file="$tmp"
 
     builtin cd "$(cat $tmp)"
-	rm -f "$tmp"
+    rm -f "$tmp"
 end
 
 

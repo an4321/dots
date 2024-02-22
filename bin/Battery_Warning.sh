@@ -10,5 +10,5 @@ do
         notify-send -i ~/Pictures/Icons/low-battery.png "Low Battery" "Battery capacity is $capacity%!"
     fi
 
-    sleep 600  # 10min
+    sleep 900  # 15min
 done
