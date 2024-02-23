@@ -1,0 +1,59 @@
+set guioptions none
+set font "Hack 14"
+set page-padding 4
+set adjust-open "best-fit"
+set selection-clipboard clipboard
+
+map u scroll half-up
+map d scroll half-down
+map D toggle_page_mode
+map b toggle_statusbar
+map i recolor
+
+set statusbar-home-tilde     true
+set statusbar-basename       true
+set window-title-home-tilde  true
+set window-title-basename    true
+
+# zathurarc-catppuccin
+set notification-error-bg      "#F28FAD" # red
+set notification-error-fg      "#282828" # base03
+set notification-warning-bg    "#FAE3B0" # yellow
+set notification-warning-fg    "#282828" # base03
+set notification-bg            "#EBDDAA" # base2
+set notification-fg            "#282828" # base03
+
+set completion-group-bg        "#282828" # base03
+set completion-group-fg        "#EBDDAA" # base2
+set completion-bg              "#282828" # base03
+set completion-fg              "#F5E0DC" # base3
+set completion-highlight-bg    "#46405A" # base01
+set completion-highlight-fg    "#F5E0DC" # base3
+
+# Define the color in index mode
+set index-bg                   "#282828" # base03
+set index-fg                   "#F5E0DC" # base3
+set index-active-bg            "#46405A" # base01
+set index-active-fg            "#EBDDAA" # base2
+
+set inputbar-bg                "#46405A" # base01
+set inputbar-fg                "#EBDDAA" # base2
+
+set statusbar-bg               "#282828" # base03
+set statusbar-fg               "#F5E0DC" # base3
+
+set highlight-color            "#46405A" # base01 # hightlight match when search keyword(vim's /)
+set highlight-active-color     "#F28FAD" # red
+
+set default-bg                 "#282828" # base03
+set default-fg                 "#F5E0DC" # base3
+set render-loading             true
+set render-loading-fg          "#282828" # base03
+set render-loading-bg          "#282828" # base03
+
+# Recolor book content's color
+set recolor                    true
+set recolor-lightcolor         "#282828" # base03
+set recolor-darkcolor          "#F5E0DC" # base3
+set recolor-keephue            true     # keep original color
+
