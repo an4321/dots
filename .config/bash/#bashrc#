@@ -1,0 +1,99 @@
+#!/bin/bash
+
+source ~/Dots/bin/alias.sh
+
+export PATH=$PATH:"$HOME/.bun/bin:$HOME/Dots/bin:$HOME/.local/bin:$HOME/.cargo/bin"
+
+export HISTFILE=$HOME/.config/bash/history
+export INPUTRC=$HOME/.config/bash/inputrc
+
+export HISTFILESIZE=10000
+export HISTSIZE=1000
+
+export EDITOR=nvim
+export VISUAL=nvim
+
+export HISTCONTROL=erasedups:ignoredups:ignorespace # No duplicate lines or space
+shopt -s checkwinsize # Update Window
+shopt -s histappend # Resorect session history
+printf %b '\e]4;4;#6495ed\a'
+
+export PS1='\[\e[0;36m\]\u\[\e[0m\]@\[\e[0;32m\]\h\[\e[0m\]: \[\e[0;35m\]\w\[\e[0m\]  '
+# eval "$(starship init bash)"
+eval "$(zoxide init bash --cmd j)"
+
+alias fh="history | fzf --tac --no-sort +s --reverse | sed 's/^[ ]*[0-9]*[ ]*//'"
+alias ac="source ./env/bin/activate"
+alias de="deactivate"
+
+# FUNCTIONS
+md(){
+	mkdir -p "$1"
+	cd "$1"
+}
+
+cpg(){
+	if [ -d "$2" ];then
+		cp "$1" "$2" && cd "$2"
+	else
+		cp "$1" "$2"
+	fi
+}
+
+mvg(){
+	if [ -d "$2" ];then
+		mv "$1" "$2" && cd "$2"
+	else
+		mv "$1" "$2"
+	fi
+}
+
+ya() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
+t() {
+    local target_dir=$(zoxide query "$1")
+
+    if [[ -d "$target_dir" ]]; then
+        if [[ -n "$TMUX" ]]; then
+            tmux new -ds "$(basename "$target_dir")" -c "$target_dir"
+            tmux switch-client -t "$(basename "$target_dir")"
+        else
+            tmux new -s "$(basename "$target_dir")" -c "$target_dir"
+        fi
+    else
+        echo "Error: Not a valid directory."
+    fi
+}
+
+tmux_attach() {
+    if [[ -z "$TMUX" ]]; then
+
+        SHELL="/bin/bash"
+        local sessions=$(tmux ls 2>/dev/null | grep -o '^[^:]*')
+
+        if [[ -n "$sessions" ]]; then
+            if [[ $(echo "$sessions" | wc -l) -eq 1 ]]; then
+                tmux attach
+            elif [[ $(echo "$sessions" | wc -l) -gt 1 ]]; then
+                echo -e "\n\e[1m\e[34mTmux Sessions:\e[0m"
+                local selected_session=$(gum choose --selected="Clone" --cursor=" " $sessions)
+
+                if [[ -n "$selected_session" ]]; then
+                    selected_session=$(echo "$selected_session" | cut -d ":" -f 1)
+                    tmux attach -t "$selected_session"
+                fi
+            fi
+        else
+            tmux new-session -s Main
+        fi
+    fi
+    echo ""
+}
+

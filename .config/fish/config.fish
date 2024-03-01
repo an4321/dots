@@ -19,10 +19,9 @@ source ~/Dots/bin/alias.sh
 bind \eq 'exit'
 bind \ec 'cd .; clear; commandline -f repaint'
 bind \ek 'commandline -i $(history | fzf-tmux -h +s) ; commandline -f repaint'
-bind \ef 'echo "Yazi" && yazi ; commandline -f repaint'
+# bind \ef 'echo "Yazi" && yazi ; commandline -f repaint'
+bind \ef 'echo "Ranger" && ranger; commandline -f repaint'
 bind \ee 'echo " Neovim" && nvim -c ": Oil" ; commandline -f repaint'
-# bind \eg 'echo "󱓞 Jump to" && cd $(pwd | find -type d -maxdepth 3  | tail -n +2 | fzf) ; commandline -f repaint'
-# bind \eG 'echo "󱓞 Jump to" && cd $(echo $HOME | find -type d -maxdepth 3  | tail -n +2 | fzf ) ; commandline -f repaint'
 
 # bun
 set --export BROWSER "/usr/bin/brave"

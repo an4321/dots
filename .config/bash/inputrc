@@ -4,7 +4,7 @@
 "\ec": "clear\n"
 
 "\ee": "vim\n"
-"\ef": "yazi\n"
+"\ef": "ranger\n"
 
 "\ea": "tmux_attach\n"
 "\ek": "\n eval $(history | fzf-tmux -h +s | awk '{for(i=2;i<=NF;++i) printf \"%s \", $i; print \"\"}' ) \n"
