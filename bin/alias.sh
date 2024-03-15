@@ -21,9 +21,9 @@ alias px="pnpx"
 alias po="poetry"
 alias db="distrobox"
 
-alias ls="/bin/ls --color=auto --group-directories-first -u"
-alias la="/bin/ls --color=auto --group-directories-first -uA"
-alias ll="/bin/ls --color=auto --group-directories-first -uA1"
+alias ls="/bin/ls --color=auto --group-directories-first"
+alias la="/bin/ls --color=auto --group-directories-first -A"
+alias ll="/bin/ls --color=auto --group-directories-first -A1"
 alias lp="nsxiv -otf ."
 
 alias cat="bat -p --theme=OneHalfDark"

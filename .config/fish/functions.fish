@@ -62,8 +62,8 @@ function cd --description "ls and active on cd"
         ls
 
         # Broken for the fish prompt 🤧
-        if test -f "env/bin/activate"
-            source ./env/bin/activate.fish
+        if test -f "venv/bin/activate"
+            source ./venv/bin/activate.fish
         end
     end
 end
