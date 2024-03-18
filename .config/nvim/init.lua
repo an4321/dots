@@ -1,10 +1,9 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- TODO
--- leader enter -> execute pytonh / bash
-
+-----------------
 --     LAZY    --
+-----------------
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system {
@@ -22,9 +21,8 @@ require('lazy').setup({
     { 'catppuccin/nvim', name = "catppuccin", priority = 1000 },
     {
         'phaazon/hop.nvim',
-        branch = 'v2', -- optional but strongly recommended
+        branch = 'v2',
         config = function()
-            -- you can configure Hop the way you like here; see :h hop-config
             require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
         end
     },
@@ -160,7 +158,6 @@ vim.opt.scrolloff = 12
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
--- vim.opt.colorcolumn = "80"
 
 vim.opt.completeopt = 'menuone,noselect'
 vim.opt.mouse = 'a'
@@ -182,16 +179,35 @@ vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
 -- Re-open at last position
 vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
 
+-- Highlight on yank
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+    group = highlight_group,
+    pattern = '*',
+})
+
+-- Open Conf as filetype Bash
+vim.cmd('autocmd BufRead * lua SetFileType()')
+function SetFileType()
+    local filename = vim.api.nvim_buf_get_name(0)
+    local extension = filename:match('%.(%w+)$')
+    if extension == 'conf' then
+        vim.cmd('set filetype=bash')
+    end
+end
 
 ------------------
 --    KEYMAPS   --
 ------------------
 vim.api.nvim_del_keymap('n', "<leader>ww")
 vim.keymap.set({'n','v'}, "<leader>tt", "<cmd>VimwikiToggleListItem<CR>", {desc = "Toggle Task"})
+vim.keymap.set('n', "f", "<cmd>HopChar2<CR>", {desc = "Split Horizontal"})
 
 vim.keymap.set({'n','v'}, "<Space>", "<Nop>", { silent = true })
 vim.keymap.set('n', "<leader>e", "<cmd>Oil<CR>")
--- vim.keymap.set({"n","v","i","t"}, "<M-e>", "<cmd>NnnPicker<CR>")
 
 vim.keymap.set('n', "j", [[line('.')==line('$') ? 'gg' : 'j']], {expr = true, noremap = true})
 vim.keymap.set('n', "k", [[line('.')==1 ? 'Gzz' : 'k']], {expr = true, noremap = true})
@@ -233,23 +249,11 @@ vim.opt.splitbelow = true
 vim.keymap.set('n', "<leader>S", "<cmd>split ./ <CR>", {desc = "Split Horizontal"})
 vim.keymap.set('n', "<leader>s", "<cmd>vsplit ./ <CR>", {desc = "Split Vertical"})
 vim.keymap.set({'n','t','v'}, "<leader>j", "<C-W>w", { noremap = true, silent = true, desc = "Switch between Splits"})
+vim.keymap.set('n', "<leader><CR>", "<cmd>split  | resize 14      | terminal<CR>", {desc = 'Terminal'})
 
 vim.keymap.set('n', "<leader>ts", [[:set invspell<CR>]], {desc = "Toggle Spell Check"})
 vim.keymap.set('n', "<leader>ti", "<cmd>set foldmethod=indent<CR>", {desc = "Set Indent folds"})
 vim.keymap.set('n', "<leader>tm", "<cmd>set foldmethod=manual<CR>", {desc = "Set Manual folds"})
-
-vim.api.nvim_set_keymap('n', '<leader>b', ':execute "! " . getline(".")<CR>', {noremap = true, silent = true, desc = 'Run Bash'})
-vim.api.nvim_set_keymap('n', '<leader>tn', ':execute "! tmux_new " . getline(".")<CR>', {noremap = true, silent = true, desc = 'Tmux!'})
-
--- [[ Highlight on yank ]]
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-    callback = function()
-        vim.highlight.on_yank()
-    end,
-    group = highlight_group,
-    pattern = '*',
-})
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
@@ -266,61 +270,5 @@ vim.keymap.set('n', ";d", '<cmd>lua require("harpoon.ui").nav_file(3)<CR>', {des
 vim.keymap.set('n', ";f", '<cmd>lua require("harpoon.ui").nav_file(4)<CR>', {desc = 'Harpoon Mark 4'})
 vim.keymap.set('n', ";h", '<cmd>lua require("harpoon.ui").nav_next()<CR>', {desc = 'Harpoon Next'})
 vim.keymap.set('n', ";l", '<cmd>lua require("harpoon.ui").nav_prev()<CR>', {desc = 'Harpoon Previous'})
-
--- Terminal
-vim.keymap.set('n', "<leader><CR>", "<cmd>split  | resize 14      | terminal<CR>", {desc = 'Terminal'})
-vim.keymap.set('n', "<leader>tj",   "<cmd>vsplit | vert resize 50 | terminal ls *.js | entr -c bun %<CR>", {desc = 'Term Run JS'})
-vim.keymap.set('n', "<leader>tp",   "<cmd>vsplit | vert resize 50 | terminal ls *.py | entr -cr python %<CR>", {desc = 'Term Run Python'})
-
-function SetFileType()
-    local filename = vim.api.nvim_buf_get_name(0)
-    local extension = filename:match('%.(%w+)$')
-    if extension == 'conf' then
-        vim.cmd('set filetype=bash')
-    end
-end
-vim.cmd('autocmd BufRead * lua SetFileType()')
-
-
-vim.keymap.set('n', "f", "<cmd>HopChar2<CR>", {desc = "Split Horizontal"})
-
--- Require all plugin configurations
--- require("plugin.oil")
--- require("plugin.treesitter")
--- require("plugin.telescope")
--- require("plugin.lsp")
--- require("plugin.lualine")
--- require("plugin.indent_blankline")
--- require("plugin.catppuccin")
--- require("plugin.cmp")
--- require("plugin.gitsigns")
-
-
-vim.api.nvim_exec([[
-augroup ReactAutocmd
-  autocmd!
-  autocmd FileType javascriptreact,javascript.jsx,typescript.tsx,typescriptreact call SetReactKeymap()
-augroup END
-
-function! SetReactComponentTemplate()
-  let componentName = expand('%:t:r')
-  let content = 
-        \ 'import React from "react";' . "\n\n" .
-        \ 'function ' . componentName . '() {' . "\n" .
-        \ '  return (' . "\n" .
-        \ '    <div>' . "\n" .
-        \ '      {/* Your component code here */}' . "\n" .
-        \ '    </div>' . "\n" .
-        \ '  );' . "\n" .
-        \ '}' . "\n\n" .
-        \ 'export default ' . componentName . ';'
-  execute 'normal! ggVGd'
-  call append(0, split(content, "\n"))
-endfunction
-
-function! SetReactKeymap()
-  inoremap <buffer> rafce <Esc>:call SetReactComponentTemplate()<CR>
-endfunction
-]], true)
 
 
