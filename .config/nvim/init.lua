@@ -89,6 +89,7 @@ require('lazy').setup({
     {'RRethy/vim-illuminate'},
     {'stevearc/oil.nvim', opts = {}},
     {'ThePrimeagen/harpoon'},
+    {'neoclide/coc.nvim'}
 }, {})
 
 -- Colorizer
@@ -243,14 +244,17 @@ end, {desc = "Format"})
 
 vim.keymap.set('n', "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], {desc = "Rename"})
 vim.keymap.set('n', "<leader>X", "<cmd>!chmod +x %<CR>", { silent = true })
+vim.keymap.set('v', "<leader>c", "<cmd>'<,'>! capitalize @@<CR>", { silent = true })
 
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.keymap.set('n', "<leader>S", "<cmd>split ./ <CR>", {desc = "Split Horizontal"})
 vim.keymap.set('n', "<leader>s", "<cmd>vsplit ./ <CR>", {desc = "Split Vertical"})
-vim.keymap.set({'n','t','v'}, "<leader>j", "<C-W>w", { noremap = true, silent = true, desc = "Switch between Splits"})
 vim.keymap.set('n', "<leader><CR>", "<cmd>split  | resize 14      | terminal<CR>", {desc = 'Terminal'})
+vim.keymap.set({'n','t','v'}, "<leader>j", "<C-w><C-w>", { noremap = true, silent = true, desc = "Switch between Splits"})
+vim.keymap.set({'n','t','v'}, "<M-;>", "<C-\\><C-N><C-w><C-w>", { noremap = true, silent = true, desc = "Switch between Splits"})
 
+vim.keymap.set('n', '<leader>tw', ':lua vim.wo.wrap = not vim.wo.wrap<CR>', {noremap = true, silent = true, desc = "Toggle line wrap"})
 vim.keymap.set('n', "<leader>ts", [[:set invspell<CR>]], {desc = "Toggle Spell Check"})
 vim.keymap.set('n', "<leader>ti", "<cmd>set foldmethod=indent<CR>", {desc = "Set Indent folds"})
 vim.keymap.set('n', "<leader>tm", "<cmd>set foldmethod=manual<CR>", {desc = "Set Manual folds"})

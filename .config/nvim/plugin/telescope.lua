@@ -1,4 +1,14 @@
 
+require('telescope').setup{
+    defaults = {
+        file_ignore_patterns = {
+            "node_modules",
+            "venv",
+            "__pycache__"
+        }
+    }
+}
+
 local builtin = require('telescope.builtin')
 
 vim.keymap.set('n', '<leader><Space>', builtin.find_files, {desc = 'Find Files'})
