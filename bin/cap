@@ -1,0 +1,35 @@
+#!/bin/env bash
+set -euo pipefail
+
+capitalize() {
+    set ${*,,}
+    set ${*^}
+    echo -n "$1 "
+    last="${@: -1}"
+    set -- "${@:2:$#-2}"
+    for f in ${*}; do
+        case $f in
+            A|And|As|At|But|By|For|If|In|Nor|Of|Off|On|Or|The|To|Up)
+                echo -n "${f,,} "
+                ;;
+            *)
+                echo -n "$f "
+                ;;
+        esac
+    done
+    echo "$last"
+}
+
+if [[ "$#" == 1 ]]; then
+    set ${1^}
+    echo "$1"
+    exit 0
+fi
+
+if [[ "$1" == "-" ]]; then
+    while IFS='$\n' read -r line; do
+        capitalize "$line"
+    done
+else
+    capitalize $@
+fi
