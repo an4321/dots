@@ -275,4 +275,3 @@ vim.keymap.set('n', ";f", '<cmd>lua require("harpoon.ui").nav_file(4)<CR>', {des
 vim.keymap.set('n', ";h", '<cmd>lua require("harpoon.ui").nav_next()<CR>', {desc = 'Harpoon Next'})
 vim.keymap.set('n', ";l", '<cmd>lua require("harpoon.ui").nav_prev()<CR>', {desc = 'Harpoon Previous'})
 
-
