@@ -7,4 +7,5 @@
 .config/kitty/#kitty.conf#
 .config/nvim/spell
 .config/nvim/lazy-lock.json
+.config/lazygit/state.yml
 
