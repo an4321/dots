@@ -6,7 +6,7 @@ set -g fish_key_bindings fish_default_key_bindings
 
 # autojump >/dev/null
 zoxide init fish --cmd j | source
-# starship init fish | source
+starship init fish | source
 printf %b '\e]4;4;#6495ed\a'
 
 fish_add_path ~/Dots/bin ~/.cargo/bin ~/.local/bin ~/.bun/bin ~/.cargo/bin
