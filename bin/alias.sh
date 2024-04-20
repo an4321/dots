@@ -12,9 +12,7 @@ alias ...="cd ../.."
 
 alias vi="nvim"
 alias vim="nvim -c ':Oil'"
-alias lv="lvim"
-alias hx="flatpak run com.helix_editor.Helix -c ~/.config/helix/config.toml"
-# alias code="echo '󰨞 Codium ' && flatpak run com.vscodium.codium . ; sleep 3 ; xdotool key F11"
+alias em="emacsclient -c "
 
 alias pn="pnpm"
 alias px="pnpx"

@@ -2,74 +2,110 @@
 (setq doom-theme 'doom-one)
 (add-to-list 'default-frame-alist '(alpha-background . 84))
 
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 22 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "JetBrainsMono Nerd Font" :size 24))
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 21 :weight 'semi-light))
 
-(setq display-line-numbers-type t)
-(setq line-number-relative t)
+(custom-set-faces
+ '(default ((t (:background "#171717"))))
+ '(solaire-default-face ((t (:background "#171717")))))
 
-(setq org-directory "~/Notes/org/")
+;; (setq initial-buffer-choice "~/")
 
-(setq display-line-numbers-type 'relative)
-(setq scroll-margin 8)
+(after! evil-snipe (evil-snipe-mode -1))
+;; (evil-snipe-mode -1)
 
-(setq ispell-program-name "hunspell")
-(setq ispell-local-dictionary "en_US")
+(setq display-line-numbers-type t
+      line-number-relative t
+      display-line-numbers-type 'relative
+      scroll-margin 8
+      shell-file-name "/bin/fish"
+      vterm-max-scrollback 5000
 
-(map! :leader :desc "Write" "w" #'save-buffer )
-(map! :leader :desc "Kill Buffer" "x" #'kill-this-buffer  )
-(map! :leader :desc "Exit Emacs" "q" #'kill-buffer-and-window )
-(map! :leader :desc "Exit Emacs" "Q" #'kill-emacs )
+      ispell-program-name "hunspell"
+      ispell-local-dictionary "en_US"
 
-(map! :leader :desc "Explorer" "." #'dired-jump )
-(map! :leader :desc "Explorer" "e" #'find-file )
-(map! :leader :desc "Vterm" "RET" #'+vterm/here )
-(map! :leader :desc "Vterm Split" "tt" #'+vterm/toggle )
+      delete-by-moving-to-trash t
+      trash-directory "~/.local/share/Trash/files"
+      projectile-project-search-path "~/Desktop")
 
-(map! :leader :desc "Next Buffer" "l" #'next-buffer )
-(map! :leader :desc "Previous Buffer" "h" #'previous-buffer )
 
-(map! :leader :desc "Split Vert" "j" #'evil-window-next )
-(map! :leader :desc "Split Vert" "s" #'evil-window-vsplit )
-(map! :leader :desc "Split Vert" "S" #'evil-window-split )
+(map! "M-D" #'kill-emacs)
+(map! "M-a" #'+workspace/cycle)
+(map! "M-d" #'+workspace/delete)
+(map! "M-H" #'+workspace/swap-left)
+(map! "M-L" #'+workspace/swap-right)
+(map! :n "M-n" #'(lambda () (interactive) (+workspace/new-named "Notes") (find-file "~/Notes/index.org")))
 
-;; (global-set-key (kbd "C-w") (lambda () (interactive) (+workspace/delete)))
+(map! :leader :desc "Write" "w" #'save-buffer)
+(map! :leader :desc "Kill Buffer" "x" #'kill-this-buffer)
+(map! :leader :desc "Exit Emacs" "q" #'kill-buffer-and-window)
+(map! :leader :desc "Explorer" "e" #'find-file)
+(map! :leader :desc "Explorer" "E" #'dired-jump)
+
+(map! "M-RET" #'+vterm/here)
+(map! :after evil
+      :n "M-t" #'+vterm/toggle
+      :i "M-t" #'+vterm/toggle)
+
+(map! :leader :desc "Next Buffer" "l" #'next-buffer)
+(map! :leader :desc "Previous Buffer" "h" #'previous-buffer)
+
+(map! :leader :desc "Switch to Buffer" "d" #'+vertico/switch-workspace-buffer)
+(map! :leader :desc "Next Window" "j" #'evil-window-next)
+(map! :leader :desc "Split Vert" "s" #'evil-window-vnew)
+(map! :leader :desc "Split Hor" "S" #'evil-window-new)
+
+(map! :after evil
+      :n "t" #'avy-goto-char-timer
+      :v "t" #'avy-goto-char-timer
+
+      :n "U" #'evil-redo)
+
+(map! :after evil
+      :map evil-normal-state-map
+      "C-a" #'evil-numbers/inc-at-pt
+      "C-x" #'evil-numbers/dec-at-pt)
+
+(after! org
+  (setq org-directory "~/Notes/"
+        org-display-inline-image 1)
+  (map! :map evil-normal-state-map
+        "M-g" #'org-next-link
+        "M-G" #'org-previous-link
+        "mh" #'org-next-visible-heading
+        "mf" #'+org/toggle-fold
+        "mc" #'+org/close-fold
+        "ma" #'org-agenda-week-view
+        "mb" #'org-table-create
+        "mn" #'org-insert-link
+        "ms" #'org-schedule
+        "ml" #'org-toggle-link-display
+        "mp" #'+org-pretty-mode
+        "mt" #'org-todo)
+  )
+
+(defun kill-dired-buffers ()
+  (interactive)
+  (mapc (lambda (buffer)
+          (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
+            (kill-buffer buffer)))
+        (buffer-list)))
 
 (evil-define-key 'normal dired-mode-map
-  (kbd "M-RET") 'dired-display-file
+  (kbd "TAB") 'dired-display-file
+  (kbd "q") 'kill-dired-buffers
   (kbd "h") 'dired-up-directory
-  (kbd "l") 'dired-find-file ; use dired-find-file instead of dired-open.
+  (kbd "l") 'dired-find-file
+  (kbd "l") 'my-run-two-commands
   (kbd "r") 'dired-do-rename
   (kbd "y") 'dired-do-copy
   (kbd "d") 'dired-do-delete
-  (kbd "/") 'dired-goto-file
   (kbd "n") 'dired-create-empty-file
-  (kbd "m") 'dired-create-directory
+  (kbd "N") 'dired-create-directory
   (kbd "Z") 'dired-do-compress
   (kbd "X") 'dired-do-chmod
   (kbd "O") 'dired-do-chown
   (kbd "; d") 'epa-dired-do-decrypt
   (kbd "; e") 'epa-dired-do-encrypt)
 
-(setq dired-open-extensions '(("gif" . "sxiv")
-                              ("jpg" . "sxiv")
-                              ("png" . "sxiv")
-                              ("mkv" . "mpv")
-                              ("mp4" . "mpv")))
-
-(setq delete-by-moving-to-trash t
-      trash-directory "~/.local/share/Trash/files/")
-
-(map! :leader
-      (:prefix ("=" . "open file")
-       :desc "Dots Files" "=" #'(lambda () (interactive) (find-file "~/Dots/"))
-       :desc "" "v" #'(lambda () (interactive) (find-file "~/Videos/"))
-       :desc "Edit doom packages.el" "p" #'(lambda () (interactive) (find-file "~/.config/doom/packages.el"))))
-
-(custom-set-faces
- '(default ((t (:background "#171717"))))
- '(solaire-default-face ((t (:background "#171717")))))
-
-(setq shell-file-name "/bin/fish"
-      vterm-max-scrollback 5000)
+(map! :leader "be" #'kill-dired-buffers)
 
