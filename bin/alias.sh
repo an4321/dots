@@ -26,6 +26,7 @@ alias ll="/bin/ls --color=auto --group-directories-first -A1"
 alias lp="nsxiv -otf ."
 alias lpd="nsxiv -otf . | xargs -d \n rm"
 
+alias cp="wl-copy"
 alias cat="bat -p --theme=OneHalfDark"
 alias ywd="/bin/pwd; /bin/pwd | wl-copy"
 alias hist="history | fzf-tmux -h +s"
