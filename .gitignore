@@ -1,7 +1,8 @@
-
+bin/inactive
+.config/bash/history
+.config/bash/#bashrc#
 .config/tmux/plugins
 .config/mpv/watch_later
-.config/bash/history
 .config/fish/fish_variables
 .config/fish/config.fish.save
 .config/kitty/#kitty.conf#

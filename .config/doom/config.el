@@ -1,4 +1,6 @@
 
+;; doom-one doom-vibrant doom-nord
+;; doom-dracula doom-material: High contrast
 (setq doom-theme 'doom-one)
 (add-to-list 'default-frame-alist '(alpha-background . 84))
 
@@ -11,7 +13,7 @@
 ;; (setq initial-buffer-choice "~/")
 
 (after! evil-snipe (evil-snipe-mode -1))
-;; (evil-snipe-mode -1)
+(evil-snipe-mode -1)
 
 (setq display-line-numbers-type t
       line-number-relative t
@@ -33,7 +35,7 @@
 (map! "M-d" #'+workspace/delete)
 (map! "M-H" #'+workspace/swap-left)
 (map! "M-L" #'+workspace/swap-right)
-(map! :n "M-n" #'(lambda () (interactive) (+workspace/new-named "Notes") (find-file "~/Notes/index.org")))
+(map! :n "M-n" #'(lambda () (interactive) (+workspace/new-named "Notes") (find-file "~/Documents/Org/index.org")))
 
 (map! :leader :desc "Write" "w" #'save-buffer)
 (map! :leader :desc "Kill Buffer" "x" #'kill-this-buffer)
@@ -66,7 +68,7 @@
       "C-x" #'evil-numbers/dec-at-pt)
 
 (after! org
-  (setq org-directory "~/Notes/"
+  (setq org-directory "~/Documents/Org"
         org-display-inline-image 1)
   (map! :map evil-normal-state-map
         "M-g" #'org-next-link

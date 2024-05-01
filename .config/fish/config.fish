@@ -4,7 +4,6 @@ set -gx EDITOR nvim
 set -gx VISUAL nvim
 set -g fish_key_bindings fish_default_key_bindings
 
-# autojump >/dev/null
 zoxide init fish --cmd j | source
 starship init fish | source
 printf %b '\e]4;4;#6495ed\a'
@@ -19,9 +18,8 @@ source ~/Dots/bin/alias.sh
 bind \eq 'exit'
 bind \ec 'cd .; clear; commandline -f repaint'
 bind \ek 'commandline -i $(history | fzf-tmux -h +s) ; commandline -f repaint'
-# bind \ef 'echo "Yazi" && yazi ; commandline -f repaint'
-bind \ef 'echo "Ranger" && ranger; commandline -f repaint'
-bind \ee 'echo " Neovim" && nvim -c ": Oil" ; commandline -f repaint'
+bind \ef 'ranger; commandline -f repaint'
+bind \ee 'nvim -c ": Oil"'
 
 # bun
 set --export BROWSER "/usr/bin/brave"

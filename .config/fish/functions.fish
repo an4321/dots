@@ -56,15 +56,10 @@ function md -d "Create a directory and set CWD"
 end
 
 
-function cd --description "ls and active on cd"
+function cd --description "ls on cd"
     if [ -n $argv[1] ]
         builtin cd $argv[1]
         ls
-
-        # Broken for the fish prompt 🤧
-        if test -f "venv/bin/activate"
-            source ./venv/bin/activate.fish
-        end
     end
 end
 
@@ -72,13 +67,6 @@ end
 function j
     echo -e "\e[1;31m\n$(zoxide query $argv)\e[0m"
     cd (zoxide query $argv)
-end
-
-
-function gc --description "Git Clone Copied URL"
-    set clipboard (xclip -o)
-    set dir_name (basename $clipboard '.git')
-    git clone $clipboard && cd $dir_name
 end
 
 
@@ -109,5 +97,4 @@ function ya
     builtin cd "$(cat $tmp)"
     rm -f "$tmp"
 end
-
 

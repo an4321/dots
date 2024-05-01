@@ -7,5 +7,4 @@
 "\ef": "ranger\n"
 
 "\ea": "tmux_attach\n"
-"\ek": "\n eval $(history | fzf-tmux -h +s | awk '{for(i=2;i<=NF;++i) printf \"%s \", $i; print \"\"}' ) \n"
-
+"\ek": "echo 'history' | fish | fzf-tmux -h +s | bash \n"
