@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # Suspend after 3 Min
 # swayidle timeout 180 'bash ~/Dots/bin/lock'

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 search_query=$(printf '%s' "$*" | tr ' ' '+' )
 search_results=$(curl -s https://1337x.to/search/$search_query/1/)

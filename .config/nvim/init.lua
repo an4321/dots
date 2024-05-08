@@ -112,11 +112,7 @@ require("colorizer").setup {
 }
 
 vim.g.vimwiki_list = {
-    {
-        path = "~/vimwiki/",
-        syntax = "markdown",
-        ext = ".md"
-    }
+    { syntax = "markdown", ext = ".md", }
 }
 
 ------------------
@@ -205,29 +201,29 @@ end
 ------------------
 --    KEYMAPS   --
 ------------------
-vim.api.nvim_del_keymap('n', "<leader>ww")
 vim.keymap.set({ 'n', 'v' }, "<leader>tt", "<cmd>VimwikiToggleListItem<CR>", { desc = "Toggle Task" })
+vim.keymap.set({ 'n', 'v' }, "<leader>tl", "<cmd>VimwikiRenumberAllLists<CR>", { desc = "Renumber All Lists" })
 vim.keymap.set('n', "f", "<cmd>HopChar2<CR>", { desc = "Hop Char2" })
-vim.keymap.set('n', "f", "<cmd>HopPatter<CR>", { desc = "Hop Pattern" })
 
 vim.keymap.set({ 'n', 'v' }, "<Space>", "<Nop>", { silent = true })
 vim.keymap.set('n', "<leader>e", "<cmd>Oil<CR>")
 
+vim.keymap.set({ 'n', 'v' }, 'L', '$')
+vim.keymap.set({ 'n', 'v' }, "H", "^")
+vim.keymap.set('n', "ge", "Gzz")
 vim.keymap.set('n', "j", [[line('.')==line('$') ? 'gg' : 'j']], { expr = true, noremap = true })
 vim.keymap.set('n', "k", [[line('.')==1 ? 'Gzz' : 'k']], { expr = true, noremap = true })
-vim.keymap.set('n', "ge", "Gzz")
 vim.keymap.set('n', "<Esc>", "<cmd>noh<CR>")
 vim.keymap.set('n', "<Tab>", "zA")
 vim.keymap.set('n', "U", "<cmd>redo<CR>")
 
+vim.api.nvim_del_keymap('n', "<leader>ww")
 vim.keymap.set({ 'n', 'v' }, "<leader>wq", "<cmd>wq<CR>")
 vim.keymap.set({ 'n', 'v' }, "<leader>w", "<cmd>w<CR>")
-vim.keymap.set({ 'n', 'v' }, "<leader>WW", "<cmd>:w !sudo tee %<CR>")
 vim.keymap.set({ 'n', 'v' }, "<leader>q", "<cmd>q<CR>")
 vim.keymap.set({ 'n', 'v', 'i', 't' }, "<M-q>", "<cmd>q<CR>")
 
 vim.keymap.set('n', "<leader>b", "<cmd>Telescope buffers<CR>")
-vim.keymap.set('n', "<leader>d", "<cmd>Telescope buffers<CR>")
 vim.keymap.set('n', "<leader>l", "<cmd>bnext<CR>")
 vim.keymap.set('n', "<leader>h", "<cmd>bprevious<CR>")
 vim.keymap.set('n', "<leader>x", "<cmd>bdelete<CR>")
@@ -268,17 +264,17 @@ vim.keymap.set('n', "<leader>ti", "<cmd>set foldmethod=indent<CR>", { desc = "Se
 vim.keymap.set('n', "<leader>tm", "<cmd>set foldmethod=manual<CR>", { desc = "Set Manual folds" })
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>E', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>Q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', '<leader>dm', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
--- Harpoon
-vim.keymap.set('n', ";j", '<cmd>lua require("harpoon.mark").add_file()<CR>', { desc = 'Harpoon Mark' })
+-- Harpoog
 vim.keymap.set('n', ";m", '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>', { desc = 'Harpoon Menu' })
+vim.keymap.set('n', ";j", '<cmd>lua require("harpoon.mark").add_file()<CR>', { desc = 'Harpoon Mark' })
 vim.keymap.set('n', ";a", '<cmd>lua require("harpoon.ui").nav_file(1)<CR>', { desc = 'Harpoon Mark 1' })
+vim.keymap.set('n', ";h", '<cmd>lua require("harpoon.ui").nav_next()<CR>', { desc = 'Harpoon Next' })
+vim.keymap.set('n', ";l", '<cmd>lua require("harpoon.ui").nav_prev()<CR>', { desc = 'Harpoon Previous' })
 vim.keymap.set('n', ";s", '<cmd>lua require("harpoon.ui").nav_file(2)<CR>', { desc = 'Harpoon Mark 2' })
 vim.keymap.set('n', ";d", '<cmd>lua require("harpoon.ui").nav_file(3)<CR>', { desc = 'Harpoon Mark 3' })
 vim.keymap.set('n', ";f", '<cmd>lua require("harpoon.ui").nav_file(4)<CR>', { desc = 'Harpoon Mark 4' })
-vim.keymap.set('n', ";h", '<cmd>lua require("harpoon.ui").nav_next()<CR>', { desc = 'Harpoon Next' })
-vim.keymap.set('n', ";l", '<cmd>lua require("harpoon.ui").nav_prev()<CR>', { desc = 'Harpoon Previous' })

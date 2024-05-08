@@ -4,7 +4,7 @@
 "\ec": "clear\n"
 
 "\ee": "vim\n"
-"\ef": "ranger\n"
+"\ef": "$FM\n"
 
 "\ea": "tmux_attach\n"
 "\ek": "echo 'history' | fish | fzf-tmux -h +s | bash \n"

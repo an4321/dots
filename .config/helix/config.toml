@@ -34,4 +34,7 @@ C-K = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_after
 [keys.normal.space]
 q = ":quit"
 w = ":write"
+h = ":buffer-previous"
+l = ":buffer-next"
+x = ":buffer-close"
 

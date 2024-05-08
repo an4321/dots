@@ -37,11 +37,6 @@ function _plugin-bang-bang_uninstall --on-event plugin-bang-bang_uninstall
 end
 
 
-function bak --argument filename
-    cp $filename $filename.bak
-end
-
-
 function md -d "Create a directory and set CWD"
     command mkdir -p $argv
     if test $status = 0
@@ -65,8 +60,11 @@ end
 
 
 function j
-    echo -e "\e[1;31m\n$(zoxide query $argv)\e[0m"
-    cd (zoxide query $argv)
+    set result (zoxide query $argv)
+    if test $status -eq 0
+        echo -e "\e[1;31m\n$result\e[0m"
+        cd $result
+    end
 end
 
 
@@ -87,14 +85,5 @@ function mvg
     else
         mv "$argv[1]" "$argv[2]"
     end
-end
-
-
-function ya
-    set tmp (mktemp -t "yazi-cwd.XXXXX")
-    yazi $argv --cwd-file="$tmp"
-
-    builtin cd "$(cat $tmp)"
-    rm -f "$tmp"
 end
 

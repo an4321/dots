@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 swaylock -f -c 000000 \
 	--indicator-radius 125 \

@@ -1,0 +1,26 @@
+#!/bin/env bash
+
+if [[ -z "$TMUX" ]]; then
+
+    SHELL="/bin/bash"
+    sessions=$(tmux ls 2>/dev/null | grep -o '^[^:]*')
+
+    if [[ -n "$sessions" ]]; then
+        if [[ $(echo "$sessions" | wc -l) -eq 1 ]]; then
+            tmux attach
+        elif [[ $(echo "$sessions" | wc -l) -gt 1 ]]; then
+            echo -e "\n\e[1m\e[34mTmux Sessions:\e[0m"
+
+            selected_session=$(gum choose --selected="Clone" --cursor=" " $sessions)
+            echo -e "\e[32m  $selected_session\e[0m"
+
+            if [[ -n "$selected_session" ]]; then
+                selected_session=$(echo "$selected_session" | cut -d ":" -f 1)
+                tmux attach -t "$selected_session"
+            fi
+        fi
+    else
+        tmux new-session -s Main
+    fi
+fi
+echo ""
