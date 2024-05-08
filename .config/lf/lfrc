@@ -1,0 +1,49 @@
+set shell fish
+set scrolloff 10
+
+set cursorpreviewfmt "\033[7;1m"
+set previewer "~/.config/lf/preview"
+set sixel true
+set ignorecase true
+
+cmd open &{{
+    case $(file --mime-type -Lb $f) in
+        text/*) lf -remote "send $id \$$EDITOR \$fx";;
+        *) for f in $fx; do open $f & done;;
+    esac
+}}
+
+map <enter> shell
+
+map o &open $f
+map O $open --ask $f
+
+# execute file
+map x $$f
+map X !$f
+map ` !true
+
+map m :push %mkdir<space>
+map Y $printf "%s" "$fx" | cp
+map n :push %touch<space>
+
+map S $fish
+map R reload
+map . set hidden!
+
+map d
+cmd del ${{ printf "$fx" | tr '\n' ' ' | xargs trash }}
+map dd del
+map <delete> del
+map dr ${{ trash-restore }}
+
+map t $lf -remote "send $id select \"$(fd | fzf-tmux -h)\""
+
+map gD cd ~/Documents
+map gd cd ~/Downloads
+map gp cd ~/Pictures
+map g. cd ~/Dots/.config
+map gv cd ~/Videos
+map gm cd ~/Music
+map gt cd ~/.local/share/Trash/files
+

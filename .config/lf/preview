@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/preview"
+
+preview_img() {
+    img2sixel -h 500 "$1"
+}
+
+if file "$1" | grep -q "text"; then
+    bat -p --theme=base16 --color always "$1"
+
+elif [[ "$1" == *.png || "$1" == *.jpg || "$1" == *.jpeg || "$1" == *.ico ]]; then
+    preview_img $1
+    
+elif [[ "$1" == *.mp4 || "$1" == *.avi || "$1" == *.mkv  || "$1" == *.gif ]]; then
+    mkdir -p "$CACHE_DIR"
+    VIDEO_BASENAME="$(basename "$1")"
+    IMAGE_CACHE_PATH="$CACHE_DIR/${VIDEO_BASENAME}.preview.jpg"
+    if [ ! -f "$IMAGE_CACHE_PATH" ]; then
+        ffmpegthumbnailer -i "$1" -o "$IMAGE_CACHE_PATH" -s 0
+    fi
+    preview_img $IMAGE_CACHE_PATH
+
+elif [[ "$1" == *.pdf ]]; then
+    mkdir -p "$CACHE_DIR"
+    PDF_BASENAME="$(basename "$1" .pdf)"
+    IMAGE_CACHE_PATH="$CACHE_DIR/${PDF_BASENAME}.preview.jpg"
+    if [ ! -f "$IMAGE_CACHE_PATH" ]; then
+        pdftoppm -jpeg -singlefile -f 1 -l 1 "$1" "${IMAGE_CACHE_PATH/%.*}-001"
+        mv "${IMAGE_CACHE_PATH/%.*}-001.jpg" "$IMAGE_CACHE_PATH"
+    fi
+    preview_img "$IMAGE_CACHE_PATH"
+fi
