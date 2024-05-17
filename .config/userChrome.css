@@ -1,0 +1,32 @@
+/* FireFox */
+/* mv ./userChrome.css /home/user/.mozilla/firefox/*.default-release/chrome */
+/* /home/user/.mozilla/firefox/*.default-release/chrome */
+/* In about:config */
+    /* ui.key.menuAccessKeyFocuses toggle alt menu */
+    /* devPixelsPerPx to scale */
+
+#tabs-newtab-button,
+#PanelUI-button,
+.tab-close-button,
+.tab-secondary-label {
+  display: none !important;
+}
+
+ *|*:root {
+  --tab-min-height: 35px!important;
+  --tab-min-width: 60px!important;
+ }
+
+ /* TABS: height */
+ #tabbrowser-tabs,
+ #tabbrowser-tabs > #tabbrowser-arrowscrollbox,
+.tabbrowser-tabs.tabbrowser-tab {
+  min-height: var(--tab-min-height)!important;
+  max-height: var(--tab-min-height)!important;
+ }
+
+:root {
+  --toolbarbutton-border-radius: 0 !important;
+  --tab-border-radius: 0 !important;
+  --tab-block-margin: 0 !important;
+}
