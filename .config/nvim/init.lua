@@ -91,7 +91,7 @@ require('lazy').setup({
     { 'RRethy/vim-illuminate' },
     { 'stevearc/oil.nvim',          opts = {} },
     { 'ThePrimeagen/harpoon' },
-    { 'neoclide/coc.nvim' }
+    { 'neoclide/coc.nvim' },
 }, {})
 
 -- Colorizer
@@ -238,9 +238,9 @@ vim.keymap.set('n', "<C-u>", "<C-u>zz")
 vim.keymap.set('n', "n", "nzzzv")
 vim.keymap.set('n', "N", "Nzzzv")
 
-vim.keymap.set('n', "<leader>F", function()
+vim.keymap.set('n', "<leader>=", function()
     vim.lsp.buf.format()
-    print("󰉢  Buffer Formatted...")
+    print("Buffer Formatted")
 end, { desc = "Format" })
 
 vim.keymap.set('n', "gr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Rename" })
@@ -260,6 +260,7 @@ vim.keymap.set({ 'n', 't', 'v' }, "<M-;>", "<C-\\><C-N><C-w><C-w>",
 vim.keymap.set('n', '<leader>tw', ':lua vim.wo.wrap = not vim.wo.wrap<CR>',
     { noremap = true, silent = true, desc = "Toggle line wrap" })
 vim.keymap.set('n', "<leader>ts", [[:set invspell<CR>]], { desc = "Toggle Spell Check" })
+vim.keymap.set('n', "gs", [[:set invspell<CR>]], { desc = "Toggle Spell Check" })
 vim.keymap.set('n', "<leader>ti", "<cmd>set foldmethod=indent<CR>", { desc = "Set Indent folds" })
 vim.keymap.set('n', "<leader>tm", "<cmd>set foldmethod=manual<CR>", { desc = "Set Manual folds" })
 

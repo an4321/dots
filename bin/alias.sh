@@ -28,8 +28,8 @@ alias ls="/bin/ls --color=auto --group-directories-first"
 alias la="/bin/ls --color=auto --group-directories-first -A"
 alias ll="/bin/ls --color=auto --group-directories-first -A1"
 
-alias lp="nsxiv -otf ."
-alias lpd="nsxiv -otf . | xargs -d \n rm"
+alias li="nsxiv -otf ."
+alias lir="nsxiv -otf . | xargs -d \n rm"
 
 alias cp="wl-copy"
 alias cat="bat -p --theme=OneHalfDark"

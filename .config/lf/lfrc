@@ -17,10 +17,11 @@ map <enter> shell
 
 map o &open $f
 map O $open --ask $f
+map i $nsxiv -otf $f
 
 # execute file
 map x $$f
-map X !$f
+map X $$f
 map ` !true
 
 map m :push %mkdir<space>
@@ -31,11 +32,8 @@ map S $fish
 map R reload
 map . set hidden!
 
-map d
-cmd del ${{ printf "$fx" | tr '\n' ' ' | xargs trash }}
-map dd del
-map <delete> del
-map dr ${{ trash-restore }}
+map D ${{trash $fx}}
+map <delete> ${{trash $fx}}
 
 map t $lf -remote "send $id select \"$(fd | fzf-tmux -h)\""
 

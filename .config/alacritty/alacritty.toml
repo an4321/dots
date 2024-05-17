@@ -45,10 +45,6 @@ dynamic_title = true
 opacity = 0.81
 startup_mode = "Maximized"
 
-[window.dimensions]
-columns = 82
-lines = 24
-
 [window.padding]
 x = 4
-y = 10
+y = 12
