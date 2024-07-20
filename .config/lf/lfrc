@@ -17,7 +17,7 @@ map <enter> shell
 
 map o &open $f
 map O $open --ask $f
-map i $nsxiv -otf $f
+map i $nsxiv -of  $(dirname $f)
 
 # execute file
 map x $$f

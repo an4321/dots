@@ -60,10 +60,16 @@ end
 
 
 function j
-    set result (zoxide query $argv)
-    if test $status -eq 0
-        echo -e "\e[1;31m\n$result\e[0m"
-        cd $result
+    if test (count $argv) -eq 0
+        echo -e "\e[1;31m\nDesktop\e[0m"
+        cd ~/Desktop
+    else
+        set result (zoxide query $argv)
+
+        if test $status -eq 0
+            echo -e "\e[1;31m\n$result\e[0m"
+            cd $result
+        end
     end
 end
 

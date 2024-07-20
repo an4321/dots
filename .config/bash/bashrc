@@ -20,7 +20,6 @@ alias fh="history | fzf --tac --no-sort +s --reverse | sed 's/^[ ]*[0-9]*[ ]*//'
 alias ac="source ./env/bin/activate"
 alias de="deactivate"
 
-# FUNCTIONS
 md(){
 	mkdir -p "$1"
 	cd "$1"

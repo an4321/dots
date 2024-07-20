@@ -1,12 +1,12 @@
-source ~/.config/fish/functions.fish
-source ~/Dots/bin/alias.sh
-
-fish_vi_key_bindings
-set fish_cursor_insert line
 set fish_greeting
+set fish_vi_key_bindings
+set fish_cursor_insert line
 
 zoxide init fish --cmd j | source
 starship init fish | source
+
+source ~/Dots/bin/alias.sh
+source ~/.config/fish/functions.fish
 
 bind q 'exit'
 bind P 'fish_clipboard_paste'

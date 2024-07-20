@@ -98,11 +98,7 @@ require('lazy').setup({
 require("colorizer").setup {
     filetypes = { "*" },
     user_default_options = {
-        RGB = true,
-        RRGGBB = true,
-        names = true,
-        RRGGBBAA = true,
-        AARRGGBB = true,
+        css = true,
         mode = "background",
         tailwind = "both",    -- false true "normal" "lsp" "both"
         sass = { enable = true, parsers = { "css" }, },
@@ -203,7 +199,7 @@ end
 ------------------
 vim.keymap.set({ 'n', 'v' }, "<leader>tt", "<cmd>VimwikiToggleListItem<CR>", { desc = "Toggle Task" })
 vim.keymap.set({ 'n', 'v' }, "<leader>tl", "<cmd>VimwikiRenumberAllLists<CR>", { desc = "Renumber All Lists" })
-vim.keymap.set('n', "f", "<cmd>HopChar2<CR>", { desc = "Hop Char2" })
+vim.keymap.set('n', "f", "<cmd>HopChar1<CR>", { desc = "Hop Char2" })
 
 vim.keymap.set({ 'n', 'v' }, "<Space>", "<Nop>", { silent = true })
 vim.keymap.set('n', "<leader>e", "<cmd>Oil<CR>")
@@ -243,7 +239,7 @@ vim.keymap.set('n', "<leader>=", function()
     print("Buffer Formatted")
 end, { desc = "Format" })
 
-vim.keymap.set('n', "gr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Rename" })
+vim.keymap.set('n', "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Rename" })
 vim.keymap.set('n', "<leader>X", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set('v', "<leader>c", "<cmd>'<,'>! capitalize @@<CR>", { silent = true })
 

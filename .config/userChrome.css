@@ -1,19 +1,20 @@
 /* FireFox */
-/* mv ./userChrome.css /home/user/.mozilla/firefox/*.default-release/chrome */
+/* cp ~/Dots/.config/userChrome.css ~/.mozilla/firefox/*.default-release/chrome */
 /* /home/user/.mozilla/firefox/*.default-release/chrome */
 /* In about:config */
+    /* toolkit.legacyUserProfileCustomizations.stylesheets */
     /* ui.key.menuAccessKeyFocuses toggle alt menu */
     /* devPixelsPerPx to scale */
 
 #tabs-newtab-button,
 #PanelUI-button,
-.tab-close-button,
+/* .tab-close-button, */
 .tab-secondary-label {
   display: none !important;
 }
 
  *|*:root {
-  --tab-min-height: 35px!important;
+  --tab-min-height: 38px!important;
   --tab-min-width: 60px!important;
  }
 
