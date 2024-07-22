@@ -4,7 +4,6 @@ sudo make clean install
 ```
 
 ## Patches
-* [pertag](http://dwm.suckless.org/patches/pertag)
 * [focusadjacenttag](http://dwm.suckless.org/patches/focusadjacenttag)
 * [hide_vacant_tags](http://dwm.suckless.org/patches/hide_vacant_tags)
 * [alwayscenter](http://dwm.suckless.org/patches/alwayscenter)
