@@ -1,3 +1,8 @@
+clone/dwm/config.h
+clone/dwm/drw.o
+clone/dwm/dwm
+clone/dwm/dwm.o
+clone/dwm/util.o
 bin/inactive
 .config/bash/history
 .config/bash/#bashrc#
@@ -9,4 +14,3 @@ bin/inactive
 .config/nvim/spell
 .config/nvim/lazy-lock.json
 .config/lazygit/state.yml
-
