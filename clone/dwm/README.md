@@ -1,16 +1,31 @@
+# DWM
+```bash
+sudo make clean install
+```
 
-# Patches
+## Patches
 * [pertag](http://dwm.suckless.org/patches/pertag)
 * [focusadjacenttag](http://dwm.suckless.org/patches/focusadjacenttag)
 * [movestack](http://dwm.suckless.org/patches/movestack)
 * [hide_vacant_tags](http://dwm.suckless.org/patches/hide_vacant_tags)
 * [alwayscenter](http://dwm.suckless.org/patches/alwayscenter)
 
-# .xinitrc
+## Requirements
+```bash
+sudo apt install make gcc libx11-dev libxft-dev libxinerama-dev xorg
+```
+```bash
+sudo pacman -S xorg xorg-xinit base-devel libx11 libxft libxinerama
+```
+
+## .xinitrc
 ```bash
 while xsetroot -name "`date` `uptime | sed 's/.*,//'`"
 do
     sleep 1
 done &
+
+xrandr --output DP --mode 1920x1080
+
 exec dwm
 ```
