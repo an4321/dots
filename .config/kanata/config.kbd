@@ -1,0 +1,22 @@
+
+(defcfg
+  process-unmapped-keys yes
+)
+
+(defsrc
+  caps h j k l esc lalt ralt
+)
+
+(deflayer default
+  @cap _ _ _ _ _ @left_alt @right_alt
+)
+
+(deflayer arrows
+  _ left down up rght _ _ _
+)
+
+(defalias
+  left_alt (tap-hold-press 200 200 bspc lalt)
+  right_alt (tap-hold-press 200 200 ret rctl)
+  cap (tap-hold-press 200 200 esc (layer-toggle arrows))
+)
