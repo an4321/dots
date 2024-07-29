@@ -241,7 +241,6 @@ end, { desc = "Format" })
 
 vim.keymap.set('n', "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Rename" })
 vim.keymap.set('n', "<leader>X", "<cmd>!chmod +x %<CR>", { silent = true })
-vim.keymap.set('v', "<leader>c", "<cmd>'<,'>! capitalize @@<CR>", { silent = true })
 
 vim.opt.splitright = true
 vim.opt.splitbelow = true

@@ -33,7 +33,6 @@ alias p="wl-paste"
 alias cat="bat -p --theme=OneHalfDark"
 alias ywd="/bin/pwd; /bin/pwd | wl-copy"
 alias hist="history | fzf-tmux -h +s"
-
 alias yy="history --max=1 | tr -d '\n' | wl-copy"
 
 alias cp="cp -vi"
@@ -50,4 +49,3 @@ alias fetch="fastfetch"
 # i insensitive -I ignore binary -H print filename -r recursive -n print line number
 alias ft="grep --color=always --exclude-dir={.git,node_modules,.vscode,.next} -iIHrn"
 alias play="mpv --ytdl-format='bestaudio' --no-resume-playback --speed=1 --cache-secs=15"
-alias k="poetry -C ~/Desktop/AI/groq-test run python ~/Desktop/AI/groq-test/one.py ask"

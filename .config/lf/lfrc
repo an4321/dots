@@ -28,6 +28,7 @@ map m :push %mkdir<space>
 map Y $printf "%s" "$fx" | cp
 map n :push %touch<space>
 
+map a :push $
 map S $fish
 map R reload
 map . set hidden!
@@ -37,8 +38,9 @@ map <delete> ${{trash $fx}}
 
 map t $lf -remote "send $id select \"$(fd | fzf-tmux -h)\""
 
-map gD cd ~/Documents
+map gh cd ~/Desktop
 map gd cd ~/Downloads
+map gD cd ~/Documents
 map gp cd ~/Pictures
 map g. cd ~/Dots/.config
 map gv cd ~/Videos
