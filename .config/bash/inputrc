@@ -7,4 +7,4 @@
 "\ef": "fm\n"
 
 "\ea": "tmux_attach\n"
-"\ek": "echo 'history' | fish | fzf-tmux -h +s | bash \n"
+"\ek": "echo 'history' | fish | fzf-tmux -h -e +s | bash \n"

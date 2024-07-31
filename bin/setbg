@@ -1,0 +1,43 @@
+#!/bin/env bash
+
+# Default mode
+mode="fill"
+
+# Parse options
+while getopts "fct" opt; do
+  case $opt in
+    f) mode="fit" ;;
+    c) mode="center" ;;
+    t) mode="tile" ;;
+    \?)
+      echo "Usage: $0 [-f fit] [-c center] [-t tile] [wallpaper]"
+      exit 1
+      ;;
+  esac
+done
+
+# Remove the parsed options from the positional parameters
+shift $((OPTIND-1))
+
+# Check if a wallpaper argument was passed
+if [ "$#" -eq 1 ]; then
+    wall="$1"
+else
+    wall=$(nsxiv -otf ~/Pictures/Wallpapers)
+
+    # Check if $wall is empty
+    if [ -z "$wall" ]; then
+        random_wallpaper=$(find ~/Pictures/Wallpapers -type f | shuf -n 1)
+        wall="$random_wallpaper"
+    fi
+fi
+
+if [ ! -f "$wall" ]; then
+    echo "Error: File '$wall' not found or not a valid file."
+    exit 1
+fi
+
+killall swaybg
+
+# Set the wallpaper with swaybg
+nohup swaybg --mode "$mode" --image "$wall" > /tmp/output.log 2> /tmp/error.log &
