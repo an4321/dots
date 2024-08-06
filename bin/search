@@ -33,7 +33,7 @@ if [ -f /etc/os-release ]; then
         arch)
             search_arch "$1"
             ;;
-        debian|ubuntu|linuxmint)
+        debian|ubuntu|linuxmint|raspbian)
             search_debian "$1"
             ;;
         *)

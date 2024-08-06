@@ -26,7 +26,7 @@ if [ -f /etc/os-release ]; then
         arch)
             remove_arch "$@"
             ;;
-        debian|ubuntu|linuxmint)
+        debian|ubuntu|linuxmint|raspbian)
             remove_debian "$@"
             ;;
         *)

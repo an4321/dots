@@ -7,7 +7,7 @@ if [ -f /etc/os-release ]; then
         arch)
             sudo pacman -Syu
             ;;
-        debian|ubuntu|linuxmint)
+        debian|ubuntu|linuxmint|raspbian)
             sudo apt update && sudo apt upgrade -y
             ;;
         *)

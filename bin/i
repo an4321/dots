@@ -7,7 +7,7 @@ if [ -f /etc/os-release ]; then
         arch)
             sudo pacman -S "$@"
             ;;
-        debian|ubuntu|linuxmint)
+        debian|ubuntu|linuxmint|raspbian)
             sudo apt install -y "$@"
             ;;
         *)
