@@ -9,6 +9,8 @@ map d scroll half-down
 map D toggle_page_mode
 map b toggle_statusbar
 map i recolor
+map f toggle_fullscreen
+map [fullscreen] f toggle_fullscreen
 
 set statusbar-home-tilde     true
 set statusbar-basename       true
