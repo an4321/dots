@@ -43,29 +43,6 @@ function md -d "Create a directory and set CWD"
 end
 
 
-function cd --description "ls on cd"
-    if [ -n $argv[1] ]
-        builtin cd $argv[1]
-        ls
-    end
-end
-
-
-function j
-    if test (count $argv) -eq 0
-        echo -e "\e[1;31m\nDesktop\e[0m"
-        cd ~/Desktop
-    else
-        set result (zoxide query $argv)
-
-        if test $status -eq 0
-            echo -e "\e[1;31m\n$result\e[0m"
-            cd $result
-        end
-    end
-end
-
-
 function cpg
     if test -d "$argv[2]" 
         cp "$argv[1]" "$argv[2]"
