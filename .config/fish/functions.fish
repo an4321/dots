@@ -1,11 +1,3 @@
-# Functions Island
-
-# set up the same key bindings for insert mode if using fish_vi_key_bindings
-if test "$fish_key_bindings" = 'fish_vi_key_bindings'
-    bind --mode insert ! __history_previous_command
-    bind --mode insert '$' __history_previous_command_arguments
-end
-
 
 # BANG BANG!!
 function __history_previous_command
@@ -17,9 +9,6 @@ function __history_previous_command
     end
 end
 
-bind ! __history_previous_command
-bind '$' __history_previous_command_arguments
-
 function __history_previous_command_arguments
     switch (commandline -t)
     case "!"
@@ -30,10 +19,13 @@ function __history_previous_command_arguments
     end
 end
 
-function _plugin-bang-bang_uninstall --on-event plugin-bang-bang_uninstall
-    bind --erase --all !
-    bind --erase --all '$'
-    functions --erase _plugin-bang-bang_uninstall
+bind ! __history_previous_command
+bind '$' __history_previous_command_arguments
+
+# set up the same key bindings for insert mode if using fish_vi_key_bindings
+if test "$fish_key_bindings" = 'fish_vi_key_bindings' -o "$fish_key_bindings" = 'fish_hybrid_key_bindings'
+    bind --mode insert ! __history_previous_command
+    bind --mode insert '$' __history_previous_command_arguments
 end
 
 
