@@ -5,12 +5,13 @@ return {
             "sindrets/diffview.nvim",
         },
         config = true,
-        opts = {
-            vim.keymap.set('n', '<Space>gg', '<cmd> Neogit kind=replace<CR>', { desc = 'NeoGit' })
-        }
+        keys = {
+            {'<Space>gg', '<cmd> Neogit kind=replace<CR>', desc = 'NeoGit'},
+        },
     },
     {
         'lewis6991/gitsigns.nvim',
+        event = "VeryLazy",
         opts = {
             on_attach = function(bufnr)
                 vim.keymap.set('n', '<Space>gk', require('gitsigns').prev_hunk,

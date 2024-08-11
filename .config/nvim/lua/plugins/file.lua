@@ -1,6 +1,7 @@
 return {
     {
         'ThePrimeagen/harpoon',
+        event = "VeryLazy",
         setup = {
             vim.keymap.set('n', "<Space>m", '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>',
                 { desc = 'Harpoon Menu' }),
@@ -38,6 +39,7 @@ return {
     },
     {
         'stevearc/oil.nvim',
+        event = "VeryLazy",
         opts = {
             vim.keymap.set('n', "<Space>e", "<cmd>Oil<CR>"),
             columns = {

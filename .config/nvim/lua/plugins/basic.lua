@@ -1,7 +1,7 @@
 return {
     { 'nvim-lua/plenary.nvim' },
-    { 'RRethy/vim-illuminate' },
-    { 'Nvchad/nvim-colorizer.lua' },
+    { 'RRethy/vim-illuminate', event = "VeryLazy" },
+    { 'Nvchad/nvim-colorizer.lua', event = "VeryLazy" },
     {
         "folke/which-key.nvim",
         event = "VeryLazy",
@@ -16,6 +16,7 @@ return {
     {
         'phaazon/hop.nvim',
         branch = 'v2',
+        event = "VeryLazy",
         opts = {
             vim.keymap.set('n', "f", "<cmd>HopChar1<CR>", { desc = "Hop to Char" })
         }

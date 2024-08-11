@@ -24,11 +24,11 @@ vim.opt.splitbelow = true
 
 -- Indentation
 vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
+vim.opt.backspace = "indent,eol,start"
 
 -- Search
 vim.opt.hlsearch = true
