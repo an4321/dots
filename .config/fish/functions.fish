@@ -43,6 +43,19 @@ function md -d "Create a directory and set CWD"
 end
 
 
+function j
+    if test (count $argv) -eq 0
+        cd ~/Desktop
+    else
+        set result (zoxide query $argv)
+
+        if test $status -eq 0
+            cd $result
+        end
+    end
+end
+
+
 function cpg
     if test -d "$argv[2]" 
         cp "$argv[1]" "$argv[2]"
