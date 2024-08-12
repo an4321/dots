@@ -68,6 +68,6 @@ vim.opt.statusline = table.concat({
   " %m",                -- Modified flag
   "%r",                 -- Readonly flag
   "%=",                 -- Right-align the remaining sections
-  " %-14.(%l,%c%V%)",   -- Line and column number
-  " %P",                -- Percentage through the file
+  "%-14.(%l,%c%V%)",    -- Line and column number
+  "%P ",                -- Percentage through the file
 })

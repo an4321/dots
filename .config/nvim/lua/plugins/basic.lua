@@ -1,24 +1,36 @@
 return {
     { 'nvim-lua/plenary.nvim' },
-    { 'RRethy/vim-illuminate', event = "VeryLazy" },
-    { 'Nvchad/nvim-colorizer.lua', event = "VeryLazy" },
     {
-        "folke/which-key.nvim",
-        event = "VeryLazy",
-        opts = { },
+        'RRethy/vim-illuminate',
+        event = { 'BufReadPre', 'BufNewFile' },
     },
-    -- { 'nvim-tree/nvim-web-devicons' },
+    {
+        'folke/which-key.nvim',
+        event = 'VeryLazy',
+        opts = {},
+    },
     {
         'windwp/nvim-autopairs',
-        event = "InsertEnter",
-        opts = {}
+        event = { 'BufReadPre', 'BufNewFile' },
+        opts = {},
+    },
+    {
+        'numToStr/Comment.nvim',
+        event = 'VeryLazy',
+        opts = {},
     },
     {
         'phaazon/hop.nvim',
         branch = 'v2',
-        event = "VeryLazy",
-        opts = {
-            vim.keymap.set('n', "f", "<cmd>HopChar1<CR>", { desc = "Hop to Char" })
-        }
+        event = { 'BufReadPre', 'BufNewFile' },
+        opts = {},
+        keys = {
+            { 'f', '<cmd>HopChar1<CR>', desc = 'Hop to Char' },
+        },
+    },
+    {
+        'Nvchad/nvim-colorizer.lua',
+        event = 'VeryLazy',
+        opts = {},
     },
 }
