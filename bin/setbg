@@ -1,16 +1,17 @@
 #!/bin/env bash
 
-# Default mode
 mode="fill"
+random=false
 
 # Parse options
-while getopts "fct" opt; do
+while getopts "fctr" opt; do
   case $opt in
     f) mode="fit" ;;
     c) mode="center" ;;
     t) mode="tile" ;;
+    r) random=true ;;
     \?)
-      echo "Usage: $0 [-f fit] [-c center] [-t tile] [wallpaper]"
+      echo "Usage: $0 [-f fit] [-c center] [-t tile] [Image File] OR [-r random]"
       exit 1
       ;;
   esac
@@ -22,14 +23,16 @@ shift $((OPTIND-1))
 # Check if a wallpaper argument was passed
 if [ "$#" -eq 1 ]; then
     wall="$1"
+elif "$random"; then
+    wall=""
 else
     wall=$(nsxiv -otf ~/Pictures/Wallpapers)
+fi
 
-    # Check if $wall is empty
-    if [ -z "$wall" ]; then
-        random_wallpaper=$(find ~/Pictures/Wallpapers -type f | shuf -n 1)
-        wall="$random_wallpaper"
-    fi
+# Check if $wall is empty
+if [ -z "$wall" ]; then
+    random_wallpaper=$(find ~/Pictures/Wallpapers -type f | shuf -n 1)
+    wall="$random_wallpaper"
 fi
 
 if [ ! -f "$wall" ]; then
@@ -39,5 +42,5 @@ fi
 
 killall swaybg
 
-# Set the wallpaper with swaybg
+# Set the wallpaper
 nohup swaybg --mode "$mode" --image "$wall" > /tmp/output.log 2> /tmp/error.log &

@@ -1,9 +1,7 @@
 -- Editor appearance
-vim.cmd.colorscheme("catppuccin-mocha")
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
-vim.api.nvim_set_hl(0, "CursorLine", { underline = false, bg = "" })
 vim.opt.laststatus = 3 -- Global Statusline
 vim.opt.termguicolors = true
 vim.opt.scrolloff = 8
@@ -58,16 +56,4 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     end,
     group = highlight_group,
     pattern = '*',
-})
-
--- Status Line
-vim.opt.cmdheight = 0
-vim.opt.statusline = table.concat({
-  "  %t",               -- File name
-  "%h",                 -- Help buffer flag
-  " %m",                -- Modified flag
-  "%r",                 -- Readonly flag
-  "%=",                 -- Right-align the remaining sections
-  "%-14.(%l,%c%V%)",    -- Line and column number
-  "%P ",                -- Percentage through the file
 })

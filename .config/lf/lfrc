@@ -42,6 +42,7 @@ map gh cd ~/Desktop
 map gd cd ~/Downloads
 map gD cd ~/Documents
 map gp cd ~/Pictures
+map gs cd ~/Pictures/Screenshots
 map g. cd ~/Dots/.config
 map gv cd ~/Videos
 map gm cd ~/Music

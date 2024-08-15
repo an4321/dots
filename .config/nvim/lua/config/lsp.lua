@@ -14,6 +14,8 @@ local lsp_attach = function(client, bufnr)
     vim.keymap.set({ 'n', 'x' }, '<Space>kf', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
     vim.keymap.set('n', '<Space>kr', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
     vim.keymap.set('n', '<Space>ka', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+    vim.keymap.set('n', '<Space>kd', '<cmd>lua vim.diagnostic.disable()<cr>', opts)
+    vim.keymap.set('n', '<Space>kD', '<cmd>lua vim.diagnostic.enable()<cr>', opts)
 end
 
 lsp_zero.extend_lspconfig({

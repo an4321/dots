@@ -1,13 +1,12 @@
-clone/dwm/config.h
-clone/dwm/drw.o
+clone/*/*.o
 clone/dwm/dwm
-clone/dwm/dwm.o
-clone/dwm/util.o
+clone/nsxiv/nsxiv
 bin/inactive
 .config/bash/history
 .config/bash/#bashrc#
 .config/tmux/plugins
 .config/mpv/watch_later
+.config/fish/functions
 .config/fish/fish_variables
 .config/fish/config.fish.save
 .config/fish/local.fish

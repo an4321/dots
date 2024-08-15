@@ -32,7 +32,7 @@ vim.keymap.set('v', "<S-Tab>", "<gv", { noremap = true, silent = true })
 vim.keymap.set('n', "<Space>S", "<cmd>split ./ <CR>", { desc = "Split Horizontal" })
 vim.keymap.set('n', "<Space>s", "<cmd>vsplit ./ <CR>", { desc = "Split Vertical" })
 vim.keymap.set('n', "<Space><CR>", "<cmd>split | resize 14 | terminal<CR>", { desc = 'Terminal' })
-vim.keymap.set({ 'n', 't', 'v' }, "<Space>j", "<C-w><C-w>", { noremap = true, silent = true, desc = "Switch between Splits" })
+vim.keymap.set({ 'n', 'v' }, "<Space>j", "<C-w><C-w>", { noremap = true, silent = true, desc = "Switch between Splits" })
 
 -- Toggles and modes
 vim.keymap.set('n', '<Space>tw', ':lua vim.wo.wrap = not vim.wo.wrap<CR>', { noremap = true, silent = true, desc = "Toggle line wrap" })
