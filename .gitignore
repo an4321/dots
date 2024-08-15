@@ -1,7 +1,6 @@
-clone/*/*.o
-clone/dwm/dwm
-clone/nsxiv/nsxiv
 bin/inactive
+.config/*/*.o
+.config/dwm/dwm
 .config/bash/history
 .config/bash/#bashrc#
 .config/tmux/plugins
@@ -10,7 +9,5 @@ bin/inactive
 .config/fish/fish_variables
 .config/fish/config.fish.save
 .config/fish/local.fish
-.config/kitty/#kitty.conf#
 .config/nvim/spell
 .config/nvim/lazy-lock.json
-.config/lazygit/state.yml
