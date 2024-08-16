@@ -1,6 +1,5 @@
 require("config.lazy")
 require("config.options")
-require("config.statusline")
-require("config.neovide")
+require("config.misc")
 require("config.keymaps")
 require("config.lsp")

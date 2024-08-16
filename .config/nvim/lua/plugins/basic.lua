@@ -23,9 +23,8 @@ return {
         'phaazon/hop.nvim',
         branch = 'v2',
         event = { 'BufReadPre', 'BufNewFile' },
-        opts = {},
-        keys = {
-            { 'f', '<cmd>HopChar1<CR>', desc = 'Hop to Char' },
+        opts = {
+            vim.keymap.set({'n', 'v'}, "f", '<cmd>HopChar1<CR>', { desc = 'Hop to Char' }),
         },
     },
     {

@@ -1,24 +1,6 @@
-# GNU Stow
-
 bin
-clone
-
-RCS
-.+,v
-
-CVS
-\.\#.+
-\.cvsignore
-
-\.svn
-_darcs
-\.hg
-
 \.git
 \.gitignore
-
-.+~          # emacs backup files
-\#.*\#       # emacs autosave files
 
 ^/README.*
 ^/LICENSE.*

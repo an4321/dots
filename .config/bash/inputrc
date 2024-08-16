@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/bin/env bash
 
 "\eq": "exit\n"
 "\ec": "clear\n"
 
-"\ee": "vim\n"
+"\ee": "vi\n"
 "\ef": "fm\n"
 
 "\ea": "tmux_attach\n"

@@ -37,6 +37,7 @@ vim.keymap.set({ 'n', 'v' }, "<Space>j", "<C-w><C-w>", { noremap = true, silent 
 -- Toggles and modes
 vim.keymap.set('n', '<Space>tw', ':lua vim.wo.wrap = not vim.wo.wrap<CR>', { noremap = true, silent = true, desc = "Toggle line wrap" })
 vim.keymap.set('n', "<Space>ts", [[:set invspell<CR>]], { desc = "Toggle Spell Check" })
+vim.keymap.set('n', '<Space>ft', ":set filetype=", { desc = 'File Type' })
 
 -- Miscellaneous
 vim.keymap.set('n', ";", ":")

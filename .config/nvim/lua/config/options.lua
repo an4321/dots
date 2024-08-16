@@ -40,20 +40,6 @@ vim.opt.backup = false
 vim.opt.undofile = true
 vim.opt.undodir = os.getenv("HOME") .. "/.local/share/vim-undodir"
 
--- Terminal settings
-vim.cmd [[ autocmd TermOpen term://* setlocal nonumber norelativenumber ]]
-vim.cmd [[ autocmd TermOpen * startinsert ]]
-vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
-
 -- Re-open at last position
 vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
 
--- Highlight on yank
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-    callback = function()
-        vim.highlight.on_yank()
-    end,
-    group = highlight_group,
-    pattern = '*',
-})
