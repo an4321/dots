@@ -20,16 +20,17 @@ return {
         opts = {},
     },
     {
-        'phaazon/hop.nvim',
-        branch = 'v2',
-        event = { 'BufReadPre', 'BufNewFile' },
-        opts = {
-            vim.keymap.set({'n', 'v'}, "f", '<cmd>HopChar1<CR>', { desc = 'Hop to Char' }),
-        },
-    },
-    {
         'Nvchad/nvim-colorizer.lua',
         event = 'VeryLazy',
         opts = {},
+    },
+    {
+        "folke/flash.nvim",
+        event = "VeryLazy",
+        opts = {},
+        keys = {
+            { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end,       desc = "Flash" },
+            { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+        },
     },
 }

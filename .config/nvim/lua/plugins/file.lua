@@ -3,6 +3,7 @@ return {
         'stevearc/oil.nvim',
         opts = {
             vim.keymap.set('n', "<Space>e", "<cmd>Oil<CR>"),
+            vim.keymap.set('n', "<Space>d", "<cmd>Oil ~/Desktop<CR>"),
             default_file_explorer = true,
             skip_confirm_for_simple_edits = true,
             delete_to_trash = true,
@@ -42,6 +43,7 @@ return {
             vim.keymap.set('n', '<Space>fd', "<cmd>Telescope diagnostics<CR>", { desc = 'Diagnostics' }),
             vim.keymap.set('n', '<Space>fc', "<cmd>Telescope colorscheme<CR>", { desc = 'Color Scheme' }),
             vim.keymap.set('n', '<Space>fs', "<cmd>Telescope spell_suggest<CR>", { desc = 'Spell' }),
+            vim.keymap.set('n', '<Space>fh', "<cmd>Telescope command_history<CR>", { desc = 'Command History' }),
             vim.keymap.set('n', '<Space>.',
                 "<cmd>lua require('telescope.builtin').find_files({ cwd = '~/Dots', hidden = true })<Cr>",
                 { desc = 'Dot files' }),

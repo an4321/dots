@@ -30,7 +30,7 @@ family = "MonaspaceRadon SemiBold"
 
 [[keyboard.bindings]]
 action = "ResetFontSize"
-key = "B"
+key = "="
 mods = "Alt"
 
 [mouse]

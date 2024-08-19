@@ -11,7 +11,7 @@ export FZF_DEFAULT_OPTS=" --bind='ctrl-t:execute(nvim {})+abort' --cycle --rever
 alias ..="cd .."
 alias ...="cd ../.."
 
-alias fm="lf"
+alias fm="yazi"
 alias vi="nvim"
 alias hx="helix"
 alias em="emacsclient -c -a 'emacs'"
@@ -25,8 +25,8 @@ alias ls="/bin/ls --color=auto --group-directories-first"
 alias la="/bin/ls --color=auto --group-directories-first -A"
 alias ll="/bin/ls --color=auto --group-directories-first -A1"
 
-alias li="nsxiv -otf ."
-alias lir="nsxiv -otf . | xargs -d \n rm"
+alias li="nsxiv -otfa ."
+alias lir="nsxiv -otfa . | xargs -d \n rm"
 
 alias cp="cp -vi"
 alias mv="mv -vi"

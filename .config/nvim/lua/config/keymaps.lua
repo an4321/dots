@@ -31,7 +31,6 @@ vim.keymap.set('v', "<S-Tab>", "<gv", { noremap = true, silent = true })
 -- Window management
 vim.keymap.set('n', "<Space>S", "<cmd>split ./ <CR>", { desc = "Split Horizontal" })
 vim.keymap.set('n', "<Space>s", "<cmd>vsplit ./ <CR>", { desc = "Split Vertical" })
-vim.keymap.set('n', "<Space><CR>", "<cmd>split | resize 14 | terminal<CR>", { desc = 'Terminal' })
 vim.keymap.set({ 'n', 'v' }, "<Space>j", "<C-w><C-w>", { noremap = true, silent = true, desc = "Switch between Splits" })
 
 -- Toggles and modes
@@ -44,3 +43,5 @@ vim.keymap.set('n', ";", ":")
 vim.keymap.set({ 'n', 'v' }, "<Space>", "<Nop>", { silent = true })
 vim.keymap.set('n', "<Space>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Rename" })
 vim.keymap.set('n', "<Space>kx", "<cmd>!chmod +x %<CR>", { silent = true })
+vim.keymap.set('n', "<Space><BS>", "<cmd>terminal<CR>", { desc = 'Terminal' })
+vim.keymap.set('n', "<Space><CR>", "<cmd>split | resize 14 | terminal<CR>", { desc = 'Terminal Split' })

@@ -9,7 +9,7 @@ function recording_status()
     end
 end
 
-vim.opt.statusline = '%#StatusLine#  %t %h%w%m%r %{%v:lua.recording_status()%} %=%l,%c %p%% '
+vim.opt.statusline = '%#StatusLine#  %f %h%w%m%r %{%v:lua.recording_status()%} %=%l,%c %p%% '
 
 -- Terminal
 vim.cmd [[ autocmd TermOpen term://* setlocal nonumber norelativenumber ]]
@@ -33,5 +33,6 @@ if vim.g.neovide then
     vim.g.neovide_hide_mouse_when_typing = true
     vim.cmd("hi! Normal guibg=#262626 ctermbg=NONE")
     vim.cmd("hi! NonText guibg=NONE ctermbg=NONE")
+    vim.keymap.set({ 'n', 'v', 'i', 't' }, "<M-q>", "<cmd>bdelete<CR>")
 end
 
