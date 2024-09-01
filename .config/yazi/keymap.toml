@@ -6,7 +6,7 @@ manager.append_keymap = [
 	{ on = [ "g", "v" ], run = 'cd ~/Videos', desc = "Go to Videos" },
 	{ on = [ "g", "p" ], run = 'cd ~/Pictures', desc = "Go to Pictures" },
 	{ on = [ "g", "s" ], run = 'cd ~/Pictures/Screenshots', desc = "Go to Screenshots" },
-	{ on = [ "g", "." ], run = 'cd ~/Dots', desc = "Go to Dots" },
+	{ on = [ "g", "." ], run = 'cd ~/Dots/.config', desc = "Go to Dots" },
 ]
 
 [[manager.prepend_keymap]]
@@ -22,9 +22,21 @@ on   = [ "n" ]
 run  = 'create'
 
 [[manager.prepend_keymap]]
+on   = [ "o" ]
+run  = 'shell "xdg-open $@" --confirm'
+
+[[manager.prepend_keymap]]
 on   = [ "i" ]
 run  = 'shell "$SHELL" --block --confirm'
 
 [[manager.prepend_keymap]]
+on   = [ "I" ]
+run  = 'shell "thunar" --confirm'
+
+[[manager.prepend_keymap]]
 on   = [ "e" ]
 run  = 'shell "$EDITOR $@" --block --confirm'
+
+[[manager.prepend_keymap]]
+on   = [ "E" ]
+run  = 'shell "sudoedit $@" --block --confirm'

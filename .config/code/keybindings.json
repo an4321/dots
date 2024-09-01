@@ -16,22 +16,22 @@
     },
     {
         "command": "renameFile",
-        "key": "r",
-        "when": "filesExplorerFocus && !inputFocus"
+        "key": "alt+r",
+        "when": "explorerViewletFocus"
     },
     {
-        "key": "n",
+        "key": "alt+n",
         "command": "explorer.newFile",
-        "when": "filesExplorerFocus && !inputFocus"
+        "when": "explorerViewletFocus"
     },
     {
-        "key": "m",
+        "key": "alt+m",
         "command": "explorer.newFolder",
         "when": "explorerViewletFocus"
     },
     {
         "command": "deleteFile",
-        "key": "d",
-        "when": "filesExplorerFocus && !inputFocus"
+        "key": "alt+d",
+        "when": "explorerViewletFocus"
     },
 ]

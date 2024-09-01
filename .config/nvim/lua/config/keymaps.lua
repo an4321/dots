@@ -1,4 +1,3 @@
-
 -- Basic operations
 vim.keymap.set({ 'n', 'v' }, "<Space>w", "<cmd>w<CR>")
 vim.keymap.set({ 'n', 'v' }, "<Space>q", "<cmd>q<CR>")
@@ -34,12 +33,12 @@ vim.keymap.set('n', "<Space>s", "<cmd>vsplit ./ <CR>", { desc = "Split Vertical"
 vim.keymap.set({ 'n', 'v' }, "<Space>j", "<C-w><C-w>", { noremap = true, silent = true, desc = "Switch between Splits" })
 
 -- Toggles and modes
-vim.keymap.set('n', '<Space>tw', ':lua vim.wo.wrap = not vim.wo.wrap<CR>', { noremap = true, silent = true, desc = "Toggle line wrap" })
+vim.keymap.set('n', '<Space>tw', ':lua vim.wo.wrap = not vim.wo.wrap<CR>',
+    { noremap = true, silent = true, desc = "Toggle line wrap" })
 vim.keymap.set('n', "<Space>ts", [[:set invspell<CR>]], { desc = "Toggle Spell Check" })
 vim.keymap.set('n', '<Space>ft', ":set filetype=", { desc = 'File Type' })
 
 -- Miscellaneous
-vim.keymap.set('n', ";", ":")
 vim.keymap.set({ 'n', 'v' }, "<Space>", "<Nop>", { silent = true })
 vim.keymap.set('n', "<Space>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Rename" })
 vim.keymap.set('n', "<Space>kx", "<cmd>!chmod +x %<CR>", { silent = true })

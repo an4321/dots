@@ -3,8 +3,7 @@
 edit_encrypted_file() {
     local file="$1"
 
-    local root_file="${file%.*}"
-    local extension="${root_file##*.}"
+    local extension="${file##*.}"
     local temp_file="$(mktemp).$extension"
 
     read -s -p "Enter the password: " password

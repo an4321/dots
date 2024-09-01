@@ -1,0 +1,13 @@
+#!/usr/bin/env fish
+
+if test (count $argv) -eq 0
+    set search (read -P (printf "\e[1;32mSearch: \e[0m"))
+else
+    set search $argv
+end
+
+set yt_id $(yt-dlp --get-id "ytsearch:$search" 2>/dev/null)
+
+if test -n "$yt_id"
+    mpv "https://youtu.be/$yt_id" --ytdl-format='bestaudio' --no-resume-playback --speed=1 --cache-secs=15
+end

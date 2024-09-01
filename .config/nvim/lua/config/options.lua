@@ -10,7 +10,7 @@ vim.opt.signcolumn = "yes"
 -- Editor behavior
 vim.opt.confirm = true
 vim.opt.linebreak = true
-vim.opt.wrap = true
+vim.opt.wrap = false
 vim.opt.clipboard = "unnamedplus"
 vim.opt.mouse = 'a'
 vim.opt.history = 10000

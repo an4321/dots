@@ -3,7 +3,7 @@
 if [[ "$1" == "run" || "$1" == "r" ]]; then
     tofi-drun | bash
 elif [[ "$1" == "hist" || "$1" == "h" ]]; then
-    cliphist list | tofi -c ~/.config/tofi/config-clipboard | cliphist decode | wl-copy
+    cliphist list | tofi | cliphist decode | wl-copy
 elif [[ "$1" == "emote" || "$1" == "e" ]]; then
     cat ~/.config/tofi/emotes ~/.config/tofi/nerdfont | tofi | cut -d ' ' -f 1 | tr -d '\n' | wl-copy
 else

@@ -2,16 +2,17 @@
 # ~/.config/bash/bashrc
 
 export EDITOR=nvim
-export VISUAL=nvim
 export MANPAGER="nvim +Man!"
 
 export PATH=$PATH:"/bin:/usr/local/bin:$HOME/.bun/bin:$HOME/Dots/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/go/bin"
-export FZF_DEFAULT_OPTS=" --bind='ctrl-t:execute(nvim {})+abort' --cycle --reverse --prompt ' ' --pointer ' ' --marker='* ' -m --height=20% --color=bg+:#395b91,gutter:-1 --no-separator --scroll-off=3 --bind J:down,K:up"
+export FZF_DEFAULT_OPTS=" --bind='ctrl-e:execute(nvim {})+abort' --cycle --reverse --prompt ' ' --pointer ' ' --marker='* ' -m --height=20% --color=bg+:#395b91,gutter:-1 --no-separator --scroll-off=3"
+export _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS --height=100% --border"
 
 alias ..="cd .."
 alias ...="cd ../.."
+alias clr="clear"
 
-alias fm="yazi"
+alias fm="which yazi >/dev/null 2>&1 && yazi || lf"
 alias vi="nvim"
 alias hx="helix"
 alias em="emacsclient -c -a 'emacs'"
@@ -32,8 +33,6 @@ alias cp="cp -vi"
 alias mv="mv -vi"
 alias rm="trash"
 
-alias .='cd; clear'
-alias c="cd .; clear"
 alias J="clear; j"
 alias fetch="fastfetch"
 
@@ -48,5 +47,4 @@ alias fd="/bin/fd --hidden --follow --exclude .git --exclude node_modules --excl
 alias ff="/bin/fd --hidden --follow --exclude .git --exclude node_modules --exclude __pycache__ --type f"
 alias ft="grep --color=always --exclude-dir={.git,node_modules,.vscode,.next} -iIHrn"
 # i insensitive -I ignore binary -H print filename -r recursive -n print line number
-alias play="mpv --ytdl-format='bestaudio' --no-resume-playback --speed=1 --cache-secs=15"
 

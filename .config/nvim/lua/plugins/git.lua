@@ -22,14 +22,6 @@ return {
                 vim.keymap.set('n', '<Space>gb', require('gitsigns').toggle_current_line_blame,
                     { buffer = bufnr, desc = 'Hunk Preview' })
             end,
-            signs = {
-                add          = { text = '│' },
-                change       = { text = '│' },
-                delete       = { text = '_' },
-                topdelete    = { text = '‾' },
-                changedelete = { text = '~' },
-                untracked    = { text = '┆' },
-            },
         },
     },
 }
