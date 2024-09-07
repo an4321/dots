@@ -3,7 +3,6 @@ set scrolloff 10
 
 set cursorpreviewfmt "\033[7;1m"
 set previewer "~/.config/lf/preview"
-set sixel true
 set ignorecase true
 
 cmd open &{{

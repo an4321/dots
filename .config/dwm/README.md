@@ -2,6 +2,9 @@
 ```bash
 sudo make clean install
 ```
+# TODO
+* Gaps
+* color
 
 ## Patches
 * [focusadjacenttag](http://dwm.suckless.org/patches/focusadjacenttag)
