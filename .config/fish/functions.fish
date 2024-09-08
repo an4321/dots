@@ -42,7 +42,6 @@ function md -d "Create a directory and set CWD"
     end
 end
 
-
 function j
     if test (count $argv) -eq 0
         cd ~/Desktop
@@ -55,7 +54,6 @@ function j
     end
 end
 
-
 function cpg
     if test -d "$argv[2]" 
         cp "$argv[1]" "$argv[2]"
@@ -64,7 +62,6 @@ function cpg
         cp "$argv[1]" "$argv[2]"
     end
 end
-
 
 function mvg
     if test -d "$argv[2]"
@@ -75,3 +72,18 @@ function mvg
     end
 end
 
+function copy_to_clipboard
+    if test -n "$WAYLAND_DISPLAY"
+        wl-copy
+    else
+        xsel --clipboard
+    end
+end
+ 
+function paste_from_clipboard
+    if test -n "$WAYLAND_DISPLAY"
+        wl-paste
+    else
+        xsel --clipboard --output
+    end
+end

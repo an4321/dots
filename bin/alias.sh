@@ -36,12 +36,12 @@ alias rm="trash"
 alias J="clear; j"
 alias fetch="fastfetch"
 
-alias y="wl-copy"
-alias p="wl-paste"
+alias y='copy_to_clipboard'
+alias p='paste_from_clipboard'
 alias cat="bat -p --theme=OneHalfDark"
-alias ywd="/bin/pwd; /bin/pwd | wl-copy"
+alias ywd="/bin/pwd; /bin/pwd | y"
 alias hist="history | fzf-tmux -h +s"
-alias yy="history --max=1 | tr -d '\n' | wl-copy"
+alias yy="history --max=1 | tr -d '\n' | y"
 
 alias fd="/bin/fd --hidden --follow --exclude .git --exclude node_modules --exclude __pycache__ --type d"
 alias ff="/bin/fd --hidden --follow --exclude .git --exclude node_modules --exclude __pycache__ --type f"

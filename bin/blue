@@ -1,6 +1,6 @@
 #!/bin/env bash
 
-device=$(bluetoothctl devices | tac | tofi | grep -o -E '([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}')
+device=$(bluetoothctl devices | tac | menu | grep -o -E '([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}')
 
 if [ -n "$device" ]; then
     if bluetoothctl info | grep -q $device; then

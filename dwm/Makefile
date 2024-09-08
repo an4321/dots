@@ -42,4 +42,10 @@ uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
 		${DESTDIR}${MANPREFIX}/man1/dwm.1
 
+arch:
+	sudo pacman -S xorg xorg-xinit base-devel libx11 libxft libxinerama
+
+debian:
+	sudo apt install make gcc libx11-dev libxft-dev libxinerama-dev xorg
+
 .PHONY: all clean dist install uninstall

@@ -12,30 +12,18 @@ cmd open &{{
     esac
 }}
 
-map <enter> shell
-
-map o &open $f
-map O $open --ask $f
-map i $nsxiv -of  $(dirname $f)
-
-# execute file
-map x $$f
-map X $$f
 map ` !true
-
-map m :push %mkdir<space>
-map Y $printf "%s" "$fx" | cp
-map n :push %touch<space>
-
-map a :push $
-map S $fish
-map R reload
+map <enter> &open $f
+map o &open $f
+map i $fish
+map I $thunar
 map . set hidden!
+map n :push %touch<space>
+map m :push %mkdir<space>
+map E $sudoedit $f
 
+# map a :push $
 map D ${{trash $fx}}
-map <delete> ${{trash $fx}}
-
-map t $lf -remote "send $id select \"$(fd | fzf-tmux -h)\""
 
 map gh cd ~/Desktop
 map gd cd ~/Downloads
@@ -45,5 +33,4 @@ map gs cd ~/Pictures/Screenshots
 map g. cd ~/Dots/.config
 map gv cd ~/Videos
 map gm cd ~/Music
-map gt cd ~/.local/share/Trash/files
 
