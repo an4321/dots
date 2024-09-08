@@ -1,7 +1,9 @@
 bin
+dwm
+dmenu
+
 \.git
 \.gitignore
-
 ^/README.*
 ^/LICENSE.*
 ^/COPYING

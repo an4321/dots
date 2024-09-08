@@ -12,14 +12,15 @@ sudo make clean install
 * [dwm-colorbar](https://dwm.suckless.org/patches/colorbar/dwm-colorbar-6.3.diff)
 * [alwayscenter](https://dwm.suckless.org/patches/alwayscenter/dwm-alwayscenter-20200625-f04cac6.diff)
 * ToggleLayout
-    ```c
-    void
-    togglelayout(const Arg *arg) {
-        if (selmon->lt[selmon->sellt] == &layouts[0]) {
-            setlayout(&((Arg) { .v = &layouts[2] })); // switch to monocle
-        } else {
-            setlayout(&((Arg) { .v = &layouts[0] })); // switch to tile
-        }
-    }
-    ```
+
+## Tap to Click and Natureal Scroll
+```sh
+cat /etc/X11/xorg.conf.d/30-touchpad.conf
+Section "InputClass"
+    Identifier "touchpad"
+    Driver "libinput"
+    Option "Tapping" "on"
+    Option "NaturalScrolling" "true"
+EndSection
+```
 
