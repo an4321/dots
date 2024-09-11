@@ -26,7 +26,7 @@ map n :push %touch<space>
 map m :push %mkdir<space>
 map ; :push !
 
-map z ${{ result="$(zoxide query -i)" lf -remote "send $id cd '$result'" }}
+map z ${{ result="$(zoxide query -i)" && lf -remote "send $id cd '$result'" }}
 map d %{{ echo " Confirm (y/n): " && read response && [[ "$response" =~ ^[Yyo] ]] && trash $fx && echo done || echo exited }}
 
 cmd on-redraw %{{
