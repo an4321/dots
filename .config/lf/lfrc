@@ -1,36 +1,38 @@
-set shell fish
+set shell bash
 set scrolloff 10
-
+set ignorecase true
 set cursorpreviewfmt "\033[7;1m"
 set previewer "~/.config/lf/preview"
-set ignorecase true
+set sixel true
 
-cmd open &{{
-    case $(file --mime-type -Lb $f) in
-        text/*) lf -remote "send $id \$$EDITOR \$fx";;
-        *) for f in $fx; do open $f & done;;
-    esac
-}}
-
-map ` !true
-map <enter> &open $f
-map o &open $f
-map i $fish
-map I $thunar
-map . set hidden!
-map n :push %touch<space>
-map m :push %mkdir<space>
-map E $sudoedit $f
-
-# map a :push $
-map D ${{trash $fx}}
-
-map gh cd ~/Desktop
+map ga cd ~/Desktop
 map gd cd ~/Downloads
 map gD cd ~/Documents
 map gp cd ~/Pictures
 map gs cd ~/Pictures/Screenshots
-map g. cd ~/Dots/.config
 map gv cd ~/Videos
 map gm cd ~/Music
+map gn cd ~/Notes
+map g. cd ~/Dots/.config
 
+map i $fish
+map I $thunar
+map <tab> !true
+map . set hidden!
+map x :cut
+map o :&{{ xdg-open $f }}
+map E $sudoedit $f
+map n :push %touch<space>
+map m :push %mkdir<space>
+map ; :push !
+
+map z ${{ result="$(zoxide query -i)" lf -remote "send $id cd '$result'" }}
+map d %{{ echo " Confirm (y/n): " && read response && [[ "$response" =~ ^[Yyo] ]] && trash $fx && echo done || echo exited }}
+
+cmd on-redraw %{{
+    if [ $lf_width -le 100 ]; then
+        lf -remote "send $id set ratios 1:2"
+    else
+        lf -remote "send $id set ratios 1:2:3"
+    fi
+}}

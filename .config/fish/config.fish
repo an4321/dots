@@ -1,5 +1,5 @@
 set -gx fish_greeting
-set -gx fish_hybrid_key_bindings
+fish_hybrid_key_bindings
 set -gx fish_cursor_insert line
 
 zoxide init fish --cmd j | source

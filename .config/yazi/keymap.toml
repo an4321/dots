@@ -23,8 +23,12 @@ on   = [ "n" ]
 run  = 'create'
 
 [[manager.prepend_keymap]]
-on   = [ "o" ]
-run  = 'shell "xdg-open $@" --confirm'
+on   = [ "<Tab>" ]
+run  = 'tab_switch --relative 1'
+
+# [[manager.prepend_keymap]]
+# on   = [ "o" ]
+# run  = 'shell "xdg-open $@" --confirm'
 
 [[manager.prepend_keymap]]
 on   = [ "i" ]
@@ -40,7 +44,7 @@ run  = 'shell "$EDITOR $@" --block --confirm'
 
 [[manager.prepend_keymap]]
 on   = [ "E" ]
-run  = 'shell "sudo nvim $@" --block --confirm'
+run  = 'shell "sudoedit $@" --block --confirm'
 
 [[manager.prepend_keymap]]
 on   = [ "'" ]

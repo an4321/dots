@@ -9,10 +9,8 @@ if [[ -z "$TMUX" ]]; then
         if [[ $(echo "$sessions" | wc -l) -eq 1 ]]; then
             tmux attach
         elif [[ $(echo "$sessions" | wc -l) -gt 1 ]]; then
-            echo -e "\n\e[1m\e[34mTmux Sessions:\e[0m"
-
-            selected_session=$(gum choose --selected="Clone" --cursor=" " $sessions)
-            echo -e "\e[32m  $selected_session\e[0m"
+            selected_session=$(echo "$sessions" | fzf --prompt="Session: " --select-1 --exit-0)
+            echo -e "Session:\e[32m $selected_session\e[0m"
 
             if [[ -n "$selected_session" ]]; then
                 selected_session=$(echo "$selected_session" | cut -d ":" -f 1)
