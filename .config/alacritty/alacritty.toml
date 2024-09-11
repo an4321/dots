@@ -40,11 +40,10 @@ hide_when_typing = true
 program = "/bin/fish"
 
 [window]
-decorations = "none"
-dynamic_title = true
 opacity = 0.85
+dynamic_title = true
+dynamic_padding = true
+padding = { x = 4, y = 4 }
+decorations = "none"
 startup_mode = "Maximized"
 
-[window.padding]
-x = 4
-y = 12

@@ -1,13 +1,52 @@
-#!/usr/bin/env fish
+#!/bin/env bash 
 
-if test (count $argv) -eq 0
-    set search (read -P (printf "\e[1;32mSearch: \e[0m"))
+# Default settings
+format="bestaudio"
+options=("--cache-secs=15 " "--speed=1 " "--video=auto ")
+
+usage() {
+    echo "Usage: $0 [-n] [-s] [-l|-m|-h] [URL/Search]"
+    echo "  -n: No resume"
+    echo "  -w: Forcw window"
+    echo "  -s: Shuffle playlist"
+    echo "  -l: Low quality video (480p)"
+    echo "  -m: Medium quality video (720p)"
+    echo "  -h: High quality video (1080p)"
+    exit 1
+}
+
+# Parse command line options
+while getopts "snwlmh" opt; do
+    case $opt in
+        s) options+="--shuffle " ;;
+        n) options+="--no-resume-playback  " ;;
+        w) options+="--force-window " ;;
+        l) format="bestvideo[height<=480]+bestaudio" ;;
+        m) format="bestvideo[height<=720]+bestaudio" ;;
+        h) format="bestvideo[height<=1080]+bestaudio" ;;
+        *) usage ;;
+    esac
+done
+
+shift $((OPTIND-1))
+
+# Handle input: URL, search query, or prompt for search
+if [ $# -eq 0 ]; then
+    read -p $'\e[1;32mSearch: \e[0m' search
+elif [[ $1 == http* ]]; then
+    mpv --ytdl-format="$format" $options "$@" 2>/dev/null
+    exit 0
 else
-    set search $argv
-end
+    search="$*"
+fi
 
-set yt_id $(yt-dlp --get-id "ytsearch:$search" 2>/dev/null)
-
-if test -n "$yt_id"
-    mpv "https://youtu.be/$yt_id" --ytdl-format='bestaudio' --no-resume-playback --speed=1 --cache-secs=15
-end
+# Search and play
+if [ -n "$search" ]; then
+    yt_id=$(yt-dlp --get-id "ytsearch:$search" 2>/dev/null)
+    if [ -n "$yt_id" ]; then
+        mpv "https://youtu.be/$yt_id" --ytdl-format="$format" --watch-later-dir=/dev/null $options 2>/dev/null
+    else
+        echo "No results found for: $search"
+        exit 1
+    fi
+fi

@@ -6,6 +6,7 @@ manager.append_keymap = [
 	{ on = [ "g", "v" ], run = 'cd ~/Videos', desc = "Go to Videos" },
 	{ on = [ "g", "p" ], run = 'cd ~/Pictures', desc = "Go to Pictures" },
 	{ on = [ "g", "s" ], run = 'cd ~/Pictures/Screenshots', desc = "Go to Screenshots" },
+	{ on = [ "g", "n" ], run = 'cd ~/Notes', desc = "Go to Notes" },
 	{ on = [ "g", "." ], run = 'cd ~/Dots/.config', desc = "Go to Dots" },
 ]
 
@@ -39,4 +40,8 @@ run  = 'shell "$EDITOR $@" --block --confirm'
 
 [[manager.prepend_keymap]]
 on   = [ "E" ]
-run  = 'shell "sudoedit $@" --block --confirm'
+run  = 'shell "sudo nvim $@" --block --confirm'
+
+[[manager.prepend_keymap]]
+on   = [ "'" ]
+run  = 'shell "setbg \"$@\"" --block --confirm'

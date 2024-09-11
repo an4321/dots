@@ -16,7 +16,7 @@ else
     elif [[ "$1" == "hist" || "$1" == "h" ]]; then
         cliphist list | dmenu | cliphist decode | xclip -selection clipboard
     elif [[ "$1" == "emote" || "$1" == "e" ]]; then
-        /bin/cat ~/.config/tofi/emotes ~/.config/tofi/nerdfont | dmenu | cut -d ' ' -f 1 | tr -d '\n' | xclip -selection clipboard
+        /bin/cat ~/.config/tofi/nerdfont ~/.config/tofi/emotes | dmenu | cut -d ' ' -f 1 | tr -d '\n' | xclip -selection clipboard
     else
         dmenu
     fi

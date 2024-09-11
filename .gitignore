@@ -8,6 +8,5 @@ bin/inactive
 .config/fish/functions
 .config/fish/fish_variables
 .config/fish/config.fish.save
-.config/fish/local.fish
 .config/nvim/spell
 .config/nvim/lazy-lock.json
