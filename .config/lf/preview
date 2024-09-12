@@ -6,7 +6,7 @@ if [[ $mime_type == text/* ]]; then
     bat -p --theme=base16 --color always "$1"
 elif [[ $mime_type == image/* ]]; then
     sleep 0.1
-    chafa -f sixel --view-size "$2x$3" -O 8 --animate off --polite on "$1"
+    chafa -f sixel --size "$2x$3" -O 8 --animate off --polite on "$1"
 else
     ls -lh $(basename "$1")
 fi

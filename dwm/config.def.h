@@ -8,31 +8,24 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]          = { "JetBrainsMonoNerdFont:size=16" };
-static const char dmenufont[]       = "JetBrainsMonoNerdFont:size=16";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_accent[]      = "#f5d784";
+static const char col_bg[]          = "#1c2021";
+static const char col_fg[]          = "#bdae93";
+static const char accent[]          = "#bdae93";
 static const char *colors[][3]      = {
-	/*                    fg         bg         border   */
-	[SchemeNorm]     = { col_gray3, col_gray1,  col_gray1  },
-	[SchemeSel]      = { col_gray1, col_accent, col_gray2  },
-	[SchemeStatus]   = { col_gray3, col_gray1,  "#000000"  }, // Statusbar right 
-	[SchemeTagsSel]  = { col_gray1, col_accent, "#000000"  }, // Tagbar left selected 
-	[SchemeTagsNorm] = { col_gray3, col_gray1,  "#000000"  }, // Tagbar left unselected 
-	[SchemeInfoSel]  = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  selected 
-	[SchemeInfoNorm] = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  unselected 
+	//                   fg      bg      border
+	[SchemeNorm]     = { col_fg, col_bg, col_bg },
+	[SchemeSel]      = { col_bg, accent, accent },
+	[SchemeStatus]   = { col_fg, col_bg, col_bg }, // Statusbar right 
+	[SchemeTagsSel]  = { col_bg, accent, col_bg }, // Tagbar left selected 
+	[SchemeTagsNorm] = { col_fg, col_bg, col_bg }, // Tagbar left unselected 
+	[SchemeInfoSel]  = { col_fg, col_bg, col_bg }, // infobar middle  selected 
+	[SchemeInfoNorm] = { col_fg, col_bg, col_bg }, // infobar middle  unselected 
 };
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
-	/* xprop(1):
-	 *	WM_CLASS(STRING) = instance, class
-	 *	WM_NAME(STRING) = title
-	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
@@ -45,9 +38,8 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
-	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
+	{ "><>",      NULL },    /* no layout means floating */
 	{ "[M]",      monocle },
 };
 
@@ -63,78 +55,72 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/env", "bash", "-c", cmd, NULL } }
 
 /* commands */
-static char dmenumon[2] = "0";
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, NULL };
 static const char *termcmd[]  = { "wezterm", NULL };
 
 #include <X11/XF86keysym.h>
 static const Key keys[] = {
-	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_a,      spawn,          SHCMD("~/Dots/bin/menu run") },
-	{ MODKEY,                       XK_x,      spawn,          SHCMD("~/Dots/bin/power") },
-	{ MODKEY,                       XK_z,      spawn,          SHCMD("~/Dots/bin/lock") },
-	{ MODKEY,                       XK_r,      spawn,          SHCMD("~/Dots/bin/setbg") },
-	{ MODKEY,                       XK_b,      spawn,          SHCMD("~/Dots/bin/blue") },
-	{ MODKEY,                       XK_v,      spawn,          SHCMD("~/Dots/bin/menu hist") },
-	{ MODKEY,                       XK_period, spawn,          SHCMD("~/Dots/bin/menu emote") },
+	/* modifier         key        function        argument */
+	{ MODKEY,           XK_a,      spawn,          SHCMD("~/Dots/bin/menu run") },
+	{ MODKEY,           XK_x,      spawn,          SHCMD("~/Dots/bin/power") },
+	{ MODKEY,           XK_z,      spawn,          SHCMD("~/Dots/bin/lock") },
+	{ MODKEY,           XK_r,      spawn,          SHCMD("~/Dots/bin/setbg") },
+	{ MODKEY,           XK_v,      spawn,          SHCMD("~/Dots/bin/menu hist") },
+	{ MODKEY,           XK_period, spawn,          SHCMD("~/Dots/bin/menu emote") },
 
-	{ MODKEY,                       XK_t,      spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_f,      spawn,          SHCMD("thunar") },
-	{ MODKEY|ShiftMask,             XK_f,      spawn,          SHCMD("wezterm -e yazi") },
-	{ MODKEY,                       XK_e,      spawn,          SHCMD("neovide") },
-	{ MODKEY,                       XK_n,      spawn,          SHCMD("neovide ~/Notes/index.md -- -c 'cd ~/Notes'") },
-	{ MODKEY,                       XK_w,      spawn,          SHCMD("zen-browser") },
-	{ MODKEY|ShiftMask,             XK_w,      spawn,          SHCMD("zen-browser --private-window") },
-	{ MODKEY,                       XK_p,      spawn,          SHCMD("killall picom || picom") },
-	{ MODKEY|ShiftMask,             XK_x,      spawn,          SHCMD("xkill") },
-	{ MODKEY,                       XK_s,      spawn,          SHCMD("flameshot gui") },
+	{ MODKEY,           XK_t,      spawn,          {.v = termcmd } },
+	{ MODKEY,           XK_f,      spawn,          SHCMD("wezterm -e yazi") },
+	{ MODKEY|ShiftMask, XK_f,      spawn,          SHCMD("thunar") },
+	{ MODKEY,           XK_p,      spawn,          SHCMD("killall picom || picom") },
+	{ MODKEY|ShiftMask, XK_x,      spawn,          SHCMD("xkill") },
+	{ MODKEY,           XK_s,      spawn,          SHCMD("flameshot gui") },
+	{ MODKEY,           XK_w,      spawn,          SHCMD("zen-browser") },
+	{ MODKEY|ShiftMask, XK_w,      spawn,          SHCMD("zen-browser --private-window") },
+	{ MODKEY,           XK_e,      spawn,          SHCMD("neovide -- -c 'set guifont=JetBrainsMono\\ Nerd\\ Font:h10'") },
+	{ MODKEY,           XK_n,      spawn,          SHCMD("neovide ~/Notes/index.md -- -c 'set guifont=JetBrainsMono\\ Nerd\\ Font:h10' -c 'cd ~/Notes'") },
 
-	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      viewtoleft,     {0} },
-	{ MODKEY,                       XK_l,      viewtoright,    {0} },
-	{ MODKEY|ShiftMask,             XK_h,      tagtoleft,      {0} },
-	{ MODKEY|ShiftMask,             XK_l,      tagtoright,     {0} },
-	// { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	// { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_Left,   setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_Right,  setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY,                       XK_q,      killclient,     {0} },
-	// { MODKEY,                       XK_c,      setlayout,      {.v = &layouts[0]} },
-	// { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	// { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	// { MODKEY|ShiftMask,             XK_space,  setlayout,      {0} },
-    { MODKEY,                       XK_m,      togglelayout,   {0} },
-	{ MODKEY,                       XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY,                       XK_minus,  setgaps,        {.i = -5 } },
-	{ MODKEY,                       XK_equal,  setgaps,        {.i = +5 } },
-	{ MODKEY|ShiftMask,             XK_minus,  setgaps,        {.i = GAP_RESET } },
-	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = GAP_TOGGLE} },
-	TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
-	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
-	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+    { 0, XF86XK_PowerOff,          spawn,          SHCMD("~/Dots/bin/power") },
+    { 0, XF86XK_AudioMute,         spawn,          SHCMD("pamixer -t") },
+    { 0, XF86XK_AudioLowerVolume,  spawn,          SHCMD("pamixer -d 5") },
+    { 0, XF86XK_AudioRaiseVolume,  spawn,          SHCMD("pamixer -i 5") },
+    { 0, XF86XK_MonBrightnessDown, spawn,          SHCMD("~/Dots/bin/brightness dec") },
+    { 0, XF86XK_MonBrightnessUp,   spawn,          SHCMD("~/Dots/bin/brightness inc") },
 
-    { 0, XF86XK_AudioMute,          spawn, SHCMD("pamixer -t") },
-    { 0, XF86XK_AudioLowerVolume,   spawn, SHCMD("pamixer -d 5") },
-    { 0, XF86XK_AudioRaiseVolume,   spawn, SHCMD("pamixer -i 5") },
-    { 0, XF86XK_MonBrightnessDown,  spawn, SHCMD("~/Dots/bin/brightness dec") },
-    { 0, XF86XK_MonBrightnessUp,    spawn, SHCMD("~/Dots/bin/brightness inc") },
+	{ MODKEY,           XK_b,      togglebar,      {0} },
+	{ MODKEY,           XK_j,      focusstack,     {.i = +1 } },
+	{ MODKEY,           XK_k,      focusstack,     {.i = -1 } },
+	{ MODKEY,           XK_h,      viewtoleft,     {0} },
+	{ MODKEY,           XK_l,      viewtoright,    {0} },
+	{ MODKEY|ShiftMask, XK_h,      tagtoleft,      {0} },
+	{ MODKEY|ShiftMask, XK_l,      tagtoright,     {0} },
+	{ MODKEY|ShiftMask, XK_h,      viewtoleft,     {0} },
+	{ MODKEY|ShiftMask, XK_l,      viewtoright,    {0} },
+	{ MODKEY,           XK_Left,   setmfact,       {.f = -0.05} },
+	{ MODKEY,           XK_Right,  setmfact,       {.f = +0.05} },
+	{ MODKEY,           XK_Return, zoom,           {0} },
+	{ MODKEY,           XK_Tab,    view,           {0} },
+	{ MODKEY,           XK_q,      killclient,     {0} },
+    { MODKEY,           XK_m,      togglelayout,   {0} },
+	{ MODKEY,           XK_space,  togglefloating, {0} },
+	{ MODKEY,           XK_0,      view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask, XK_0,      tag,            {.ui = ~0 } },
+	{ MODKEY,           XK_comma,  focusmon,       {.i = -1 } },
+	{ MODKEY,           XK_period, focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask, XK_comma,  tagmon,         {.i = -1 } },
+	{ MODKEY|ShiftMask, XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,           XK_minus,  setgaps,        {.i = -5 } },
+	{ MODKEY,           XK_equal,  setgaps,        {.i = +5 } },
+	{ MODKEY|ShiftMask, XK_minus,  setgaps,        {.i = GAP_RESET } },
+	{ MODKEY|ShiftMask, XK_equal,  setgaps,        {.i = GAP_TOGGLE} },
+	TAGKEYS(            XK_1,                      0)
+	TAGKEYS(            XK_2,                      1)
+	TAGKEYS(            XK_3,                      2)
+	TAGKEYS(            XK_4,                      3)
+	TAGKEYS(            XK_5,                      4)
+	TAGKEYS(            XK_6,                      5)
+	TAGKEYS(            XK_7,                      6)
+	TAGKEYS(            XK_8,                      7)
+	TAGKEYS(            XK_9,                      8)
+	{ MODKEY|ShiftMask, XK_q,      quit,           {0} },
 };
 
 /* button definitions */

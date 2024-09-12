@@ -1,8 +1,5 @@
 bin/inactive
-.config/*/*.o
-.config/dwm/dwm
-.config/bash/history
-.config/bash/#bashrc#
+*/config.h
 .config/tmux/plugins
 .config/mpv/watch_later
 .config/fish/functions

@@ -26,8 +26,8 @@ alias ls="/bin/ls --color=auto --group-directories-first"
 alias la="/bin/ls --color=auto --group-directories-first -A"
 alias ll="/bin/ls --color=auto --group-directories-first -A1"
 
-alias li="nsxiv -otfa ."
-alias lir="nsxiv -otfa . | xargs -d \n rm"
+alias li="nsxiv -ota ."
+alias lir="nsxiv -ota . | xargs -d \n rm"
 
 alias cp="cp -vi"
 alias mv="mv -vi"

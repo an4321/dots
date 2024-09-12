@@ -3,8 +3,6 @@
 export DISPLAY=:0
 export XDG_SESSION_TYPE="x11"
 
-# xrandr --output eDP-1 --mode 1920x1200
-# xrandr --output DP-1 --off
 feh --bg-fill ~/Pictures/Wallpapers -z &
 
 while true; do
