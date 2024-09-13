@@ -1,7 +1,5 @@
-/* See LICENSE file for copyright and license details. */
-
 /* appearance */
-static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const int startwithgaps[]    = { 1 };	/* 1 means gaps are used by default, this can be customized for each tag */
 static const unsigned int gappx[]   = { 10 };   /* default gap between windows in pixels, this can be customized for each tag */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -9,8 +7,8 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]          = { "JetBrainsMonoNerdFont:size=16" };
 static const char col_bg[]          = "#1c2021";
-static const char col_fg[]          = "#bdae93";
-static const char accent[]          = "#bdae93";
+static const char col_fg[]          = "#DDDDDD";
+static const char accent[]          = "#4DAFFF";
 static const char *colors[][3]      = {
     //                   fg      bg      border
     [SchemeNorm]     = { col_fg, col_bg, col_bg },
@@ -55,7 +53,7 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/env", "bash", "-c", cmd, NULL } }
 
 /* commands */
-static const char *termcmd[]  = { "wezterm", NULL };
+static const char *termcmd[]  = { "alacritty", NULL };
 
 #include <X11/XF86keysym.h>
 static const Key keys[] = {
@@ -68,17 +66,15 @@ static const Key keys[] = {
     { MODKEY,           XK_period, spawn,          SHCMD("~/Dots/bin/menu emote") },
 
     { MODKEY,           XK_t,      spawn,          {.v = termcmd } },
-    { MODKEY,           XK_f,      spawn,          SHCMD("wezterm -e yazi") },
+    { MODKEY,           XK_f,      spawn,          SHCMD("alacritty -e lf") },
     { MODKEY|ShiftMask, XK_f,      spawn,          SHCMD("thunar") },
-    { MODKEY,           XK_p,      spawn,          SHCMD("killall picom || picom") },
-    { MODKEY|ShiftMask, XK_x,      spawn,          SHCMD("xkill") },
+    { MODKEY,           XK_w,      spawn,          SHCMD("brave") },
+    { MODKEY|ShiftMask, XK_w,      spawn,          SHCMD("brave --incognito") },
     { MODKEY,           XK_s,      spawn,          SHCMD("flameshot gui") },
-    { MODKEY,           XK_w,      spawn,          SHCMD("zen-browser") },
-    { MODKEY|ShiftMask, XK_w,      spawn,          SHCMD("zen-browser --private-window") },
-    { MODKEY,           XK_e,      spawn,          SHCMD("neovide -- -c 'set guifont=JetBrainsMono\\ Nerd\\ Font:h10'") },
-    { MODKEY,           XK_n,      spawn,          SHCMD("neovide ~/Notes/index.md -- -c 'set guifont=JetBrainsMono\\ Nerd\\ Font:h10' -c 'cd ~/Notes'") },
+    { MODKEY|ShiftMask, XK_s,      spawn,          SHCMD("flameshot full") },
+    { MODKEY,           XK_e,      spawn,          SHCMD("editor") },
+    { MODKEY,           XK_n,      spawn,          SHCMD("cd ~/Notes && editor ~/Notes/index.md") },
 
-    { 0, XF86XK_PowerOff,          spawn,          SHCMD("~/Dots/bin/power") },
     { 0, XF86XK_AudioMute,         spawn,          SHCMD("pamixer -t") },
     { 0, XF86XK_AudioLowerVolume,  spawn,          SHCMD("pamixer -d 5") },
     { 0, XF86XK_AudioRaiseVolume,  spawn,          SHCMD("pamixer -i 5") },
