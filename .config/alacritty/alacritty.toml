@@ -28,11 +28,6 @@ family = "MonaspaceRadon"
 [font.bold_italic]
 family = "MonaspaceRadon SemiBold"
 
-[[keyboard.bindings]]
-action = "ResetFontSize"
-key = "="
-mods = "Alt"
-
 [mouse]
 hide_when_typing = true
 
@@ -40,10 +35,19 @@ hide_when_typing = true
 program = "/bin/fish"
 
 [window]
-opacity = 0.85
+opacity = 0.9
 dynamic_title = true
 dynamic_padding = true
 padding = { x = 4, y = 4 }
 decorations = "none"
 startup_mode = "Maximized"
 
+[[keyboard.bindings]]
+action = "ResetFontSize"
+mods = "Control|Shift"
+key = "+"
+
+[[keyboard.bindings]]
+action = "CreateNewWindow"
+mods = "Alt"
+key = "Return"
