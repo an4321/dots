@@ -1,4 +1,5 @@
 -- Basic operations
+vim.keymap.set('n', ";", ":")
 vim.keymap.set({ 'n', 'v' }, "<Space>w", "<cmd>w<CR>")
 vim.keymap.set({ 'n', 'v' }, "<Space>q", "<cmd>q<CR>")
 vim.keymap.set({ 'n', 'v', 'i', 't' }, "<M-q>", "<cmd>q<CR>")
@@ -6,8 +7,10 @@ vim.keymap.set('n', "U", "<cmd>redo<CR>")
 vim.keymap.set('n', "<Esc>", "<cmd>noh<CR>")
 
 -- Navigation
+vim.keymap.set({ 'n', 'v' }, 'j', "gj")
+vim.keymap.set({ 'n', 'v' }, 'k', "gk")
 vim.keymap.set({ 'n', 'v' }, 'L', '$')
-vim.keymap.set({ 'n', 'v' }, "H", "^")
+vim.keymap.set({ 'n', 'v' }, 'H', '^')
 vim.keymap.set('n', "ge", "Gzz")
 vim.keymap.set('n', "<C-d>", "<C-d>zz")
 vim.keymap.set('n', "<C-u>", "<C-u>zz")
@@ -16,6 +19,7 @@ vim.keymap.set('n', "N", "Nzzzv")
 
 -- Buffer navigation
 vim.keymap.set('n', "<Space>x", "<cmd>bdelete<CR>")
+vim.keymap.set('n', "<Space><Tab>", "<cmd>bprevious<CR>")
 vim.keymap.set('n', "<Space>l", "<cmd>bnext<CR>")
 vim.keymap.set('n', "<Space>h", "<cmd>bprevious<CR>")
 
@@ -40,7 +44,7 @@ vim.keymap.set('n', '<Space>ft', ":set filetype=", { desc = 'File Type' })
 
 -- Miscellaneous
 vim.keymap.set({ 'n', 'v' }, "<Space>", "<Nop>", { silent = true })
-vim.keymap.set('n', "<Space>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Rename" })
+vim.keymap.set('n', "<Space>kr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Rename" })
 vim.keymap.set('n', "<Space>kx", "<cmd>!chmod +x %<CR>", { silent = true })
-vim.keymap.set('n', "<Space><BS>", "<cmd>terminal<CR>", { desc = 'Terminal' })
-vim.keymap.set('n', "<Space><CR>", "<cmd>split | resize 14 | terminal<CR>", { desc = 'Terminal Split' })
+vim.keymap.set('n', "<Space><BS>", "<cmd>terminal<CR>", { desc = "Terminal" })
+vim.keymap.set('n', "<Space><CR>", "<cmd>split | resize 14 | terminal<CR>", { desc = "Terminal Split" })

@@ -1,6 +1,3 @@
-# ~/.config/fish/config.fish
-# ~/.config/bash/bashrc
-
 export EDITOR=nvim
 export MANPAGER="nvim +Man!"
 

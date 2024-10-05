@@ -1,25 +1,19 @@
 #!/bin/env bash
 
-if [ -n "$WAYLAND_DISPLAY" ]; then
-    if [[ "$1" == "run" || "$1" == "r" ]]; then
-        tofi-drun | bash
-    elif [[ "$1" == "hist" || "$1" == "h" ]]; then
-        cliphist list | tofi | cliphist decode | wl-copy
-    elif [[ "$1" == "emote" || "$1" == "e" ]]; then
-        /bin/cat ~/.config/tofi/emotes ~/.config/tofi/nerdfont | tofi | cut -d ' ' -f 1 | tr -d '\n' | wl-copy
-    else
-        tofi
-    fi
+run() {
+    alacritty \
+        -o font.size=18 -o window.padding.x=10 window.padding.y=10 \
+        -o window.dimensions.columns=60 -o window.dimensions.lines=14 \
+        --class='float' -e "$@"
+}
+
+if [[ "$1" == "run" || "$1" == "r" ]]; then
+    # run fish -c 'ls /bin ~/Dots/bin | fzf --height=100% --print-query | r'
+    alacritty -o window.dimensions.columns=60 -o window.dimensions.lines=14 --class='float' -e qmenu
+elif [[ "$1" == "hist" || "$1" == "h" ]]; then
+    run fish -c 'cliphist list | fzf --height=100% | cliphist decode | y'
+elif [[ "$1" == "emote" || "$1" == "e" ]]; then
+    run fish -c '/bin/cat ~/.config/tofi/emotes ~/.config/tofi/nerdfont | fzf --height=~100% | cut -d " " -f 1 | tr -d "\n" | y'
 else
-    if [[ "$1" == "run" || "$1" == "r" ]]; then
-        dmenu_run
-    elif [[ "$1" == "hist" || "$1" == "h" ]]; then
-        cliphist list | dmenu | cliphist decode | xclip -selection clipboard
-    elif [[ "$1" == "emote" || "$1" == "e" ]]; then
-        /bin/cat ~/.config/tofi/nerdfont ~/.config/tofi/emotes | dmenu | cut -d ' ' -f 1 | tr -d '\n' | xclip -selection clipboard
-    else
-        dmenu
-    fi
+    tifi || dmenu
 fi
-
-

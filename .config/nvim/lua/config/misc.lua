@@ -31,8 +31,28 @@ if vim.g.neovide then
     vim.g.neovide_transparency = 0.9
     vim.o.guifont = "JetBrainsMono Nerd Font:h16"
     vim.g.neovide_hide_mouse_when_typing = true
-    vim.cmd("hi! Normal guibg=#262626 ctermbg=NONE")
+    vim.cmd("hi! Normal guibg=#242633 ctermbg=NONE")
     vim.cmd("hi! NonText guibg=NONE ctermbg=NONE")
     vim.keymap.set({ 'n', 'v', 'i', 't' }, "<M-q>", "<cmd>bdelete<CR>")
 end
+
+-- Jump to directory
+vim.api.nvim_create_user_command('Jump', function(opts)
+    local query = opts.arg or vim.fn.input('Search: ')
+
+    local handle = io.popen('zoxide query ' .. query)
+    local output = handle:read("*a")
+    handle:close()
+
+    output = output:gsub("\n$", "")
+
+    if #output > 0 then
+        vim.cmd("cd " .. output)
+        vim.cmd("ex .")
+    else
+        vim.notify("No directory found", vim.log.levels.ERROR)
+    end
+end, { nargs = '?' })
+
+vim.keymap.set("n", "<Space>z", ":Jump<CR>", { silent = true })
 

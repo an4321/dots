@@ -15,4 +15,5 @@ return {
     { "ellisonleao/gruvbox.nvim" },
     { "joshdick/onedark.vim" },
     { "folke/tokyonight.nvim" },
+    { "rose-pine/neovim", name = "rose-pine" },
 }

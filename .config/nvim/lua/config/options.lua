@@ -1,3 +1,4 @@
+vim.opt.nrformats = vim.opt.nrformats + { "unsigned" }
 -- Editor appearance
 vim.opt.nu = true
 vim.opt.relativenumber = true
