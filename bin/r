@@ -1,0 +1,9 @@
+#!/bin/env bash
+
+if [ "$#" -gt 0 ]; then
+    nohup fish -c "$@" > /tmp/output.log 2> /tmp/error.log &
+else
+    while IFS= read -r line; do
+        nohup fish -c "$line" > /tmp/output.log 2> /tmp/error.log &
+    done
+fi
