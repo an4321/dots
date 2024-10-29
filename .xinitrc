@@ -11,11 +11,9 @@ while true; do
     BATTERY=$(cat /sys/class/power_supply/BAT0/capacity)
     STATUS=" 󱐋 $BATTERY% | $DATE "
     xsetroot -name "$STATUS"
-    sleep 1
+    sleep 60
 done &
 
-while clipnotify; do
-    xclip -selection clipboard -o | cliphist store &
-done &
+copyq &
 
 exec dwm

@@ -34,3 +34,8 @@ Section "InputClass"
 EndSection
 ```
 
+## Disable hibernate
+```sh
+sudoedit /etc/systemd/logind.conf
+HandleLidSwitch=ignore
+```

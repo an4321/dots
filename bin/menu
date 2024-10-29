@@ -15,5 +15,5 @@ elif [[ "$1" == "hist" || "$1" == "h" ]]; then
 elif [[ "$1" == "emote" || "$1" == "e" ]]; then
     run fish -c '/bin/cat ~/.config/tofi/emotes ~/.config/tofi/nerdfont | fzf --height=~100% | cut -d " " -f 1 | tr -d "\n" | y'
 else
-    tifi || dmenu
+    tofi || dmenu -i
 fi

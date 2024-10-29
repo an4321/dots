@@ -5,12 +5,12 @@ static int topbar = 1;                        /* -b  option; if 0, dmenu appears
 static int centered = 1;                      /* -c option; centers dmenu on screen */
 static int min_width = 700;                   /* minimum width when centered */
 static const float menu_height_ratio = 2.0f;  /* This is the ratio used in the original calculation */
-static const char *prompt = NULL;             /* -p  option; prompt to the left of input field */
 static const char *fonts[] = { "JetBrainsMonoNerdFont:size=18" };
+static const char *prompt = NULL;             /* -p  option; prompt to the left of input field */
 
 static const char *colors[SchemeLast][2] = {
-	[SchemeNorm] = { "#EEEEEE", "#222222" },
-	[SchemeSel]  = { "#4DAFFF", "#222222" },
+	[SchemeNorm] = { "#EEEEEE", "#24273a" },
+	[SchemeSel]  = { "#4DAFFF", "#24273a" },
 	[SchemeOut]  = { "#000000", "#4DAFFF" },
 };
 
@@ -24,4 +24,4 @@ static unsigned int lines = 10;
 static const char worddelimiters[] = " ";
 
 /* Size of the window border */
-static unsigned int border_width = 3;
+static unsigned int border_width = 2;

@@ -1,7 +1,7 @@
 export EDITOR=nvim
 export MANPAGER="nvim +Man!"
 
-export PATH=$PATH:"/bin:/usr/local/bin:$HOME/.bun/bin:$HOME/Dots/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/go/bin"
+export PATH=$PATH:"/bin:/usr/local/bin:$HOME/.bun/bin:$HOME/Dots/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/go/bin:/snap/bin"
 export FZF_DEFAULT_OPTS=" --bind='ctrl-e:execute(nvim {})+abort' --cycle --reverse --prompt ' ' --pointer ' ' --marker='* ' -m --height=20% --color=bg+:#395b91,gutter:-1 --no-separator --scroll-off=3"
 export _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS --height=100% --border"
 
@@ -14,6 +14,8 @@ alias vi="nvim"
 alias hx="helix"
 alias em="emacsclient -c -a 'emacs'"
 
+alias pn="pnpm"
+alias px="pnpx"
 alias po="poetry"
 alias pr="poetry run"
 alias py="poetry run python"
@@ -26,7 +28,7 @@ alias ll="/bin/ls --color=auto --group-directories-first -A1"
 alias li="nsxiv -ota ."
 alias lir="nsxiv -ota . | xargs -d \n rm"
 
-alias cp="cp -vi"
+alias cp="cp -vir"
 alias mv="mv -vi"
 alias rm="trash"
 

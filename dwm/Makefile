@@ -46,6 +46,16 @@ arch:
 	sudo pacman -S xorg xorg-xinit base-devel libx11 libxft libxinerama
 
 debian:
-	sudo apt install make gcc libx11-dev libxft-dev libxinerama-dev xorg
+	sudo apt install make gcc libx11-dev libxft-dev libxinerama-dev xorg psmisc
+
+audio-arch:
+	sudo pacman -S pipewire pipewire-alsa wireplumber
+	systemctl --user enable --now wireplumber.service
+
+audio-debian:
+	sudo apt install pipewire pipewire-audio-client-libraries
+	sudo apt install gstreamer1.0-pipewire libpipewire-0.3-{0,dev,modules} libspa-0.2-{bluetooth,dev,jack,modules}
+	systemctl --user daemon-reload
+	systemctl --user --now enable pipewire pipewire-pulse
 
 .PHONY: all clean dist install uninstall
