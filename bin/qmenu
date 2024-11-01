@@ -35,12 +35,12 @@ declare -A apps=(
     ["Bluetooth"]="blue"
     ["Set BG"]="setbg"
     ["Set Random BG"]="setbg -r"
-    ["Wifi An"]="nmcli dev wifi rescan; nmcli device wifi connect 'ANURAG'"
+    ["Wifi Ai"]="nmcli dev wifi rescan; nmcli device wifi connect 'Airtel_Anurag'"
     ["Wifi Ak1"]="nmcli dev wifi rescan; nmcli device wifi connect 'AKHILESH 1'"
     ["Min brightness"]="brightnessctl set 0"
 )
 
-selected=$(printf "%s\n" "${!apps[@]}" | menu)
+selected=$(printf "%s\n" "${!apps[@]}" | tofi || dmenu -i)
 
 if [ -n "$selected" ]; then
     if [[ -n "${apps[$selected]}" ]]; then

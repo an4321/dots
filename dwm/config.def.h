@@ -53,32 +53,29 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/env", "bash", "-c", cmd, NULL } }
 
 /* commands */
-// static char dmenumon[2] = "0";
-// static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 
 #include <X11/XF86keysym.h>
 static const Key keys[] = {
     /* modifier         key        function        argument */
-    { MODKEY,           XK_a,      spawn,          SHCMD("~/Dots/bin/menu run") },
-    { MODKEY,           XK_x,      spawn,          SHCMD("~/Dots/bin/power") },
-    { MODKEY,           XK_z,      spawn,          SHCMD("~/Dots/bin/lock") },
-    { MODKEY,           XK_r,      spawn,          SHCMD("~/Dots/bin/setbg") },
-    { MODKEY,           XK_v,      spawn,          SHCMD("~/Dots/bin/menu hist") },
-    { MODKEY,           XK_period, spawn,          SHCMD("~/Dots/bin/menu emote") },
-
-    // { MODKEY,           XK_a,      spawn,          {.v = dmenucmd } },
     { MODKEY,           XK_t,      spawn,          {.v = termcmd } },
+    { MODKEY,           XK_a,      spawn,          SHCMD("~/Dots/bin/qmenu") },
     { MODKEY,           XK_f,      spawn,          SHCMD("alacritty -e lf") },
+    { MODKEY,           XK_e,      spawn,          SHCMD("alacritty -e nvim") },
+    { MODKEY,           XK_n,      spawn,          SHCMD("cd ~/Notes && editor ~/Notes/index.md") },
+
     { MODKEY|ShiftMask, XK_f,      spawn,          SHCMD("thunar") },
     { MODKEY,           XK_w,      spawn,          SHCMD("brave") },
     { MODKEY|ShiftMask, XK_w,      spawn,          SHCMD("brave --incognito") },
+    { MODKEY,           XK_b,      spawn,          SHCMD("~/Dots/bin/blue") },
+    { MODKEY,           XK_x,      spawn,          SHCMD("~/Dots/bin/power") },
+    { MODKEY,           XK_z,      spawn,          SHCMD("~/Dots/bin/lock") },
+    { MODKEY,           XK_r,      spawn,          SHCMD("~/Dots/bin/setbg") },
+    { MODKEY,           XK_v,      spawn,          SHCMD("copyq menu") },
+    { MODKEY,           XK_period, spawn,          SHCMD("/bin/cat ~/.config/tofi/emotes ~/.config/tofi/nerdfont | dmenu | cut -d ' ' -f 1 | tr -d '\\n' | y") },
+
     { MODKEY,           XK_s,      spawn,          SHCMD("flameshot gui") },
     { MODKEY|ShiftMask, XK_s,      spawn,          SHCMD("flameshot full") },
-    { MODKEY,           XK_e,      spawn,          SHCMD("editor") },
-    { MODKEY,           XK_n,      spawn,          SHCMD("cd ~/Notes && editor ~/Notes/index.md") },
-    { MODKEY,           XK_b,      spawn,          SHCMD("~/Dots/bin/blue") },
-
     { 0, XF86XK_AudioMute,         spawn,          SHCMD("pamixer -t") },
     { 0, XF86XK_AudioLowerVolume,  spawn,          SHCMD("pamixer -d 5") },
     { 0, XF86XK_AudioRaiseVolume,  spawn,          SHCMD("pamixer -i 5") },

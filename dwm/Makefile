@@ -44,9 +44,11 @@ uninstall:
 
 arch:
 	sudo pacman -S xorg xorg-xinit base-devel libx11 libxft libxinerama
+	sudo apcman -S slock arandr feh alacritty
 
 debian:
 	sudo apt install make gcc libx11-dev libxft-dev libxinerama-dev xorg psmisc
+	sudo apt install slock arandr feh
 
 audio-arch:
 	sudo pacman -S pipewire pipewire-alsa wireplumber
@@ -54,7 +56,8 @@ audio-arch:
 
 audio-debian:
 	sudo apt install pipewire pipewire-audio-client-libraries
-	sudo apt install gstreamer1.0-pipewire libpipewire-0.3-{0,dev,modules} libspa-0.2-{bluetooth,dev,jack,modules}
+	sudo apt install libpipewire-0.3-{0,dev,modules}
+	sudo apt install libspa-0.2-{bluetooth,dev,jack,modules}
 	systemctl --user daemon-reload
 	systemctl --user --now enable pipewire pipewire-pulse
 
