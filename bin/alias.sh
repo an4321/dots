@@ -1,4 +1,5 @@
 export EDITOR=nvim
+export VISUAL=nvim
 export MANPAGER="nvim +Man!"
 
 export PATH=$PATH:"/bin:/usr/local/bin:$HOME/.bun/bin:$HOME/Dots/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/go/bin:/snap/bin"
@@ -9,10 +10,10 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias clr="clear"
 
-alias fm="which yazi >/dev/null 2>&1 && yazi || lf"
 alias vi="nvim"
 alias hx="helix"
 alias em="emacsclient -c -a 'emacs'"
+alias se="sudoedit"
 
 alias pn="pnpm"
 alias px="pnpx"
@@ -34,6 +35,7 @@ alias rm="trash"
 
 alias J="clear; j"
 alias fetch="fastfetch"
+alias fm="which yazi >/dev/null 2>&1 && yazi || lf"
 
 alias y='copy_to_clipboard'
 alias p='paste_from_clipboard'
