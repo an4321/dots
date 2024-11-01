@@ -3,9 +3,15 @@
 # Check the Linux distribution
 if [ -f /etc/os-release ]; then
     . /etc/os-release
+
+    if [ "$#" -eq 0 ]; then
+        search
+        exit 0
+    fi
+
     case "$ID" in
         arch)
-            sudo pacman -S "$@"
+            yay -S $@
             ;;
         debian|ubuntu|linuxmint|raspbian)
             sudo apt install -y "$@"
