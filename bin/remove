@@ -16,7 +16,7 @@ remove_debian() {
     if [ "$#" -eq 0 ]; then
         apt list --installed | cut -d/ -f1 | fzf-tmux -h -m -e +s \
             --preview="apt-cache show {1} | grep -E '^(Version|Description)'" \
-            --preview-window 'down:30%' | xargs -r sudo apt remove --noconfirm
+            --preview-window 'down:30%' | xargs -r sudo apt remove -y
     elif [ "$1" == "all" ]; then
         shift
         sudo apt autoremove --purge -y "$@"
