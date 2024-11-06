@@ -7,7 +7,7 @@
 options="Shutdown\nReboot\nLogout\nLock"
 
 # Use Rofi to present the menu and get the user's choice
-choice=$(echo -e $options | tofi 2>/dev/null || dmenu -i )
+choice=$(echo -e $options | (tofi 2>/dev/null || dmenu -i ))
 
 # Perform the chosen action
 case $choice in

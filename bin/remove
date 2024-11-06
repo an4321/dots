@@ -1,9 +1,13 @@
 #!/bin/env bash
 
-
 remove_arch() {
-    if [ "$1" == "-a" ]; then
+    if [ "$1" == "all" ]; then
         shift
+        if [ "$#" -eq 0 ]; then
+            yay -Qq | fzf-tmux -h -m -e +s --preview='yay -Qs {1}' \
+                --preview-window 'down:30%' | xargs -r yay -R --noconfirm
+            exit 0
+        fi
         sudo pacman -Rns "$@"
     else
         sudo pacman -R "$@"
@@ -13,6 +17,12 @@ remove_arch() {
 remove_debian() {
     if [ "$1" == "-a" ]; then
         shift
+        if [ "$#" -eq 0 ]; then
+            apt list --installed | cut -d/ -f1 | fzf-tmux -h -m -e +s \
+                --preview="apt-cache show {1} | grep -E '^(Version|Description)'" \
+                --preview-window 'down:30%' | xargs -r sudo apt remove --noconfirm
+            exit 0
+        fi
         sudo apt autoremove --purge -y "$@"
     else
         sudo apt remove -y "$@"

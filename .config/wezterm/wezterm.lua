@@ -7,7 +7,7 @@ config.font_size = 16
 config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.color_scheme = 'Catppuccin Macchiato'
 config.colors = {
-    -- background = "#1b1f20",
+    background = "#1f2029",
     -- cursor_bg = "#EEEEEE",
 }
 

@@ -4,16 +4,22 @@
 if [ -f /etc/os-release ]; then
     . /etc/os-release
 
-    if [ "$#" -eq 0 ]; then
-        search
-        exit 0
-    fi
-
     case "$ID" in
         arch)
+            if [ "$#" -eq 0 ]; then
+                yay -Ssq | fzf-tmux -h -m -e +s --preview='yay -Qs {1}' \
+                    --preview-window 'down:30%' | xargs -r yay -S --noconfirm
+                exit 0
+            fi
             yay -S $@
             ;;
         debian|ubuntu|linuxmint|raspbian)
+            if [ "$#" -eq 0 ]; then
+                apt-cache pkgnames | fzf-tmux -h -m -e +s \
+                    --preview="apt-cache show {1} | grep -E '^(Version|Description)'" \
+                    --preview-window 'down:30%' | xargs -r sudo apt install -y
+                exit 0
+            fi
             sudo apt install -y "$@"
             ;;
         *)

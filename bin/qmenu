@@ -40,7 +40,7 @@ declare -A apps=(
     ["Min brightness"]="brightnessctl set 0"
 )
 
-selected=$(printf "%s\n" "${!apps[@]}" | tofi || dmenu -i)
+selected=$(printf "%s\n" "${!apps[@]}" | (tofi || dmenu -i))
 
 if [ -n "$selected" ]; then
     if [[ -n "${apps[$selected]}" ]]; then

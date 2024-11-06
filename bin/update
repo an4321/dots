@@ -5,7 +5,8 @@ if [ -f /etc/os-release ]; then
     . /etc/os-release
     case "$ID" in
         arch)
-            sudo pacman -Syu
+            sudo pacman -Syu --noconfirm
+            read -p "Update AUR packages? (y/N) " yn && [[ $yn =~ ^[Yy]$ ]] && yay
             ;;
         debian|ubuntu|linuxmint|raspbian)
             sudo apt update && sudo apt upgrade -y
