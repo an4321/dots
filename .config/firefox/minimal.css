@@ -1,0 +1,195 @@
+:root {
+    --tab-active-bg-color: #383838;
+    --tab-inactive-bg-color: #282828;
+    --tab-active-fg-fallback-color: #EEEEEE;
+    --tab-inactive-fg-fallback-color: #888888;
+    --toolbar-bgcolor: #2b2a33 !important;
+    --tab-font: 'JetBrainsMono Nerd Font';
+    --urlbar-font: 'JetBrainsMono Nerd Font';
+    --tab-min-height: 34px !important;
+    --rounding: 8px;
+    --bg-col: #2b2a33;
+}
+
+/* General Debloat */
+menupopup, panel { 
+    --panel-border-radius: 0px !important; 
+}
+
+menu, menuitem, menucaption { 
+    border-radius: 0px !important; 
+}
+
+/* Remove navigation context menu elements */
+menupopup > #context-navigation, 
+menupopup > #context-sep-navigation { 
+    display: none !important; 
+}
+
+/* STYLE NAVBAR */
+toolbar .toolbarbutton-1 { 
+    padding: 0 !important; 
+}
+
+#downloads-button {
+    margin-left: 2px !important;
+}
+
+#PanelUI-menu-button {
+    padding: 0px 4px 0px 0px !important;
+}
+
+#navigator-toolbox {
+    border: none !important;
+}
+
+/* STYLE TAB TOOLBAR */
+#titlebar {
+    --proton-tab-block-margin: 0px !important;
+    --tab-block-margin: 0px !important;
+}
+
+#TabsToolbar, .tabbrowser-tab {
+    max-height: var(--tab-min-height) !important;
+    font-size: 15px !important;
+}
+
+/* Tab colors and styling */
+tab:not([selected="true"]) {
+    background-color: var(--tab-inactive-bg-color) !important;
+    color: var(--identity-icon-color, var(--tab-inactive-fg-fallback-color)) !important;
+}
+
+tab {
+    font-family: var(--tab-font, monospace);
+    font-weight: bold;
+    border: none !important;
+}
+
+tab:only-of-type {
+    display: none;
+}
+
+.tabbrowser-tab[fadein] {
+    max-width: 100vw !important;
+    border: none !important;
+}
+
+/* Hide close button and modify tab behavior */
+#tabbrowser-tabs .tabbrowser-tab .tab-close-button { 
+    display: none !important; 
+}
+
+.tabbrowser-tab {
+    padding-inline: 0px !important;
+    --tab-label-mask-size: 1em !important;
+    overflow-clip-margin: 0px !important;
+}
+
+/* Selected and hover tab styles */
+#tabbrowser-tabs .tabbrowser-tab[selected] .tab-content {
+    background: var(--tab-active-bg-color) !important;
+    color: var(--identity-icon-color, var(--tab-active-fg-fallback-color)) !important;
+}
+
+#tabbrowser-tabs .tabbrowser-tab:hover:not([selected]) .tab-content {
+    background: var(--tab-active-bg-color) !important;
+}
+
+/* Remove window controls and spacers */
+.titlebar-buttonbox-container, 
+.titlebar-spacer { 
+    display: none !important; 
+}
+
+/* Remove tab shadows */
+#tabbrowser-tabs:not([noshadowfortests]) .tab-background:is([selected], [multiselected]) {
+    box-shadow: none !important;
+}
+
+/* Pinned tabs and overflow handling */
+#tabbrowser-tabs[haspinnedtabs]:not([positionpinnedtabs]) >
+#tabbrowser-arrowscrollbox >
+.tabbrowser-tab:nth-child(1 of :not([pinned], [hidden])) {
+    margin-inline-start: 0px !important;
+}
+
+#alltabs-button, 
+#scrollbutton-up, 
+#scrollbutton-down, 
+#tabs-newtab-button { 
+    display: none !important; 
+}
+
+#tabbrowser-tabs:not([secondarytext-unsupported]) .tab-label-container {
+    height: var(--tab-min-height) !important;
+}
+
+/* Hide navbar */
+#nav-bar {
+    min-height: 0 !important;
+    max-height: 0 !important;
+    height: 0 !important;
+}
+
+/* Hide Back & Foeward button */
+#back-button, #forward-button {
+  display: none !important;
+}
+
+/* Hide Quick Options button */
+#PanelUI-button {
+  display: none !important;
+}
+/* Hide Extensions button */
+#nav-bar-overflow-button,
+#unified-extensions-button {
+    display: none !important;
+}
+
+/* Floating UrlBar */
+#urlbar[breakout-extend] {
+    position: fixed !important;
+    z-index: 999999 !important;
+    bottom: auto !important;
+    top: 25vh !important;
+    left: 25vw !important;
+    right: 25vw !important;
+    width: 50vw !important;
+
+    .urlbarView-row {
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
+
+    /* Remove all shadows */
+    box-shadow: none !important;
+    background: transparent !important;
+
+    #urlbar-input {
+        font-size: 20px !important;
+        box-shadow: none !important;
+        background: transparent !important;
+    }
+
+    #urlbar-input-container, 
+    .urlbar-input-container {
+        height: 40px !important;
+        box-shadow: none !important;
+        background: transparent !important;
+
+        & > :is(box, image) {
+            height: 28px !important;
+            margin-block: calc((50px - 28px) / 4) !important;
+            box-shadow: none !important;
+            background: transparent !important;
+        }
+    }
+
+    #urlbar-background {
+        border-radius: var(--rounding) !important;
+        box-shadow: none !important;
+        background: color-mix(in srgb, var(--toolbar-bgcolor) 80%, transparent) !important;
+    }
+}
+
