@@ -72,7 +72,7 @@ static const Key keys[] = {
     { MODKEY,           XK_z,      spawn,          SHCMD("~/Dots/bin/lock") },
     { MODKEY,           XK_r,      spawn,          SHCMD("~/Dots/bin/setbg") },
     { MODKEY,           XK_v,      spawn,          SHCMD("copyq menu") },
-    { MODKEY,           XK_period, spawn,          SHCMD("/bin/cat ~/.config/tofi/emotes ~/.config/tofi/nerdfont | dmenu | cut -d ' ' -f 1 | tr -d '\\n' | y") },
+    { MODKEY,           XK_period, spawn,          SHCMD("cat ~/Dots/bin/assets/{emotes,nf-icons} | dmenu | cut -d ' ' -f 1 | tr -d '\\n' | y") },
 
     { MODKEY,           XK_s,      spawn,          SHCMD("flameshot gui") },
     { MODKEY|ShiftMask, XK_s,      spawn,          SHCMD("flameshot full") },

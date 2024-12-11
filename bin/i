@@ -7,17 +7,14 @@ if [ -f /etc/os-release ]; then
     case "$ID" in
         arch)
             if [ "$#" -eq 0 ]; then
-                yay -Ssq | fzf-tmux -h -m -e +s --preview='yay -Qs {1}' \
-                    --preview-window 'down:30%' | xargs -r yay -S --noconfirm
+                pacman -Ssq | fzf-tmux -m -e --preview 'pacman -Si {}' --preview-window=right:55% | xargs -r sudo pacman -S --noconfirm
                 exit 0
             fi
-            yay -S $@
+            sudo pacman -S $@ || yay -S $@
             ;;
         debian|ubuntu|linuxmint|raspbian)
             if [ "$#" -eq 0 ]; then
-                apt-cache pkgnames | fzf-tmux -h -m -e +s \
-                    --preview="apt-cache show {1} | grep -E '^(Version|Description)'" \
-                    --preview-window 'down:30%' | xargs -r sudo apt install -y
+                apt-cache pkgnames | fzf-tmux -h -m -e | xargs -r sudo apt install -y
                 exit 0
             fi
             sudo apt install -y "$@"

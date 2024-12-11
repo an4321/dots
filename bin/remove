@@ -2,8 +2,7 @@
 
 remove_arch() {
     if [ "$#" -eq 0 ]; then
-        yay -Qq | fzf-tmux -h -m -e +s --preview='yay -Qs {1}' \
-            --preview-window 'down:30%' | xargs -r yay -R --noconfirm
+        yay -Qq | fzf-tmux -h -m -e | xargs -r yay -R --noconfirm
     elif [ "$1" == "all" ]; then
         shift
         sudo pacman -Rns "$@"
@@ -14,9 +13,7 @@ remove_arch() {
 
 remove_debian() {
     if [ "$#" -eq 0 ]; then
-        apt list --installed | cut -d/ -f1 | fzf-tmux -h -m -e +s \
-            --preview="apt-cache show {1} | grep -E '^(Version|Description)'" \
-            --preview-window 'down:30%' | xargs -r sudo apt remove -y
+        apt list --installed | cut -d/ -f1 | fzf-tmux -h -m -e | xargs -r sudo apt remove -y
     elif [ "$1" == "all" ]; then
         shift
         sudo apt autoremove --purge -y "$@"

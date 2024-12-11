@@ -31,7 +31,7 @@ fi
 
 # Check if $wall is empty
 if [ -z "$wall" ]; then
-    random_wallpaper=$(find ~/Pictures/Wallpapers -type f | shuf -n 1)
+    random_wallpaper=$(ls ~/Pictures/Wallpapers/*.{jpg,png} | shuf -n 1)
     wall="$random_wallpaper"
 fi
 

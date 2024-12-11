@@ -15,17 +15,9 @@ sudo make clean install
 * [removeborder](https://dwm.suckless.org/patches/removeborder/dwm-removeborder-20220626-d3f93c7.diffa)
 * [toggle_layout](file:patches/toggle_layout.c)
 
-## Requirements for xinitrc
-* feh
-* Clipboard:
-    * xclip
-    * [clipnotify](https://github.com/cdown/clipnotify) 
-    * [cliphist](https://github.com/sentriz/cliphist) 
-        `go install go.senan.xyz/cliphist@latest`
-
 ## Tap to Click and Natural Scroll
 ```sh
-cat /etc/X11/xorg.conf.d/30-touchpad.conf
+sudoedit /etc/X11/xorg.conf.d/30-touchpad.conf
 Section "InputClass"
     Identifier "touchpad"
     Driver "libinput"
@@ -37,5 +29,12 @@ EndSection
 ## Disable hibernate
 ```sh
 sudoedit /etc/systemd/logind.conf
-HandleLidSwitch=ignore
+    HandleLidSwitch=ignore
+```
+
+## Hide Grub
+```sh
+sudoedit /etc/default/grub
+    GRUB_TIMEOUT_STYLE=hidden
+sudo update-grub
 ```

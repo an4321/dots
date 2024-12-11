@@ -3,7 +3,7 @@ export VISUAL=nvim
 export MANPAGER="nvim +Man!"
 
 export PATH=$PATH:"/bin:/usr/local/bin:$HOME/.bun/bin:$HOME/Dots/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/go/bin:/snap/bin"
-export FZF_DEFAULT_OPTS=" --bind='ctrl-e:execute(nvim {})+abort' --cycle --reverse --prompt ' ' --pointer ' ' --marker='* ' -m --height=20% --color=bg+:#395b91,gutter:-1 --no-separator --scroll-off=3"
+export FZF_DEFAULT_OPTS=" --bind='ctrl-space:toggle-preview' --cycle --reverse --prompt ' ' --pointer ' ' --marker='* ' -m --height=20% --color=bg+:#395b91,gutter:-1 --no-separator --scroll-off=3"
 export _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS --height=100% --border"
 
 alias ..="cd .."
@@ -21,6 +21,7 @@ alias po="poetry"
 alias pr="poetry run"
 alias py="poetry run python"
 alias pe="poetry run nvim"
+alias update="bash -c 'if command -v apt &> /dev/null; then sudo apt update && sudo apt upgrade -y; elif command -v pacman &> /dev/null; then sudo pacman -Syu --noconfirm; fi'"
 
 alias ls="/bin/ls --color=auto --group-directories-first"
 alias la="/bin/ls --color=auto --group-directories-first -A"

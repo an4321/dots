@@ -9,9 +9,9 @@ static const char *fonts[] = { "JetBrainsMonoNerdFont:size=18" };
 static const char *prompt = NULL;             /* -p  option; prompt to the left of input field */
 
 static const char *colors[SchemeLast][2] = {
-	[SchemeNorm] = { "#EEEEEE", "#24273a" },
-	[SchemeSel]  = { "#4DAFFF", "#24273a" },
-	[SchemeOut]  = { "#000000", "#4DAFFF" },
+    [SchemeNorm] = { "#EEEEEE", "#24273a" },
+    [SchemeSel]  = { "#4DAFFF", "#24273a" },
+    [SchemeOut]  = { "#000000", "#4DAFFF" },
 };
 
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */

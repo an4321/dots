@@ -15,6 +15,7 @@ shopt -s checkwinsize # Update Window
 shopt -s histappend   # Resorect session history
 
 bind 'TAB:menu-complete'
+bind '"\C-H": backward-kill-word'
 bind '"\eq": "exit\n"'
 bind '"\ea": "tmux_attach\n"'
 
