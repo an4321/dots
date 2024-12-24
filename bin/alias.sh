@@ -11,6 +11,7 @@ alias ...="cd ../.."
 alias clr="clear"
 
 alias vi="nvim"
+alias vim="fd | fzf-tmux -h | xargs -r nvim"
 alias hx="helix"
 alias em="emacsclient -c -a 'emacs'"
 alias se="sudoedit"
@@ -36,7 +37,8 @@ alias rm="trash"
 
 alias J="clear; j"
 alias fetch="fastfetch"
-alias fm="which yazi >/dev/null 2>&1 && yazi || lf"
+# alias fm="which yazi >/dev/null 2>&1 && yazi || lf"
+alias fm="lf"
 
 alias y='copy_to_clipboard'
 alias p='paste_from_clipboard'
@@ -45,8 +47,8 @@ alias ywd="/bin/pwd; /bin/pwd | y"
 alias hist="history | fzf-tmux -h +s"
 alias yy="history --max=1 | tr -d '\n' | y"
 
-alias fd="/bin/fd --hidden --follow --exclude .git --exclude node_modules --exclude __pycache__ --type d"
-alias ff="/bin/fd --hidden --follow --exclude .git --exclude node_modules --exclude __pycache__ --type f"
+alias fd="/bin/fd --hidden --follow --exclude .git --exclude node_modules --exclude __pycache__ --exclude vendor"
+alias ff="fd | fzf-tmux -h"
 alias ft="grep --color=always --exclude-dir={.git,node_modules,.vscode,.next} -iIHrn"
 # i insensitive -I ignore binary -H print filename -r recursive -n print line number
 

@@ -17,6 +17,8 @@ map g, cd ~/.config
 map J :push 5j
 map K :push 5k
 map i $$SHELL
+map t $t $PWD
+map <backtab> $yazi
 map I $thunar
 map . set hidden!
 map <tab> !true
@@ -27,6 +29,11 @@ map m :push %mkdir<space>
 map o :&{{ xdg-open "$f" }}
 map E $sudoedit $f
 # v to invert select
+
+map a ${{
+    set result $(find . -type f -o -type d | fzf)
+    lf -remote "send $id select '$result'"
+}}
 
 map z ${{ 
     set result "$(zoxide query -i)" 
