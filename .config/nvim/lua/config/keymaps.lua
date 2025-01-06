@@ -1,33 +1,31 @@
 -- Basic operations
-vim.keymap.set('n', ";", ":")
+vim.keymap.set({'n', 'v'}, ';', ':')
+vim.keymap.set('n', 'U', "<cmd>redo<CR>")
+vim.keymap.set('n', "<Esc>", "<cmd>noh<CR>")
 vim.keymap.set({ 'n', 'v' }, "<Space>w", "<cmd>w<CR>")
 vim.keymap.set({ 'n', 'v' }, "<Space>q", "<cmd>q<CR>")
-vim.keymap.set({ 'n', 'v', 'i', 't' }, "<M-q>", "<cmd>q<CR>")
-vim.keymap.set('n', "U", "<cmd>redo<CR>")
-vim.keymap.set('n', "<Esc>", "<cmd>noh<CR>")
 
 -- Navigation
+vim.keymap.set('n', "ge", "Gzz")
+vim.keymap.set('n', 'n', "nzzzv")
+vim.keymap.set('n', 'N', "Nzzzv")
+vim.keymap.set('n', "<C-d>", "<C-d>zz")
+vim.keymap.set('n', "<C-u>", "<C-u>zz")
 vim.keymap.set({ 'n', 'v' }, 'j', "gj")
 vim.keymap.set({ 'n', 'v' }, 'k', "gk")
 vim.keymap.set({ 'n', 'v' }, 'L', '$')
 vim.keymap.set({ 'n', 'v' }, 'H', '^')
-vim.keymap.set('n', "ge", "Gzz")
-vim.keymap.set('n', "<C-d>", "<C-d>zz")
-vim.keymap.set('n', "<C-u>", "<C-u>zz")
-vim.keymap.set('n', "n", "nzzzv")
-vim.keymap.set('n', "N", "Nzzzv")
 
 -- Buffer navigation
 vim.keymap.set('n', "<Space>x", "<cmd>bdelete<CR>")
-vim.keymap.set('n', "<Space><Tab>", "<cmd>bprevious<CR>")
 vim.keymap.set('n', "<Space>l", "<cmd>bnext<CR>")
 vim.keymap.set('n', "<Space>h", "<cmd>bprevious<CR>")
 
 -- Text manipulation
 vim.keymap.set('v', "<Space>p", "\"_dP")
-vim.keymap.set('v', "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set('v', "K", ":m '<-2<CR>gv=gv")
-vim.keymap.set('n', "J", "mzJ`z")
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+vim.keymap.set('n', 'J', "mzJ`z")
 vim.keymap.set('v', "<Tab>", ">gv", { noremap = true, silent = true })
 vim.keymap.set('v', "<S-Tab>", "<gv", { noremap = true, silent = true })
 

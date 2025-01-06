@@ -65,7 +65,7 @@ static const Key keys[] = {
     { MODKEY|ShiftMask,   XK_w,      spawn,          SHCMD("brave --incognito") },
     { MODKEY,             XK_f,      spawn,          SHCMD("alacritty -e lf") },
     { MODKEY,             XK_e,      spawn,          SHCMD("alacritty -e nvim") },
-    { MODKEY,             XK_n,      spawn,          SHCMD("cd ~/Notes && editor ~/Notes/index.md") },
+    { MODKEY,             XK_n,      spawn,          SHCMD("alacritty -e nvim --cmd 'cd ~/Notes' ~/Notes/index.md") },
     { MODKEY,             XK_b,      spawn,          SHCMD("~/Dots/bin/blue") },
     { MODKEY,             XK_z,      spawn,          SHCMD("~/Dots/bin/lock") },
     { MODKEY,             XK_r,      spawn,          SHCMD("~/Dots/bin/setbg") },

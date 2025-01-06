@@ -30,16 +30,7 @@ end
 
 
 function md -d "Create a directory and set CWD"
-    command mkdir -p $argv
-    if test $status = 0
-        switch $argv[(count $argv)]
-        case '-*'
-
-        case '*'
-            cd $argv[(count $argv)]
-            return
-        end
-    end
+	mkdir -p "$argv" && cd "$argv"
 end
 
 function j
@@ -55,24 +46,14 @@ function j
 end
 
 function cpg
-    if test -d "$argv[2]" 
-        cp "$argv[1]" "$argv[2]"
-        and cd "$argv[2]"
-    else 
-        cp "$argv[1]" "$argv[2]"
-    end
+    cp $argv; and cd $argv[-1]
 end
 
 function mvg
-    if test -d "$argv[2]"
-        mv "$argv[1]" "$argv[2]"
-        and cd "$argv[2]"
-    else
-        mv "$argv[1]" "$argv[2]"
-    end
+    mv $argv; and cd $argv[-1]
 end
 
-function copy_to_clipboard
+function y -d "copy to clipboard"
     if test -n "$WAYLAND_DISPLAY"
         wl-copy
     else
@@ -80,10 +61,19 @@ function copy_to_clipboard
     end
 end
  
-function paste_from_clipboard
+function p -d "paste from clipboard"
     if test -n "$WAYLAND_DISPLAY"
         wl-paste
     else
         xsel --clipboard --output
+    end
+end
+
+function fk
+    if test (count $argv) -eq 0
+        set last_command $(history | head -1)
+        bash -c "$last_command"
+    else
+        bash -c "$argv[1]"
     end
 end

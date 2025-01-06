@@ -16,10 +16,11 @@ return {
                 ["<Right>"] = "actions.select",
                 ["<Left>"] = "actions.parent",
                 ["<Tab>"] = "actions.preview",
+                ["<C-h>"] = "actions.toggle_hidden",
             },
             use_default_keymaps = true,
             view_options = {
-                show_hidden = true,
+                show_hidden = false,
             },
         }
     },

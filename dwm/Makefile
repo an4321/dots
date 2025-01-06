@@ -44,33 +44,38 @@ uninstall:
 
 arch:
 	sudo pacman -S xorg xorg-xinit base-devel libx11 libxft libxinerama
-	sudo apcman -S brightnessctl pamixer pavucontrol slock arandr feh copyq alacritty
+	sudo pacman -S brightnessctl pamixer pavucontrol slock arandr feh copyq alacritty
 
 debian:
-	sudo apt install make gcc libx11-dev libxft-dev libxinerama-dev xorg psmisc
-	sudo apt install brightnessctl pamixer pavucontrol slock arandr feh copyq
+	sudo apt install -y make gcc libx11-dev libxft-dev libxinerama-dev xorg psmisc
+	sudo apt install -y brightnessctl pamixer pavucontrol slock arandr feh copyq zoxide trash-cli
+
+	# ?????
+	mkdir -p Desktop  Documents  Downloads  Music  Notes  Pictures  Videos
 
 	# fonts:
 	bash ~/Dots/bin/install_nf
-	git clone https://github.com/githubnext/monaspace
-	cd monaspace && bash util/install_linux.sh && cd .. && rm monaspace
+
+	# Bluetooth
+	sudo apt install -y bluez blueman
+	sudo systemctl enable bluetooth
 
 	# audio:
-	sudo apt install pipewire pipewire-audio-client-libraries
-	sudo apt install libpipewire-0.3-0 libpipewire-0.3-dev libpipewire-0.3-modules
-	sudo apt install libspa-0.2-bluetooth libspa-0.2-dev libspa-0.2-jack libspa-0.2-modules
+	sudo apt install -y pipewire pipewire-audio-client-libraries
+	sudo apt install -y libpipewire-0.3-0 libpipewire-0.3-dev libpipewire-0.3-modules
+	sudo apt install -y libspa-0.2-bluetooth libspa-0.2-dev libspa-0.2-jack libspa-0.2-modules
 	systemctl --user daemon-reload
 	systemctl --user --now enable pipewire pipewire-pulse
 
 	# TLP:
-	sudo apt isntall tlp
+	sudo apt install tlp
 	sudo tlp start
 
 	# snap:
-	sudo apt install snapd
-	(read -p "Install Nvim (y/N) " yn && [[ $yn =~ ^[Yy]$ ]] && sudo snap install --classic nvim)
-	(read -p "Install Alacritty (y/N) " yn && [[ $yn =~ ^[Yy]$ ]] && sudo snap install --classic alacritty)
-	(read -p "Install Brave (y/N) " yn && [[ $yn =~ ^[Yy]$ ]] && sudo snap install --classic brave)
+	# sudo apt install snapd
+	# (read -p "Install Nvim (y/N) " yn && [[ $yn =~ ^[Yy]$ ]] && sudo snap install --classic nvim)
+	# (read -p "Install Alacritty (y/N) " yn && [[ $yn =~ ^[Yy]$ ]] && sudo snap install --classic alacritty)
+	# (read -p "Install Brave (y/N) " yn && [[ $yn =~ ^[Yy]$ ]] && sudo snap install --classic brave)
 
 
 .PHONY: all clean dist install uninstall

@@ -1,14 +1,20 @@
 #!/bin/env bash
 
-target_dir=$(zoxide query "$@")
-
-if [[ -d "$target_dir" ]]; then
-    if [[ -n "$TMUX" ]]; then
-        tmux new -ds "$(basename "$target_dir")" -c "$target_dir" fm
-        tmux switch-client -t "$(basename "$target_dir")"
-    else
-        tmux new -s "$(basename "$target_dir")" -c "$target_dir" fm
-    fi
+if [[ "$1" == "" ]]; then
+    exec "$0" "$PWD"
 else
-    echo "Error: Not a valid directory."
+    target_dir=$(zoxide query "$@")
+
+    if [[ -d "$target_dir" ]]; then
+        session_name="$(basename "$target_dir")"
+        tmux new -ds "$session_name" -c "$target_dir" 2>/dev/null
+
+        if [[ "$TMUX" == "" ]]; then
+            tmux attach -t "$session_name"
+        else
+            tmux switch-client -t "$session_name"
+        fi
+    else
+        echo "Error: Not a valid directory."
+    fi
 fi
