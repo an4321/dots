@@ -3,18 +3,22 @@
 if [[ "$1" == "" ]]; then
     exec "$0" "$PWD"
 else
-    target_dir=$(zoxide query "$@")
-
-    if [[ -d "$target_dir" ]]; then
-        session_name="$(basename "$target_dir")"
-        tmux new -ds "$session_name" -c "$target_dir" 2>/dev/null
-
-        if [[ "$TMUX" == "" ]]; then
-            tmux attach -t "$session_name"
-        else
-            tmux switch-client -t "$session_name"
-        fi
+    if tmux has-session -t "$@" 2>/dev/null; then
+        session_name="$@"
     else
-        echo "Error: Not a valid directory."
+        target_dir=$(zoxide query "$@")
+        if [[ -d "$target_dir" ]]; then
+            session_name="$(basename "$target_dir")"
+            tmux new -ds "$session_name" -c "$target_dir" 2>/dev/null
+        else
+            echo "Error: Not a valid directory."
+            exit 1
+        fi
+    fi
+
+    if [[ "$TMUX" == "" ]]; then
+        tmux attach -t "$session_name"
+    else
+        tmux switch-client -t "$session_name"
     fi
 fi
