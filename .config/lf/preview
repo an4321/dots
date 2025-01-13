@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
+#!/usr/bin/env fish
 
-mime_type=$(file --mime-type -b "$1")
+set mime_type (file --mime-type -b "$argv[1]")
 
-if [[ $mime_type == text/* || $mime_type == application/javascript ]]; then
-    bat -p --theme=base16 --color always "$1" || cat "$1"
-fi
+if string match -q 'text/*' "$mime_type"
+    cat "$argv[1]"
+end
