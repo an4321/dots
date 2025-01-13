@@ -3,7 +3,6 @@
 export DISPLAY=:0
 export XDG_SESSION_TYPE="x11"
 
-xrandr --output eDP --primary --mode 1920x1200 --pos 0x1080 --output HDMI-A-0 --off --output DisplayPort-0 --mode 1920x1080 --pos 0x0
 setbg -r
 
 while true; do
@@ -14,6 +13,6 @@ while true; do
     sleep 60
 done &
 
-copyq &
+blueman-applet & copyq & dunst & battery_warning &
 
 exec dwm

@@ -4,7 +4,7 @@ while true; do
     capacity=$(cat /sys/class/power_supply/BAT0/capacity)
 
     if [ "$capacity" -lt 20 ]; then
-        notify-send -i ~/Dots/bin/assets/low-battery.png "Low Battery" "Battery capacity is $capacity%!"
+        notify-send -i ~/dots/bin/assets/low-battery.png "Low Battery" "Battery capacity is $capacity%!"
     fi
 
     sleep 900  # 15min

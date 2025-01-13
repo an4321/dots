@@ -6,8 +6,8 @@ manager.append_keymap = [
 	{ on = [ "g", "v" ], run = 'cd ~/Videos', desc = "Go to Videos" },
 	{ on = [ "g", "p" ], run = 'cd ~/Pictures', desc = "Go to Pictures" },
 	{ on = [ "g", "s" ], run = 'cd ~/Pictures/Screenshots', desc = "Go to Screenshots" },
-	{ on = [ "g", "n" ], run = 'cd ~/Notes', desc = "Go to Notes" },
-	{ on = [ "g", "." ], run = 'cd ~/Dots/.config', desc = "Go to Dots" },
+	{ on = [ "g", "n" ], run = 'cd ~/notes', desc = "Go to Notes" },
+	{ on = [ "g", "." ], run = 'cd ~/dots/.config', desc = "Go to Dots" },
 ]
 
 [[manager.prepend_keymap]]

@@ -28,7 +28,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Jump to directory
 vim.api.nvim_create_user_command('Jump', function(opts)
-    local query = opts.arg or vim.fn.input('Search: ')
+    local query = opts.arg or vim.fn.input('Jump to: ')
 
     local handle = io.popen('zoxide query ' .. query)
     local output = handle:read("*a")

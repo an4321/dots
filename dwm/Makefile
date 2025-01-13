@@ -1,6 +1,3 @@
-# dwm - dynamic window manager
-# See LICENSE file for copyright and license details.
-
 include config.mk
 
 SRC = drw.c dwm.c util.c
@@ -44,38 +41,12 @@ uninstall:
 
 arch:
 	sudo pacman -S xorg xorg-xinit base-devel libx11 libxft libxinerama
-	sudo pacman -S brightnessctl pamixer pavucontrol slock arandr feh copyq alacritty
+	sudo pacman -S brightnessctl pamixer pavucontrol slock arandr feh copyq alacritty trash-cli
+	sudo make clean install; make clean
 
 debian:
-	sudo apt install -y make gcc libx11-dev libxft-dev libxinerama-dev xorg psmisc
-	sudo apt install -y brightnessctl pamixer pavucontrol slock arandr feh copyq zoxide trash-cli
-
-	# ?????
-	mkdir -p Desktop  Documents  Downloads  Music  Notes  Pictures  Videos
-
-	# fonts:
-	bash ~/Dots/bin/install_nf
-
-	# Bluetooth
-	sudo apt install -y bluez blueman
-	sudo systemctl enable bluetooth
-
-	# audio:
-	sudo apt install -y pipewire pipewire-audio-client-libraries
-	sudo apt install -y libpipewire-0.3-0 libpipewire-0.3-dev libpipewire-0.3-modules
-	sudo apt install -y libspa-0.2-bluetooth libspa-0.2-dev libspa-0.2-jack libspa-0.2-modules
-	systemctl --user daemon-reload
-	systemctl --user --now enable pipewire pipewire-pulse
-
-	# TLP:
-	sudo apt install tlp
-	sudo tlp start
-
-	# snap:
-	# sudo apt install snapd
-	# (read -p "Install Nvim (y/N) " yn && [[ $yn =~ ^[Yy]$ ]] && sudo snap install --classic nvim)
-	# (read -p "Install Alacritty (y/N) " yn && [[ $yn =~ ^[Yy]$ ]] && sudo snap install --classic alacritty)
-	# (read -p "Install Brave (y/N) " yn && [[ $yn =~ ^[Yy]$ ]] && sudo snap install --classic brave)
-
+	sudo apt install -y gcc libx11-dev libxft-dev libxinerama-dev xorg psmisc
+	sudo apt install -y xsel brightnessctl pamixer pavucontrol slock arandr feh copyq trash-cli
+	sudo make clean install; make clean
 
 .PHONY: all clean dist install uninstall

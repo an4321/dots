@@ -16,15 +16,6 @@ size = 16
 [font.normal]
 family = "JetBrainsMono Nerd Font"
 
-[font.bold]
-family = "JetBrainsMono Nerd Font"
-
-[font.italic]
-family = "MonaspaceRadon"
-
-[font.bold_italic]
-family = "MonaspaceRadon SemiBold"
-
 [mouse]
 hide_when_typing = true
 

@@ -45,8 +45,9 @@ return {
             vim.keymap.set('n', '<Space>fc', "<cmd>Telescope colorscheme<CR>", { desc = 'Color Scheme' }),
             vim.keymap.set('n', '<Space>fs', "<cmd>Telescope spell_suggest<CR>", { desc = 'Spell' }),
             vim.keymap.set('n', '<Space>fh', "<cmd>Telescope command_history<CR>", { desc = 'Command History' }),
+            vim.keymap.set('n', '<Space>fm', "<cmd>Telescope man_pages<CR>", { desc = 'Command History' }),
             vim.keymap.set('n', '<Space>.',
-                "<cmd>lua require('telescope.builtin').find_files({ cwd = '~/Dots', hidden = true })<Cr>",
+                "<cmd>lua require('telescope.builtin').find_files({ cwd = '~/dots', hidden = true })<Cr>",
                 { desc = 'Dot files' }),
         }
     },

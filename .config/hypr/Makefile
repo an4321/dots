@@ -18,7 +18,7 @@ yay:
 	yay --noconfirm -S tofi grimblast hyprpicker-bin
 
 fonts:
-	bash ~/Dots/bin/install_nf
+	bash ~/dots/bin/install_nf
 	git clone https://github.com/githubnext/monaspace
 	cd monaspace && bash util/install_linux.sh && cd .. && rm monaspace
 

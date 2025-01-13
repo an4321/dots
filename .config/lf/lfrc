@@ -10,8 +10,8 @@ map gp cd ~/Pictures
 map gs cd ~/Pictures/Screenshots
 map gv cd ~/Videos
 map gm cd ~/Music
-map gn cd ~/Notes
-map g. cd ~/Dots/.config
+map gn cd ~/notes
+map g. cd ~/dots/.config
 map g, cd ~/.config
 
 map J :push 5j
