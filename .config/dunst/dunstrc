@@ -1,0 +1,10 @@
+[global]
+    font = "JetBrains Mono NF 16"
+    width = 420
+    origin = bottom-right
+    # offset = (15, 40)
+    offset = 15x45
+    background = "#1c1d25"
+    foreground = "#DDDDDD"
+    frame_color = "#4DAFFF"
+    timeout = 5
