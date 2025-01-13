@@ -1,4 +1,3 @@
-
 # BANG BANG!!
 function __history_previous_command
     switch (commandline -t)
@@ -77,3 +76,14 @@ function fk
         bash -c "$argv[1]"
     end
 end
+
+function cat
+    if command -v bat &> /dev/null
+        bat -p --theme=OneHalfDark --color always $argv
+    else if command -v batcat &> /dev/null
+        batcat -p --theme=OneHalfDark --color always $argv
+    else
+        command cat $argv
+    end
+end
+
