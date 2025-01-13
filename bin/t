@@ -8,7 +8,7 @@ else
     else
         target_dir=$(zoxide query "$@")
         if [[ -d "$target_dir" ]]; then
-            session_name="$(basename "$target_dir")"
+            session_name="$(basename "$target_dir" | sed 's/\./_/g')"
             tmux new -ds "$session_name" -c "$target_dir" 2>/dev/null
         else
             echo "Error: Not a valid directory."
@@ -17,8 +17,8 @@ else
     fi
 
     if [[ "$TMUX" == "" ]]; then
-        tmux attach -t "$session_name"
+        tmux -u attach -t "$session_name"
     else
-        tmux switch-client -t "$session_name"
+        tmux -u switch-client -t "$session_name"
     fi
 fi
