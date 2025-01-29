@@ -15,7 +15,6 @@ vim.opt.wrap = false
 vim.opt.clipboard = "unnamedplus"
 vim.opt.mouse = 'a'
 vim.opt.history = 10000
-vim.opt.isfname:append("@-@")
 
 -- Window splitting
 vim.opt.splitright = true

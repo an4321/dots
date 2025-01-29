@@ -20,6 +20,7 @@ vim.keymap.set({ 'n', 'v' }, 'H', '^')
 vim.keymap.set('n', "<Space>x", "<cmd>bdelete<CR>")
 vim.keymap.set('n', "<Space>l", "<cmd>bnext<CR>")
 vim.keymap.set('n', "<Space>h", "<cmd>bprevious<CR>")
+vim.keymap.set('n', "<Space><Tab>", "<cmd>enew<CR>")
 
 -- Text manipulation
 vim.keymap.set('v', "<Space>p", "\"_dP")

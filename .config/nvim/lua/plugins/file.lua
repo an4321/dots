@@ -7,7 +7,6 @@ return {
             default_file_explorer = true,
             skip_confirm_for_simple_edits = true,
             delete_to_trash = true,
-            trash_command = "trash-put",
             prompt_save_on_select_new_entry = true,
             keymaps = {
                 ["?"] = "actions.show_help",
@@ -20,7 +19,7 @@ return {
             },
             use_default_keymaps = true,
             view_options = {
-                show_hidden = false,
+                show_hidden = true,
             },
         }
     },

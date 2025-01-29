@@ -18,7 +18,7 @@ map J :push 5j
 map K :push 5k
 map i $$SHELL
 map I :&[ -n "$TMUX" ] && tmux new-window || kitty
-map t $thunar
+map t :&{ setsid thunar }
 map <a-a> !t $PWD
 map <backtab> $yazi
 map . set hidden!
@@ -30,6 +30,7 @@ map m :push %mkdir<space>
 map o :&{{ xdg-open "$f" }}
 map E $sudoedit $f
 # v to invert select
+# c to clear copy/cut
 
 map a ${{
     set result $(find . -type f -o -type d | fzf)

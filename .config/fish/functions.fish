@@ -73,7 +73,7 @@ function fk
         set last_command $(history | head -1)
         bash -c "$last_command"
     else
-        bash -c "$argv[1]"
+        bash -c "$argv"
     end
 end
 
