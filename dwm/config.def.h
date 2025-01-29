@@ -1,13 +1,13 @@
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const int startwithgaps[]    = { 1 };	/* 1 means gaps are used by default, this can be customized for each tag */
-static const unsigned int gappx[]   = { 10 };   /* default gap between windows in pixels, this can be customized for each tag */
+static const unsigned int gappx[]   = { 5 };    /* default gap between windows in pixels, this can be customized for each tag */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]          = { "JetBrainsMonoNerdFont:size=16" };
-static const char col_bg[]          = "#1c2021";
-static const char col_fg[]          = "#DDDDDD";
+static const char col_bg[]          = "#1f2029";
+static const char col_fg[]          = "#DFE4F7";
 static const char accent[]          = "#4DAFFF";
 static const char *colors[][3]      = {
     //                   fg      bg      border
@@ -49,35 +49,34 @@ static const Layout layouts[] = {
     { MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
     { MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
-/* helper for spawning shell commands in the pre dwm-5.0 fashion */
+/* helper for spawning shell commands */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/env", "bash", "-c", cmd, NULL } }
-
-/* commands */
-static const char *termcmd[]  = { "alacritty", NULL };
 
 #include <X11/XF86keysym.h>
 static const Key keys[] = {
     /* modifier           key        function        argument */
-    { MODKEY,             XK_t,      spawn,          {.v = termcmd } },
     { MODKEY,             XK_a,      spawn,          SHCMD("dmenu_run") },
+    { MODKEY,             XK_z,      spawn,          SHCMD("slock") },
+    { MODKEY,             XK_x,      spawn,          SHCMD("xkill") },
     { MODKEY|ShiftMask,   XK_f,      spawn,          SHCMD("thunar") },
     { MODKEY,             XK_w,      spawn,          SHCMD("brave") },
     { MODKEY|ShiftMask,   XK_w,      spawn,          SHCMD("brave --incognito") },
-    { MODKEY,             XK_f,      spawn,          SHCMD("alacritty -e lf") },
-    { MODKEY,             XK_e,      spawn,          SHCMD("alacritty -e nvim") },
-    { MODKEY,             XK_n,      spawn,          SHCMD("alacritty -e nvim --cmd 'cd ~/Notes' ~/Notes/index.md") },
-    { MODKEY,             XK_b,      spawn,          SHCMD("~/Dots/bin/blue") },
-    { MODKEY,             XK_z,      spawn,          SHCMD("~/Dots/bin/lock") },
-    { MODKEY,             XK_r,      spawn,          SHCMD("~/Dots/bin/setbg") },
+    { MODKEY,             XK_t,      spawn,          SHCMD("kitty") },
+    { MODKEY,             XK_f,      spawn,          SHCMD("kitty -e lf") },
+    { MODKEY,             XK_e,      spawn,          SHCMD("kitty -e nvim") },
+    { MODKEY,             XK_n,      spawn,          SHCMD("kitty -e nvim --cmd 'cd ~/notes' ~/notes/index.md") },
+    { MODKEY,             XK_i,      spawn,          SHCMD("kitty -e htop") },
+    { MODKEY,             XK_b,      spawn,          SHCMD("~/dots/bin/blue") },
+    { MODKEY,             XK_r,      spawn,          SHCMD("~/dots/bin/setbg") },
     { MODKEY,             XK_v,      spawn,          SHCMD("copyq menu") },
-    { MODKEY,             XK_period, spawn,          SHCMD("cat ~/Dots/bin/assets/{emotes,nf-icons} | dmenu | cut -d ' ' -f 1 | tr -d '\\n' | y") },
+    { MODKEY,             XK_period, spawn,          SHCMD("cat ~/dots/bin/assets/{emotes,nf-icons} | dmenu | cut -d ' ' -f 1 | tr -d '\\n' | xsel -b") },
     { MODKEY,             XK_s,      spawn,          SHCMD("flameshot gui") },
     { MODKEY|ShiftMask,   XK_s,      spawn,          SHCMD("flameshot full") },
     { 0, XF86XK_AudioMute,           spawn,          SHCMD("pamixer -t") },
     { 0, XF86XK_AudioLowerVolume,    spawn,          SHCMD("pamixer -d 5") },
     { 0, XF86XK_AudioRaiseVolume,    spawn,          SHCMD("pamixer -i 5") },
-    { 0, XF86XK_MonBrightnessDown,   spawn,          SHCMD("~/Dots/bin/brightness dec") },
-    { 0, XF86XK_MonBrightnessUp,     spawn,          SHCMD("~/Dots/bin/brightness inc") },
+    { 0, XF86XK_MonBrightnessDown,   spawn,          SHCMD("~/dots/bin/brightness dec") },
+    { 0, XF86XK_MonBrightnessUp,     spawn,          SHCMD("~/dots/bin/brightness inc") },
     { MODKEY|ControlMask, XK_q,      spawn,          SHCMD("systemctl poweroff") },
     { MODKEY|ControlMask, XK_r,      spawn,          SHCMD("systemctl poweroff") },
 
@@ -126,7 +125,6 @@ static const Button buttons[] = {
     { ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
     { ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
     { ClkWinTitle,          0,              Button2,        zoom,           {0} },
-    { ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
     { ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
     { ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
     { ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
