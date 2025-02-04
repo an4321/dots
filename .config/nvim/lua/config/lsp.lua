@@ -80,3 +80,48 @@ cmp.setup({
     -- replace the line below with the function from lsp-kind
     formatting = lsp_zero.cmp_format({ details = true }),
 })
+
+
+-- toggle format on save
+-- create an autocommand group for LSP formatting
+local lsp_format_group = vim.api.nvim_create_augroup("LspFormat", { clear = true })
+
+local format_enabled_buffers = {}
+
+local function toggle_format_on_save()
+    local bufnr = vim.api.nvim_get_current_buf()
+    
+    if format_enabled_buffers[bufnr] then
+        format_enabled_buffers[bufnr] = nil
+        -- remove existing autocmd for this buffer
+        vim.api.nvim_clear_autocmds({
+            group = lsp_format_group,
+            buffer = bufnr,
+            event = "BufWritePre"
+        })
+        vim.notify("Format on save disabled for current buffer", vim.log.levels.INFO)
+    else
+        -- enable format on save
+        format_enabled_buffers[bufnr] = true
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            group = lsp_format_group,
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.buf.format({ async = false })
+            end,
+        })
+        vim.notify("Format on save enabled for current buffer", vim.log.levels.INFO)
+    end
+end
+
+vim.keymap.set('n', '<space>tf', toggle_format_on_save, { desc = "toggle format on save", noremap = true, silent = true })
+
+-- attach LSP without automatic format-on-save
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = lsp_format_group,
+    callback = function(args)
+        -- no automatic format-on-save setup here
+        -- it will be enabled per-buffer using the toggle function
+    end,
+})
+-- end toggle format on save
