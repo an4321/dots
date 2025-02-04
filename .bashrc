@@ -6,7 +6,14 @@ export HISTSIZE=5000
 export HISTFILESIZE=10000
 export HISTFILE=$HOME/.local/state/bash_history
 export HISTCONTROL=erasedups:ignoredups:ignorespace
-export PS1='\[\e[0;36m\]\u\[\e[0m\]@\[\e[0;32m\]\h\[\e[0m\]: \[\e[0;35m\]\w\[\e[0m\]  '
+
+RED='\[\e[31m\]'
+GREEN='\[\e[0;32m\]'
+CYAN='\[\e[0;36m\]'
+PINK='\[\e[0;35m\]'
+RESET='\[\e[0m\]'
+export PS1="${CYAN}\u${RESET}@${GREEN}\h${RESET}: ${PINK}\w${RESET} \
+\$(if [ \$? = 0 ]; then echo \"\"; else echo \"${RED}\"; fi)${RESET} "
 
 eval "$(zoxide init bash --cmd j)"
 printf %b '\e]4;4;#6495ed\a'
