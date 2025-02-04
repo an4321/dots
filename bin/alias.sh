@@ -38,7 +38,9 @@ alias emote="/bin/cat ~/dots/bin/assets/{emotes,nf-icons} | fzf-tmux -h +s -m | 
 
 alias rg="rg --hidden -g '!{.git,node_modules,.svelte-kit,__pycache__,vendor}' --smart-case --pretty"
 alias fd="fd --hidden --follow --color auto --exclude .git --exclude node_modules --exclude __pycache__ --exclude vendor"
-alias vim="fd -t f | fzf-tmux -h | xargs -r nvim"
+alias fvi="fd -t f | fzf-tmux -h | xargs nvim"
+alias fopen='setsid open "$(fd | fzf-tmux -h)"'
+alias fo="fopen"
 
 alias pn="pnpm"
 alias px="pnpx"

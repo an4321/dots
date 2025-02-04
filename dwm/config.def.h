@@ -78,7 +78,7 @@ static const Key keys[] = {
     { 0, XF86XK_MonBrightnessDown,   spawn,          SHCMD("~/dots/bin/brightness dec") },
     { 0, XF86XK_MonBrightnessUp,     spawn,          SHCMD("~/dots/bin/brightness inc") },
     { MODKEY|ControlMask, XK_q,      spawn,          SHCMD("systemctl poweroff") },
-    { MODKEY|ControlMask, XK_r,      spawn,          SHCMD("systemctl poweroff") },
+    { MODKEY|ControlMask, XK_r,      spawn,          SHCMD("systemctl reboot") },
 
     { MODKEY|ShiftMask,   XK_b,      togglebar,      {0} },
     { MODKEY,             XK_j,      focusstack,     {.i = +1 } },
