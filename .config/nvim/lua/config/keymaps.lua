@@ -23,6 +23,8 @@ vim.keymap.set('n', "<Space>h", "<cmd>bprevious<CR>")
 vim.keymap.set('n', "<Space><Tab>", "<cmd>enew<CR>")
 
 -- Text manipulation
+vim.keymap.set('i', '<C-BS>', '<C-w>', { noremap = true })
+vim.keymap.set('i', '<C-h>', '<C-w>', { noremap = true })
 vim.keymap.set('v', "<Space>p", "\"_dP")
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
