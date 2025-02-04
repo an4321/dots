@@ -1,10 +1,10 @@
 bin
 dwm
 dmenu
+st
 
 \.git
 \.gitignore
 ^/README.*
 ^/LICENSE.*
 ^/COPYING
-
