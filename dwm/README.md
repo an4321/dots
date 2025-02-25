@@ -14,6 +14,7 @@ sudo make clean install
 * [alwayscenter](https://dwm.suckless.org/patches/alwayscenter/dwm-alwayscenter-20200625-f04cac6.diff)
 * [removeborder](https://dwm.suckless.org/patches/removeborder/dwm-removeborder-20220626-d3f93c7.diffa)
 * [toggle_layout](file:patches/toggle_layout.c)
+* [autostarttags](https://dwm.suckless.org/patches/autostarttags)
 
 ## settings for x
 

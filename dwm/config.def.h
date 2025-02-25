@@ -8,7 +8,7 @@ static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]          = { "JetBrainsMonoNerdFont:size=16" };
 static const char col_bg[]          = "#1f2029";
 static const char col_fg[]          = "#DFE4F7";
-static const char accent[]          = "#4DAFFF";
+static const char accent[]          = "#F9E2AF";
 static const char *colors[][3]      = {
     //                   fg      bg      border
     [SchemeNorm]     = { col_fg, col_bg, col_bg },
@@ -50,7 +50,13 @@ static const Layout layouts[] = {
     { MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/env", "bash", "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+
+static const char *autostartcmd[] = {"/bin/sh", "-c", "~/dots/dwm/autostart", NULL };
+Autostarttag autostarttaglist[] = {
+	{.cmd = autostartcmd, .tags = 1 << 0 },
+	{.cmd = NULL,         .tags = 0 },
+};
 
 #include <X11/XF86keysym.h>
 static const Key keys[] = {
@@ -63,22 +69,21 @@ static const Key keys[] = {
     { MODKEY|ShiftMask,   XK_w,      spawn,          SHCMD("brave --incognito") },
     { MODKEY,             XK_t,      spawn,          SHCMD("kitty") },
     { MODKEY,             XK_f,      spawn,          SHCMD("kitty -e lf") },
-    { MODKEY,             XK_e,      spawn,          SHCMD("kitty -e nvim") },
-    { MODKEY,             XK_n,      spawn,          SHCMD("kitty -e nvim --cmd 'cd ~/notes' ~/notes/index.md") },
     { MODKEY,             XK_i,      spawn,          SHCMD("kitty -e htop") },
+    { MODKEY,             XK_e,      spawn,          SHCMD("kitty -e nvim") },
+    { MODKEY,             XK_n,      spawn,          SHCMD("~/dots/bin/notes") },
     { MODKEY,             XK_b,      spawn,          SHCMD("~/dots/bin/blue") },
     { MODKEY,             XK_r,      spawn,          SHCMD("~/dots/bin/setbg") },
     { MODKEY,             XK_v,      spawn,          SHCMD("copyq menu") },
-    { MODKEY,             XK_period, spawn,          SHCMD("cat ~/dots/bin/assets/{emotes,nf-icons} | dmenu | cut -d ' ' -f 1 | tr -d '\\n' | xsel -b") },
-    { MODKEY,             XK_s,      spawn,          SHCMD("flameshot gui") },
-    { MODKEY|ShiftMask,   XK_s,      spawn,          SHCMD("flameshot full") },
+    { MODKEY,             XK_s,      spawn,          SHCMD("SS=$(date +%F_%H-%M-%S).png && import ~/Pictures/Screenshots/${SS}") },
+    { MODKEY|ShiftMask,   XK_s,      spawn,          SHCMD("SS=$(date +%F_%H-%M-%S).png && import -window root ~/Pictures/Screenshots/${SS}") },
+    { MODKEY|ControlMask, XK_q,      spawn,          SHCMD("systemctl poweroff") },
+    { MODKEY|ControlMask, XK_r,      spawn,          SHCMD("systemctl reboot") },
     { 0, XF86XK_AudioMute,           spawn,          SHCMD("pamixer -t") },
     { 0, XF86XK_AudioLowerVolume,    spawn,          SHCMD("pamixer -d 5") },
     { 0, XF86XK_AudioRaiseVolume,    spawn,          SHCMD("pamixer -i 5") },
     { 0, XF86XK_MonBrightnessDown,   spawn,          SHCMD("~/dots/bin/brightness dec") },
     { 0, XF86XK_MonBrightnessUp,     spawn,          SHCMD("~/dots/bin/brightness inc") },
-    { MODKEY|ControlMask, XK_q,      spawn,          SHCMD("systemctl poweroff") },
-    { MODKEY|ControlMask, XK_r,      spawn,          SHCMD("systemctl reboot") },
 
     { MODKEY|ShiftMask,   XK_b,      togglebar,      {0} },
     { MODKEY,             XK_j,      focusstack,     {.i = +1 } },
