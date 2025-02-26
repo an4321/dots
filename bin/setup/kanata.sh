@@ -2,6 +2,7 @@
 
 # install kanata
 wget $(curl -s https://api.github.com/repos/jtroo/kanata/releases/latest | grep -o "https://github.com/jtroo/kanata/releases/download/.*kanata" | head -n 1)
+chmod +x kanata
 sudo mv ./kanata /bin/
 
 # setup source https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
@@ -20,7 +21,7 @@ sudo udevadm control --reload-rules && sudo udevadm trigger
 # step 5 create and enable a systemd daemon service
 mkdir -p ~/.config/systemd/user
 touch ~/.config/systemd/user/kanata.service
-cat <<EOF >> ~/.config/systemd/user/kanata.service
+/bin/cat <<EOF > ~/.config/systemd/user/kanata.service
 [Unit]
 Description=Kanata keyboard remapper
 Documentation=https://github.com/jtroo/kanata
@@ -28,7 +29,7 @@ Documentation=https://github.com/jtroo/kanata
 [Service]
 Environment=PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin
 Type=simple
-ExecStart=/bin/sh -c '/bin/kanata --cfg $${HOME}/.config/kanata/config.kbd'
+ExecStart=/bin/sh -c '/bin/kanata --cfg ${HOME}/.config/kanata/config.kbd'
 Restart=no
 
 [Install]
