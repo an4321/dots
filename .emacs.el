@@ -1,6 +1,14 @@
+;; todo use-package and treesitter: https://github.com/ntBre/.emacs/blob/master/init.el
+;; https://emacs-lsp.github.io/lsp-mode
+;; * make a emacs package that sets up the dumb parts
+
 (load-theme 'wombat t)
-(setq custom-file "~/.cache/emacs-custom.el")
+(setq custom-file "~/.emacs.d/custom.el")
+(unless (file-exists-p custom-file) (with-temp-file custom-file))
 (load custom-file)
+
+(setq backup-directory-alist `(("." . "~/.emacs.d/backups"))
+      auto-save-file-name-transforms `((".*" "~/.emacs.d/auto-save-list/" t)))
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -8,24 +16,27 @@
 (setq use-dialog-box nil)
 (setq inhibit-startup-screen t)
 (setq initial-scratch-message "")
+(setq vc-follow-symlinks t)
 (mouse-avoidance-mode 'banish)
 
 (global-display-line-numbers-mode 1)
 (setq display-line-numbers-type 'relative)
 (set-default 'truncate-lines t)
 (global-hl-line-mode 1)
+(set-fringe-mode 0)
+(electric-pair-mode 1)
 
 (recentf-mode 1)
 (save-place-mode 1)
 (savehist-mode 1)
 
+(set-frame-parameter nil 'alpha-background 90)
 (set-face-attribute 'default nil :font "JetBrainsMonoNerdFont 16")
 (add-to-list 'default-frame-alist '(font . "JetBrainsMonoNerdFont 16"))
 (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
 (set-face-attribute 'font-lock-keyword-face nil :slant 'italic)
 
 (global-set-key [escape] 'keyboard-escape-quit)
-(setq shell-file-name "/bin/bash")
 (setq delete-by-moving-to-trash t
       trash-directory "~/.local/share/Trash/files")
 
