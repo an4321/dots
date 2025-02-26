@@ -4,9 +4,9 @@ device=$(bluetoothctl devices | tac | (tofi 2>/dev/null || dmenu -i) | grep -o -
 
 if [ -n "$device" ]; then
     if bluetoothctl info | grep -q $device; then
-        bluetoothctl disconnect "$device"
+        bluetoothctl disconnect "$device" || notify-send -u critical "error disconnecting"
     else
-        bluetoothctl connect "$device"
+        bluetoothctl connect "$device" || notify-send -u critical "error connecting"
     fi
 else
     echo "No device found."

@@ -7,11 +7,11 @@ export HISTFILESIZE=10000
 export HISTFILE=$HOME/.local/state/bash_history
 export HISTCONTROL=erasedups:ignoredups:ignorespace
 
-RED='\[\e[31m\]'
-GREEN='\[\e[0;32m\]'
-CYAN='\[\e[0;36m\]'
-PINK='\[\e[0;35m\]'
-RESET='\[\e[0m\]'
+RED='\033[31m'
+GREEN='\033[32m'
+CYAN='\033[36m'
+PINK='\033[35m'
+RESET='\033[0m'
 export PS1="${CYAN}\u${RESET}@${GREEN}\h${RESET}: ${PINK}\w${RESET} \
 \$(if [ \$? = 0 ]; then echo \"\"; else echo \"${RED}\"; fi)${RESET} "
 

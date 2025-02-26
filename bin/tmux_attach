@@ -2,11 +2,11 @@
 
 sessions=$(tmux ls 2>/dev/null | grep -o '^[^:]*')
 
-if [[ -n "$sessions" ]]; then
+if [[ "$sessions" ]]; then
     fzf_opts=(-p 40%,30% +s --no-multi --print-query --prompt='Session: ')
     selected_session=$(fzf-tmux "${fzf_opts[@]}" <<< "$sessions" | tail -1)
 
-    if [[ -n "$selected_session" ]]; then
+    if [[ "$selected_session" ]]; then
         ~/dots/bin/t $selected_session
     fi
 else

@@ -4,7 +4,7 @@ run_env() {
     local command="$1"
     local extension="$2"
     local temp_file=$(mktemp "/tmp/XXXXXXXX.$extension")
-    tmux new-window -a -n "$extension" "ls $temp_file | entr -c $command $temp_file"
+    tmux new-window -a -n "$extension" "fw -c $temp_file -- $command $temp_file"
     tmux split-window -h -b -p 65 "nvim + '$temp_file'"
 }
 

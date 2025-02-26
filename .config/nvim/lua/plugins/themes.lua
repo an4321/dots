@@ -12,8 +12,6 @@ return {
             vim.api.nvim_set_hl(0, "CursorLine", { underline = false, bg = "" })
         end,
     },
-    { "ellisonleao/gruvbox.nvim" },
-    { "joshdick/onedark.vim" },
     { "folke/tokyonight.nvim" },
     { "rose-pine/neovim", name = "rose-pine" },
 }

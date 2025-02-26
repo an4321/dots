@@ -6,23 +6,24 @@ edit_encrypted_file() {
     local extension="${file##*.}"
     local temp_file="$(mktemp).$extension"
 
-    read -s -p "Enter the password: " password
+    read -s -p "password: " password
     echo
 
-    # Decrypt
+    # decrypt
     if [ -f "$file" ]; then
-        gpg --batch --passphrase "$password" --decrypt "$file" > "$temp_file" 2>/dev/null || { echo -e "\033[31mDecryption failed. Wrong password?\033[0m"; shred -uz "$temp_file"; exit 1; }
+        gpg --batch --passphrase "$password" --decrypt "$file" > "$temp_file" 2>/dev/null \
+            || { echo -e "\033[31mdecryption failed. Wrong password?\033[0m"; shred -uz "$temp_file"; exit 1; }
     fi
 
-    # Open temp in default editor
+    # open temp in default editor
     ${EDITOR:-nvim} "$temp_file"
 
     shred -uz "$file"
-    # Encrypt the temp file and save it
-    gpg --batch --symmetric --cipher-algo AES256 --passphrase "$password" --output "$file" "$temp_file"
+    # encrypt the temp file and save it
+    gpg --batch --symmetric --cipher-algo AES256 --passphrase "$password" --output "$file" "$temp_file" \
+        && echo -e "file saved"
 
     shred -uz "$temp_file"
-    echo -e "\033[32mSaved changes\033[0m"
 }
 
 if [ $# -ne 1 ]; then
