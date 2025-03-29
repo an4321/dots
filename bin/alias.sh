@@ -1,8 +1,10 @@
+
+export PATH=$PATH:"/bin:/usr/local/bin:$HOME/.bun/bin:$HOME/dots/bin:$HOME/.local/bin:$HOME/.go/bin:$HOME/.local/go/bin"
 export EDITOR=nvim
 export VISUAL=nvim
-export MANPAGER="nvim +Man!"
-
-export PATH=$PATH:"/bin:/usr/local/bin:$HOME/.bun/bin:$HOME/dots/bin:$HOME/.local/bin:$HOME/go/bin"
+export GOPATH="$HOME/.go"
+export GOROOT="$HOME/.local/go"
+export MANPAGER='nvim +Man!'
 export FZF_DEFAULT_OPTS="--bind='ctrl-space:toggle-preview,ctrl-l:backward-kill-word' --cycle --reverse --prompt ' ' --pointer ' ' --marker='* ' -m --height=20% --color=bg+:blue,hl+:-1,prompt:blue,fg+:black,gutter:-1,border:blue --no-separator --scroll-off=3"
 export _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS --height=100% --border"
 
@@ -23,12 +25,10 @@ alias cat="bat -p --theme=OneHalfDark"
 alias vi="nvim"
 alias se="sudoedit"
 alias hx="helix"
-alias em="emacsclient -c -a 'emacs'"
 
 alias df='df -h'
 alias free='free -h'
 alias fetch="fastfetch 2>/dev/null || neofetch"
-# alias fm="which yazi >/dev/null 2>&1 && yazi || lf"
 alias fm="lf"
 
 alias ywd="pwd; pwd | y"
@@ -47,3 +47,5 @@ alias px="pnpx"
 
 alias archbox="distrobox enter archbox"
 alias archrun="distrobox enter archbox --"
+alias basic_setup="i fish tmux zoxide trash-cli"
+alias remove_binary_files="find -maxdepth 1 -type f -exec file {} \; | grep -v "text" | cut -d: -f1 | xargs rm"

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eEo pipefail
+
 # List of fonts to install
 FONTS=("JetBrainsMono" "Hack")
 

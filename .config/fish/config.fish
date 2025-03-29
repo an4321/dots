@@ -6,7 +6,6 @@ zoxide init fish --cmd j | source
 
 source ~/dots/bin/alias.sh
 source ~/.config/fish/functions.fish
-source ~/.config/fish/local.fish
 
 bind q 'exit'
 bind H beginning-of-line

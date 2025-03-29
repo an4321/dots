@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+set -eEo pipefail
+
 # install kanata
 wget $(curl -s https://api.github.com/repos/jtroo/kanata/releases/latest | grep -o "https://github.com/jtroo/kanata/releases/download/.*kanata" | head -n 1)
 chmod +x kanata
@@ -7,7 +9,7 @@ sudo mv ./kanata /bin/
 
 # setup source https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
 
-# step 1 If the uinput group does not exist, create a new group
+# step 1 if the uinput group does not exist, create a new group
 sudo groupadd uinput
 
 # step 2 add your user to the input and the uinput group

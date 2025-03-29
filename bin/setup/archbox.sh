@@ -1,3 +1,6 @@
+#!/bin/sh
+
+set -eEo pipefail
 
 # sudo apt install -y podman curl
 # curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
@@ -10,6 +13,7 @@ distrobox enter --name archbox -- sudo pacman -Syu --noconfirm
 distrobox enter --name archbox -- sudo pacman -S --noconfirm zoxide tmux fzf lf fastfetch
 distrobox enter --name archbox -- sudo pacman -S --noconfirm zoxide tmux entr
 distrobox enter archbox
+
 # trash go
 # cat ~/.distroboxrc
 # xhost +si:localuser:$USER >/dev/null
