@@ -1,7 +1,3 @@
 #!/usr/bin/env fish
 
-set mime_type (file --mime-type -b "$argv[1]")
-
-if string match -q 'text/*' "$mime_type"
-    bat -p --theme=base16 --color always "$argv[1]"
-end
+file "$argv[1]" | grep -q text && cat "$argv[1]"
