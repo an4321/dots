@@ -68,15 +68,6 @@ function p -d "paste from clipboard"
     end
 end
 
-function fk
-    if test (count $argv) -eq 0
-        set last_command $(history | head -1)
-        bash -c "$last_command"
-    else
-        bash -c "$argv"
-    end
-end
-
 function cat
     if command -v bat &> /dev/null
         bat -p --theme=OneHalfDark --color always $argv

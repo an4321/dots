@@ -16,7 +16,6 @@ export PS1="${CYAN}\u${RESET}@${GREEN}\h${RESET}: ${PINK}\w${RESET} \
 \$(if [ \$? = 0 ]; then echo \"\"; else echo \"${RED}\"; fi)${RESET} "
 
 eval "$(zoxide init bash --cmd j)"
-printf %b '\e]4;4;#6495ed\a'
 
 shopt -s autocd
 shopt -s checkwinsize # Update Window

@@ -6,12 +6,13 @@ else
     if tmux has-session -t "$@" 2>/dev/null; then
         session_name="$@"
     else
-        target_dir=$(zoxide query "$@")
+        target_dir=$(zoxide query "$@" 2>/dev/null)
+
         if [[ -d "$target_dir" ]]; then
             session_name="$(basename "$target_dir" | sed 's/\./_/g')"
             tmux new -ds "$session_name" -c "$target_dir" 2>/dev/null
         else
-            echo "Error: Not a valid directory."
+            echo "error: no match found"
             exit 1
         fi
     fi

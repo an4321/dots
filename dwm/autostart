@@ -2,9 +2,8 @@
 
 while true; do
     DATE=$(date +"󰥔 %H:%M | 󰭨 %a %d %B")
-    BATTERY=$(cat /sys/class/power_supply/BAT0/capacity)
-    STATUS=" 󱐋 $BATTERY% | $DATE "
-    xsetroot -name "$STATUS"
+    BATTERY="󱐋 $(cat /sys/class/power_supply/BAT0/capacity)%"
+    xsetroot -name " $BATTERY | $DATE "
     sleep 60
 done &
 

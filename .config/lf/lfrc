@@ -32,9 +32,10 @@ map o :&{{ xdg-open "$f" }}
 map E $sudoedit $f
 # v: invert select
 # c: clear copy/cut
+map <esc> clear
 
 map a ${{
-    set result $(find . -type f -o -type d | fzf)
+    set result $(find . -type f -o -type d | fzf-tmux -p 40%,80%)
     lf -remote "send $id select '$result'"
 }}
 

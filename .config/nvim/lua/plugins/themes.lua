@@ -12,6 +12,14 @@ return {
             vim.api.nvim_set_hl(0, "CursorLine", { underline = false, bg = "" })
         end,
     },
-    { "folke/tokyonight.nvim" },
-    { "rose-pine/neovim", name = "rose-pine" },
+    {
+        "rose-pine/neovim",
+        name = "rose-pine",
+        opts = {
+            styles = {
+                transparency = true,
+            },
+        },
+    },
+    { "folke/tokyonight.nvim", },
 }
