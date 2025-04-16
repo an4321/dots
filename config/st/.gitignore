@@ -1,0 +1,15 @@
+# Object files
+*.o
+
+# Executable file
+st
+
+# Core dumps
+core
+
+# Backup files
+*~
+
+# Config files (if you want to ignore custom config files)
+config.h
+config.mk
