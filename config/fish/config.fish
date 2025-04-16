@@ -4,7 +4,7 @@ set -gx fish_cursor_insert line
 
 zoxide init fish --cmd j | source
 
-source ~/dots/config/alias.sh
+source ~/.config/alias.sh
 source ~/.config/fish/functions.fish
 
 bind q 'exit'

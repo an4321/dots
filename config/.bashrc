@@ -1,6 +1,6 @@
 #!/bin/env bash
 
-source ~/dots/bin/alias.sh
+source ~/.config/alias.sh
 
 export HISTSIZE=5000
 export HISTFILESIZE=10000
