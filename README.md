@@ -1,7 +1,7 @@
 # Dots
 
 ```sh
-sudo apt install git make stow
+sudo apt install git make
 git clone https://github.com/an4321/dots
-cd dots && stow .
+cd dots && make system
 ```
