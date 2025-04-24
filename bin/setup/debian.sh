@@ -9,7 +9,7 @@ sudo apt update
 read -p "install base tools? (y/N) " -n 1 yn
 echo
 if [[ $yn =~ ^[Yy]$ ]]; then
-    sudo apt install -y brightnessctl pamixer libnotify-bin copyq dunst feh thunar
+    sudo apt install -y brightnessctl pamixer libnotify-bin copyq dunst feh nemo
     sudo apt install -y fonts-noto-color-emoji arandr pavucontrol imagemagick
 
     sudo apt install -y curl fish zoxide tmux lf fzf htop fd-find ripgrep bat trash-cli stow # fastfetch

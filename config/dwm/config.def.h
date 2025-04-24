@@ -52,7 +52,7 @@ static const Layout layouts[] = {
 /* helper for spawning shell commands */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
-static const char *autostartcmd[] = {"/bin/sh", "-c", "~/dots/dwm/autostart", NULL };
+static const char *autostartcmd[] = {"/bin/sh", "-c", "~/.config/dwm/autostart", NULL };
 Autostarttag autostarttaglist[] = {
 	{.cmd = autostartcmd, .tags = 1 << 0 },
 	{.cmd = NULL,         .tags = 0 },
@@ -64,7 +64,7 @@ static const Key keys[] = {
     { MODKEY,             XK_a,      spawn,          SHCMD("dmenu_run") },
     { MODKEY,             XK_z,      spawn,          SHCMD("slock") },
     { MODKEY,             XK_x,      spawn,          SHCMD("xkill") },
-    { MODKEY|ShiftMask,   XK_f,      spawn,          SHCMD("thunar") },
+    { MODKEY|ShiftMask,   XK_f,      spawn,          SHCMD("nemo") },
     { MODKEY,             XK_w,      spawn,          SHCMD("brave") },
     { MODKEY|ShiftMask,   XK_w,      spawn,          SHCMD("brave --incognito") },
     { MODKEY,             XK_t,      spawn,          SHCMD("kitty") },

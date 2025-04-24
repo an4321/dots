@@ -19,7 +19,6 @@ map J :push 5j
 map K :push 5k
 map i $$SHELL
 map I :&[ -n "$TMUX" ] && tmux new-window || kitty
-map t :&{ setsid thunar }
 map <a-a> !t $PWD
 map <backtab> $yazi
 map . set hidden!

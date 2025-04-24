@@ -30,7 +30,7 @@ return {
         config = function()
             require('telescope').setup {
                 defaults = {
-                    file_ignore_patterns = { "node_modules", ".git", "_build", ".elixir_ls", ".svelte-kit", "deps" },
+                    file_ignore_patterns = { "node_modules", ".git", "_build", ".elixir_ls", ".svelte-kit", "deps", "vendor" },
                 },
             }
         end,
