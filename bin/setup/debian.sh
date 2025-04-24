@@ -9,7 +9,7 @@ sudo apt update
 read -p "install base tools? (y/N) " -n 1 yn
 echo
 if [[ $yn =~ ^[Yy]$ ]]; then
-    sudo apt install -y brightnessctl pamixer libnotify-bin copyq dunst feh nemo
+    sudo apt install -y brightnessctl pamixer libnotify-bin copyq dunst feh nemo i3lock
     sudo apt install -y fonts-noto-color-emoji arandr pavucontrol imagemagick
 
     sudo apt install -y curl fish zoxide tmux lf fzf htop fd-find ripgrep bat trash-cli stow # fastfetch
@@ -25,7 +25,6 @@ if [[ $yn =~ ^[Yy]$ ]]; then
     cd ~/config/dwm && sudo make clean install
     cd ~/config/dmenu && sudo make clean install
     cd ~/config/st && sudo make clean install
-    cd ~/config/slock && sudo make clean install
 
     sudo apt install -y libexif-dev libfontconfig1-dev libinotifytools0-dev
     cd ~/config/nsxiv && sudo make install && sudo make install-desktop install-icon

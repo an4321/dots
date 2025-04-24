@@ -1,6 +1,6 @@
 #!/bin/env bash
 
-slock 2>/dev/null || swaylock -f -c 000000 \
+i3lock -c 000000 2>/dev/null || swaylock -f -c 000000 \
 	--indicator-radius 125 \
 	--indicator-thickness 7 \
 	--line-color 00000000 \

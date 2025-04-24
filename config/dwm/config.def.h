@@ -62,7 +62,7 @@ Autostarttag autostarttaglist[] = {
 static const Key keys[] = {
     /* modifier           key        function        argument */
     { MODKEY,             XK_a,      spawn,          SHCMD("dmenu_run") },
-    { MODKEY,             XK_z,      spawn,          SHCMD("slock") },
+    { MODKEY,             XK_z,      spawn,          SHCMD("lock") },
     { MODKEY,             XK_x,      spawn,          SHCMD("xkill") },
     { MODKEY|ShiftMask,   XK_f,      spawn,          SHCMD("nemo") },
     { MODKEY,             XK_w,      spawn,          SHCMD("brave") },
