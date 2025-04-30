@@ -1,33 +1,29 @@
 #!/bin/bash
 
-edit_encrypted_file() {
-    local file="$1"
-
-    local extension="${file##*.}"
-    local temp_file="$(mktemp).$extension"
-
-    read -s -p "password: " password
-    echo
-
-    # decrypt
-    if [ -f "$file" ]; then
-        gpg --batch --passphrase "$password" --decrypt "$file" > "$temp_file" 2>/dev/null \
-            || { echo -e "\033[31mdecryption failed. Wrong password?\033[0m"; shred -uz "$temp_file"; exit 1; }
-    fi
-
-    # open temp in default editor
-    ${EDITOR:-nvim} "$temp_file"
-
-    shred -uz "$file"
-    # encrypt the temp file and save it
-    gpg --batch --symmetric --cipher-algo AES256 --passphrase "$password" --output "$file" "$temp_file" \
-        && echo -e "file saved"
-
-    shred -uz "$temp_file"
-}
-
 if [ $# -ne 1 ]; then
     exit 1
 fi
 
-edit_encrypted_file "$1"
+local file="$1"
+
+local extension="${file##*.}"
+local temp_file="$(mktemp).$extension"
+
+read -s -p "password: " password
+echo
+
+# decrypt
+if [ -f "$file" ]; then
+    gpg --batch --passphrase "$password" --decrypt "$file" > "$temp_file" 2>/dev/null \
+        || { echo -e "\033[31mdecryption failed, check password?\033[0m"; shred -uz "$temp_file"; exit 1; }
+fi
+
+# open temp in default editor
+${EDITOR:-nvim} "$temp_file"
+
+shred -uz "$file"
+# encrypt the temp file and save it
+gpg --batch --symmetric --cipher-algo AES256 --passphrase "$password" --output "$file" "$temp_file" \
+    && echo -e "file saved"
+
+shred -uz "$temp_file"
