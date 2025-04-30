@@ -1,0 +1,16 @@
+#!/bin/env bash
+
+current_brightness=$(brightnessctl info | awk '/Current brightness:/ {print $4}' | tr -d '()%')
+delta=$(echo "scale=1; $current_brightness * 0.25" | bc -l)
+if (( $(bc -l <<< "$delta < 1") )); then
+    delta=$(echo "1" | bc)
+fi
+
+if [ "$1" == "+" ]; then
+    brightnessctl set +${delta}%
+elif [ "$1" == "-" ]; then
+    if (( $(bc -l <<< "$current_brightness <= 1") )); then
+        exit
+    fi
+    brightnessctl set ${delta}%-
+fi

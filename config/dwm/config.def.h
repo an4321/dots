@@ -83,8 +83,8 @@ static const Key keys[] = {
     { 0, XF86XK_AudioMute,           spawn,          SHCMD("pamixer -t") },
     { 0, XF86XK_AudioLowerVolume,    spawn,          SHCMD("pamixer -d 5") },
     { 0, XF86XK_AudioRaiseVolume,    spawn,          SHCMD("pamixer -i 5") },
-    { 0, XF86XK_MonBrightnessDown,   spawn,          SHCMD("~/dots/bin/brightness dec") },
-    { 0, XF86XK_MonBrightnessUp,     spawn,          SHCMD("~/dots/bin/brightness inc") },
+    { 0, XF86XK_MonBrightnessDown,   spawn,          SHCMD("~/dots/bin/bright -") },
+    { 0, XF86XK_MonBrightnessUp,     spawn,          SHCMD("~/dots/bin/bright +") },
 
     { MODKEY|ShiftMask,   XK_b,      togglebar,      {0} },
     { MODKEY,             XK_j,      focusstack,     {.i = +1 } },
