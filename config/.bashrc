@@ -7,13 +7,12 @@ export HISTFILESIZE=10000
 export HISTFILE=$HOME/.local/state/bash_history
 export HISTCONTROL=erasedups:ignoredups:ignorespace
 
-RED='\033[31m'
-GREEN='\033[32m'
-CYAN='\033[36m'
-PINK='\033[35m'
-RESET='\033[0m'
-export PS1="${CYAN}\u${RESET}@${GREEN}\h${RESET}: ${PINK}\w${RESET} \
-\$(if [ \$? = 0 ]; then echo \"\"; else echo \"${RED}\"; fi)${RESET} "
+RED='\e[31m'
+GREEN='\e[32m'
+CYAN='\e[36m'
+PINK='\e[35m'
+RESET='\e[0m'
+export PS1="\[${CYAN}\]\u\[${RESET}\]@\[${GREEN}\]\h\[${RESET}\]:\[${PINK}\] \w\[${RESET}\] > "
 
 eval "$(zoxide init bash --cmd j)"
 
@@ -24,7 +23,6 @@ shopt -s histappend   # Resorect session history
 bind 'set completion-ignore-case on'
 bind 'TAB:menu-complete'
 bind '"\C-H": backward-kill-word'
-
 bind '"\eq": "exit\n"'
 bind '"\ea": "tmux_attach\n"'
 bind '"\C-k": "hist\n"'
