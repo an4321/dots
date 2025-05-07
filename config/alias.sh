@@ -1,7 +1,7 @@
 
 export PATH=$PATH:"/bin:/usr/local/bin:$HOME/.bun/bin:$HOME/dots/bin:$HOME/.local/bin:$HOME/.go/bin:$HOME/.local/go/bin"
-export EDITOR=nvim
-export VISUAL=nvim
+export EDITOR=$HOME/.local/nvim/bin/nvim
+export VISUAL=$HOME/.local/nvim/bin/nvim
 export GOPATH="$HOME/.go"
 export GOROOT="$HOME/.local/go"
 export MANPAGER='nvim +Man!'

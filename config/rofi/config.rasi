@@ -1,6 +1,6 @@
 * {
     font: "JetBrainsMonoNerdFont 16";
-    bg: #1E2127CC;
+    bg: #1E2127DD;
     fg: #FFFFFF;
     accent: #F9E2AF;
 }
@@ -49,6 +49,7 @@ listview {
     cycle: true;
     dynamic: true;
     scrollbar: false;
+    border: 0px;
     spacing: 5px;
     background-color: transparent;
 }
@@ -71,4 +72,9 @@ element selected.normal {
 element-text {
     background-color: transparent;
     text-color: inherit;
+}
+
+// error-message
+textbox {
+    text-color: @fg;
 }

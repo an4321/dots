@@ -67,14 +67,3 @@ function p -d "paste from clipboard"
         xsel --clipboard --output
     end
 end
-
-function cat
-    if command -v bat &> /dev/null
-        bat -p --theme=OneHalfDark --color always $argv
-    else if command -v batcat &> /dev/null
-        batcat -p --theme=OneHalfDark --color always $argv
-    else
-        command cat $argv
-    end
-end
-
