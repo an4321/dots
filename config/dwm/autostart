@@ -1,18 +1,17 @@
 #!/bin/env sh
 
 while true; do
-    DATE=$(date +"󰥔 %H:%M | 󰭨 %a %d %B")
+    DATE=$(date +"󰥔 %H:%M | 󰭨 %a %-d %B")
     BATTERY="󱐋 $(cat /sys/class/power_supply/BAT0/capacity)%"
     xsetroot -name " $BATTERY | $DATE "
     sleep 60
 done &
 
-xrandr --output eDP-1 --primary --output DP-1 --off
 $HOME/dots/bin/setbg -r
 
 copyq & 
 dunst &
 blueman-applet & 
-syncthing serve &
+picom &
 
 $HOME/dots/bin/notes

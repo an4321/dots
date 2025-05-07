@@ -61,7 +61,7 @@ Autostarttag autostarttaglist[] = {
 #include <X11/XF86keysym.h>
 static const Key keys[] = {
     /* modifier           key        function        argument */
-    { MODKEY,             XK_a,      spawn,          SHCMD("rofi -show run") },
+    { MODKEY,             XK_a,      spawn,          SHCMD("rofi -show run -matching regex") },
     { MODKEY,             XK_z,      spawn,          SHCMD("~/dots/bin/lock") },
     { MODKEY,             XK_x,      spawn,          SHCMD("xkill") },
     { MODKEY|ShiftMask,   XK_f,      spawn,          SHCMD("nemo") },
