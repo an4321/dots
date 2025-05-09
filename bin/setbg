@@ -5,16 +5,16 @@ random=false
 
 # Parse options
 while getopts "fctr" opt; do
-  case $opt in
-    f) mode="fit" ;;
-    c) mode="center" ;;
-    t) mode="tile" ;;
-    r) random=true ;;
-    \?)
-      echo "Usage: $0 [-f fit] [-c center] [-t tile] [Image File] OR [-r random]"
-      exit 1
-      ;;
-  esac
+    case $opt in
+        f) mode="fit" ;;
+        c) mode="center" ;;
+        t) mode="tile" ;;
+        r) random=true ;;
+        \?)
+            echo "Usage: $0 [-f fit] [-c center] [-t tile] [Image File] OR [-r random]"
+            exit 1
+            ;;
+    esac
 done
 
 # Remove the parsed options from the positional parameters
