@@ -43,11 +43,6 @@ if ask "Build DWM"; then
     cd ~/config/dwm && sudo make clean install
 fi
 
-if ask "Build NSXIV"; then
-    install libexif-dev libfontconfig1-dev libinotifytools0-dev
-    cd ~/config/nsxiv && sudo make install && sudo make install-desktop install-icon
-fi
-
 if ask "Install pipewire"; then
     install pipewire pipewire-audio-client-libraries
     install libpipewire-0.3-0 libpipewire-0.3-dev libpipewire-0.3-modules
