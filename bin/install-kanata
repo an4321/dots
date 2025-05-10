@@ -1,13 +1,12 @@
 #!/bin/env bash
 
+# setup source https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
 set -eEo pipefail
 
 # install kanata
 wget $(curl -s https://api.github.com/repos/jtroo/kanata/releases/latest | grep -o "https://github.com/jtroo/kanata/releases/download/.*kanata" | head -n 1)
 chmod +x kanata
 sudo mv ./kanata /bin/
-
-# setup source https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
 
 # step 1 if the uinput group does not exist, create a new group
 sudo groupadd uinput
@@ -44,5 +43,4 @@ systemctl --user start kanata.service
 # check whether the service is running
 # systemctl --user status kanata.service
 
-(read -p "reboot now (y/N) " yn && [[ $yn =~ ^[Yy]$ ]] && systemctl reboot)
-
+read -p "reboot now (y/N) " yn && [[ $yn =~ ^[Yy]$ ]] && systemctl reboot
