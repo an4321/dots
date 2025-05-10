@@ -29,25 +29,15 @@ else
     wall=$(nsxiv -otf ~/Pictures/Wallpapers)
 fi
 
-# Check if $wall is empty
-if [ -z "$wall" ]; then
-    random_wallpaper=$(ls ~/Pictures/Wallpapers/*.{jpg,png} | shuf -n 1)
-    wall="$random_wallpaper"
-fi
+[ -z "$wall" ] && wall=$(ls ~/Pictures/Wallpapers/*.{jpg,png} | shuf -n 1)
 
-if [ ! -f "$wall" ]; then
-    echo "Error: File '$wall' not found or not a valid file."
-    exit 1
-fi
+[ ! -f "$wall" ] && echo "Error: '$wall' not found" && exit 1
 
 # Set the wallpaper
 if [ -n "$WAYLAND_DISPLAY" ]; then
     killall swaybg
     nohup swaybg --mode "$mode" --image "$wall" > /tmp/output.log 2> /tmp/error.log &
 else
-    if [[ "$mode" == "fit" ]]; then
-        mode="max"
-    fi
+    [[ "$mode" == "fit" ]] && mode="max"
     feh --bg-$mode "$wall"
 fi
-

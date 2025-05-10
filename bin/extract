@@ -1,41 +1,28 @@
 #!/bin/env sh
 
-if [ $# -eq 0 ]; then
-    echo "Usage: extract TARGET [DESTINATION_DIR]"
-    exit 1
-fi
+[ $# -eq 0 ] && echo "Usage: extract TARGET [DESTINATION_DIR]" && exit 1
 
 TARGET="$1"
 DESTINATION_DIR="$2"
 
-if [ -z "$DESTINATION_DIR" ]; then
-    DESTINATION_DIR="$PWD"
-fi
-
-if [ ! -d "$DESTINATION_DIR" ]; then
-    echo "Error: Destination directory '$DESTINATION_DIR' does not exist."
-    exit 1
-fi
-
-if [ ! -f "$TARGET" ]; then
-    echo "Error: '$TARGET' is not a valid file."
-    exit 1
-fi
+[ -z "$DESTINATION_DIR" ] && DESTINATION_DIR="$PWD"
+[ ! -d "$DESTINATION_DIR" ] && echo "Error: '$DESTINATION_DIR' does not exist." && exit 1
+[ ! -f "$TARGET" ] && echo "Error: '$TARGET' is not a valid file." && exit 1
 
 case "$TARGET" in
     *.tar.bz2)    tar xjf "$TARGET" -C "$DESTINATION_DIR" ;;
     *.tar.gz)     tar xzf "$TARGET" -C "$DESTINATION_DIR" ;;
-    *.bz2)        bunzip2 "$TARGET" && mv "${TARGET%.*}" "$DESTINATION_DIR" ;; # Move after extraction
+    *.bz2)        bunzip2 "$TARGET" && mv "${TARGET%.*}" "$DESTINATION_DIR" ;;
     *.rar)        unrar x "$TARGET" "$DESTINATION_DIR" ;;
-    *.gz)         gunzip "$TARGET" && mv "${TARGET%.*}" "$DESTINATION_DIR" ;; # Move after extraction
+    *.gz)         gunzip "$TARGET" && mv "${TARGET%.*}" "$DESTINATION_DIR" ;;
     *.tar)        tar xf "$TARGET" -C "$DESTINATION_DIR" ;;
     *.tbz2)       tar xjf "$TARGET" -C "$DESTINATION_DIR" ;;
     *.tgz)        tar xzf "$TARGET" -C "$DESTINATION_DIR" ;;
     *.zip)        unzip "$TARGET" -d "$DESTINATION_DIR" ;;
-    *.Z)          uncompress "$TARGET" && mv "${TARGET%.*}" "$DESTINATION_DIR" ;; # Move after extraction
-    *.7z)         7za e -o"$DESTINATION_DIR" "$TARGET" ;; # Changed to extract to directory
-    *.deb)        ar x "$TARGET" && mv * "$DESTINATION_DIR" ;; # Extract and move all extracted files. Be careful with this!
-    *.tar.xz)    tar xf "$TARGET" -C "$DESTINATION_DIR" ;;
-    *.tar.zst)   unzstd "$TARGET" && mv "${TARGET%.*}" "$DESTINATION_DIR" ;; # Move after extraction
-    *)           echo "'$TARGET' cannot be extracted" ;;
+    *.Z)          uncompress "$TARGET" && mv "${TARGET%.*}" "$DESTINATION_DIR" ;;
+    *.7z)         7za e -o"$DESTINATION_DIR" "$TARGET" ;;
+    *.deb)        ar x "$TARGET" && mv * "$DESTINATION_DIR" ;;
+    *.tar.xz)     tar xf "$TARGET" -C "$DESTINATION_DIR" ;;
+    *.tar.zst)    unzstd "$TARGET" && mv "${TARGET%.*}" "$DESTINATION_DIR" ;;
+    *)            echo "'$TARGET' cannot be extracted" ;;
 esac

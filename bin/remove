@@ -22,21 +22,11 @@ remove_debian() {
     fi
 }
 
-# Check the Linux distribution
-if [ -f /etc/os-release ]; then
-    . /etc/os-release
-    case "$ID" in
-        arch)
-            remove_arch "$@"
-            ;;
-        debian|ubuntu|linuxmint|raspbian)
-            remove_debian "$@"
-            ;;
-        *)
-            echo "Unsupported distribution: $ID"
-            ;;
-    esac
-else
-    echo "/etc/os-release not found. Unable to determine the distribution."
-fi
+[ ! -f /etc/os-release ] && echo "unable to determine the distro" && exit
+. /etc/os-release
 
+case "$ID" in
+    arch) remove_arch "$@" ;;
+    debian|ubuntu|linuxmint|raspbian) remove_debian "$@" ;;
+    *) echo "unsupported distribution: $ID" ;;
+esac

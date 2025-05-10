@@ -1,25 +1,22 @@
 #!/bin/env bash
 
-if [[ "$1" == "" ]]; then
-    exec "$0" "$PWD"
+[[ "$1" == "" ]] && exec "$0" "$PWD" && exit
+
+if tmux has-session -t "$@" 2>/dev/null; then
+    session_name="$@"
 else
-    if tmux has-session -t "$@" 2>/dev/null; then
-        session_name="$@"
-    else
-        target_dir=$(zoxide query "$@" 2>/dev/null)
+    target_dir=$(zoxide query "$@" 2>/dev/null)
 
-        if [[ -d "$target_dir" ]]; then
-            session_name="$(basename "$target_dir" | sed 's/\./_/g')"
-            tmux new -ds "$session_name" -c "$target_dir" 2>/dev/null
-        else
-            echo "error: no match found"
-            exit 1
-        fi
-    fi
-
-    if [[ "$TMUX" == "" ]]; then
-        tmux -u attach -t "$session_name"
+    if [[ -d "$target_dir" ]]; then
+        session_name="$(basename "$target_dir" | sed 's/\./_/g')"
+        tmux new -ds "$session_name" -c "$target_dir" 2>/dev/null
     else
-        tmux -u switch-client -t "$session_name"
+        echo "error: no match found" && exit 1
     fi
+fi
+
+if [[ "$TMUX" == "" ]]; then
+    tmux -u attach -t "$session_name"
+else
+    tmux -u switch-client -t "$session_name"
 fi
