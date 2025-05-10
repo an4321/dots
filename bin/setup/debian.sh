@@ -3,12 +3,11 @@
 set -eEo pipefail
 
 all=false
-case "$1" in
-    "all") all=true ;;
-    *) exit ;;
-esac
+[ "$1" = "all" ] && all=true
 
 ask() {
+    [ "$all" = "true" ] && return 0
+        
     local yn
     read -p "$1? [Y/n] " yn && echo
     case "$yn" in
