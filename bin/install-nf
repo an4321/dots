@@ -7,27 +7,21 @@ REPO_URL="https://github.com/ryanoasis/nerd-fonts.git"
 FONT_DIR="$HOME/.local/share/fonts"
 mkdir -p "$FONT_DIR"
 
-install_font() {
-    local font_name=$1
-    echo -e "\n\e[1;32mInstalling $font_name...\e[0m"
-    
+for font in "${FONTS[@]}"; do
+    echo -e "\n\e[1;32mInstalling $font ...\e[0m"
+
     # clone the specific font from the repository
     git clone --filter=blob:none --sparse $REPO_URL
     cd nerd-fonts
-    git sparse-checkout add patched-fonts/$font_name
+    git sparse-checkout add patched-fonts/$font
     
     # find and copy all .ttf files
-    find patched-fonts/$font_name -name "*.ttf" -exec cp {} $FONT_DIR \;
+    find patched-fonts/$font -name "*.ttf" -exec cp {} $FONT_DIR \;
     
     cd .. && rm -rf nerd-fonts
-    echo -e "\n\e[1;32m$font_name installed successfully.\e[0m\n"
-}
-
-for font in "${FONTS[@]}"; do
-    install_font "$font"
+    echo -e "\n\e[1;32m$font installed successfully.\e[0m\n"
 done
 
 # update font cache
 fc-cache -f -v
 echo -e "\n\e[1;32mAll specified Nerd Fonts have been installed.\e[0m\n"
-

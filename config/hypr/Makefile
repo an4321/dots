@@ -1,6 +1,5 @@
 install:
-	sudo pacman -S hyprland
-	sudo pacman -S gcc make stow tmux fish zoxide fzf htop neovim
+	sudo pacman -S hyprland gcc make stow tmux fish zoxide fzf htop neovim
 	sudo pacman -S waybar swaync pamixer network-manager-applet blueman swaybg cliphist wlsunset swaylock nsxiv alacritty wezterm
 
 audio:
@@ -18,12 +17,11 @@ yay:
 	yay --noconfirm -S tofi grimblast hyprpicker-bin
 
 fonts:
-	bash ~/dots/bin/install_nf
+	bash ~/dots/bin/install-nf
 	git clone https://github.com/githubnext/monaspace
 	cd monaspace && bash util/install_linux.sh && cd .. && rm monaspace
 
 tlp:
-	sudo pacman -S tlp
-	sudo tlp start
+	sudo pacman -S tlp && sudo tlp start
 
 all: audio install shell yay fonts tlp

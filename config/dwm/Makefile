@@ -45,8 +45,9 @@ arch:
 	sudo make clean install; make clean
 
 debian:
-	sudo apt install -y gcc libx11-dev libxft-dev libxinerama-dev xorg psmisc
-	sudo apt install -y xsel brightnessctl pamixer pavucontrol arandr feh copyq
+	sudo apt install -y gcc xorg libx11-dev libxft-dev libxinerama-dev psmisc libxrandr-dev
+	sudo apt install -y xsel brightnessctl pamixer pavucontrol arandr feh copyq dunst i3lock rofi nemo
+	sudo apt install -y imagemagick libnotify-bin fonts-noto-color-emoji
 	sudo make clean install; make clean
 
 .PHONY: all clean dist install uninstall

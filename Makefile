@@ -7,4 +7,4 @@ unlay:
 	find ~ -maxdepth 1 -type l -exec unlink {} \;
 
 system: lay
-	bash ~/dots/bin/setup/debian.sh all
+	~/dots/bin/setup-debian all

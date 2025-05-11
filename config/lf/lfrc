@@ -19,6 +19,7 @@ map J :push 5j
 map K :push 5k
 map i $fish
 map I :&[[ -n "$TMUX" ]] && tmux new-window || kitty
+map t :&[[ -n "$TMUX" ]] && tmux new-window -a -n fm 'fm'|| kitty -e lf
 map . set hidden!
 map x :cut
 map ; :push &
