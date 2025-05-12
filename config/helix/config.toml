@@ -4,7 +4,7 @@ theme = "base16_transparent"
 line-number = "relative"
 mouse = true
 true-color = true
-cursorline = true
+cursorline = false
 color-modes = true
 bufferline = "multiple"
 
@@ -31,4 +31,6 @@ w = ":write"
 h = ":buffer-previous"
 l = ":buffer-next"
 x = ":buffer-close"
+s = ":vsplit"
+S = ":hsplit"
 

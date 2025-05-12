@@ -24,7 +24,6 @@ alias lir="nsxiv -ota . | xargs -d \n rm"
 alias cat="bat -p --theme=OneHalfDark"
 alias vi="nvim"
 alias se="sudoedit"
-alias hx="helix"
 
 alias df='df -h'
 alias free='free -h'
