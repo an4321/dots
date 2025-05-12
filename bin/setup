@@ -1,0 +1,94 @@
+#!/bin/env bash
+# setup script:
+# base dwm audio bluetooth tlp brave kitty nvim golang nsxiv
+
+set -eEo pipefail
+
+ask() {
+    local yn
+    echo && read -p "$1? [Y/n] " yn 
+    case "$yn" in
+        [yY] | "") return 0 ;;
+        *) return 1 ;;
+    esac
+}
+alias i="sudo apt install -y"
+create_script() { echo -e "$2" > "$1" && chmod +x "$1"; }
+
+mkdir -p ~/.local/bin
+
+for i in "$@"; do
+    case "$i" in
+        "base")
+            sudo apt update
+            i curl fish zoxide tmux lf fzf htop fd-find ripgrep bat trash-cli stow # fastfetch
+            ask "fish" && chsh -s "$(which fish)"
+            ln -sf $(which batcat) ~/.local/bin/bat
+            ln -sf $(which fdfind) ~/.local/bin/fd
+            ;;
+        "dwm") 
+            i copyq dunst feh nemo i3lock rofi arandr
+            i brightnessctl pamixer pavucontrol imagemagick libnotify-bin fonts-noto-color-emoji
+            i libx11-dev libxft-dev libxinerama-dev xorg psmisc libxrandr-dev 
+            create_script ~/.local/bin/emoji-menu '#!/bin/env bash\nenv cat ~/.config/tofi/{emotes,nf-icons} | rofi -dmenu -matching regex | cut -d " " -f 1 | tr -d "\\n" | xsel --clipboard'
+            create_script ~/.local/bin/notes '#!/bin/env sh\nkitty -e nvim --cmd "cd ~/notes" ~/notes/index.md'
+            cd ~/config/dwm && sudo make clean install && make clean
+            ;;
+        "audio") 
+            i pipewire pipewire-audio-client-libraries
+            i libpipewire-0.3-0 libpipewire-0.3-dev libpipewire-0.3-modules
+            i libspa-0.2-bluetooth libspa-0.2-dev libspa-0.2-jack libspa-0.2-modules
+            systemctl --user daemon-reload
+            systemctl --user --now enable pipewire pipewire-pulse
+            ;;
+        "bluetooth") 
+            i bluez bluetooth blueman && sudo systemctl enable bluetooth
+            ;;
+        "tlp")
+            i tlp && sudo tlp start
+            ;;
+        "brave") 
+            curl -fsS https://dl.brave.com/install.sh | sh
+            create_script ~/.local/bin/brave '#!/bin/env sh\nbrave-browser --force-device-scale-factor=1.2 $@'
+            ;;
+        "kitty") 
+            curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+            ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin
+            ln -s ~/.local/kitty.app/bin/kitten ~/.local/bin
+            ;;
+        "nvim") 
+            curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+            tar xzvf nvim-linux-x86_64.tar.gz
+            mv ./nvim-linux-x86_64 ~/.local/nvim
+            ln -s ~/.local/nvim/bin/nvim ~/.local/bin
+            ;;
+        "golang") 
+            LATEST_GO_VERSION=$(curl -s https://go.dev/VERSION?m=text | head -n 1)
+            wget https://go.dev/dl/${LATEST_GO_VERSION}.linux-amd64.tar.gz
+            sudo rm -rf $HOME/.local/go
+            sudo tar -C $HOME/.local/go -xzf ${LATEST_GO_VERSION}.linux-amd64.tar.gz
+            ;;
+        "nsxiv")
+            sudo apt install -y libexif-dev libfontconfig1-dev libinotifytools0-dev
+            git clone --depth 1 https://codeberg.org/nsxiv/nsxiv.git
+            cd nsxiv
+            cp config.def.h config.h
+
+            sed -i '
+            s/{ 32, 64, 96, 128, 160 }/{ 64, 96, 128, 160, 190, 240, 300 }/
+            s/THUMB_SIZE = 3/THUMB_SIZE = 4/
+            s/{ "Nsxiv.window.background",   "white"/{ "Nsxiv.window.background",   "black"/
+            s/{ "Nsxiv.window.foreground",   "black"/{ "Nsxiv.window.foreground",   "white"/
+            s/"monospace-8"/"monospace-16"/' config.h
+
+            sudo make install && sudo make install-desktop install-icon
+
+            cd ..
+            rm -rf nsxiv
+            echo "installed successfully"
+            ;;
+        *) 
+            echo "not a valid argument '$i'"
+            ;;
+    esac
+done
