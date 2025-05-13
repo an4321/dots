@@ -1,3 +1,0 @@
-#!/bin/env sh
-
-setsid kitty -e nvim --cmd 'cd ~/notes' ~/notes/index.md

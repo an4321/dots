@@ -71,7 +71,7 @@ static const Key keys[] = {
     { MODKEY,             XK_f,      spawn,          SHCMD("kitty -e lf") },
     { MODKEY,             XK_i,      spawn,          SHCMD("kitty -e htop") },
     { MODKEY,             XK_e,      spawn,          SHCMD("kitty -e nvim") },
-    { MODKEY,             XK_n,      spawn,          SHCMD("~/dots/bin/notes") },
+    { MODKEY,             XK_n,      spawn,          SHCMD("notes") },
     { MODKEY,             XK_b,      spawn,          SHCMD("~/dots/bin/blue") },
     { MODKEY,             XK_r,      spawn,          SHCMD("~/dots/bin/setbg") },
     { MODKEY,             XK_period, spawn,          SHCMD("emoji-menu") },

@@ -1,4 +1,0 @@
-#!/bin/env bash
-
-pgrep emacs >/dev/null || emacs --daemon >/dev/null
-emacsclient -c $@

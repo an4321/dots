@@ -6,7 +6,9 @@
 case "$ID" in
     arch)
         if [ "$#" -eq 0 ]; then
-            pacman -Ssq | fzf-tmux -m -e --preview 'pacman -Si {}' --preview-window=right:55% | xargs -r sudo pacman -S --noconfirm
+            pacman -Ssq \
+                | fzf-tmux -m -e --preview 'pacman -Si {}' --preview-window=right:55% \
+                | xargs -r sudo pacman -S --noconfirm
             exit 0
         fi
         sudo pacman -S $@ || yay -S $@

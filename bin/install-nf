@@ -24,4 +24,4 @@ done
 
 # update font cache
 fc-cache -f -v
-echo -e "\n\e[1;32mAll specified Nerd Fonts have been installed.\e[0m\n"
+echo -e "\n\e[1;32mDone\e[0m\n"

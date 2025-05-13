@@ -4,7 +4,8 @@
 set -eEo pipefail
 
 # install kanata
-wget $(curl -s https://api.github.com/repos/jtroo/kanata/releases/latest | grep -o "https://github.com/jtroo/kanata/releases/download/.*kanata" | head -n 1)
+wget $(curl -s https://api.github.com/repos/jtroo/kanata/releases/latest \
+    | grep -o "https://github.com/jtroo/kanata/releases/download/.*kanata" | head -n 1)
 chmod +x kanata
 sudo mv ./kanata /bin/
 
@@ -16,7 +17,8 @@ sudo usermod -aG input $USER
 sudo usermod -aG uinput $USER
 
 # step 3 uinput device permissions
-echo 'KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"' | sudo tee /etc/udev/rules.d/99-input.rules
+echo 'KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"' \
+    | sudo tee /etc/udev/rules.d/99-input.rules
 sudo udevadm control --reload-rules && sudo udevadm trigger
 
 # step 5 create and enable a systemd daemon service

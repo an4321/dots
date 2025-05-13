@@ -17,10 +17,10 @@ config.window_background_opacity = 0.9
 -- config.default_prog = {"bash",}
 
 config.keys = {
-    { key = 'Return', mods = 'ALT',     action = wezterm.action.SpawnWindow },
-    { key = 'f',      mods = 'ALT|CTRL', action = wezterm.action.SpawnCommandInNewWindow { args = { 'lf' }, }, },
+    { key = 'Return', mods = 'ALT',       action = wezterm.action.SpawnWindow },
+    { key = 'f',      mods = 'ALT|CTRL',  action = wezterm.action.SpawnCommandInNewWindow { args = { 'lf' }, }, },
     { key = 'f',      mods = 'ALT|SHIFT', action = wezterm.action.SpawnCommandInNewWindow { args = { 'lf' }, }, },
-    { key = 'e',      mods = 'ALT|CTRL', action = wezterm.action.SpawnCommandInNewWindow { args = { 'nvim', '.' }, }, },
+    { key = 'e',      mods = 'ALT|CTRL',  action = wezterm.action.SpawnCommandInNewWindow { args = { 'nvim', '.' }, }, },
     { key = 'e',      mods = 'ALT|SHIFT', action = wezterm.action.SpawnCommandInNewWindow { args = { 'nvim', '.' }, }, },
 }
 
