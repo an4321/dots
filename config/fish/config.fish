@@ -13,8 +13,7 @@ bind L end-of-line
 
 bind -M insert \eq 'exit'
 bind -M insert \ef 'fm; commandline -f repaint'
-bind -M insert \ea 'tmux-attach; commandline -f repaint'
-bind -M insert \eA 't $PWD; commandline -f repaint'
+bind -M insert \ea 't menu; commandline -f repaint'
 bind -M insert \ck 'commandline -i $(history | fzf-tmux -h -e +s); commandline -f repaint'
 bind -M insert \cH backward-kill-word
 

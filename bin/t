@@ -1,18 +1,26 @@
 #!/bin/env bash
 
-[[ "$1" == "" ]] && exec "$0" "$PWD" && exit
+case "$1" in
+    ""|".") 
+        [[ $PWD == $HOME ]] && tmux -u new -s "Main" && exit
+        exec $0 $PWD && exit
+        ;;
+    "menu") 
+        selected_session=$(tmux ls -F '#S' 2>/dev/null \
+            | fzf-tmux +m -p 40%,30% +s --print-query --prompt='session: ' | tail -1)
+        [[ ! "$selected_session" ]] && exit
+        $0 $selected_session && exit
+        ;;
+esac
 
 if tmux has-session -t "$@" 2>/dev/null; then
     session_name="$@"
 else
     target_dir=$(zoxide query "$@" 2>/dev/null)
+    [[ ! -d "$target_dir" ]] && echo "error: no match found" && exit 1
 
-    if [[ -d "$target_dir" ]]; then
-        session_name="$(basename "$target_dir" | sed 's/\./_/g')"
-        tmux new -ds "$session_name" -c "$target_dir" 2>/dev/null
-    else
-        echo "error: no match found" && exit 1
-    fi
+    session_name="$(basename "$target_dir" | sed 's/\./_/g')"
+    tmux new -ds "$session_name" -c "$target_dir" 2>/dev/null
 fi
 
 if [[ "$TMUX" == "" ]]; then

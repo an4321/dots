@@ -1,8 +1,0 @@
-#!/bin/env bash
-
-sessions=$(tmux ls 2>/dev/null | grep -o '^[^:]*')
-
-fzf_opts=(-p 40%,30% +s --no-multi --print-query --prompt='Session: ')
-selected_session=$(fzf-tmux "${fzf_opts[@]}" <<< "$sessions" | tail -1)
-
-[[ "$selected_session" ]] && ~/dots/bin/t $selected_session
