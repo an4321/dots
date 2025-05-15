@@ -5,7 +5,7 @@ export VISUAL=$HOME/.local/nvim/bin/nvim
 export GOPATH="$HOME/.go"
 export GOROOT="$HOME/.local/go"
 export MANPAGER='nvim +Man!'
-export FZF_DEFAULT_OPTS="--bind='ctrl-space:toggle-preview,ctrl-l:backward-kill-word' --cycle --reverse --prompt ' ' --pointer ' ' --marker='* ' -m --height=20% --color=bg+:blue,hl+:-1,prompt:blue,fg+:black,gutter:-1,border:blue --no-separator --scroll-off=3"
+export FZF_DEFAULT_OPTS="--bind='ctrl-space:toggle-preview,ctrl-h:backward-kill-word' --cycle --reverse --prompt ' ' --pointer ' ' --marker='* ' -m --height=20% --color=bg+:blue,hl+:-1,prompt:blue,fg+:black,gutter:-1,border:blue --no-separator --scroll-off=3"
 export _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS --height=100% --border"
 
 alias ..="cd .."
@@ -24,10 +24,11 @@ alias lir="nsxiv -ota . | xargs -d \n rm"
 alias cat="bat -p --theme=OneHalfDark"
 alias vi="nvim"
 alias se="sudoedit"
+alias em="pgrep emacs >/dev/null || emacs --daemon >/dev/null; emacsclient -c"
 
 alias df='df -h'
 alias free='free -h'
-alias fetch="fastfetch 2>/dev/null || neofetch"
+alias fetch="fastfetch"
 alias fm="lf"
 
 alias ywd="pwd; pwd | y"
