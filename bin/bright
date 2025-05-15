@@ -1,11 +1,11 @@
 #!/bin/env bash
 
-current_brightness=$(brightnessctl info | awk '/Current brightness:/ {print $4}' | tr -d '()%')
-delta=$(echo "scale=1; $current_brightness * 0.25" | bc -l)
+current_brightness=$(brightnessctl info | grep -oP '\(\d+%\)' | tr -d '()%')
 
-(( $(bc -l <<< "$delta < 1") )) && delta=$(echo "1" | bc)
+delta=$(( (current_brightness * 25) / 100 ))
+[[ $current_brightness -lt 5 ]] && delta=1
 
 case "$1" in
     "+") brightnessctl set +${delta}% ;;
-    "-") (( $(bc -l <<< "$current_brightness <= 1") )) || brightnessctl set ${delta}%- ;;
+    "-") [[ $current_brightness -gt 1 ]] && brightnessctl set ${delta}%- ;;
 esac
