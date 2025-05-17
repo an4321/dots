@@ -30,9 +30,15 @@ for i in "$@"; do
             i copyq dunst feh nemo i3lock rofi arandr
             i brightnessctl pamixer pavucontrol imagemagick libnotify-bin fonts-noto-color-emoji
             i libx11-dev libxft-dev libxinerama-dev xorg psmisc libxrandr-dev 
-            create_script ~/.local/bin/emoji-menu '#!/bin/env bash\nenv cat ~/.config/tofi/{emotes,nf-icons} | rofi -dmenu -matching regex | cut -d " " -f 1 | tr -d "\\n" | xsel --clipboard'
-            create_script ~/.local/bin/notes '#!/bin/env sh\nkitty -e nvim --cmd "cd ~/notes" ~/notes/index.md'
             cd ~/config/dwm && sudo make clean install && make clean
+
+            chmod +x ~/.xinitrc
+            echo -e "[Desktop Entry]\nEncoding=UTF-8\nName=Dwm\nExec=$HOME/.xinitrc\nIcon=dwm\nType=XSession" \
+                | sudo tee /usr/share/xsessions/dwm.desktop
+
+            create_script ~/.local/bin/notes '#!/bin/env sh\nkitty -e nvim --cmd "cd ~/notes" ~/notes/index.md'
+            create_script ~/.local/bin/emoji-menu '#!/bin/env bash
+            env cat ~/.config/rofi/{emotes,nf-icons} | rofi -dmenu -matching regex | cut -d " " -f 1 | xsel --clipboard'
             ;;
         "audio") 
             i pipewire pipewire-audio-client-libraries
