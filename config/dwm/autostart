@@ -9,9 +9,7 @@ done &
 
 $HOME/dots/bin/setbg -r
 
-copyq & 
+picom &
+copyq &
 dunst &
 blueman-applet & 
-picom &
-
-$HOME/dots/bin/notes
