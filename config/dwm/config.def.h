@@ -50,7 +50,7 @@ static const Layout layouts[] = {
     { MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/env", "bash", "-c", cmd, NULL } }
 
 static const char *autostartcmd[] = {"/bin/sh", "-c", "~/.config/dwm/autostart", NULL };
 Autostarttag autostarttaglist[] = {
@@ -71,10 +71,10 @@ static const Key keys[] = {
     { MODKEY,             XK_f,      spawn,          SHCMD("kitty -e lf") },
     { MODKEY,             XK_i,      spawn,          SHCMD("kitty -e htop") },
     { MODKEY,             XK_e,      spawn,          SHCMD("kitty -e nvim") },
-    { MODKEY,             XK_n,      spawn,          SHCMD("notes") },
+    { MODKEY,             XK_n,      spawn,          SHCMD("kitty -e nvim --cmd 'cd ~/notes' ~/notes/index.md") },
     { MODKEY,             XK_b,      spawn,          SHCMD("~/dots/bin/blue") },
     { MODKEY,             XK_r,      spawn,          SHCMD("~/dots/bin/setbg") },
-    { MODKEY,             XK_period, spawn,          SHCMD("emoji-menu") },
+    { MODKEY,             XK_period, spawn,          SHCMD("cat ~/.config/rofi/{emotes,nf-icons} | rofi -i -dmenu -matching regex | cut -d " " -f 1 | xsel --clipboard") },
     { MODKEY,             XK_v,      spawn,          SHCMD("copyq menu") },
     { MODKEY,             XK_c,      spawn,          SHCMD("mate-color-select") },
     { MODKEY,             XK_s,      spawn,          SHCMD("SS=$(date +%F_%H-%M-%S).png && import ~/Pictures/Screenshots/${SS}") },
