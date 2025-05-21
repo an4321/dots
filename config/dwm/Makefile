@@ -40,14 +40,17 @@ uninstall:
 		${DESTDIR}${MANPREFIX}/man1/dwm.1
 
 arch:
-	sudo pacman -S xorg xorg-xinit base-devel libx11 libxft libxinerama
-	sudo pacman -S xsel brightnessctl pamixer pavucontrol arandr feh copyq kitty
-	sudo make clean install; make clean
+	sudo pacman -S \
+		xorg xorg-xinit base-devel libx11 libxft libxinerama xsel \
+		brightnessctl pamixer pavucontrol imagemagick libnotify noto-fonts-emoji \
+		copyq dunst feh nemo i3lock rofi arandr picom kitty
+	sudo make clean install && make clean
 
 debian:
-	sudo apt install -y gcc xorg libx11-dev libxft-dev libxinerama-dev psmisc libxrandr-dev
-	sudo apt install -y xsel brightnessctl pamixer pavucontrol arandr feh copyq dunst i3lock rofi nemo
-	sudo apt install -y imagemagick libnotify-bin fonts-noto-color-emoji
-	sudo make clean install; make clean
+	sudo apt install -y \
+		libx11-dev libxft-dev libxinerama-dev xorg xsel psmisc libxrandr-dev \
+		brightnessctl pamixer pavucontrol imagemagick libnotify-bin fonts-noto-color-emoji \
+		copyq dunst feh nemo i3lock rofi arandr picom
+	sudo make clean install && make clean
 
 .PHONY: all clean dist install uninstall
