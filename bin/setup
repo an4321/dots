@@ -27,10 +27,10 @@ for i in "$@"; do
             command -v "apt" &>/dev/null && make debian
             command -v "pacman" &>/dev/null && make arch
 
-            ask "install nerd-fonts" && ~/dots/bin/install-nf "hack" "jetbrainsmono"
+            ask "install nerd-fonts" && ~/dots/bin/install-nf "Hack" "JetBrainsMono"
 
             chmod +x ~/.xinitrc
-            echo -e "[desktop entry]\nencoding=utf-8\nname=dwm\nexec=$home/.xinitrc\nicon=dwm\ntype=xsession" \
+            echo -e "[Desktop Entry]\nEncoding=utf-8\nName=dwm\nExec=$HOME/.xinitrc\nIcon=dwm\nType=xsession" \
                 | sudo tee /usr/share/xsessions/dwm.desktop
             ;;
         "audio") 
@@ -65,8 +65,8 @@ for i in "$@"; do
         "golang") 
             LATEST_GO_VERSION=$(curl -s https://go.dev/VERSION?m=text | head -n 1)
             wget https://go.dev/dl/${LATEST_GO_VERSION}.linux-amd64.tar.gz
-            sudo rm -rf $HOME/.local/go
-            sudo tar -C $HOME/.local/go -xzf ${LATEST_GO_VERSION}.linux-amd64.tar.gz
+            [[ -d $HOME/.local/go ]] && sudo rm -rf $HOME/.local/go
+            sudo tar -C $HOME/.local -xzf ${LATEST_GO_VERSION}.linux-amd64.tar.gz
             ;;
         "nsxiv")
             sudo apt install -y libexif-dev libfontconfig1-dev libinotifytools0-dev
