@@ -16,6 +16,7 @@ esac
 if tmux has-session -t "$@" 2>/dev/null; then
     session_name="$@"
 else
+    [[ -d "$@" ]] && zoxide add "$@"
     target_dir=$(zoxide query "$@" 2>/dev/null)
     [[ ! -d "$target_dir" ]] && echo "error: no match found" && exit 1
 
