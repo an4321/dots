@@ -65,8 +65,10 @@ cmd on-redraw &{{
         lf -remote "send $id set nopreview"
         lf -remote "send $id set ratios 1"
     elif [ "$lf_width" -le 100 ]; then
+        lf -remote "send $id set nopreview"
         lf -remote "send $id set ratios 1:2"
     else
+        lf -remote "send $id set nopreview"
         lf -remote "send $id set ratios 1:2:3"
     fi
 }}
