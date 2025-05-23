@@ -3,52 +3,39 @@ set -eEo pipefail
 
 [ $# -eq 0 ] && echo "options: dwm audio bluetooth tlp brave kitty nvim golang nsxiv" && exit
 
-ask() {
-    local yn
-    echo && read -p "$1? [Y/n] " yn 
-    case "$yn" in
-        [yY] | "") return 0 ;;
-        *) return 1 ;;
-    esac
-}
-
-create_script() { 
-    echo -e "$2" > "$1" && chmod +x "$1";
-}
-
-alias i="sudo apt install -y"
-
 mkdir -p ~/.local/bin
 
-for i in "$@"; do
-    case "$i" in
+for option in "$@"; do
+    case "$option" in
         "dwm") 
             cd ~/.config/dwm
             command -v "apt" &>/dev/null && make debian
             command -v "pacman" &>/dev/null && make arch
 
-            ask "install nerd-fonts" && ~/dots/bin/install-nf "Hack" "JetBrainsMono"
+            read -p "install nerd-fonts? [y/N] " yn && [[ $yn =~ ^[Yy]$ ]] && ~/dots/bin/install-nf "Hack" "JetBrainsMono"
 
             chmod +x ~/.xinitrc
             echo -e "[Desktop Entry]\nEncoding=utf-8\nName=dwm\nExec=$HOME/.xinitrc\nIcon=dwm\nType=xsession" \
                 | sudo tee /usr/share/xsessions/dwm.desktop
             ;;
         "audio") 
-            i pipewire pipewire-audio-client-libraries
-            i libpipewire-0.3-0 libpipewire-0.3-dev libpipewire-0.3-modules
-            i libspa-0.2-bluetooth libspa-0.2-dev libspa-0.2-jack libspa-0.2-modules
+            sudo apt install -y \
+                pipewire pipewire-audio-client-libraries \
+                libpipewire-0.3-0 libpipewire-0.3-dev libpipewire-0.3-modules \
+                libspa-0.2-bluetooth libspa-0.2-dev libspa-0.2-jack libspa-0.2-modules
             systemctl --user daemon-reload
             systemctl --user --now enable pipewire pipewire-pulse
             ;;
         "bluetooth") 
-            i bluez bluetooth blueman && sudo systemctl enable bluetooth
+            sudo apt install -y bluez bluetooth blueman && sudo systemctl enable bluetooth
             ;;
         "tlp")
-            i tlp && sudo tlp start
+            sudo apt install -y tlp && sudo tlp start
             ;;
         "brave") 
             curl -fsS https://dl.brave.com/install.sh | sh
-            create_script ~/.local/bin/brave '#!/bin/env sh\nbrave-browser --force-device-scale-factor=1.2 $@'
+            echo -e '#!/bin/env sh\nbrave-browser --force-device-scale-factor=1.2 $@' \
+                > ~/.local/bin/brave && chmod +x ~/.local/bin/brave
             ;;
         "kitty") 
             curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
@@ -82,13 +69,11 @@ for i in "$@"; do
             s/"monospace-8"/"monospace-16"/' config.h
 
             sudo make install && sudo make install-desktop install-icon
-
-            cd ..
-            rm -rf nsxiv
-            echo "installed successfully"
+            cd .. && rm -rf nsxiv
+            echo "installed nsxiv successfully"
             ;;
         *) 
-            echo "not a valid argument '$i'"
+            echo "not a valid argument '$option'"
             ;;
     esac
 done
