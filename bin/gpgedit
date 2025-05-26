@@ -1,25 +1,28 @@
 #!/bin/bash
 
+if [[ $1 == "create" ]]; then
+    read -s -p "password: " password && echo
+    gpg --batch --symmetric --cipher-algo AES256 --passphrase "$password" --output "$2" <(echo)
+    exit
+fi
+
 [ $# -ne 1 ] && exit 1
 
 file="$1"
-extension="${file##*.}"
-temp_file="$(mktemp).$extension"
+temp_file="$(mktemp).$file"
 [ ! -f "$file" ] && echo "Error: '$file' is not a valid file." && exit 1
 
-read -s -p "password: " password
+read -s -p "password: " password &&
 echo
+if ! gpg --batch --passphrase "$password" --decrypt "$file" > "$temp_file" 2>/dev/null ; then 
+    echo "decryption failed, check password?"
+    shred -uz "$temp_file"
+    exit 1
+fi
 
-# decrypt
-gpg --batch --passphrase "$password" --decrypt "$file" > "$temp_file" 2>/dev/null \
-    || { echo -e "\033[31mdecryption failed, check password?\033[0m"; shred -uz "$temp_file"; exit 1; }
-
-# open temp in default editor
 ${EDITOR:-nvim} "$temp_file"
 shred -uz "$file"
 
-# encrypt the temp file and save it
-gpg --batch --symmetric --cipher-algo AES256 --passphrase "$password" --output "$file" "$temp_file" \
-    && echo -e "file saved"
-
+gpg --batch --symmetric --cipher-algo AES256 --passphrase "$password" --output "$file" "$temp_file"
+echo -e "file saved"
 shred -uz "$temp_file"
