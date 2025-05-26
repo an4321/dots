@@ -1,8 +1,7 @@
-#!/bin/env bash 
+#!/bin/env bash
 
-# Default settings
 format="bestaudio"
-options=("--cache-secs=15 " "--speed=1 " "--video=auto ")
+options="--cache-secs=20 --speed=1 --video=auto --quiet "
 
 usage() {
     echo "Usage: $0 [-n] [-s] [-l|-m|-h] [URL/Search]"
@@ -15,7 +14,6 @@ usage() {
     exit 1
 }
 
-# Parse command line options
 while getopts "snwlmh" opt; do
     case $opt in
         s) options+="--shuffle " ;;
@@ -30,23 +28,14 @@ done
 
 shift $((OPTIND-1))
 
-# Handle input: URL, search query, or prompt for search
-if [ $# -eq 0 ]; then
-    read -p $'\e[1;32mSearch: \e[0m' search
-elif [[ $1 == http* ]]; then
-    mpv --ytdl-format="$format" $options "$@" 2>/dev/null
-    exit 0
-else
-    search="$*"
-fi
+# handle: url
+[[ $1 == http* ]] && mpv --ytdl-format="$format" $options "$@" 2>/dev/null && exit 0
 
-# Search and play
-if [ -n "$search" ]; then
-    yt_id=$(yt-dlp --get-id "ytsearch:$search" 2>/dev/null)
-    if [ -n "$yt_id" ]; then
-        mpv "https://youtu.be/$yt_id" --ytdl-format="$format" --watch-later-dir=/dev/null $options 2>/dev/null
-    else
-        echo "No results found for: $search"
-        exit 1
-    fi
-fi
+# handle: search
+search=${*:-$(read -p "search: " search && echo "$search")}
+[ -z "$search" ] && exit 1
+
+yt_id=$(yt-dlp --get-id "ytsearch:$search" 2>/dev/null)
+[ -z "$yt_id" ] && echo "no results found for: $search" && exit 1
+
+mpv "https://youtu.be/$yt_id" --ytdl-format="$format" --watch-later-dir=/dev/null $options 2>/dev/null

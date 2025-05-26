@@ -21,7 +21,6 @@ case "$ID" in
         sudo apt install -y "$@"
         ;;
     *)
-        echo "unsupported distribution: $ID"
-        exit 1
+        echo "unsupported distribution: $ID" && exit 1
         ;;
 esac

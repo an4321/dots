@@ -74,7 +74,7 @@ static const Key keys[] = {
     { MODKEY,             XK_n,      spawn,          SHCMD("kitty -e nvim --cmd 'cd ~/notes' ~/notes/index.md") },
     { MODKEY,             XK_b,      spawn,          SHCMD("~/dots/bin/blue") },
     { MODKEY,             XK_r,      spawn,          SHCMD("~/dots/bin/setbg") },
-    { MODKEY,             XK_period, spawn,          SHCMD("cat ~/.config/rofi/{emotes,nf-icons} | rofi -i -dmenu -matching regex | cut -d " " -f 1 | xsel --clipboard") },
+    { MODKEY,             XK_period, spawn,          SHCMD("cat ~/.config/rofi/{emotes,nf-icons} | rofi -i -dmenu -matching regex | cut -d ' ' -f 1 | tr -d '\n' |  xsel --clipboard") },
     { MODKEY,             XK_v,      spawn,          SHCMD("copyq menu") },
     { MODKEY,             XK_c,      spawn,          SHCMD("mate-color-select") },
     { MODKEY,             XK_s,      spawn,          SHCMD("SS=$(date +%F_%H-%M-%S).png && import ~/Pictures/Screenshots/${SS}") },

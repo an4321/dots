@@ -20,7 +20,7 @@ wall_dir=${1:-"$HOME/Pictures/Wallpapers"}
 # some logical gymnastics
 [ -d "$wall_dir" ] && [[ "$random" == false ]] && wall=$(nsxiv -otf $wall_dir)
 [ -f "$wall_dir" ] && wall=$wall_dir
-[ -z "$wall" ] && wall=$(ls $wall_dir/*.{jpg,png} | shuf -n 1)
+[ -z "$wall" ] && wall=$(ls $wall_dir/*.{png,jpg,jpeg,webp} | shuf -n 1)
 [ ! -f "$wall" ] && echo "Error: wallpaper not found" && exit 1
 
 # set wallpaper
