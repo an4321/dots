@@ -1,4 +1,4 @@
-install:
+hyprland:
 	sudo pacman -S hyprland gcc make stow tmux fish zoxide fzf htop neovim
 	sudo pacman -S waybar swaync pamixer network-manager-applet blueman swaybg cliphist wlsunset swaylock nsxiv kitty wezterm
 	sudo pacman -S trash-cli npm hyprpicker brightnessctl bc nemo tar
@@ -7,8 +7,8 @@ audio:
 	sudo pacman -S pipewire pipewire-alsa wireplumber
 	systemctl --user enable --now wireplumber.service
 
-shell:
-	chsh -s $(which fish)
+tlp:
+	sudo pacman -S tlp && sudo tlp start
 
 yay:
 	sudo pacman -S --needed git base-devel 
@@ -17,10 +17,4 @@ yay:
 
 	yay --noconfirm -S tofi grimblast
 
-fonts:
-	bash ~/dots/bin/install-nf "JetBrainsMono" "Hack"
-
-tlp:
-	sudo pacman -S tlp && sudo tlp start
-
-all: audio install shell yay fonts tlp
+all: hyprland audio tlp yay
