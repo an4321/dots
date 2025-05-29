@@ -1,5 +1,5 @@
 
-export PATH=$PATH:"/bin:/usr/local/bin:$HOME/.bun/bin:$HOME/dots/bin:$HOME/.local/bin:$HOME/.go/bin:$HOME/.local/go/bin"
+export PATH=$PATH:"/bin:/usr/local/bin:$HOME/.bun/bin:$HOME/dots/bin:$HOME/.local/bin:$HOME/.go/bin:$HOME/.local/go/bin:$HOME/.local/node/bin"
 export EDITOR=$HOME/.local/nvim/bin/nvim
 export VISUAL=$HOME/.local/nvim/bin/nvim
 export GOPATH="$HOME/.go"
@@ -52,8 +52,8 @@ alias remove_binary_files="find -maxdepth 1 -type f -exec file {} \; | grep -v "
 
 alias ga="git add"
 alias gs="git status --short"
-alias gc="git commit"
 alias gb="git branch"
+alias gc="git clone"
 alias g1="git clone --depth 1"
 alias gk="git checkout"
 alias gp="git push origin"
