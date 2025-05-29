@@ -1,5 +1,5 @@
 set guioptions none
-set font "Hack 17"
+set font "JetBrainsMonoNerdFont 17"
 set page-padding 4
 set adjust-open "best-fit"
 set selection-clipboard clipboard

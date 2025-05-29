@@ -2,7 +2,7 @@
 
 set -eEo pipefail
 
-FONTS=("$@")
+FONTS=("${@:-JetBrainsMono}")
 REPO_URL="https://github.com/ryanoasis/nerd-fonts.git"
 FONT_DIR="$HOME/.local/share/fonts"
 mkdir -p "$FONT_DIR"
