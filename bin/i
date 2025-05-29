@@ -1,26 +1,19 @@
 #!/bin/env bash
 
-[ ! -f /etc/os-release ] && echo "unable to determine the distro" && exit 1
-. /etc/os-release
+menu() {
+    fzf-tmux -m -e --preview-window=right:55% --preview "$@" | xargs -r
+}
 
-case "$ID" in
-    arch)
-        if [ "$#" -eq 0 ]; then
-            pacman -Ssq \
-                | fzf-tmux -m -e --preview 'pacman -Si {}' --preview-window=right:55% \
-                | xargs -r sudo pacman -S --noconfirm
-            exit 0
-        fi
-        sudo pacman -S $@ || yay -S $@
-        ;;
-    debian|ubuntu|linuxmint|raspbian)
-        if [ "$#" -eq 0 ]; then
-            apt-cache pkgnames | fzf-tmux -h -m -e | xargs -r sudo apt install -y
-            exit 0
-        fi
-        sudo apt install -y "$@"
-        ;;
-    *)
-        echo "unsupported distribution: $ID" && exit 1
-        ;;
-esac
+if command -v apt &> /dev/null; then
+    [[ "$1" == "update" ]] && sudo apt update -y && exit
+    [[ "$#" != 0 ]] && sudo apt install $@ && exit
+    sudo apt install $(apt-cache pkgnames | menu "apt-cache show {}" || exit)
+
+elif command -v pacman &> /dev/null; then
+    [[ "$1" == "update" ]] && sudo pacman -Syu --noconfirm && exit
+    [[ "$#" != 0 ]] && sudo pacman -S $@ && exit
+    sudo pacman -S $(pacman -Ssq | menu "pacman -Si {}")
+
+else
+    echo "unsupported distribution: package manager not found" && exit 1
+fi

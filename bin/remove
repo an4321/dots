@@ -1,32 +1,27 @@
 #!/bin/env bash
 
-remove_arch() {
-    if [ "$#" -eq 0 ]; then
-        yay -Qq | fzf-tmux -h -m -e | xargs -r yay -R --noconfirm
-    elif [ "$1" == "all" ]; then
-        shift
-        sudo pacman -Rns "$@"
-    else
-        sudo pacman -R "$@"
-    fi
+menu() {
+    fzf-tmux -m -e --preview-window=right:55% --preview "$@" | xargs -r
 }
 
-remove_debian() {
+if command -v apt &> /dev/null; then
     if [ "$#" -eq 0 ]; then
-        apt list --installed | cut -d/ -f1 | fzf-tmux -h -m -e | xargs -r sudo apt remove -y
+        sudo apt remove $(apt list --installed | cut -d/ -f1 | menu 'apt-cache show {}')
     elif [ "$1" == "all" ]; then
         shift
-        sudo apt autoremove --purge -y "$@"
+        sudo apt autoremove --purge $@
     else
-        sudo apt remove -y "$@"
+        sudo apt remove $@
     fi
-}
-
-[ ! -f /etc/os-release ] && echo "unable to determine the distro" && exit
-. /etc/os-release
-
-case "$ID" in
-    arch) remove_arch "$@" ;;
-    debian|ubuntu|linuxmint|raspbian) remove_debian "$@" ;;
-    *) echo "unsupported distribution: $ID" ;;
-esac
+elif command -v pacman &> /dev/null; then
+    if [ "$#" -eq 0 ]; then
+        sudo pacman -R $(pacman -Qq | menu 'pacman -Qi {}')
+    elif [ "$1" == "all" ]; then
+        shift
+        sudo pacman -Rns $@
+    else
+        sudo pacman -R $@
+    fi
+else
+    echo "unsupported distribution: package manager not found" && exit 1
+fi
