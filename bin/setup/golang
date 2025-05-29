@@ -1,0 +1,8 @@
+#!/bin/env bash
+set -eEo pipefail
+
+LATEST_GO_VERSION=$(curl -s https://go.dev/VERSION?m=text | head -n 1)
+wget https://go.dev/dl/${LATEST_GO_VERSION}.linux-amd64.tar.gz
+
+[[ -d $HOME/.local/go ]] && sudo rm -rf $HOME/.local/go
+sudo tar -C $HOME/.local -xzf ${LATEST_GO_VERSION}.linux-amd64.tar.gz

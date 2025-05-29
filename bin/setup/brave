@@ -1,0 +1,6 @@
+#!/bin/env bash
+set -eEo pipefail
+
+curl -fsS https://dl.brave.com/install.sh | sh
+echo -e '#!/bin/env sh\nbrave-browser --force-device-scale-factor=1.2 $@' \
+    > ~/.local/bin/brave && chmod +x ~/.local/bin/brave

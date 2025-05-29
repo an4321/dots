@@ -1,7 +1,7 @@
 #!/bin/env bash
+set -eEo pipefail
 
 # setup source https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
-set -eEo pipefail
 
 # install kanata
 wget $(curl -s https://api.github.com/repos/jtroo/kanata/releases/latest \
