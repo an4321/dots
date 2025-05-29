@@ -4,4 +4,5 @@ export DISPLAY=:0
 export XDG_SESSION_TYPE="x11"
 export PATH=$PATH:"$HOME/dots/bin"
 
+xrandr --output eDP-1 --primary --output DP-1 --off
 exec dwm

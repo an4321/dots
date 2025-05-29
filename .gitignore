@@ -1,6 +1,0 @@
-config/fish/*/
-config/fish/fish_variables
-config/fish/config.fish.save
-config/nvim/spell
-config/nvim/lazy-lock.json
-config/mpv/watch_later
