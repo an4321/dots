@@ -24,7 +24,6 @@ alias lir="nsxiv -ota . | xargs -d \n rm"
 alias cat="bat -p --theme=OneHalfDark"
 alias vi="nvim"
 alias se="sudoedit"
-alias em="pgrep emacs >/dev/null || emacs --daemon >/dev/null; emacsclient -c"
 
 alias df='df -h'
 alias free='free -h'
@@ -33,8 +32,6 @@ alias fm="lf"
 
 alias ywd="pwd; pwd | y"
 alias yy="history --max=1 | tr -d '\n' | y"
-alias update="bash -c 'if command -v apt &> /dev/null; then sudo apt update && sudo apt upgrade -y; elif command -v pacman &> /dev/null; then sudo pacman -Syu --noconfirm; fi'"
-alias emote="env cat ~/.config/tofi/{emotes,nf-icons} | fzf-tmux -h +s -m | cut -d ' ' -f 1 | tr -d '\n' | y"
 
 alias rg="rg --hidden -g '!{.git,node_modules,.svelte-kit,__pycache__,vendor}' --smart-case --pretty"
 alias fd="fd --hidden --follow --color auto --exclude .git --exclude node_modules --exclude __pycache__ --exclude vendor"
@@ -44,11 +41,6 @@ alias fo="fopen"
 
 alias pn="pnpm"
 alias px="pnpx"
-
-alias archbox="distrobox enter archbox"
-alias archrun="distrobox enter archbox --"
-alias basic_setup="i fish tmux zoxide trash-cli"
-alias remove_binary_files="find -maxdepth 1 -type f -exec file {} \; | grep -v "text" | cut -d: -f1 | xargs rm"
 
 alias ga="git add"
 alias gs="git status --short"
@@ -60,3 +52,7 @@ alias gp="git push origin"
 alias gr="git pull --rebase origin"
 alias gl='git log --graph --all --pretty=format:"%C(magenta)%h %C(white) %an  %ar%C(blue)  %D%n%s%n"'
 alias lines="git ls-files | xargs cat | wc -l"
+
+alias emote="env cat ~/.config/tofi/{emotes,nf-icons} | fzf-tmux -h +s -m | cut -d ' ' -f 1 | tr -d '\n' | y"
+alias remove_binary_files="find -maxdepth 1 -type f -exec file {} \; | grep -v "text" | cut -d: -f1 | xargs rm"
+alias add_all_sub_dirs_to_zoxide="fd --type d | xargs -I {} zoxide add {}"
