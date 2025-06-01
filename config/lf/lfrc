@@ -34,7 +34,7 @@ map <a-a> !t "$PWD"
 # c: clear copy/cut
 
 cmd locate ${{
-    result=$(find . -type f -o -type d | fzf-tmux -p 40%,80%)
+    result=$(fd --exclude .git --exclude node_modules --exclude __pycache__ --exclude vendor . | fzf-tmux -p 40%,80%)
     lf -remote "send $id select '$result'"
 }}
 map <c-f> locate
@@ -61,14 +61,9 @@ map d trash
 map D !trash-restore
 
 cmd on-redraw &{{
-    if [ "$lf_width" -le 50 ]; then
-        lf -remote "send $id set nopreview"
-        lf -remote "send $id set ratios 1"
-    elif [ "$lf_width" -le 100 ]; then
-        lf -remote "send $id set preview"
+    if [ "$lf_width" -le 100 ]; then
         lf -remote "send $id set ratios 1:2"
     else
-        lf -remote "send $id set preview"
         lf -remote "send $id set ratios 1:2:3"
     fi
 }}

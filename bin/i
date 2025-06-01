@@ -1,18 +1,20 @@
 #!/bin/env bash
 
 menu() {
-    fzf-tmux -m -e --preview-window=right:55% --preview "$@" | xargs -r
+    fzf-tmux -m -e --preview-window=right:55% --preview "$@"
 }
 
 if command -v apt &> /dev/null; then
     [[ "$1" == "update" ]] && sudo apt update -y && exit
     [[ "$#" != 0 ]] && sudo apt install $@ && exit
-    sudo apt install $(apt-cache pkgnames | menu "apt-cache show {}" || exit)
+    sel=$(apt-cache pkgnames | menu "apt-cache show {}")
+    [ -n "$sel" ] && sudo apt install $sel
 
 elif command -v pacman &> /dev/null; then
     [[ "$1" == "update" ]] && sudo pacman -Syu --noconfirm && exit
     [[ "$#" != 0 ]] && sudo pacman -S $@ && exit
-    sudo pacman -S $(pacman -Ssq | menu "pacman -Si {}")
+    sel=$(pacman -Ssq | menu "pacman -Si {}")
+    [ -n "$sel" ] && sudo pacman -S $sel
 
 else
     echo "unsupported distribution: package manager not found" && exit 1

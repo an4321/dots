@@ -1,12 +1,13 @@
 #!/bin/env bash
 
 menu() {
-    fzf-tmux -m -e --preview-window=right:55% --preview "$@" | xargs -r
+    fzf-tmux -m -e --preview-window=right:55% --preview "$@"
 }
 
 if command -v apt &> /dev/null; then
     if [ "$#" -eq 0 ]; then
-        sudo apt remove $(apt list --installed | cut -d/ -f1 | menu 'apt-cache show {}')
+        sel=$(apt list --installed | cut -d/ -f1 | menu 'apt-cache show {}')
+        [ -n "$sel" ] && sudo apt remove $sel
     elif [ "$1" == "all" ]; then
         shift
         sudo apt autoremove --purge $@
@@ -15,7 +16,8 @@ if command -v apt &> /dev/null; then
     fi
 elif command -v pacman &> /dev/null; then
     if [ "$#" -eq 0 ]; then
-        sudo pacman -R $(pacman -Qq | menu 'pacman -Qi {}')
+        sel=$(pacman -Qq | menu 'pacman -Qi {}')
+        [ -n "$sel" ] && sudo pacman -R $sel
     elif [ "$1" == "all" ]; then
         shift
         sudo pacman -Rns $@
