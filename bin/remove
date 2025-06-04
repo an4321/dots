@@ -5,25 +5,26 @@ menu() {
 }
 
 if command -v apt &> /dev/null; then
-    if [ "$#" -eq 0 ]; then
+    if [[ "$#" == 0 ]]; then
         sel=$(apt list --installed | cut -d/ -f1 | menu 'apt-cache show {}')
         [ -n "$sel" ] && sudo apt remove $sel
-    elif [ "$1" == "all" ]; then
+    elif [[ "$1" == "all" ]]; then
         shift
         sudo apt autoremove --purge $@
     else
         sudo apt remove $@
     fi
 elif command -v pacman &> /dev/null; then
-    if [ "$#" -eq 0 ]; then
+    if [[ "$#" == 0 ]]; then
         sel=$(pacman -Qq | menu 'pacman -Qi {}')
         [ -n "$sel" ] && sudo pacman -R $sel
-    elif [ "$1" == "all" ]; then
+    elif [[ "$1" == "all" ]]; then
         shift
         sudo pacman -Rns $@
     else
         sudo pacman -R $@
     fi
 else
-    echo "unsupported distribution: package manager not found" && exit 1
+    echo "unsupported distribution: package manager not found"
+    exit 1
 fi

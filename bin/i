@@ -5,17 +5,24 @@ menu() {
 }
 
 if command -v apt &> /dev/null; then
-    [[ "$1" == "update" ]] && sudo apt update -y && exit
-    [[ "$#" != 0 ]] && sudo apt install $@ && exit
-    sel=$(apt-cache pkgnames | menu "apt-cache show {}")
-    [ -n "$sel" ] && sudo apt install $sel
-
+    if [[ "$1" == "update" ]]; then
+        sudo apt update -y
+    elif [[ "$#" != 0 ]]; then
+        sudo apt install $@
+    else
+        sel=$(apt-cache pkgnames | menu "apt-cache show {}")
+        [ -n "$sel" ] && sudo apt install $sel
+    fi
 elif command -v pacman &> /dev/null; then
-    [[ "$1" == "update" ]] && sudo pacman -Syu --noconfirm && exit
-    [[ "$#" != 0 ]] && sudo pacman -S $@ && exit
-    sel=$(pacman -Ssq | menu "pacman -Si {}")
-    [ -n "$sel" ] && sudo pacman -S $sel
-
+    if [[ "$1" == "update" ]]; then
+        sudo pacman -Syu --noconfirm
+    elif [[ "$#" != 0 ]]; then
+        sudo pacman -S $@
+    else
+        sel=$(pacman -Ssq | menu "pacman -Si {}")
+        [ -n "$sel" ] && sudo pacman -S $sel
+    fi
 else
-    echo "unsupported distribution: package manager not found" && exit 1
+    echo "unsupported distribution: package manager not found"
+    exit 1
 fi

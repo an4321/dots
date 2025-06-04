@@ -7,7 +7,7 @@
 
 configuration {
     show-icons: false;
-    kb-cancel: "Control+c,Escape";
+    // kb-cancel: "Control+c,Escape";
 }
 
 window {

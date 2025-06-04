@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-file "$1" | grep -q text && bat --color always -p --theme=OneHalfDark "$1"
+file "$1" | grep -q text && bat --color always -p --theme=OneHalfDark --tabs 2 "$1"

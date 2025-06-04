@@ -9,7 +9,7 @@ fi
 [ $# -ne 1 ] && exit 1
 
 file="$1"
-temp_file="$(mktemp).$file"
+temp_file="$(mktemp).$(basename $file)"
 [ ! -f "$file" ] && echo "Error: '$file' is not a valid file." && exit 1
 
 read -s -p "password: " password &&

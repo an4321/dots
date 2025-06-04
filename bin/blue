@@ -6,8 +6,7 @@ device=$(bluetoothctl devices | tac | (tofi 2>/dev/null || rofi -dmenu) \
 [ -z "$device" ] && echo "No device found." && exit 1
 
 if bluetoothctl info | grep -q $device; then
-    bluetoothctl disconnect "$device" || notify-send -u critical "error disconnecting"
+    bluetoothctl disconnect "$device" || notify-send "error disconnecting"
 else
-    bluetoothctl connect "$device" || notify-send -u critical "error connecting"
+    bluetoothctl connect "$device" || notify-send "error connecting"
 fi
-
