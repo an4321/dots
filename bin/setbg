@@ -1,6 +1,14 @@
 #!/bin/env bash
 
-wall="" mode="fill" random=false
+wall=""
+mode=""
+random=false
+
+help() {
+    echo -e "Usage: $0
+    [-f fit] [-c center] [-t tile] [-z zoom fill] [image]
+    [-r random] [-h help]"
+}
 
 # parse options
 while getopts "fctrh" opt; do
@@ -8,8 +16,10 @@ while getopts "fctrh" opt; do
         f) mode="fit" ;;
         c) mode="center" ;;
         t) mode="tile" ;;
+        z) mode="fill" ;;
         r) random=true ;;
-        h|\?) echo -e "Usage: $0 \n\t[-f fit] [-c center] [-t tile] [image] \n\t[-r random] [-h help]" && exit 1 ;;
+        h) help && exit 0 ;; 
+        \?) help && exit 1 ;;
     esac
 done
 
@@ -20,8 +30,14 @@ wall_dir=${1:-"$HOME/Pictures/Wallpapers"}
 # some logical gymnastics
 [ -d "$wall_dir" ] && [[ "$random" == false ]] && wall=$(nsxiv -otf $wall_dir)
 [ -f "$wall_dir" ] && wall=$wall_dir
-[ -z "$wall" ] && wall=$(ls $wall_dir/*.{png,jpg,jpeg,webp} | shuf -n 1)
+[ -z "$wall" ] && wall=$(ls $wall_dir/*.{png,jpg,jpeg,webp} 2>/dev/null | shuf -n 1)
 [ ! -f "$wall" ] && echo "Error: wallpaper not found" && exit 1
+
+# set mode for landscape or portrait
+if [ -z "$mode" ]; then
+    mode="fill"
+    [[ $(identify -format "%[fx:w/h]" "$wall") < 1 ]] && mode="fit" 
+fi
 
 # set wallpaper
 if [ -n "$WAYLAND_DISPLAY" ]; then
