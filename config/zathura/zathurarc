@@ -20,44 +20,43 @@ set window-title-home-tilde  true
 set window-title-basename    true
 
 # zathurarc-catppuccin
-set notification-error-bg      "#F28FAD" # red
-set notification-error-fg      "#1f2029" # base03
-set notification-warning-bg    "#FAE3B0" # yellow
-set notification-warning-fg    "#1f2029" # base03
-set notification-bg            "#EBDDAA" # base2
-set notification-fg            "#1f2029" # base03
+set notification-error-bg "#F28FAD"
+set notification-error-fg "#1f2029"
+set notification-warning-bg "#FAE3B0"
+set notification-warning-fg "#1f2029"
+set notification-bg "#EBDDAA"
+set notification-fg "#1f2029"
 
-set completion-group-bg        "#1f2029" # base03
-set completion-group-fg        "#EBDDAA" # base2
-set completion-bg              "#1f2029" # base03
-set completion-fg              "#ffffff" # base3
-set completion-highlight-bg    "#46405A" # base01
-set completion-highlight-fg    "#ffffff" # base3
+set completion-group-bg "#1f2029"
+set completion-group-fg "#EBDDAA"
+set completion-bg "#1f2029"
+set completion-fg "#ffffff"
+set completion-highlight-bg "#46405A"
+set completion-highlight-fg "#ffffff"
 
 # Define the color in index mode
-set index-bg                   "#1f2029" # base03
-set index-fg                   "#ffffff" # base3
-set index-active-bg            "#46405A" # base01
-set index-active-fg            "#EBDDAA" # base2
+set index-bg rgba(31,32,41,0.8)
+set index-fg "#ffffff"
+set index-active-bg "#46405A"
+set index-active-fg "#EBDDAA"
 
-set inputbar-bg                "#46405A" # base01
-set inputbar-fg                "#EBDDAA" # base2
+set inputbar-bg "#46405A"
+set inputbar-fg "#EBDDAA"
 
-set statusbar-bg               "#1f2029" # base03
-set statusbar-fg               "#ffffff" # base3
+set statusbar-bg rgba(31,32,41,0.8)
+set statusbar-fg "#ffffff"
 
-set highlight-color            "#46405A" # base01 # hightlight match when search keyword(vim's /)
-set highlight-active-color     "#F28FAD" # red
+set highlight-color "#46405A"
+set highlight-active-color "#F28FAD"
 
-set default-bg                 "#1f2029" # base03
-set default-fg                 "#ffffff" # base3
-set render-loading             true
-set render-loading-fg          "#1f2029" # base03
-set render-loading-bg          "#1f2029" # base03
+set default-bg rgba(31,32,41,0.8)
+set default-fg "#ffffff"
+set render-loading true
+set render-loading-fg "#1f2029"
+set render-loading-bg rgba(31,32,41,0.8)
 
 # Recolor book content's color
-set recolor                    true
-set recolor-lightcolor         "#1f2029" # base03
-set recolor-darkcolor          "#ffffff" # base3
-set recolor-keephue            true     # keep original color
-
+set recolor true
+set recolor-lightcolor rgba(31,32,41,0.8)
+set recolor-darkcolor "#ffffff"
+set recolor-keephue true
