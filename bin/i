@@ -6,7 +6,7 @@ menu() {
 
 if command -v apt &> /dev/null; then
     if [[ "$1" == "update" ]]; then
-        sudo apt update -y
+        sudo apt update -y && sudo apt upgrade -y
     elif [[ "$#" != 0 ]]; then
         sudo apt install $@
     else
