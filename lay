@@ -2,11 +2,11 @@
 
 case "$1" in
     "up"|"")
+        mkdir -p ~/.config ~/.local/bin ~/Desktop ~/Pictures/{Wallpapers,Screenshots}
         ln -sf $PWD/config/* ~/.config
         for file in $PWD/config/nonxdg/*; do
             [ -f "$file" ] && ln -sf "$file" ~/."$(basename $file)"
         done
-        mkdir -p ~/.local/bin ~/Desktop ~/Pictures/{Wallpapers,Screenshots}
         ;;
     "down")
         find ~/.config -maxdepth 1 -type l -exec unlink {} \;
