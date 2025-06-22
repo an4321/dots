@@ -1,0 +1,33 @@
+#!/usr/bin/env bun
+
+const query = process.argv.slice(2);
+
+(async function () {
+    try {
+        const res = await fetch(
+            "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=" +
+                query,
+        )
+        let response = await res.json()
+
+        const firstPageId = Object.keys(response.query.pages)[0]
+        print(response.query.pages[firstPageId].extract)
+    } catch (error) {
+        console.error("Error fetching data:", error)
+    }
+})()
+
+function print(text, wrapLength = 80) {
+    const words = text.split(' ')
+    let currentLine = ''
+
+    words.forEach(word => {
+        if (currentLine.length + word.length > wrapLength) {
+            console.log(currentLine)
+            currentLine = word + ' '
+        } else {
+            currentLine += word + ' '
+        }
+    })
+    console.log(currentLine.trim())
+}
