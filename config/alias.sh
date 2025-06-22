@@ -14,7 +14,7 @@ alias clr="clear"
 alias cp="cp -vir"
 alias mv="mv -vi"
 alias ln="ln -sv"
-alias rm="trash"
+alias rm="trash -v"
 
 alias ls="env ls --color=auto --group-directories-first"
 alias la="env ls --color=auto --group-directories-first -A"

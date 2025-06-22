@@ -48,9 +48,12 @@ map z jump
 cmd trash %{{
     echo " Confirm (y/N): "
     read -r response
-    if [ "$response" = "y" ] || [ "$response" = "o" ]; then
+    if [ "$response" = "y" ]; then
         for file in $fx; do
             trash "$file"
+            if ! trash "$file"; then
+                echo "ERROR: Failed to trash '$file'" >&2
+            fi
         done
         echo "done"
     else
