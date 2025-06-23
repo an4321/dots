@@ -33,14 +33,14 @@ map <a-a> !t "$PWD"
 # v: invert select
 # c: clear copy/cut
 
-cmd locate ${{
-    result=$(fd --exclude .git --exclude node_modules --exclude __pycache__ --exclude vendor . | fzf-tmux -p 40%,80%)
+cmd locate &{{
+    result=$(fd --exclude .git --exclude node_modules --exclude __pycache__ --exclude vendor . | fzf-tmux)
     lf -remote "send $id select '$result'"
 }}
 map <c-f> locate
 
-cmd jump ${{
-    result="$(zoxide query -i)"
+cmd jump &{{
+    result="$(sj list | grep -o '".*"' | sed 's/"//g' | fzf-tmux)"
     lf -remote "send $id cd '$result'"
 }}
 map z jump

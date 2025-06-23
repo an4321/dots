@@ -1,16 +1,9 @@
 #!/bin/env bash
 
-source ~/.config/alias.sh
-eval "$(zoxide init bash --cmd j)"
-
 export HISTSIZE=5000
 export HISTFILESIZE=10000
 export HISTFILE=$HOME/.local/state/bash_history
 export HISTCONTROL=erasedups:ignoredups:ignorespace
-
-shopt -s autocd
-shopt -s checkwinsize # update window
-shopt -s histappend   # resurrect session history
 
 # prompt
 RED='\[\e[31m\]'
@@ -24,6 +17,13 @@ function set_prompt {
 }
 PROMPT_COMMAND=set_prompt
 
+shopt -s autocd
+shopt -s checkwinsize # update window
+shopt -s histappend   # resurrect session history
+
+source ~/.config/alias.sh
+source ~/dots/bin/sj-init.sh
+
 bind 'set completion-ignore-case on'
 bind 'TAB:menu-complete'
 bind '"\C-H": backward-kill-word'
@@ -33,15 +33,14 @@ md() { mkdir -p "$1" && cd "$1"; }
 cpg() { cp "$@" && cd "${!#}"; }
 mvg() { mv "$@" && cd "${!#}"; }
 
-
 if ! command -v fish &>/dev/null ; then
     read -p "install base packages? [Y/n]" yn && [ "$yn" = "n" ] && exit
     if command -v "apt" &>/dev/null ; then
-        sudo apt update
-        sudo apt install -y curl fish zoxide tmux lf fzf htop fd-find ripgrep bat trash-cli wget #fastfetch
+        sudo apt install -y curl fish tmux lf fzf htop fd-find ripgrep bat trash-cli wget #fastfetch
         ln -sf $(which batcat) ~/.local/bin/bat && ln -sf $(which fdfind) ~/.local/bin/fd
     elif command -v "pacman" &>/dev/null ; then
-        sudo pacman -Syu curl fish zoxide tmux lf fzf htop fd ripgrep bat trash-cli wget fastfetch
+        sudo pacman -Syu curl fish tmux lf fzf htop fd ripgrep bat trash-cli wget fastfetch
     fi
+    curl -fsSL https://bun.sh/install | bash
     chsh -s "$(which fish)"
 fi
