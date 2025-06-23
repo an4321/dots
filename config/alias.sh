@@ -1,10 +1,10 @@
 
 export PATH=$PATH:"/bin:/usr/local/bin:$HOME/.bun/bin:$HOME/dots/bin:$HOME/.local/bin:$HOME/.go/bin:$HOME/.local/go/bin:$HOME/.local/node/bin"
-export EDITOR=$HOME/.local/nvim/bin/nvim
-export VISUAL=$HOME/.local/nvim/bin/nvim
+export EDITOR="$HOME/.local/nvim/bin/nvim"
+export VISUAL="$HOME/.local/nvim/bin/nvim"
 export GOPATH="$HOME/.go"
 export GOROOT="$HOME/.local/go"
-export MANPAGER='nvim +Man!'
+export MANPAGER="nvim +Man!"
 export FZF_DEFAULT_OPTS="--bind='ctrl-space:toggle-preview,ctrl-h:backward-kill-word' --cycle --reverse --prompt ' ' --pointer ' ' --marker='* ' -m --height=20% --color=bg+:blue,hl+:-1,prompt:blue,fg+:black,gutter:-1,border:blue --no-separator --scroll-off=3"
 export _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS --height=100% --border"
 
@@ -14,7 +14,7 @@ alias clr="clear"
 alias cp="cp -vir"
 alias mv="mv -vi"
 alias ln="ln -sv"
-alias rm="trash -v"
+alias rm="trash"
 
 alias ls="env ls --color=auto --group-directories-first"
 alias la="env ls --color=auto --group-directories-first -A"
@@ -25,13 +25,15 @@ alias cat="bat -p --theme=OneHalfDark"
 alias vi="nvim"
 alias se="sudoedit"
 
-alias df='df -h'
-alias free='free -h'
+alias df="df -h"
+alias free="free -h"
 alias fetch="fastfetch"
 alias fm="lf"
 
-alias ywd="pwd; pwd | y"
+alias y='test -n "$WAYLAND_DISPLAY" && wl-copy || xsel -b'
+alias p='test -n "$WAYLAND_DISPLAY" && wl-paste || xsel -bo'
 alias yy="history --max=1 | tr -d '\n' | y"
+alias ywd="pwd; pwd | y"
 
 alias rg="rg --hidden -g '!{.git,node_modules,.svelte-kit,__pycache__,vendor}' --smart-case --pretty"
 alias fd="fd --hidden --follow --color auto --exclude .git --exclude node_modules --exclude __pycache__ --exclude vendor"
@@ -53,6 +55,4 @@ alias gr="git pull --rebase origin"
 alias gl='git log --graph --all --pretty=format:"%C(magenta)%h %C(white) %an  %ar%C(blue)  %D%n%s%n"'
 alias lines="git ls-files | xargs cat | wc -l"
 
-alias emote="env cat ~/.config/tofi/{emotes,nf-icons} | fzf-tmux -h +s -m | cut -d ' ' -f 1 | tr -d '\n' | y"
-alias remove_binary_files="find -maxdepth 1 -type f -exec file {} \; | grep -v "text" | cut -d: -f1 | xargs rm"
-alias add_all_sub_dirs_to_zoxide="fd --type d | xargs -I {} zoxide add {}"
+alias emote="env cat ~/.config/rofi/{emotes,nf-icons} | fzf-tmux -h +s -m | cut -d ' ' -f 1 | tr -d '\n' | y"

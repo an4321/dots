@@ -27,21 +27,8 @@ if test "$fish_key_bindings" = 'fish_vi_key_bindings' -o "$fish_key_bindings" = 
     bind --mode insert '$' __history_previous_command_arguments
 end
 
-
-function md -d "Create a directory and set CWD"
+function md -d "Create a directory and cd"
 	mkdir -p "$argv" && cd "$argv"
-end
-
-function j
-    if test (count $argv) -eq 0
-        cd ~/Desktop
-    else
-        set result (zoxide query $argv)
-
-        if test $status -eq 0
-            cd $result
-        end
-    end
 end
 
 function cpg
@@ -50,20 +37,4 @@ end
 
 function mvg
     mv $argv; and cd $argv[-1]
-end
-
-function y -d "copy to clipboard"
-    if test -n "$WAYLAND_DISPLAY"
-        wl-copy
-    else
-        xsel --clipboard
-    end
-end
- 
-function p -d "paste from clipboard"
-    if test -n "$WAYLAND_DISPLAY"
-        wl-paste
-    else
-        xsel --clipboard --output
-    end
 end
