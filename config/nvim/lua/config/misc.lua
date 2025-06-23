@@ -25,24 +25,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     group = highlight_group,
     pattern = '*',
 })
-
--- Jump to directory
-vim.api.nvim_create_user_command('Jump', function(opts)
-    local query = opts.arg or vim.fn.input('Jump to: ')
-
-    local handle = io.popen('zoxide query ' .. query)
-    local output = handle:read("*a")
-    handle:close()
-
-    output = output:gsub("\n$", "")
-
-    if #output > 0 then
-        vim.cmd("cd " .. output)
-        vim.cmd("ex .")
-    else
-        vim.notify("No directory found", vim.log.levels.ERROR)
-    end
-end, { nargs = '?' })
-
-vim.keymap.set("n", "<Space>z", ":Jump<CR>", { silent = true })
-

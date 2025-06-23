@@ -49,3 +49,7 @@ vim.keymap.set('n', "<Space>kr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set('n', "<Space>kx", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set('n', "<Space><BS>", "<cmd>terminal<CR>", { desc = "Terminal" })
 vim.keymap.set('n', "<Space><CR>", "<cmd>split | resize 14 | terminal<CR>", { desc = "Terminal Split" })
+
+vim.keymap.set("n", "<Space>a", (":cd ~/Desktop | ex .<CR>"), { silent = true })
+vim.keymap.set("n", "<Space>.", (":cd ~/dots | ex .<CR>"), { silent = true })
+vim.keymap.set('n', '<Space>n', ':cd ~/notes<CR>:e ~/notes/index.md<CR>', { noremap = true })

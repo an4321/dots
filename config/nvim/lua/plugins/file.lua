@@ -45,18 +45,15 @@ return {
             vim.keymap.set('n', '<Space>fs', "<cmd>Telescope spell_suggest<CR>", { desc = 'Spell' }),
             vim.keymap.set('n', '<Space>fh', "<cmd>Telescope command_history<CR>", { desc = 'Command History' }),
             vim.keymap.set('n', '<Space>fm', "<cmd>Telescope man_pages<CR>", { desc = 'Command History' }),
-            vim.keymap.set('n', '<Space>.',
-                "<cmd>lua require('telescope.builtin').find_files({ cwd = '~/dots', hidden = true })<Cr>",
-                { desc = 'Dot files' }),
         }
     },
     {
         'ThePrimeagen/harpoon',
         event = "VeryLazy",
         setup = {
-            vim.keymap.set('n', "<Space>m", '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>',
+            vim.keymap.set('n', "<Space>9", '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>',
                 { desc = 'Harpoon Menu' }),
-            vim.keymap.set('n', "<Space>a", '<cmd>lua require("harpoon.mark").add_file()<CR>',
+            vim.keymap.set('n', "<Space>0", '<cmd>lua require("harpoon.mark").add_file()<CR>',
                 { desc = 'Harpoon Mark' }),
             vim.keymap.set('n', "<Space>1", '<cmd>lua require("harpoon.ui").nav_file(1)<CR>',
                 { desc = 'Harpoon Mark 1' }),
