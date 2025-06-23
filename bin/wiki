@@ -2,23 +2,22 @@
 
 const query = process.argv.slice(2);
 
-(async function () {
+(async function main() {
     try {
-        const res = await fetch(
-            "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=" +
-                query,
-        )
+        let url = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles='
+        let res = await fetch(url + query)
         let response = await res.json()
 
-        const firstPageId = Object.keys(response.query.pages)[0]
-        print(response.query.pages[firstPageId].extract)
+        let pageId = Object.keys(response.query.pages)[0]
+        let page = response.query.pages[pageId].extract
+        page ? print(page) : process.exit(1)
     } catch (error) {
-        console.error("Error fetching data:", error)
+        console.error('error fetching data:', error)
     }
 })()
 
 function print(text, wrapLength = 80) {
-    const words = text.split(' ')
+    let words = text.split(' ')
     let currentLine = ''
 
     words.forEach(word => {
