@@ -43,6 +43,15 @@ vim.keymap.set('n', '<Space>tw', ':lua vim.wo.wrap = not vim.wo.wrap<CR>',
 vim.keymap.set('n', "<Space>ts", [[:set invspell<CR>]], { desc = "Toggle Spell Check" })
 vim.keymap.set('n', '<Space>ft', ":set filetype=", { desc = 'File Type' })
 
+-- Tabs
+-- vim.keymap.set({ 'n', 'v', 't' }, '<A-t>', '<cmd>tabnew<CR>', { noremap = true, silent = true })
+-- vim.keymap.set({ 'n', 'v', 't' }, '<A-h>', '<cmd>tabprevious<CR>', { noremap = true, silent = true })
+-- vim.keymap.set({ 'n', 'v', 't' }, '<A-l>', '<cmd>tabnext<CR>', { noremap = true, silent = true })
+-- for i = 1, 9 do
+--     vim.api.nvim_set_keymap('n', '<A-' .. tostring(i) .. '>', ':tabnext ' .. tostring(i) .. '<CR>',
+--         { noremap = true, silent = true })
+-- end
+
 -- Miscellaneous
 vim.keymap.set({ 'n', 'v' }, "<Space>", "<Nop>", { silent = true })
 vim.keymap.set('n', "<Space>kr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Rename" })

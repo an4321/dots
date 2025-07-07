@@ -43,3 +43,10 @@ vim.opt.undodir = os.getenv("HOME") .. "/.local/share/vim-undodir"
 -- Re-open at last position
 vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
 
+-- Diagnostic
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+})
