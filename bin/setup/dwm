@@ -3,12 +3,12 @@ set -e
 
 command -v "apt" &>/dev/null && sudo apt install -y \
     make gcc libx11-dev libxft-dev libxinerama-dev xorg xsel psmisc libxrandr-dev \
-    brightnessctl pamixer pavucontrol imagemagick libnotify-bin fonts-noto-color-emoji \
+    brightnessctl pamixer pavucontrol playerctl imagemagick libnotify-bin fonts-noto-color-emoji \
     copyq dunst feh nemo i3lock rofi arandr picom
 
 command -v "pacman" &>/dev/null && sudo pacman -S \
     make gcc xorg xorg-xinit base-devel libx11 libxft libxinerama xsel \
-    brightnessctl pamixer pavucontrol imagemagick libnotify noto-fonts-emoji \
+    brightnessctl pamixer pavucontrol playerctl imagemagick libnotify noto-fonts-emoji \
     copyq dunst feh nemo i3lock rofi arandr picom kitty
 
 cd ~/.config/dwm
