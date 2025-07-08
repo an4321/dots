@@ -1,6 +1,6 @@
 #!/bin/env bash
 
-device=$(bluetoothctl devices | tac | (tofi 2>/dev/null || rofi -dmenu) \
+device=$(bluetoothctl devices | (tofi 2>/dev/null || rofi -dmenu) \
     | grep -o -E '([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}')
 
 [ -z "$device" ] && echo "No device found." && exit 1

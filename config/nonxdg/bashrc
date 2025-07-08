@@ -33,8 +33,7 @@ md() { mkdir -p "$1" && cd "$1"; }
 cpg() { cp "$@" && cd "${!#}"; }
 mvg() { mv "$@" && cd "${!#}"; }
 
-if ! command -v fish &>/dev/null ; then
-    read -p "install base packages? [Y/n]" yn && [ "$yn" = "n" ] && exit
+install-base() {
     if command -v "apt" &>/dev/null ; then
         sudo apt install -y curl fish tmux lf fzf htop fd-find ripgrep bat trash-cli wget #fastfetch
         ln -sf $(which batcat) ~/.local/bin/bat && ln -sf $(which fdfind) ~/.local/bin/fd
@@ -43,4 +42,9 @@ if ! command -v fish &>/dev/null ; then
     fi
     curl -fsSL https://bun.sh/install | bash
     chsh -s "$(which fish)"
+}
+
+if ! command -v fish &>/dev/null ; then
+    read -p "install base packages? [Y/n]" yn && [ "$yn" = "n" ] && exit
+    install-base
 fi

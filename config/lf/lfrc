@@ -61,6 +61,7 @@ cmd trash %{{
     fi
 }}
 map d trash
+map <delete> trash
 map D !trash-restore
 
 cmd on-redraw &{{

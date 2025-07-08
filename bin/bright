@@ -2,7 +2,7 @@
 
 current_brightness=$(brightnessctl info | grep -oP '\(\d+%\)' | tr -d '()%')
 
-delta=$(( (current_brightness * 25) / 100 ))
+delta=$(( (current_brightness * 30) / 100 ))
 [[ $current_brightness -lt 5 ]] && delta=1
 
 case "$1" in
