@@ -2,7 +2,7 @@
 set -eEo pipefail
 
 command -v pacman &> /dev/null && sudo pacman -S exif fontconfig inotify-tools
-command -v apt &> /dev/null && sudo apt install libexif-dev libfontconfig1-dev libinotifytools0-dev
+command -v apt &> /dev/null && sudo apt install libexif-dev libfontconfig1-dev libinotifytools0-dev libimlib2-dev
 
 git clone --depth 1 https://codeberg.org/nsxiv/nsxiv.git
 cd nsxiv
