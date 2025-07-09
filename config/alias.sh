@@ -37,6 +37,7 @@ alias ywd="pwd; pwd | y"
 
 alias rg="rg --hidden -g '!{.git,node_modules,.svelte-kit,__pycache__,vendor}' --smart-case --pretty"
 alias fd="fd --hidden --follow --color auto --exclude={.git,node_modules,__pycache__,vendor}"
+alias rs="rsync -aPhz --update --exclude={node_modules,.next,.svelte-kit,__pycache__,vendor}"
 
 alias fopen='setsid open "$(fd | fzf-tmux -h)"'
 alias fo="fopen"
