@@ -1,15 +1,18 @@
 #!/bin/env bash
 set -e
 
-command -v "apt" &>/dev/null && sudo apt install -y \
-    make gcc libx11-dev libxft-dev libxinerama-dev xorg xsel psmisc libxrandr-dev \
-    brightnessctl pamixer pavucontrol playerctl imagemagick libnotify-bin fonts-noto-color-emoji \
-    copyq dunst feh nemo i3lock rofi arandr picom
-
-command -v "pacman" &>/dev/null && sudo pacman -S \
-    make gcc xorg xorg-xinit base-devel libx11 libxft libxinerama xsel \
-    brightnessctl pamixer pavucontrol playerctl imagemagick libnotify noto-fonts-emoji \
-    copyq dunst feh nemo i3lock rofi arandr picom kitty
+if command -v "apt" &> /dev/null; then
+    sudo apt install -y \
+        make gcc libx11-dev libxft-dev libxinerama-dev xorg xsel psmisc libxrandr-dev \
+        brightnessctl pamixer pavucontrol playerctl imagemagick libnotify-bin fonts-noto-color-emoji \
+        copyq dunst feh nemo i3lock rofi arandr picom
+    read -p "install kitty? [y/N] " yn && [[ $yn =~ ^[Yy]$ ]] && eval "$(dirname $0)/kitty"
+elif command -v "pacman" &> /dev/null; then
+    sudo pacman -S \
+        make gcc xorg xorg-xinit base-devel libx11 libxft libxinerama xsel \
+        brightnessctl pamixer pavucontrol playerctl imagemagick libnotify noto-fonts-emoji \
+        copyq dunst feh nemo i3lock rofi arandr picom kitty
+fi
 
 cd ~/.config/dwm
 sudo make clean install && make clean
@@ -17,7 +20,7 @@ sudo make clean install && make clean
 read -p "install nerd-fonts? [y/N] " yn && [[ $yn =~ ^[Yy]$ ]] && ~/dots/bin/install-nf
 
 mkdir -p ~/Pictures/Wallpapers
-[ -z "$(ls ~/Pictures/Wallpapers)" ] && wget -P ~/Pictures/Wallpapers https://picsum.photos/1920/1080?random
+[ -z "$(ls ~/Pictures/Wallpapers)" ] && wget -O "$HOME/Pictures/Wallpapers/$(uuidgen).png" "https://picsum.photos/1920/1080?random"
 
 chmod +x ~/.xinitrc
 sudo touch /usr/share/xsessions/dwm.desktop
