@@ -34,3 +34,7 @@ sudo apt install -y tlp && sudo tlp start
 ```sh
 sudo apt install -y bluez bluetooth blueman && sudo systemctl enable bluetooth
 ```
+
+### misc
+* disable sudo for brightnessctl `sudo usermod -aG video $USER`
+  or `sudo visudo` -> <user> ALL=(ALL) NOPASSWD: /usr/bin/brightnessctl
