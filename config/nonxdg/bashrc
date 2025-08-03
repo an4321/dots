@@ -22,7 +22,7 @@ shopt -s checkwinsize # update window
 shopt -s histappend   # resurrect session history
 
 source ~/.config/alias.sh
-source ~/dots/bin/sj-init.sh
+source ~/dots/bin/helper/sj-init.sh
 
 bind 'set completion-ignore-case on'
 bind 'TAB:menu-complete'

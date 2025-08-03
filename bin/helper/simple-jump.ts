@@ -1,0 +1,149 @@
+#!/bin/env bun
+
+import fs from 'fs'
+import path from 'path'
+import { Database } from "bun:sqlite"
+
+(async function main() {
+    let [option, ...params] = process.argv.slice(2)
+
+    if (!option || ['h', 'help'].includes(option)) {
+        help(0)
+    } else if (['a', 'add'].includes(option)) {
+        await add(params)
+    } else if (['r', 'remove'].includes(option)) {
+        await remove(params)
+    } else if (['q', 'query'].includes(option)) {
+        await query(params)
+    } else if (['l', 'list'].includes(option)) {
+        let db = await initDb()
+        let res = db.query('select * from hist order by weight desc').all()
+        console.log(res)
+    } else if (['s', 'set'].includes(option)) {
+        if (params.length != 2) die('needs directory & weight')
+
+        let dir = params[0]
+        let weight = Number(params[1])
+        if (!Number.isInteger(weight)) die('it has to be an integer')
+
+        await set(dir, weight)
+    } else {
+        console.log(`unknown option '${option}'`)
+        help(1)
+    }
+})()
+
+function help(exitCode: number) {
+    let [bold, underline, reset] = ["\x1b[1m", "\x1b[4m", "\x1b[0m"]
+
+    console.log(`${bold}simple-jump:${reset} a better cd command\n
+${underline}${bold}usage:${reset}
+sj [options]\n
+${underline}${bold}options:${reset}
+${bold}q, query${reset}\tsearch for a directory in the database
+${bold}a, add${reset}\tadd a new directory or increment its weight
+${bold}r, remove${reset}\tremove a directory from the database
+${bold}s, set${reset}\tset the weight for a specific directory
+${bold}l, list${reset}\tlist all stored directories and their weights
+${bold}h, help${reset}\tdisplay this help message`)
+    process.exit(exitCode)
+}
+
+async function add(dirs: string[]) {
+    let db = await initDb()
+    let dbSelect = db.prepare('select * from hist where dir = ?')
+    let dbUpdate = db.prepare('update hist set weight = ? where dir = ?')
+    let dbInsert = db.prepare('insert into hist (dir) values (?)')
+
+    for (let dir of dirs) {
+        dir = path.resolve(dir)
+        if (!isDir(dir)) {
+            console.log(`invalid directory: ${dir}`)
+            continue
+        }
+        let res = dbSelect.get(dir)
+
+        if (res) {
+            dbUpdate.run(res.weight + 1, dir)
+        } else {
+            dbInsert.run(dir)
+        }
+        console.log(`added: ${dir}`)
+    }
+}
+
+async function remove(dirs: string[]) {
+    let db = await initDb()
+    let dbDel = db.prepare('delete from hist where dir = ?')
+
+    for (let dir of dirs) {
+        try {
+            dbDel.run(dir)
+            console.log(`deleted: ${dir}`)
+        } catch (err) {
+            console.error(`error deleting ${dir}:`, err)
+        }
+    }
+}
+
+async function set(dir: string, weight: number) {
+    if (!isDir(dir)) {
+        console.log(`invalid directory: ${dir}`)
+        return
+    }
+    let db = await initDb()
+    let dbSelect = db.prepare('select * from hist where dir = ?')
+    let res = dbSelect.get(dir)
+
+    if (res) {
+        db.run(`update hist set weight = ? where dir = ?`, weight, dir)
+    } else {
+        db.run(`insert into hist (dir) values (?)`, dir)
+    }
+    console.log(`updated: ${dir} to ${weight}`)
+}
+
+async function query(searchList: string[]) {
+    let queries = '%' + searchList.join('%') + '%'
+
+    let db = await initDb()
+    let dbSelect = db.prepare(`select * from hist where dir like ? order by weight desc`)
+    let res = dbSelect.all(queries)
+    if (!res.length) die('no match found')
+    for (let item of res) {
+        if (!isDir(item.dir)) {
+            let dbDel = db.prepare('delete from hist where dir = ?')
+            dbDel.run(item.dir)
+            continue
+        } else {
+            console.log(item.dir)
+            return
+        }
+    }
+}
+
+// utils
+async function initDb() {
+    let dbPath = path.join(process.env.HOME as string, '.local', 'state')
+    let dbFile = path.join(dbPath, 'simple-jump.db')
+    if (!fs.existsSync(dbPath)) {
+        fs.mkdirSync(dbPath, { recursive: true })
+    }
+    let db = new Database(dbFile, { create: true })
+    db.run(`create table if not exists hist (dir text primary key, weight integer default 1)`)
+    return db
+}
+
+function isDir(dir: string) {
+    try {
+        let stats = fs.statSync(dir)
+        return stats.isDirectory()
+    } catch (err) {
+        return false
+    }
+}
+
+function die(msg: string) {
+    console.log(msg)
+    process.exit(1)
+}

@@ -4,7 +4,7 @@ fish_hybrid_key_bindings
 
 source ~/.config/alias.sh
 source ~/.config/fish/functions.fish
-source ~/dots/bin/sj-init.fish
+source ~/dots/bin/helper/sj-init.fish
 
 bind H beginning-of-line
 bind L end-of-line
