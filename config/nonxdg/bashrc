@@ -38,7 +38,7 @@ install-base() {
         sudo apt install -y curl fish tmux lf fzf htop fd-find ripgrep bat trash-cli wget #fastfetch
         ln -sf $(which batcat) ~/.local/bin/bat && ln -sf $(which fdfind) ~/.local/bin/fd
     elif command -v "pacman" &>/dev/null ; then
-        sudo pacman -Syu curl fish tmux lf fzf htop fd ripgrep bat trash-cli wget fastfetch
+        sudo pacman -Syu --noconfirm curl fish tmux lf fzf htop fd ripgrep bat trash-cli wget fastfetch unzip man-db nvim
     fi
     curl -fsSL https://bun.sh/install | bash
     chsh -s "$(which fish)"

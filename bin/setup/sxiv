@@ -1,7 +1,7 @@
 #!/bin/env bash
 set -eEo pipefail
 
-command -v pacman &> /dev/null && sudo pacman -S exif fontconfig inotify-tools
+command -v pacman &> /dev/null && sudo pacman -S libexif fontconfig inotify-tools imlib2
 command -v apt &> /dev/null && sudo apt install libexif-dev libfontconfig1-dev libinotifytools0-dev libimlib2-dev
 
 git clone --depth 1 https://codeberg.org/nsxiv/nsxiv.git
@@ -13,7 +13,7 @@ s/{ 32, 64, 96, 128, 160 }/{ 64, 96, 128, 160, 190, 240, 300 }/
 s/THUMB_SIZE = 3/THUMB_SIZE = 4/
 s/{ "Nsxiv.window.background",   "white"/{ "Nsxiv.window.background",   "black"/
 s/{ "Nsxiv.window.foreground",   "black"/{ "Nsxiv.window.foreground",   "white"/
-s/"monospace-8"/"monospace-16"/' config.h
+s/"monospace-8"/"JetBrainsMonoNerdFont-14"/' config.h
 
 sudo make install && sudo make install-desktop install-icon
 cd .. && rm -rf nsxiv
