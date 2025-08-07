@@ -1,0 +1,41 @@
+{
+    "position": "bottom",
+    "modules-left": ["hyprland/workspaces", "custom/separator", "hyprland/window"],
+    "modules-right": ["pulseaudio", "battery", "clock", "tray"],
+    "no-center": true,
+
+    "tray": {
+        "show-passive-items": true,
+        "icon-size": 26,
+        "spacing": 5
+    },
+    "custom/separator": {
+        "format": " | ",
+        "interval": "once",
+        "tooltip": false
+    },
+    "battery": {
+        "bat": "BAT0",
+        "adapter": "ADP0",
+        "interval": 5,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "max-length": 20,
+        "format": "{icon} {capacity}%",
+        "format-charging": "󱐋 {capacity}%",
+        "format-icons": ["󰂎", "󰁼", "󰁼", "󰁿", "󰁹"]
+    },
+
+    "clock": {
+        "format": "󰥔 {:%H:%M  󰭨 %a %d %b}",
+        "tooltip": false
+    },
+
+    "pulseaudio": {
+        "format": " {volume}%",
+        "format-muted": "  Muted",
+        "on-click": "pavucontrol"
+    },
+}
