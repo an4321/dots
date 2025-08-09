@@ -52,7 +52,7 @@ static const Layout layouts[] = {
 /* helper for spawning shell commands */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/env", "bash", "-c", cmd, NULL } }
 
-static const char *autostartcmd[] = {"/bin/sh", "-c", "~/.config/dwm/autostart", NULL };
+static const char *autostartcmd[] = {"/bin/sh", "-c", "~/.config/dwm/lib/autostart", NULL };
 Autostarttag autostarttaglist[] = {
 	{.cmd = autostartcmd, .tags = 1 << 0 },
 	{.cmd = NULL,         .tags = 0 },

@@ -9,7 +9,7 @@ done &
 
 $HOME/dots/bin/setbg -r
 
-picom &
 copyq &
-dunst &
+picom --config ~/.config/dwm/lib/picom.conf &
+dunst -conf ~/.config/dwm/lib/dunstrc &
 blueman-applet & 
