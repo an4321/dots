@@ -23,7 +23,6 @@ for option in "$@"; do
                 sudo pacman -Syu --noconfirm \
                     curl fish tmux lf fzf htop fd ripgrep bat trash-cli wget fastfetch unzip man-db nvim
             fi
-            curl -fsSL https://bun.sh/install | bash
             chsh -s "$(which fish)"
             ;;
         *) 
