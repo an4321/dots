@@ -1,18 +1,33 @@
 #!/bin/env bash
 
-case "$1" in
-    "up"|"")
-        mkdir -p ~/.config ~/.local/bin ~/Desktop ~/Pictures/{Wallpapers,Screenshots}
-        ln -sf $PWD/config/* ~/.config
-        for file in $PWD/config/nonxdg/*; do
-            [ -f "$file" ] && ln -sf "$file" ~/."$(basename $file)"
-        done
-        ;;
-    "down")
-        find ~/.config -maxdepth 1 -type l -exec unlink {} \;
-        find ~ -maxdepth 1 -type l -exec unlink {} \;
-        ;;
-    *) 
-        echo invalid option && exit 1
-        ;;
-esac
+for option in "$@"; do
+    case "$option" in
+        "up"|"")
+            mkdir -p ~/.config ~/.local/bin ~/Desktop ~/Pictures/{Wallpapers,Screenshots}
+            ln -sf $PWD/config/* ~/.config
+            for file in $PWD/config/nonxdg/*; do
+                [ -f "$file" ] && ln -sf "$file" ~/."$(basename $file)"
+            done
+            ;;
+        "down")
+            find ~/.config -maxdepth 1 -type l -exec unlink {} \;
+            find ~ -maxdepth 1 -type l -exec unlink {} \;
+            ;;
+        "base")
+            if command -v "apt" &>/dev/null ; then
+                sudo apt install -y \
+                    curl fish tmux lf fzf htop fd-find ripgrep bat trash-cli wget fastfetch
+                ln -sf $(which batcat) ~/.local/bin/bat
+                ln -sf $(which fdfind) ~/.local/bin/fd
+            elif command -v "pacman" &>/dev/null ; then
+                sudo pacman -Syu --noconfirm \
+                    curl fish tmux lf fzf htop fd ripgrep bat trash-cli wget fastfetch unzip man-db nvim
+            fi
+            curl -fsSL https://bun.sh/install | bash
+            chsh -s "$(which fish)"
+            ;;
+        *) 
+            echo invalid option && exit 1
+            ;;
+    esac
+done
