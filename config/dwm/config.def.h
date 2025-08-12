@@ -61,9 +61,8 @@ Autostarttag autostarttaglist[] = {
 #include <X11/XF86keysym.h>
 static const Key keys[] = {
     /* modifier           key        function        argument */
-    { MODKEY,             XK_a,      spawn,          SHCMD("rofi -show run -matching regex") },
+    { MODKEY,             XK_a,      spawn,          SHCMD("rofi -show run") },
     { MODKEY,             XK_z,      spawn,          SHCMD("lock") },
-    { MODKEY,             XK_x,      spawn,          SHCMD("xkill") },
     { MODKEY|ShiftMask,   XK_f,      spawn,          SHCMD("nemo") },
     { MODKEY,             XK_w,      spawn,          SHCMD("brave") },
     { MODKEY|ShiftMask,   XK_w,      spawn,          SHCMD("brave --incognito") },
@@ -75,11 +74,10 @@ static const Key keys[] = {
     { MODKEY,             XK_r,      spawn,          SHCMD("setbg") },
     { MODKEY,             XK_v,      spawn,          SHCMD("copyq menu") },
     { MODKEY,             XK_c,      spawn,          SHCMD("mate-color-select") },
-    { MODKEY,             XK_period, spawn,          SHCMD("cat ~/.config/rofi/{emotes,nf-icons} | rofi -i -dmenu -matching regex | cut -d ' ' -f 1 | tr -d '\n' |  xsel --clipboard") },
+    { MODKEY,             XK_period, spawn,          SHCMD("cat ~/.config/rofi/{emotes,nf-icons} | rofi -dmenu | cut -d ' ' -f 1 | tr -d '\n' |  xsel --clipboard") },
     { MODKEY,             XK_s,      spawn,          SHCMD("SS=$(date +%F_%H-%M-%S).png && import ~/Pictures/Screenshots/${SS}") },
     { MODKEY|ShiftMask,   XK_s,      spawn,          SHCMD("SS=$(date +%F_%H-%M-%S).png && import -window root ~/Pictures/Screenshots/${SS}") },
     { MODKEY|ControlMask, XK_q,      spawn,          SHCMD("systemctl poweroff") },
-    { MODKEY|ControlMask, XK_r,      spawn,          SHCMD("systemctl reboot") },
     { 0, XF86XK_MonBrightnessDown,   spawn,          SHCMD("bright -") },
     { 0, XF86XK_MonBrightnessUp,     spawn,          SHCMD("bright +") },
     { 0, XF86XK_AudioMute,           spawn,          SHCMD("pamixer -t") },

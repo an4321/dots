@@ -7,7 +7,8 @@
 
 configuration {
     show-icons: false;
-    // kb-cancel: "Control+c,Escape";
+    case-smart: true;
+    matching: 'regex';
 }
 
 window {
@@ -16,7 +17,7 @@ window {
     anchor: center;
     width: 600px;
     border: 2px solid;
-    border-radius: 8px;
+    border-radius: 12px;
     border-color: @accent;
     background-color: @bg;
 }
