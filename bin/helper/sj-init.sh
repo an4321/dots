@@ -11,7 +11,7 @@ function j() {
 }
 
 function ji() {
-    \builtin cd "$(\command sj list | \command grep -o '".*"' | \command sed 's/"//g' | \command fzf-tmux)"
+    \builtin cd "$(\command sj list | \command awk '{print $1}' | \command fzf-tmux)"
 }
 
 _sj_oldpwd="$(\builtin pwd -L)"

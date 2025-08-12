@@ -40,7 +40,7 @@ cmd locate ${{
 map <c-f> locate
 
 cmd jump %{{
-    result="$(sj list | grep -o '".*"' | sed 's/"//g' | fzf-tmux)"
+    result="$(sj l | awk '{print $1}' | fzf-tmux)"
     lf -remote "send $id cd '$result'"
 }}
 map z jump

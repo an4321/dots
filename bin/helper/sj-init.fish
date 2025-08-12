@@ -25,5 +25,5 @@ function j
 end
 
 function ji
-    _sj_cd $(command sj list | command grep -o '".*"' | command sed 's/"//g' | command fzf-tmux)
+    _sj_cd $(command sj list | command awk '{print $1}' | command fzf-tmux)
 end
