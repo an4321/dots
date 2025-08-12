@@ -1,32 +1,47 @@
-#!/usr/bin/env bun
+#!/bin/env python3
 
-const query = process.argv.slice(2);
+import sys
+import requests
+import textwrap
 
-(async function main() {
-    try {
-        let url = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles='
-        let res = await fetch(url + query)
-        let response = await res.json()
 
-        let pageId = Object.keys(response.query.pages)[0]
-        let page = response.query.pages[pageId].extract
-        page ? print(page) : process.exit(1)
-    } catch (error) {
-        console.error('error fetching data:', error)
-    }
-})()
+def main():
+    query = " ".join(sys.argv[1:])
 
-function print(text, wrapLength = 80) {
-    let words = text.split(' ')
-    let currentLine = ''
+    if not query:
+        print("Usage: wiki <search term>")
+        sys.exit(1)
 
-    words.forEach(word => {
-        if (currentLine.length + word.length > wrapLength) {
-            console.log(currentLine)
-            currentLine = word + ' '
-        } else {
-            currentLine += word + ' '
-        }
-    })
-    console.log(currentLine.trim())
-}
+    try:
+        res = requests.get(
+            "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles="
+            + query
+        )
+        res.raise_for_status()
+        response = res.json()
+
+        pages = response.get("query", {}).get("pages", {})
+        if not pages:
+            sys.exit(1)
+
+        page_id = next(iter(pages))
+        page = pages[page_id].get("extract", "")
+
+        if page:
+            print_wrapped(page, wrap_length=80)
+        else:
+            sys.exit(1)
+
+    except Exception as e:
+        print("error fetching data:", e, file=sys.stderr)
+        sys.exit(1)
+
+
+def print_wrapped(text, wrap_length=80):
+    wrapper = textwrap.TextWrapper(width=wrap_length)
+    for line in wrapper.wrap(text):
+        print(line)
+
+
+if __name__ == "__main__":
+    main()
