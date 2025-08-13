@@ -42,7 +42,7 @@ fi
 # set wallpaper
 if [ -n "$WAYLAND_DISPLAY" ]; then
     killall swaybg
-    nohup swaybg --mode "$mode" --image "$wall" > /tmp/output.log 2> /tmp/error.log &
+    nohup swaybg --mode "$mode" --image "$wall" &> /tmp/swaybg.log &
 else
     [[ "$mode" == "fit" ]] && mode="max"
     feh --bg-$mode "$wall"

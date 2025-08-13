@@ -5,7 +5,7 @@ menu() {
 }
 
 if command -v apt &> /dev/null; then
-    if [[ "$1" == "update" ]]; then
+    if [[ "$1" == "update" || "$1" == "u" ]]; then
         sudo apt update -y && sudo apt upgrade -y
     elif [[ "$#" != 0 ]]; then
         sudo apt install $@
@@ -14,7 +14,7 @@ if command -v apt &> /dev/null; then
         [ -n "$sel" ] && sudo apt install $sel
     fi
 elif command -v pacman &> /dev/null; then
-    if [[ "$1" == "update" ]]; then
+    if [[ "$1" == "update" || "$1" == "u" ]]; then
         sudo pacman -Syu --noconfirm
     elif [[ "$#" != 0 ]]; then
         sudo pacman -S $@
@@ -23,6 +23,6 @@ elif command -v pacman &> /dev/null; then
         [ -n "$sel" ] && sudo pacman -S $sel
     fi
 else
-    echo "unsupported distribution: package manager not found"
+    echo "unsupported distribution"
     exit 1
 fi

@@ -38,3 +38,7 @@ end
 function mvg
     mv $argv; and cd $argv[-1]
 end
+
+function c
+    echo "$argv" | sed 's/x/*/g' | bc -l
+end

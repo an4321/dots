@@ -1,10 +1,12 @@
 #!/bin/bash
 
-if [[ $1 == "create" ]]; then
-    read -s -p "password: " password && echo
-    gpg --batch --symmetric --cipher-algo AES256 --passphrase "$password" --output "$2" <(echo)
-    exit
-fi
+case $1 in
+    "create"|"c")
+        read -s -p "password: " password && echo
+        gpg --batch --symmetric --cipher-algo AES256 --passphrase "$password" --output "$2" <(echo)
+        exit
+        ;;
+esac
 
 [ $# -ne 1 ] && exit 1
 
@@ -15,7 +17,7 @@ temp_file="$(mktemp).$(basename $file)"
 read -s -p "password: " password &&
 echo
 if ! gpg --batch --passphrase "$password" --decrypt "$file" > "$temp_file" 2>/dev/null ; then 
-    echo "decryption failed, check password?"
+    echo "decryption failed"
     shred -uz "$temp_file"
     exit 1
 fi

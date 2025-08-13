@@ -30,7 +30,6 @@ window#waybar.hidden {
 #clock,
 #pulseaudio,
 #battery,
-#tray,
 #window {
     padding: 0px 10px;
     border-radius: 20px;
