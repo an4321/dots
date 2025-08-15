@@ -1,9 +1,7 @@
 #!/bin/env bash
 
-device=$(bluetoothctl devices | (tofi 2>/dev/null || rofi -dmenu) \
-    | grep -o -E '([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}')
-
-[ -z "$device" ] && echo "No device found." && exit 1
+device=$(bluetoothctl devices | grep Device | rofi -dmenu | awk '{print $2}')
+[ -z "$device" ] && exit
 
 if bluetoothctl info | grep -q $device; then
     bluetoothctl disconnect "$device" || notify-send "error disconnecting"
