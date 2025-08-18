@@ -7,7 +7,7 @@ map ga cd ~/Desktop
 map gd cd ~/Downloads
 map gD cd ~/Documents
 map gp cd ~/Pictures
-map gs cd ~/Pictures/Screenshots
+map gs cd ~/Pictures/screenshots
 map gv cd ~/Videos
 map gm cd ~/Music
 map gn cd ~/notes

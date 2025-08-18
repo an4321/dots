@@ -8,5 +8,7 @@ sudo pacman -S \
 read -p "install nerd-fonts? [y/N] " yn && [[ $yn =~ ^[Yy]$ ]] && ~/dots/bin/install-nf
 read -p "install tlp? [y/N] " yn && [[ $yn =~ ^[Yy]$ ]] && sudo pacman -S tlp && sudo tlp start
 
-mkdir -p ~/Pictures/Wallpapers
-[ -z "$(ls ~/Pictures/Wallpapers)" ] && read -p "get a wallpaper? [y/N] " yn && [[ $yn =~ ^[Yy]$ ]] && wget -O "$HOME/Pictures/Wallpapers/$(uuidgen).png" "https://picsum.photos/1920/1080?random"
+mkdir -p ~/Pictures/wallpapers
+[ -z "$(ls ~/Pictures/wallpapers)" ] \
+	&& read -p "get a wallpaper? [y/N] " yn && [[ $yn =~ ^[Yy]$ ]] \
+	&& wget -O "$HOME/Pictures/wallpapers/$(uuidgen).png" "https://picsum.photos/1920/1080?random"

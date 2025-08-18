@@ -1,0 +1,23 @@
+#!/bin/env bash
+
+ss="$HOME/Pictures/screenshots/$(date +%F_%H-%M-%S).png"
+
+case $1 in
+	""|"-s")
+		if [ -n "$WAYLAND_DISPLAY" ]; then
+			geo=$(slurp)
+			[ -n geo ] && grim -g "$geo" "$ss"
+		else
+			import "$ss"
+		fi
+		;;
+	"-f")
+		if [ -n "$WAYLAND_DISPLAY" ]; then
+			grim "$ss"
+		else
+			import -window root "$ss"
+		fi
+		;;
+esac
+
+[ -f $ss ] && notify-send -i "$ss" "screenshot" "$ss"

@@ -25,7 +25,7 @@ done
 
 # remove parsed options
 shift $((OPTIND-1))
-wall_dir=${1:-"$HOME/Pictures/Wallpapers"}
+wall_dir=${1:-"$HOME/Pictures/wallpapers"}
 
 # some logical gymnastics
 [ -d "$wall_dir" ] && [[ "$random" == false ]] && wall=$(nsxiv -otf $wall_dir)
