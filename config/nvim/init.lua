@@ -18,7 +18,7 @@ vim.opt.smartindent = true
 vim.opt.wrap = false
 vim.opt.winborder = 'rounded'
 vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
-vim.opt.nrformats = vim.opt.nrformats + { "unsigned" }
+vim.opt.nrformats = vim.opt.nrformats + { 'unsigned' }
 
 -- keymaps
 vim.keymap.set('n', '<esc>', '<cmd>nohlsearch<cr>')
@@ -89,7 +89,7 @@ require('lazy').setup({
 		opts = {
 			skip_confirm_for_simple_edits = true,
 			delete_to_trash = true,
-			vim.keymap.set('n', "<space>e", "<cmd>Oil<CR>"),
+			vim.keymap.set('n', '<space>e', '<cmd>Oil<CR>'),
 		}
 	},
 	{
@@ -105,17 +105,15 @@ require('lazy').setup({
 	},
 	{
 		'vimwiki/vimwiki',
-		vimwiki_list = { { syntax = "markdown", ext = ".md" } },
-		config = function()
-			vim.keymap.set('n', 'tt', 'VimwikiToggleListItem')
-		end,
+		vimwiki_list = { { syntax = 'markdown', ext = '.md' } },
+        keys = {{'<space>tt', mode = 'n',  '<cmd>VimwikiToggleListItem<cr>'}},
 	},
 	{
 		'folke/flash.nvim',
         opts = { jump = { autojump = true } },
         keys = {
-            { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end },
-            { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end },
+            { 's', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end },
+            { 'S', mode = { 'n', 'x', 'o' }, function() require('flash').treesitter() end },
         },
 	},
 	{ 'nvim-lua/plenary.nvim' },
@@ -134,16 +132,15 @@ require('lazy').setup({
 	},
 	{
 		'NeogitOrg/neogit',
-		config = function()
-			vim.keymap.set('n', '<space>g', '<cmd>Neogit kind=replace<cr>')
-		end,
+        keys = {{'<space>g', mode = 'n',  '<cmd>Neogit kind=replace<cr>'}},
 	},
 	{
-		'lewis6991/gitsigns.nvim',
-		config = function()
-			require('gitsigns')
-			vim.keymap.set('n', '<space><tab>', require('gitsigns').preview_hunk)
-		end,
+		'lewis6991/gitsigns.nvim', event = 'VeryLazy',
+        keys = {
+			{ '[h', mode = 'n', '<cmd>Gitsigns prev_hunk<cr>' },
+			{ ']h', mode = 'n', '<cmd>Gitsigns next_hunk<cr>' },
+			{ '<space><tab>', mode = 'n', '<cmd>Gitsigns preview_hunk<cr>' },
+		},
 	},
 	{ 'neovim/nvim-lspconfig' },
 	{ 'williamboman/mason.nvim', opts = {} },
