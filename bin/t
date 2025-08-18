@@ -1,31 +1,27 @@
 #!/bin/env bash
 
 case "$1" in
-    ""|".") 
+    ""|".")
         [[ $PWD == $HOME ]] && tmux -u new -s "Main" && exit
         exec $0 $PWD && exit
         ;;
-    "menu") 
-        selected_session=$(tmux ls -F '#S' 2>/dev/null \
+    "menu")
+        sel=$(tmux ls -F '#S' 2>/dev/null \
             | fzf-tmux +m -p 40%,30% +s --print-query --prompt='session: ' | tail -1)
-        [[ ! "$selected_session" ]] && exit
-        $0 $selected_session && exit
+        [[ ! "$sel" ]] && exit
+        exec $0 $sel && exit
         ;;
 esac
 
-if tmux has-session -t "$@" 2>/dev/null; then
-    session_name="$@"
+if tmux has -t "$@" 2>/dev/null; then
+    session="$@"
 else
     [[ -d "$@" ]] && sj add "$@"
     target_dir=$(sj query "$@" 2>/dev/null)
     [[ ! -d "$target_dir" ]] && echo "error: no match found" && exit 1
 
-    session_name="$(basename "$target_dir" | sed 's/\./_/g')"
-    tmux new -ds "$session_name" -c "$target_dir" 2>/dev/null
+    session="$(basename "$target_dir" | sed 's/\./_/g')"
+    tmux new -ds "$session" -c "$target_dir" 2>/dev/null
 fi
 
-if [[ "$TMUX" == "" ]]; then
-    tmux -u attach -t "$session_name"
-else
-    tmux -u switch-client -t "$session_name"
-fi
+[ -z "$TMUX" ] && tmux attach -t "$session" || tmux switch -t "$session"

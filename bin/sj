@@ -108,7 +108,7 @@ def list_all():
         res = cur.execute("SELECT * FROM hist ORDER BY weight DESC")
         result = res.fetchall()
         for i in result:
-            print(f"{i[0]}\t{i[1]}")
+            print(f"{i[0]} ({i[1]})")
     finally:
         conn.close()
 
