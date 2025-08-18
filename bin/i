@@ -17,10 +17,10 @@ elif command -v pacman &> /dev/null; then
     if [[ "$1" == "update" || "$1" == "u" ]]; then
         sudo pacman -Syu --noconfirm
     elif [[ "$#" != 0 ]]; then
-        sudo pacman -S $@
+        sudo pacman -S --needed $@
     else
         sel=$(pacman -Ssq | menu "pacman -Si {}")
-        [ -n "$sel" ] && sudo pacman -S $sel
+        [ -n "$sel" ] && sudo pacman -S --needed $sel
     fi
 else
     echo "unsupported distribution"
