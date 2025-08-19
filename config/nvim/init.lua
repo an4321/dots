@@ -105,11 +105,13 @@ require('lazy').setup({
 	},
 	{
 		'vimwiki/vimwiki',
-		vimwiki_list = { { syntax = 'markdown', ext = '.md' } },
-        keys = {{'<space>tt', mode = 'n',  '<cmd>VimwikiToggleListItem<cr>'}},
+		vimwiki_list = {{ syntax = 'markdown', ext = '.md' }},
+        config = function()
+            vim.keymap.set({ 'n', 'v' }, "<Space>tt", "<cmd>VimwikiToggleListItem<CR>")
+        end
 	},
 	{
-		'folke/flash.nvim',
+		'folke/flash.nvim', event = "VeryLazy",
         opts = { jump = { autojump = true } },
         keys = {
             { 's', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end },
