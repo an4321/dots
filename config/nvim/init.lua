@@ -16,6 +16,8 @@ vim.opt.shiftwidth = 4
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.wrap = false
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 vim.opt.winborder = 'rounded'
 vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
 vim.opt.nrformats = vim.opt.nrformats + { 'unsigned' }
@@ -42,8 +44,8 @@ vim.keymap.set('n', '<space>w', '<cmd>w<cr>')
 vim.keymap.set('n', '<space>x', '<cmd>bdelete<cr>')
 vim.keymap.set('n', '<space>l', '<cmd>bnext<cr>')
 vim.keymap.set('n', '<space>h', '<cmd>bprevious<cr>')
-vim.keymap.set('n', '<Space>s', '<cmd>vsplit ./<cr>')
-vim.keymap.set('n', '<Space>S', '<cmd>split ./<cr>')
+vim.keymap.set('n', '<space>s', '<cmd>vsplit ./<cr>')
+vim.keymap.set('n', '<space>S', '<cmd>split ./<cr>')
 vim.keymap.set({ 'n', 'v' }, '<space>j', '<c-w><c-w>')
 vim.keymap.set('n', '<space>tw', ':lua vim.wo.wrap = not vim.wo.wrap<cr>')
 vim.keymap.set('n', '<space>ts', [[:set invspell<cr>]])
@@ -89,7 +91,8 @@ require('lazy').setup({
 		opts = {
 			skip_confirm_for_simple_edits = true,
 			delete_to_trash = true,
-			vim.keymap.set('n', '<space>e', '<cmd>Oil<CR>'),
+			keymaps = { ['<bs>'] = 'actions.parent', ['<tab>'] = 'actions.preview' },
+			vim.keymap.set('n', '<space>e', '<cmd>Oil<cr>'),
 		}
 	},
 	{
@@ -107,11 +110,11 @@ require('lazy').setup({
 		'vimwiki/vimwiki',
 		vimwiki_list = {{ syntax = 'markdown', ext = '.md' }},
         config = function()
-            vim.keymap.set({ 'n', 'v' }, "<Space>tt", "<cmd>VimwikiToggleListItem<CR>")
+            vim.keymap.set({ 'n', 'v' }, '<space>tt', '<cmd>VimwikiToggleListItem<cr>')
         end
 	},
 	{
-		'folke/flash.nvim', event = "VeryLazy",
+		'folke/flash.nvim', event = 'VeryLazy',
         opts = { jump = { autojump = true } },
         keys = {
             { 's', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end },
@@ -138,11 +141,11 @@ require('lazy').setup({
 	},
 	{
 		'lewis6991/gitsigns.nvim', event = 'VeryLazy',
-        keys = {
-			{ '[h', mode = 'n', '<cmd>Gitsigns prev_hunk<cr>' },
-			{ ']h', mode = 'n', '<cmd>Gitsigns next_hunk<cr>' },
-			{ '<space><tab>', mode = 'n', '<cmd>Gitsigns preview_hunk<cr>' },
-		},
+		config = function()
+			vim.keymap.set('n', '[g', '<cmd>Gitsigns prev_hunk<cr>')
+			vim.keymap.set('n', ']g', '<cmd>Gitsigns next_hunk<cr>' )
+			vim.keymap.set('n', '<space><tab>', '<cmd>Gitsigns preview_hunk<cr>' )
+		end,
 	},
 	{ 'neovim/nvim-lspconfig' },
 	{ 'williamboman/mason.nvim', opts = {} },
