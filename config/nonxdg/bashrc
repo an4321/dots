@@ -12,7 +12,7 @@ CYAN='\[\e[36m\]'
 PINK='\[\e[35m\]'
 RESET='\[\e[0m\]'
 BASE_PROMPT="${CYAN}\u${RESET}@${GREEN}\h${RESET}:${PINK} \w${RESET} > "
-set_prompt() { [ $? -ne 0 ] && PS1="$RED[Error]$RESET\n$BASE_PROMPT" || PS1="$BASE_PROMPT" }
+set_prompt() { [ $? -ne 0 ] && PS1="$RED[Error]$RESET\n$BASE_PROMPT" || PS1="$BASE_PROMPT"; }
 PROMPT_COMMAND=set_prompt
 
 shopt -s autocd
