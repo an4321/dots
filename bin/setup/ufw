@@ -1,0 +1,17 @@
+#!/bin/env bash
+set -e
+
+if command -v "apt" &> /dev/null; then
+    sudo apt install -y ufw
+elif command -v "pacman" &> /dev/null; then
+    sudo pacman -S ufw
+fi
+
+sudo systemctl enable ufw
+sudo systemctl start ufw
+
+sudo ufw default allow outgoing
+sudo ufw default deny incoming
+
+sudo ufw enable
+sudo ufw status verbose

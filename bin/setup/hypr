@@ -6,7 +6,8 @@ sudo pacman -S \
     dunst nemo rofi kitty pavucontrol playerctl libnotify noto-fonts-emoji imagemagick
 
 read -p "install nerd-fonts? [y/N] " yn && [[ $yn =~ ^[Yy]$ ]] && ~/dots/bin/install-nf
-read -p "install tlp? [y/N] " yn && [[ $yn =~ ^[Yy]$ ]] && sudo pacman -S tlp && sudo tlp start
+read -p "setup tlp? [y/N] " yn && [[ $yn =~ ^[Yy]$ ]] && sudo pacman -S tlp && sudo tlp start
+read -p "setup ufw? [y/N] " yn && [[ $yn =~ ^[Yy]$ ]] && ~/dots/bin/setup/ufw
 
 mkdir -p ~/Pictures/wallpapers
 [ -z "$(ls ~/Pictures/wallpapers)" ] \
