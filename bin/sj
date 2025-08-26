@@ -51,6 +51,7 @@ def add(params: list[str]):
     cur, conn = init_db()
     try:
         for i in params:
+            i = os.path.abspath(i)
             if not os.path.isdir(i):
                 print("invalid dir: ", i)
                 continue
@@ -73,6 +74,7 @@ def remove(params: list[str]):
     cur, conn = init_db()
     try:
         for i in params:
+            i = os.path.abspath(i)
             try:
                 cur.execute("DELETE FROM hist WHERE dir = ?", (i,))
                 print("removed: ", i)
