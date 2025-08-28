@@ -1,93 +1,76 @@
-#!/bin/env python3
+#!/usr/bin/env python3
 
+import argparse
 import datetime
 import os
 import subprocess
-import sys
 import time
 
-BLUE, BOLD, UNDERLINE, RESET = "\033[34m", "\033[1m", "\033[4m", "\033[0m"
-
-option_clear, option_show_time, wait_time = False, False, 0.4
+BLUE, RED, RESET = "\033[34m", "\033[31m", "\033[0m"
 
 
 def main():
-    global option_clear, option_show_time, wait_time
-    argv = sys.argv[1:]
-    if len(argv) == 0:
-        help()
-
-    for i in argv:
-        if i in ["-h", "--help"]:
-            help()
-
-        if i[0] == "-" and len(i) > 1 and not i[1] == "-":
-            for j in i[1:]:
-                match j:
-                    case "c":
-                        option_clear = True
-                    case "t":
-                        option_show_time = True
-                    case "w":
-                        try:
-                            wait_time_index = argv.index(i) + 1
-                            wait_time = float(argv[wait_time_index])
-                            argv.pop(wait_time_index)
-                        except ValueError:
-                            print(
-                                "ERROR: please specify a valid number for wait time (-w)"
-                            )
-                            sys.exit(1)
-                    case _:
-                        print(f"ERROR: Invalid options '-{j}'")
-                        sys.exit(1)
-
-            argv.remove(i)
-
-    delimiter_index = argv.index("--")
-    path_list = argv[:delimiter_index] or [os.path.abspath(".")]  # or just .
-    command = argv[delimiter_index + 1 :]
-
-    print("path_list:", path_list)
-    print("command:", command)
+    parser = argparse.ArgumentParser(description="run commands when files change")
+    parser.add_argument("command")
+    parser.add_argument("-p", "--paths", nargs="+", default=["."])
+    parser.add_argument("-c", "--clear", action="store_true")
+    parser.add_argument("-d", "--delay", type=float, default=0.4)
+    args = parser.parse_args()
 
     os.system("clear")
-    check_for_changes(path_list, command)
-
-
-def help(exitCode: int = 0):
-    print(f"""
-{BOLD}{UNDERLINE}fw:{RESET} Watch files for changes\n
-{BOLD}{UNDERLINE}Options:{RESET}
-  {BOLD}-c{RESET}         Clear before rerunning the command
-  {BOLD}-t{RESET}         Show timestamp
-  {BOLD}-w [val]{RESET}   Set a custom wait time
-  {BOLD}-h, --help{RESET} Display this help message
-""")
-    sys.exit(exitCode)
-
-
-def check_for_changes(paths: list[str], command: list[str]):
+    current_process = None
     try:
-        last_modified = {path: os.path.getmtime(path) for path in paths}
+        last_modified = {path: os.path.getmtime(path) for path in args.paths}
+
+        current_process = run_command(args.command)
+
         while True:
-            for path in paths:
+            file_changed = False
+            for path in args.paths:
                 current_modified = os.path.getmtime(path)
                 if current_modified != last_modified[path]:
-                    if option_clear:
-                        os.system("clear")
-
-                    if option_show_time:
-                        print(f"{BLUE}{datetime.datetime.now()}{RESET} {' '.join(command)}")
-
-                    subprocess.run(command)
-                    print()
-
-                    last_modified = {path: os.path.getmtime(path) for path in paths}
+                    file_changed = True
                     break
-            time.sleep(wait_time)
+
+            if file_changed:
+                if current_process and current_process.poll() is None:
+                    print(f"{RED}change detected, terminating process{RESET}\n")
+                    current_process.terminate()
+                    try:
+                        # wait for the process to terminate
+                        current_process.wait(timeout=5)
+                    except subprocess.TimeoutExpired:
+                        print(f"{RED}forcefully exiting process{RESET}")
+                        current_process.kill()
+
+                if args.clear:
+                    os.system("clear")
+
+                current_process = run_command(args.command)
+
+                last_modified = {path: os.path.getmtime(path) for path in args.paths}
+
+            time.sleep(args.delay)
     except KeyboardInterrupt:
-        print("exit")
+        # handle ctrl+c gracefully
+        if current_process and current_process.poll() is None:
+            current_process.terminate()
+            try:
+                current_process.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                print(f"{RED}forcefully exiting process{RESET}")
+                current_process.kill()
+        pass
+
+
+def run_command(command):
+    print(f"\n{BLUE}{datetime.datetime.now()}{RESET} {command}")
+    try:
+        process = subprocess.Popen(command, shell=True, preexec_fn=os.setsid)
+        return process
+    except Exception as e:
+        print(f"{RED}err: executing command: {e}{RESET}")
+        return None
 
 
 if __name__ == "__main__":
