@@ -9,7 +9,7 @@ case "$1" in
         sel=$(tmux ls -F '#S' 2>/dev/null \
             | fzf-tmux +m -p 40%,30% +s --print-query --prompt='session: ' | tail -1)
         [[ ! "$sel" ]] && exit
-        exec $0 $sel && exit
+        exec $0 $sel >/dev/null && exit
         ;;
 esac
 

@@ -22,16 +22,12 @@
         "bat": "BAT0",
         "adapter": "ADP0",
         "interval": 5,
-        "states": {
-            "warning": 20,
-            "critical": 10
-        },
         "format": "{icon} {capacity}%",
         "format-charging": "󱐋 {capacity}%",
         "format-icons": ["󰂎", "󰁼", "󰁿", "󰁹"],
         "events": {
-            "on-discharging-warning": "notify-send 'battery low!'",
-            "on-discharging-critical": "notify-send -u critical 'battery critical!'"
+            "on-discharging-20": "notify-send '🪫 battery low!'",
+            "on-discharging-10": "notify-send '⚠️ battery critical!'"
         }
     },
     "clock": {
