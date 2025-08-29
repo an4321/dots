@@ -14,6 +14,8 @@ vim.opt.shiftwidth = 4
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.wrap = false
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 vim.opt.winborder = 'rounded'
 vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
 vim.opt.nrformats = vim.opt.nrformats + { 'unsigned' }
@@ -74,8 +76,15 @@ end
 vim.opt.statusline = '%#StatusLine#  %f %h%w%m%r %{%v:lua.recording_status()%} %=%l,%c %p%% '
 
 -- packages
-vim.pack.add({'https://github.com/windwp/nvim-autopairs'})
-require('nvim-autopairs').setup()
+vim.pack.add({'https://github.com/catppuccin/nvim'})
+require('catppuccin').setup({
+	transparent_background = true,
+	float = { transparent = true }
+})
+vim.cmd.colorscheme 'catppuccin-mocha'
+
+vim.pack.add({'https://github.com/nvim-mini/mini.pairs'})
+require('mini.pairs').setup()
 
 vim.pack.add({'https://github.com/stevearc/oil.nvim'})
 require('oil').setup({ 
@@ -85,32 +94,25 @@ require('oil').setup({
 })
 vim.keymap.set('n', '<space>e', '<cmd>Oil<cr>')
 
-vim.pack.add({'https://github.com/catppuccin/nvim'})
-require('catppuccin').setup({
-	transparent_background = true,
-	float = { transparent = true }
-})
-vim.cmd.colorscheme 'catppuccin-mocha'
-
 vim.pack.add({'https://github.com/folke/flash.nvim'})
 require('flash').setup({ jump = { autojump = true }})
 vim.keymap.set('n', 's', function() require('flash').jump() end)
 
-vim.pack.add({'https://github.com/nvim-lua/plenary.nvim'})
-vim.pack.add({'https://github.com/nvim-telescope/telescope.nvim'})
-require('telescope').setup({
-    defaults = { file_ignore_patterns = { 'node_modules/', 'vendor/', 'assets/' }}
-})
-vim.keymap.set('n', '<space>f', '<cmd>Telescope find_files<cr>')
-vim.keymap.set('n', '<space>b', '<cmd>Telescope buffers<cr>')
-vim.keymap.set('n', '<space>o', '<cmd>Telescope oldfiles<cr>')
-vim.keymap.set('n', '<space>/', '<cmd>Telescope live_grep<cr>')
+vim.pack.add({'https://github.com/ibhagwan/fzf-lua'})
+vim.schedule(function() require('fzf-lua').setup() end)
+vim.keymap.set('n', '<space>f', '<cmd>FzfLua files<cr>')
+vim.keymap.set('n', '<space>b', '<cmd>FzfLua buffers<cr>')
+vim.keymap.set('n', '<space>o', '<cmd>FzfLua oldfiles<cr>')
+vim.keymap.set('n', '<space>/', '<cmd>FzfLua live_grep<cr>')
 
+vim.pack.add({'https://github.com/nvim-lua/plenary.nvim'})
 vim.pack.add({'https://github.com/NeogitOrg/neogit'})
 vim.keymap.set('n', '<space>g', '<cmd>Neogit kind=replace<cr>')
 vim.pack.add({'https://github.com/lewis6991/gitsigns.nvim'})
-vim.keymap.set('n', '<space><tab>', require('gitsigns').preview_hunk)
 require('gitsigns')
+vim.keymap.set('n', '<space><tab>', '<cmd>Gitsigns preview_hunk<cr>')
+vim.keymap.set('n', '[g', '<cmd>Gitsigns prev_hunk<cr>')
+vim.keymap.set('n', ']g', '<cmd>Gitsigns next_hunk<cr>' )
 
 vim.pack.add({'https://github.com/vimwiki/vimwiki'})
 vimwiki_list = {{ syntax = 'markdown', ext = '.md' }}
