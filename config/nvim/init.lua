@@ -1,11 +1,9 @@
--- options
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.breakindent = true
 vim.opt.confirm = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.inccommand = 'split'
 vim.opt.signcolumn = 'yes'
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -16,13 +14,10 @@ vim.opt.shiftwidth = 4
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.wrap = false
-vim.opt.splitright = true
-vim.opt.splitbelow = true
 vim.opt.winborder = 'rounded'
 vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
 vim.opt.nrformats = vim.opt.nrformats + { 'unsigned' }
 
--- keymaps
 vim.keymap.set('n', '<esc>', '<cmd>nohlsearch<cr>')
 vim.keymap.set('n', 'U', '<cmd>redo<cr>')
 vim.keymap.set({ 'n', 'v' }, ';', ':')
@@ -48,7 +43,7 @@ vim.keymap.set('n', '<space>s', '<cmd>vsplit ./<cr>')
 vim.keymap.set('n', '<space>S', '<cmd>split ./<cr>')
 vim.keymap.set({ 'n', 'v' }, '<space>j', '<c-w><c-w>')
 vim.keymap.set('n', '<space>tw', ':lua vim.wo.wrap = not vim.wo.wrap<cr>')
-vim.keymap.set('n', '<space>ts', [[:set invspell<cr>]])
+vim.keymap.set('n', '<space>ts', ':set invspell<cr>')
 vim.keymap.set('n', '<space>;', ':set filetype=')
 vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])
 vim.keymap.set('n', '<space>a', (':cd ~/Desktop | ex .<cr>'))
@@ -65,111 +60,81 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
 
 -- terminal
-vim.keymap.set('n', '<space><cr>', '<cmd>terminal<cr>')
 vim.cmd [[ autocmd TermOpen * startinsert ]]
 vim.keymap.set('t', '<Esc>', [[<c-\><c-n>]])
+vim.keymap.set('n', '<space><cr>', '<cmd>terminal<cr>')
 
 -- statusline
 vim.opt.cmdheight = 0
 vim.opt.laststatus = 3 -- global statusline
+require('vim._extui').enable({}) -- temp
 function recording_status()
     return vim.fn.reg_recording() ~= '' and 'recording @' .. vim.fn.reg_recording() or ''
 end
 vim.opt.statusline = '%#StatusLine#  %f %h%w%m%r %{%v:lua.recording_status()%} %=%l,%c %p%% '
 
 -- packages
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({ 'git', 'clone', '--filter=blob:none', 'https://github.com/folke/lazy.nvim.git', '--branch=stable', lazypath })
-end
-vim.opt.rtp:prepend(lazypath)
+vim.pack.add({'https://github.com/windwp/nvim-autopairs'})
+require('nvim-autopairs').setup()
 
-require('lazy').setup({
-	{ 'windwp/nvim-autopairs', opts = {} },
-	{
-		'stevearc/oil.nvim',
-		opts = {
-			skip_confirm_for_simple_edits = true,
-			delete_to_trash = true,
-			keymaps = { ['<bs>'] = 'actions.parent', ['<tab>'] = 'actions.preview' },
-			vim.keymap.set('n', '<space>e', '<cmd>Oil<cr>'),
-		}
-	},
-	{
-		'catppuccin/nvim', name = 'catppuccin',
-		config = function()
-			require('catppuccin').setup({
-				flavour = 'mocha',
-				transparent_background = true,
-				float = { transparent = true }
-			})
-			vim.cmd.colorscheme 'catppuccin'
-		end,
-	},
-	{
-		'vimwiki/vimwiki',
-		vimwiki_list = {{ syntax = 'markdown', ext = '.md' }},
-        config = function()
-            vim.keymap.set({ 'n', 'v' }, '<space>tt', '<cmd>VimwikiToggleListItem<cr>')
-        end
-	},
-	{
-		'folke/flash.nvim', event = 'VeryLazy',
-        opts = { jump = { autojump = true } },
-        keys = {
-            { 's', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end },
-            { 'S', mode = { 'n', 'x', 'o' }, function() require('flash').treesitter() end },
-        },
-	},
-	{ 'nvim-lua/plenary.nvim' },
-	{
-		'nvim-telescope/telescope.nvim',
-		dependencies = { 'nvim-lua/plenary.nvim' },
-		config = function()
-			require('telescope').setup({
-				defaults = { file_ignore_patterns = { 'node_modules/', 'vendor/', 'assets/' }}
-			})
-			vim.keymap.set('n', '<space>f', '<cmd>Telescope find_files<cr>')
-			vim.keymap.set('n', '<space>b', '<cmd>Telescope buffers<cr>')
-			vim.keymap.set('n', '<space>o', '<cmd>Telescope oldfiles<cr>')
-			vim.keymap.set('n', '<space>/', '<cmd>Telescope live_grep<cr>')
-		end,
-	},
-	{
-		'NeogitOrg/neogit',
-        keys = {{'<space>g', mode = 'n',  '<cmd>Neogit kind=replace<cr>'}},
-	},
-	{
-		'lewis6991/gitsigns.nvim', event = 'VeryLazy',
-		config = function()
-			vim.keymap.set('n', '[g', '<cmd>Gitsigns prev_hunk<cr>')
-			vim.keymap.set('n', ']g', '<cmd>Gitsigns next_hunk<cr>' )
-			vim.keymap.set('n', '<space><tab>', '<cmd>Gitsigns preview_hunk<cr>' )
-		end,
-	},
-	{ 'neovim/nvim-lspconfig' },
-	{ 'williamboman/mason.nvim', opts = {} },
-	{ 'williamboman/mason-lspconfig.nvim', opts = {} },
-	{
-		'nvim-treesitter/nvim-treesitter',
-		build = ':TSUpdate',
-		version = 'master',
-		config = function()
-			require('nvim-treesitter.configs').setup({
-				auto_install = true,
-				highlight = { enable = true },
-			})
-		end,
-	},
-	{
-		'Saghen/blink.cmp',
-		config = function()
-			require('blink.cmp').setup({ fuzzy = { implementation = 'lua' }})
-			local capabilities = require('blink.cmp').get_lsp_capabilities()
-			vim.lsp.config('*', { capabilities = capabilities })
-			vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
-			vim.keymap.set('n', 'gq', function() vim.lsp.buf.format({ async = true }) end)
-			vim.keymap.set('n', '<space>d', vim.diagnostic.goto_next)
-		end,
-	},
+vim.pack.add({'https://github.com/stevearc/oil.nvim'})
+require('oil').setup({ 
+    skip_confirm_for_simple_edits = true,
+    delete_to_trash = true,
+    keymaps = { ['<bs>'] = 'actions.parent', ['<tab>'] = 'actions.preview' } 
 })
+vim.keymap.set('n', '<space>e', '<cmd>Oil<cr>')
+
+vim.pack.add({'https://github.com/catppuccin/nvim'})
+require('catppuccin').setup({
+	transparent_background = true,
+	float = { transparent = true }
+})
+vim.cmd.colorscheme 'catppuccin-mocha'
+
+vim.pack.add({'https://github.com/folke/flash.nvim'})
+require('flash').setup({ jump = { autojump = true }})
+vim.keymap.set('n', 's', function() require('flash').jump() end)
+
+vim.pack.add({'https://github.com/nvim-lua/plenary.nvim'})
+vim.pack.add({'https://github.com/nvim-telescope/telescope.nvim'})
+require('telescope').setup({
+    defaults = { file_ignore_patterns = { 'node_modules/', 'vendor/', 'assets/' }}
+})
+vim.keymap.set('n', '<space>f', '<cmd>Telescope find_files<cr>')
+vim.keymap.set('n', '<space>b', '<cmd>Telescope buffers<cr>')
+vim.keymap.set('n', '<space>o', '<cmd>Telescope oldfiles<cr>')
+vim.keymap.set('n', '<space>/', '<cmd>Telescope live_grep<cr>')
+
+vim.pack.add({'https://github.com/NeogitOrg/neogit'})
+vim.keymap.set('n', '<space>g', '<cmd>Neogit kind=replace<cr>')
+vim.pack.add({'https://github.com/lewis6991/gitsigns.nvim'})
+vim.keymap.set('n', '<space><tab>', require('gitsigns').preview_hunk)
+require('gitsigns')
+
+vim.pack.add({'https://github.com/vimwiki/vimwiki'})
+vimwiki_list = {{ syntax = 'markdown', ext = '.md' }}
+vim.keymap.set('n', '<space>tt', '<cmd>VimwikiToggleListItem<cr>')
+
+-- lsp
+vim.pack.add({
+    'https://github.com/neovim/nvim-lspconfig',
+    'https://github.com/mason-org/mason.nvim',
+    'https://github.com/mason-org/mason-lspconfig.nvim',
+	{ src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'master' },
+    'https://github.com/Saghen/blink.cmp',
+})
+vim.schedule(function() 
+	require('mason').setup()
+	require('mason-lspconfig').setup()
+	require('nvim-treesitter.configs').setup({ 
+		auto_install = true,
+		highlight = { enable = true },
+	})
+	require('blink.cmp').setup({ fuzzy = { implementation = 'lua' }})
+	local capabilities = require('blink.cmp').get_lsp_capabilities()
+	vim.lsp.config('*', { capabilities = capabilities })
+	vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
+	vim.keymap.set('n', 'gq', function() vim.lsp.buf.format({ async = true }) end)
+	vim.keymap.set('n', '<space>d', vim.diagnostic.goto_next)
+end)
