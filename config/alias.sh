@@ -1,49 +1,43 @@
-
-export PATH=$PATH:"/bin:/usr/local/bin:$HOME/.bun/bin:$HOME/dots/bin:$HOME/.local/bin:$HOME/.go/bin:$HOME/.local/go/bin:$HOME/.local/node/bin"
-export EDITOR="nvim"
-export VISUAL="nvim"
+export PATH=$PATH:"/bin:/usr/local/bin:$HOME/.local/bin:$HOME/dots/bin:$HOME/.go/bin:$HOME/.local/go/bin:$HOME/.local/node/bin:$HOME/.bun/bin"
+export EDITOR="$(which nvim)"
+export MANPAGER="$(which nvim) +Man!"
 export GOPATH="$HOME/.go"
 export GOROOT="$HOME/.local/go"
-export MANPAGER="nvim +Man!"
-export FZF_DEFAULT_OPTS="--bind='ctrl-space:toggle-preview,ctrl-h:backward-kill-word' --cycle --reverse --prompt ' ' --pointer ' ' --marker='* ' -m --height=20% --color=bg+:blue,hl+:-1,prompt:blue,fg+:black,gutter:-1,border:blue --no-separator --scroll-off=3"
-export _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS --height=100% --border"
+export FZF_DEFAULT_OPTS="--cycle --reverse --no-separator --scroll-off=3 \
+	--prompt ' ' --pointer ' ' --marker='* ' -m --height=20% \
+	--bind='ctrl-space:toggle-preview,ctrl-h:backward-kill-word' \
+	--color=bg+:$ACCENT,hl+:0,prompt:$ACCENT,fg+:black,gutter:-1,border:$ACCENT"
 
 alias ..="cd .."
 alias ...="cd ../.."
-alias clr="clear"
 alias cp="cp -vir"
 alias mv="mv -vi"
 alias ln="ln -sv"
 alias rm="trash"
-
-alias ls="env ls --color=auto --group-directories-first"
-alias la="env ls --color=auto --group-directories-first -A"
-alias li="nsxiv -ota ."
-alias lir="nsxiv -ota . | xargs -d \n rm"
-
-alias cat="bat -p --theme=OneHalfDark"
-alias vi="nvim"
-alias se="sudoedit"
-
 alias df="df -h"
 alias free="free -h"
 alias fetch="fastfetch"
 alias fm="lf"
+alias cat="bat -p --theme=ansi"
+alias e="nvim"
+alias se="sudoedit"
+
+alias ls="env ls --color=auto --group-directories-first"
+alias la="env ls --color=auto --group-directories-first -A"
+alias li="nsxiv -ota ."
+alias lir="nsxiv -ota . | xargs -r -d \n trash"
 
 alias y='test -n "$WAYLAND_DISPLAY" && wl-copy || xsel -b'
 alias p='test -n "$WAYLAND_DISPLAY" && wl-paste || xsel -bo'
 alias yy="history --max=1 | tr -d '\n' | y"
 alias ywd="pwd; pwd | y"
 
-alias rg="rg --hidden -g '!{.git,node_modules,.svelte-kit,__pycache__,vendor}' --smart-case --pretty"
-alias fd="fd --hidden --follow --color auto --exclude={.git,node_modules,__pycache__,vendor}"
-alias rs="rsync -aPhz --update --exclude={node_modules,.next,.svelte-kit,__pycache__,vendor}"
+export IGNORE="node_modules,.next,.svelte-kit,__pycache__,vendor,.venv,vendor"
+alias rg="rg --hidden --smart-case --pretty -g '!{.git,$IGNORE}'"
+alias fd="fd --hidden --follow --color auto --exclude={.git,$IGNORE}"
+alias rs="rsync -aPhz --update --exclude={$IGNORE}"
 
-alias fopen='setsid open "$(fd | fzf-tmux -h)"'
-alias fo="fopen"
-
-alias pn="pnpm"
-alias px="pnpx"
+alias fo='setsid xdg-open "$(fd | fzf-tmux -h)"'
 
 alias gcl="git clone"
 alias gcb="git clone --bare"
@@ -56,6 +50,3 @@ alias gwa="git worktree add"
 alias gwr="git worktree remove"
 alias gl='git log --graph --all --pretty=format:"%C(magenta)%h %C(white) %an  %ar%C(blue)  %D%n%s%n"'
 alias lines="git ls-files | xargs cat | wc -l"
-
-alias emote="env cat ~/.config/rofi/{emotes,nf-icons} | fzf-tmux -h +s -m | cut -d ' ' -f 1 | tr -d '\n' | y"
-alias setup="fd -t x . ~/dots/bin/setup | fzf --preview 'cat --color always {}' --height 100% | xargs -I {} sh {}"

@@ -3,7 +3,7 @@
 for option in "$@"; do
     case "$option" in
         "up"|"")
-            mkdir -p ~/.config ~/.local/bin ~/Desktop ~/Pictures/{Wallpapers,Screenshots}
+            mkdir -p ~/.config ~/.local/bin ~/Desktop ~/Pictures/{wallpapers,screenshots}
             ln -sf $PWD/config/* ~/.config
             for file in $PWD/config/nonxdg/*; do
                 [ -f "$file" ] && ln -sf "$file" ~/."$(basename $file)"
