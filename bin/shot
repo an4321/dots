@@ -1,23 +1,20 @@
-#!/bin/env bash
+#!/bin/env fish
 
-ss="$HOME/Pictures/screenshots/$(date +%F_%H-%M-%S).png"
+set ss "$HOME/Pictures/screenshots/$(date +%F_%H-%M-%S).png"
 
-case $1 in
-	""|"-s")
-		if [ -n "$WAYLAND_DISPLAY" ]; then
-			geo=$(slurp)
-			[ -n geo ] && grim -g "$geo" "$ss"
+switch $argv
+    case "" "-s"
+        if test -n "$WAYLAND_DISPLAY"
+			slurp | xargs -r -I {} grim -g {} $ss
 		else
-			import "$ss"
-		fi
-		;;
-	"-f")
-		if [ -n "$WAYLAND_DISPLAY" ]; then
+            import "$ss"
+		end
+	case "-f"
+		if test -n "$WAYLAND_DISPLAY"
 			grim "$ss"
 		else
 			import -window root "$ss"
-		fi
-		;;
-esac
+		end
+end
 
-[ -f $ss ] && notify-send -i "$ss" "screenshot" "$ss"
+test -f $ss && notify-send -i "$ss" "screenshot" "$ss"
