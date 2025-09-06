@@ -1,4 +1,5 @@
 export PATH=$PATH:"/bin:/usr/local/bin:$HOME/.local/bin:$HOME/dots/bin:$HOME/.go/bin:$HOME/.local/go/bin:$HOME/.local/node/bin:$HOME/.bun/bin"
+export ACCENT="yellow"
 export EDITOR="$(which nvim)"
 export MANPAGER="$(which nvim) +Man!"
 export GOPATH="$HOME/.go"
