@@ -1,0 +1,4 @@
+#!/bin/env fish
+
+test -n "$TMUX" && tmux rename-window "notes"
+cd ~/notes && $EDITOR $(fd -1 index)
