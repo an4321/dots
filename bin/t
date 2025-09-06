@@ -3,7 +3,7 @@ set this $(status -f)
 
 switch "$argv[1]"
 	case "" "."
-        test $PWD = $HOME && tmux new -A -s "main" -n "notes" "nvim ~/notes/index" && exit
+		test $PWD = $HOME && tmux new -A -s "main" "notes" && exit
 		exec $this $PWD && exit
 	case "menu" "m"
         set sel $(tmux ls -F '#S' 2>/dev/null \
@@ -12,11 +12,11 @@ switch "$argv[1]"
 		exec $this $sel >/dev/null && exit
 end
 
-if test $(tmux has -t "$argv" 2>/dev/null)
+if tmux has -t "$argv" 2>/dev/null
     set session "$argv"
 else
-    test -d "$argv" && sj add "$argv"
-    set target_dir $(sj query "$argv" 2>/dev/null)
+    test -d "$argv" && jump add "$argv"
+    set target_dir $(jump query "$argv" 2>/dev/null)
     test ! -d "$target_dir" && echo "error: no match found" && exit 1
 
     set session "$(basename "$target_dir" | sed 's/\./_/g')"

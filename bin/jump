@@ -1,0 +1,75 @@
+#!/bin/env fish
+
+function main
+    set argc (count $argv)
+    test $argc -eq 0 && help 0
+
+    db "create table if not exists main (dir text primary key);"
+
+    switch $argv[1]
+        case l list
+            db "select * from main;" | tr ' ' '\n'
+        case a add
+            test $argc -lt 2 && die "nothing to add"
+            add $argv[2..-1]
+        case r remove
+            test $argc -lt 2 && die "nothing to remove"
+            remove $argv[2..-1]
+        case q query
+            test $argc -lt 2 && die "nothing to query"
+            query $argv[2..-1]
+        case h help
+            help 0
+        case "*"
+            help 1
+    end
+end
+
+function help
+    echo "options: [a add] [r remove] [q query] [l list] [h help]"
+    exit $argv
+end
+
+function die
+    echo "Error: $argv" && exit 1
+end
+
+function db
+    sqlite3 "$HOME/.local/state/jump.db" $argv
+    test $status -ne 0 && die "db operation failed"
+end
+
+function add
+    for i in $argv
+        test ! -d $i && echo "invalid dir" && continue
+        set dir (realpath $i)
+        set res (db "select * from main where dir='$dir'")
+        if test -z "$res"
+            db "insert into main values ('$dir')"
+            echo "Added: $dir"
+        end
+    end
+end
+
+function remove
+    for i in $argv
+        db "delete from main where dir='$i';"
+        echo "Removed: $i"
+    end
+end
+
+function query
+	test -d $argv && echo "$(realpath $argv)" && return
+    set q "%$(echo $argv | tr ' ' '%')%"
+    # get results and order by number of slashes
+    set res (db "select * from main where dir like ('$q');" \
+		| tr ' ' '\n' | awk -F'/' '{ print NF-1, $0 }' | sort -n | cut -d' ' -f2-)
+    test -z "$res" && die 404
+
+    for i in $res
+        test ! -d $i && remove $i && continue
+        echo $i && return
+    end
+end
+
+main $argv

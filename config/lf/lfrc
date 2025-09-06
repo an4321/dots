@@ -12,7 +12,7 @@ map gv cd ~/Videos
 map gm cd ~/Music
 map gn cd ~/notes
 map gb cd ~/notes/books/2025
-map g. cd ~/dots/config
+map g. cd ~/dots
 map g, cd ~/.config
 
 map J :push 5j
@@ -39,8 +39,8 @@ cmd locate ${{
 }}
 map <c-f> locate
 
-cmd jump %{{
-    result="$(sj l | awk '{print $1}' | fzf-tmux)"
+cmd jump ${{
+    result="$(jump list | fzf-tmux)"
     lf -remote "send $id cd '$result'"
 }}
 map z jump
