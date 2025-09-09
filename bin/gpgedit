@@ -1,30 +1,26 @@
-#!/bin/bash
+#!/bin/env fish
 
-case $1 in
-    "create"|"c")
-        read -s -p "password: " password && echo
-        gpg --batch --symmetric --cipher-algo AES256 --passphrase "$password" --output "$2" <(echo)
-        exit
-        ;;
-esac
+function die
+	echo "Error: $argv" && exit 1
+end
 
-[ $# -ne 1 ] && exit 1
+test -z "$argv" && die "no file specified"
+set file "$argv"
+read -s -P "password: " pass
 
-file="$1"
-temp_file="$(mktemp).$(basename $file)"
-[ ! -f "$file" ] && echo "Error: '$file' is not a valid file." && exit 1
+if test "$argv[1]" = "new"
+	test -z $argv[2] && die "file name is required"
+	set file "$argv[2]" 
+	echo | gpg --batch --symmetric --cipher-algo AES256 --passphrase "$pass" --output "$file"
+end
 
-read -s -p "password: " password &&
-echo
-if ! gpg --batch --passphrase "$password" --decrypt "$file" > "$temp_file" 2>/dev/null ; then 
-    echo "decryption failed"
-    shred -uz "$temp_file"
-    exit 1
-fi
+test ! -f "$file" && die "'$file' is not a valid file."
+set temp_file "$(mktemp).$(basename $file)"
 
-${EDITOR:-nvim} "$temp_file"
-shred -uz "$file"
+gpg --batch --passphrase "$pass" --decrypt "$file" > "$temp_file" 2>/dev/null \
+	|| die "decryption failed"
 
-gpg --batch --symmetric --cipher-algo AES256 --passphrase "$password" --output "$file" "$temp_file"
-echo -e "file saved"
-shred -uz "$temp_file"
+$EDITOR "$temp_file" && shred -uz "$file"
+
+gpg --batch --symmetric --cipher-algo AES256 --passphrase "$pass" --output "$file" "$temp_file"
+echo "file saved" && shred -uz "$temp_file"
