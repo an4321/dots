@@ -1,5 +1,5 @@
 * {
-    font: "JetBrainsMonoNerdFont 16";
+    font: "JetBrainsMonoNerdFont 14";
     bg: #1E2127DD;
     fg: #FFFFFF;
     accent: #F9E2AF;

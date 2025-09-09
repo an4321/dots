@@ -40,7 +40,7 @@ cmd locate ${{
 map <c-f> locate
 
 cmd jump ${{
-    result="$(jump list | fzf-tmux)"
+    result="$(jump list | fzf --height=100%)"
     lf -remote "send $id cd '$result'"
 }}
 map z jump
