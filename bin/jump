@@ -59,7 +59,7 @@ function remove
 end
 
 function query
-	test -d $argv && echo "$(realpath $argv)" && return
+	test $argv[1] = '.' && set argv[1] "$PWD"
     set q "%$(echo $argv | tr ' ' '%')%"
     # get results and order by number of slashes
     set res (db "select * from main where dir like ('$q');" \
