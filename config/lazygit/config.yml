@@ -1,0 +1,22 @@
+gui:
+  expandFocusedSidePanel: true
+  showFileTree: false
+  showRandomTip: false
+  showCommandLog: false
+  showPanelJumps: false
+  showBottomLine: true
+  # border: hidden
+  statusPanelView: allBranchesLog
+  theme:
+    selectedLineBgColor:
+      - black
+    activeBorderColor:
+      - yellow
+    inactiveBorderColor:
+      - '#ccc'
+
+os:
+  edit: "$EDITOR {{filename}}"
+
+promptToReturnFromSubprocess: false
+disableStartupPopups: false

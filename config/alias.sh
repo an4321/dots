@@ -40,14 +40,17 @@ alias rs="rsync -aPhz --update --exclude={$IGNORE}"
 
 alias fo='setsid xdg-open "$(fd | fzf-tmux -h)"'
 
+alias lg="lazygit"
 alias gcl="git clone"
 alias gcb="git clone --bare"
 alias gc1="git clone --depth 1"
 alias gb="git branch"
 alias gc="git checkout"
 alias gp="git push origin"
+alias gib="git init --bare"
 alias gw="git worktree"
 alias gwa="git worktree add"
 alias gwr="git worktree remove"
-alias gl='git log --graph --all --pretty=format:"%C(magenta)%h %C(white) %an  %ar%C(blue)  %D%n%s%n"'
+alias gl='git log --graph --all \
+	--pretty=format:"%C(magenta)%h %C(white) %an  %ar%C(blue)  %D%n%s%n"'
 alias lines="git ls-files | xargs cat | wc -l"

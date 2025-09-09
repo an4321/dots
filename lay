@@ -15,13 +15,13 @@ for option in "$@"; do
             ;;
         "base")
             if command -v "apt" &>/dev/null ; then
-                sudo apt install -y \
-                    curl fish tmux lf fzf htop fd-find ripgrep bat trash-cli wget fastfetch
+                sudo apt install -y curl fish tmux lf fzf fd-find ripgrep \
+					htop bat trash-cli wget fastfetch lazygit
                 ln -sf $(which batcat) ~/.local/bin/bat
                 ln -sf $(which fdfind) ~/.local/bin/fd
             elif command -v "pacman" &>/dev/null ; then
-                sudo pacman -Syu --noconfirm \
-                    curl fish tmux lf fzf htop fd ripgrep bat trash-cli wget fastfetch unzip man-db nvim
+                sudo pacman -Syu --noconfirm curl fish tmux lf fzf fd ripgrep \
+					htop bat trash-cli wget fastfetch unzip man-db nvim lazygit
             fi
             chsh -s "$(which fish)"
             ;;
