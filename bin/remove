@@ -1,30 +1,28 @@
-#!/bin/env bash
+#!/bin/env fish
+source "$HOME/dots/bin/helper/std.fish"
 
-menu() {
-    fzf-tmux -m -e --preview-window=right:55% --preview "$@"
-}
+function menu
+    fzf-tmux -m -e --preview-window=right:55% --preview "$argv"
+end
 
-if command -v apt &> /dev/null; then
-    if [[ "$#" == 0 ]]; then
-        sel=$(apt list --installed | cut -d/ -f1 | menu 'apt-cache show {}')
-        [ -n "$sel" ] && sudo apt remove $sel
-    elif [[ "$1" == "all" || "$1" == "a" ]]; then
-        shift
-        sudo apt autoremove --purge $@
+if checkcmd "apt"
+    if test (count $argv) -eq 0
+        set sel (apt list --installed | cut -d/ -f1 | menu 'apt-cache show {}')
+        test -n "$sel" && sudo apt remove $sel
+	else if test "$argv[1]" = "all" -o "$argv[1]" = "a"
+        sudo apt autoremove --purge $argv[2..-1]
     else
-        sudo apt remove $@
-    fi
-elif command -v pacman &> /dev/null; then
-    if [[ "$#" == 0 ]]; then
-        sel=$(pacman -Qq | menu 'pacman -Qi {}')
-        [ -n "$sel" ] && sudo pacman -R $sel
-    elif [[ "$1" == "all" || "$1" == "a" ]]; then
-        shift
-        sudo pacman -Rns $@
+        sudo apt remove $argv
+	end
+else if checkcmd "pacman"
+    if test (count $argv) -eq 0
+        set sel (pacman -Qq | menu 'pacman -Qi {}')
+        test -n "$sel" && sudo pacman -R $sel
+	else if test "$argv[1]" = "all" -o "$argv[1]" = "a"
+        sudo pacman -Rns $argv[2..-1]
     else
-        sudo pacman -R $@
-    fi
+        sudo pacman -R $argv
+	end
 else
-    echo "unsupported distribution"
-    exit 1
-fi
+	die "unsupported distribution"
+end

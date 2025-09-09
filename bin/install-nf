@@ -1,26 +1,24 @@
-#!/bin/env bash
-set -e
+#!/bin/env fish
+source "$HOME/dots/bin/helper/std.fish"
 
-FONTS=("${@:-JetBrainsMono}")
-REPO_URL="https://github.com/ryanoasis/nerd-fonts.git"
-FONT_DIR="$HOME/.local/share/fonts"
-mkdir -p "$FONT_DIR"
+set fonts "JetBrainsMono"
+test -n "$argv" && set fonts $argv
 
-for font in "${FONTS[@]}"; do
-    echo -e "\n\e[1;32mInstalling $font\e[0m"
+set repo_url "https://github.com/ryanoasis/nerd-fonts.git"
+set font_dir "$HOME/.local/share/fonts"
+mkdir -p "$font_dir"
 
-    # clone the specific font from the repository
-    git clone --filter=blob:none --sparse $REPO_URL
+for font in $fonts
+    echo "\nInstalling '$font'"
+
+    git clone --filter=blob:none --sparse $repo_url || die "cloneing"
     cd nerd-fonts
-    git sparse-checkout add patched-fonts/$font
-    
-    # find and copy all .ttf files
-    find patched-fonts/$font -name "*.ttf" -exec cp {} $FONT_DIR \;
-    
-    cd .. && rm -rf nerd-fonts
-    echo -e "\n\e[1;32m$font installed successfully.\e[0m\n"
-done
+    git sparse-checkout add "patched-fonts/$font" || die "404"
+    find patched-fonts/$font -name "*.ttf" -exec cp {} $font_dir \;
 
-# update font cache
+    cd .. && rm -rf nerd-fonts
+    echo "\n'$font' installed successfully\n\n"
+end
+
 fc-cache -f -v
-echo -e "\n\e[1;32mDone\e[0m\n"
+printf "\nDone\n\n"

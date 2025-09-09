@@ -1,28 +1,41 @@
-#!/bin/env bash
+#!/bin/env fish
+source "$HOME/dots/bin/helper/std.fish"
 
-menu() {
-    fzf-tmux -m -e --preview-window=right:55% --preview "$@"
-}
+function menu
+    fzf-tmux -m -e --preview-window=right:55% --preview "$argv"
+end
 
-if command -v apt &> /dev/null; then
-    if [[ "$1" == "update" || "$1" == "u" ]]; then
+if checkcmd apt
+	if test -z "$argv"
+        set sel (apt-cache pkgnames | menu "apt-cache show {}")
+        test -n "$sel" && sudo apt install $sel
+    else if test "$argv" = "update" -o "$argv" = "u" 
         sudo apt update -y && sudo apt upgrade -y
-    elif [[ "$#" != 0 ]]; then
-        sudo apt install $@
     else
-        sel=$(apt-cache pkgnames | menu "apt-cache show {}")
-        [ -n "$sel" ] && sudo apt install $sel
-    fi
-elif command -v pacman &> /dev/null; then
-    if [[ "$1" == "update" || "$1" == "u" ]]; then
+        sudo apt install $argv
+	end
+else if checkcmd pacman
+	if test -z "$argv"
+        set sel (pacman -Ssq | menu "pacman -Si {}")
+        test -n "$sel" && sudo pacman -S --needed $sel
+    else if test "$argv" = "update" -o "$argv" = "u" 
         sudo pacman -Syu --noconfirm
-    elif [[ "$#" != 0 ]]; then
-        sudo pacman -S --needed $@
     else
-        sel=$(pacman -Ssq | menu "pacman -Si {}")
-        [ -n "$sel" ] && sudo pacman -S --needed $sel
-    fi
+        sudo pacman -S --needed $argv && exit
+
+		# AUR
+		test (count $argv) -gt 1 && die "too many arguments"
+		confirm "check the AUR for '$argv'" || exit
+		mkdir -p "$HOME/.cache/aur"
+
+		if test -d "$HOME/.cache/aur/$argv"
+			cd "$HOME/.cache/aur/$argv" && git pull
+		else
+			git clone "https://aur.archlinux.org/$argv.git" \
+				"$HOME/.cache/aur/$argv" || die "cloneing"
+		end
+		cd "$HOME/.cache/aur/$argv" && makepkg -si
+	end
 else
-    echo "unsupported distribution"
-    exit 1
-fi
+    die "unsupported distribution"
+end

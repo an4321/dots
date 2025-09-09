@@ -1,6 +1,13 @@
-#!/bin/env bash
-set -eEo pipefail
+#!/bin/env fish
+source "$HOME/dots/bin/helper/std.fish"
 
-curl -fsS https://dl.brave.com/install.sh | sh
-echo -e '#!/bin/env sh\nbrave-browser --force-device-scale-factor=1.2 $@' \
-    > ~/.local/bin/brave && chmod +x ~/.local/bin/brave
+if checkcmd pacman
+    $HOME/dots/bin/i brave-bin
+else
+    curl -fsS "https://dl.brave.com/install.sh" | sh
+
+    accept "create brave script" && begin
+        echo '#!/bin/env sh'
+        echo 'brave-browser --force-device-scale-factor=1.2 $@'
+    end >"$HOME/.local/bin/brave" && chmod +x "$HOME/.local/bin/brave"
+end
