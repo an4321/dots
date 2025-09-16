@@ -1,10 +1,16 @@
+set RED "\e[31m"
+set BLUE "\e[34m"
+set GREEN "\e[32m"
+set YELLOW "\e[33m"
+set BOLD "\e[1m"
+set UNDERLINE "\e[4m"
+set RESET "\e[0m"
+
 function die
-	# echo "error: $argv" >&2 && exit 1
 	printf "$RED%s$RESET %s\n" "error:" "$argv" >&2 && exit 1
 end
 
 function warn
-	# echo "warning: $argv" >&2 && return 1
 	printf "$YELLOW%s$RESET %s\n" "warning:" "$argv" >&2 && return 1
 end
 
@@ -19,7 +25,7 @@ end
 function checkcmd
 	switch (count $argv)
 		case 0
-			die "checkcmd needs at least 1 argument"
+			warn "checkcmd needs at least 1 argument"
 		case 1
 			command -v $argv &>/dev/null
 		case "*"

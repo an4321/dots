@@ -22,12 +22,8 @@ alias fm="lf"
 alias cat="bat -p --theme=ansi"
 alias e="nvim"
 alias se="sudoedit"
-
-alias ls="env ls --color=auto --group-directories-first"
-alias la="env ls --color=auto --group-directories-first -A"
+alias ls="env ls -G --color=auto --group-directories-first"
 alias li="nsxiv -ota ."
-alias lir="nsxiv -ota . | xargs -r -d \n trash"
-
 alias y='test -n "$WAYLAND_DISPLAY" && wl-copy || xsel -b'
 alias p='test -n "$WAYLAND_DISPLAY" && wl-paste || xsel -bo'
 alias yy="history --max=1 | tr -d '\n' | y"

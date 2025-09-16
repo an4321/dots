@@ -14,7 +14,6 @@ bind -M insert \ef 'fm; commandline -f repaint'
 bind -M insert \ea 't menu; commandline -f repaint'
 bind -M insert \ck 'commandline -i $(history | fzf-tmux -h -e +s); commandline -f repaint'
 bind -M insert \cH backward-kill-word
-bind -M insert \cc 'set fish_bind_mode default'
 
 if test (tty) = /dev/tty1
     # pgrep dwm || startx

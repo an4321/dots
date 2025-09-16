@@ -19,6 +19,7 @@ vim.opt.splitbelow = true
 vim.opt.winborder = 'rounded'
 vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
 vim.opt.nrformats = vim.opt.nrformats + { 'unsigned' }
+vim.o.inccommand = 'split'
 
 vim.keymap.set('n', '<esc>', ':nohlsearch<cr>')
 vim.keymap.set('n', 'U', ':redo<cr>')
@@ -43,11 +44,11 @@ vim.keymap.set('n', '<space>w', ':w<cr>')
 vim.keymap.set('n', '<space>x', ':bdelete<cr>')
 vim.keymap.set('n', '<space>l', ':bnext<cr>')
 vim.keymap.set('n', '<space>h', ':bprevious<cr>')
-vim.keymap.set('n', '<space>tw', ':lua vim.wo.wrap = not vim.wo.wrap<cr>')
-vim.keymap.set('n', '<space>ts', ':set invspell<cr>')
+vim.keymap.set('n', '<space>j', '<c-w><c-w>')
+vim.keymap.set('n', '<space>tw', ':set wrap!<cr>')
+vim.keymap.set('n', '<space>ts', ':set spell<cr>')
 vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])
-vim.keymap.set('n', '<space>a', ':cd ~/Desktop | ex .<cr>')
-vim.keymap.set('n', '<space>.', ':cd ~/dots | ex .<cr>')
+vim.keymap.set('n', '?', ':%s/')
 
 -- highlight on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -60,8 +61,8 @@ vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | ex
 
 -- terminal
 vim.cmd [[ autocmd TermOpen * startinsert ]]
-vim.keymap.set('t', '<Esc>', [[<c-\><c-n>]])
-vim.keymap.set('n', '<space><cr>', ':terminal<cr>')
+vim.keymap.set('t', '<c-c>', [[<c-\><c-n>]])
+vim.keymap.set('n', '<bs>', ':term ')
 
 -- statusline
 vim.opt.cmdheight = 0
@@ -100,7 +101,6 @@ require('oil').setup({
 require('flash').setup({ jump = { autojump = true }})
 require('mini.pairs').setup()
 require('gitsigns')
-vim.schedule(function() require('fzf-lua').setup() end)
 
 vim.cmd.colorscheme 'catppuccin-mocha'
 vim.keymap.set('n', '<space>e', '<cmd>Oil<cr>')
@@ -110,9 +110,10 @@ vim.keymap.set('n', '<space>f', ':FzfLua files<cr>')
 vim.keymap.set('n', '<space>b', ':FzfLua buffers<cr>')
 vim.keymap.set('n', '<space>o', ':FzfLua oldfiles<cr>')
 vim.keymap.set('n', '<space>/', ':FzfLua live_grep<cr>')
+vim.keymap.set('n', '<space>.', ':cd ~/dots | FzfLua files<cr>')
 vim.keymap.set('n', '<space><tab>', ':Gitsigns preview_hunk<cr>')
 vim.keymap.set('n', '[g', ':Gitsigns prev_hunk<cr>')
-vim.keymap.set('n', ']g', ':Gitsigns next_hunk<cr>' )
+vim.keymap.set('n', ']g', ':Gitsigns next_hunk<cr>')
 
 -- lsp
 vim.schedule(function() 
