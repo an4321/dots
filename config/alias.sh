@@ -28,13 +28,14 @@ alias y='test -n "$WAYLAND_DISPLAY" && wl-copy || xsel -b'
 alias p='test -n "$WAYLAND_DISPLAY" && wl-paste || xsel -bo'
 alias yy="history --max=1 | tr -d '\n' | y"
 alias ywd="pwd; pwd | y"
+alias fo='runbg xdg-open "$(fd | fzf-tmux -h)"'
+alias x='xargs -I "jk"'
+complete -c x -w env
 
 export IGNORE="node_modules,.next,.svelte-kit,__pycache__,vendor,.venv,vendor"
 alias rg="rg --hidden --smart-case --pretty -g '!{.git,$IGNORE}'"
 alias fd="fd --hidden --follow --color auto --exclude={.git,$IGNORE}"
 alias rs="rsync -aPhz --update --exclude={$IGNORE}"
-
-alias fo='setsid xdg-open "$(fd | fzf-tmux -h)"'
 
 alias lg="lazygit"
 alias gcl="git clone"

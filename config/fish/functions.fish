@@ -43,3 +43,7 @@ end
 function c
     echo "$argv" | sed 's/x/*/g' | bc -l
 end
+
+function runbg --wraps='env'
+	nohup $argv &>"/tmp/runbg-$(basename $argv).log" &
+end
