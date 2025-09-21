@@ -24,6 +24,7 @@ vim.opt.nrformats = vim.opt.nrformats + { 'unsigned' }
 vim.keymap.set('n', '<esc>', ':nohlsearch<cr>')
 vim.keymap.set('n', 'U', ':redo<cr>')
 vim.keymap.set({ 'n', 'v' }, ';', ':')
+vim.keymap.set({ 'n', 'v' }, ',', 'zt')
 vim.keymap.set({ 'n', 'v' }, 'j', 'gj')
 vim.keymap.set({ 'n', 'v' }, 'k', 'gk')
 vim.keymap.set({ 'n', 'v' }, 'L', '$')
@@ -43,7 +44,6 @@ vim.keymap.set('n', '<space>tw', ':set wrap!<cr>')
 vim.keymap.set('n', '<space>ts', ':set spell!<cr>')
 vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])
 vim.keymap.set('n', '?', ':%s/')
-vim.keymap.set('n', ',', 'zt')
 
 -- highlight on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -85,13 +85,11 @@ vim.pack.add({
 })
 
 require('catppuccin').setup({
-	transparent_background = true,
-	float = { transparent = true },
+	transparent_background = true, float = { transparent = true }
 })
 require('oil').setup({ 
-	skip_confirm_for_simple_edits = true,
-	delete_to_trash = true,
-	keymaps = { ['<bs>'] = 'actions.parent', ['<tab>'] = 'actions.preview' },
+	skip_confirm_for_simple_edits = true, delete_to_trash = true,
+	keymaps = { ['<bs>'] = 'actions.parent', ['<tab>'] = 'actions.preview' }
 })
 require('flash').setup({ jump = { autojump = true }})
 require('mini.pairs').setup()
@@ -115,8 +113,7 @@ vim.schedule(function()
 	require('mason').setup()
 	require('mason-lspconfig').setup()
 	require('nvim-treesitter.configs').setup({ 
-		auto_install = true,
-		highlight = { enable = true },
+		auto_install = true, highlight = { enable = true }
 	})
 	require('blink.cmp').setup({ fuzzy = { implementation = 'lua' }})
 	local capabilities = require('blink.cmp').get_lsp_capabilities()

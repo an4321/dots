@@ -9,11 +9,14 @@ mgr.append_keymap = [
     { on = [ 'g', '.' ], run = 'cd ~/dots', desc = 'Go to Dots' },
     { on = [ 'g', ',' ], run = 'cd ~/.config', desc = 'Go to Dots' },
 
-    { on = [ 'q' ], run = 'close'},
     { on = [ '.' ], run = 'hidden toggle'},
-    { on = [ '<Tab>' ], run = 'tab_switch --relative 1'},
     { on = [ 'i' ], run = 'shell "$SHELL" --block --confirm'},
     { on = [ 'I' ], run = 'shell "nemo" --confirm'},
     { on = [ 'e' ], run = 'shell "$EDITOR $@" --block --confirm'},
     { on = [ 'E' ], run = 'shell "sudoedit $@" --block --confirm'},
+]
+
+mgr.prepend_keymap = [
+	{ on = '<S-j>', run = 'arrow 5' },
+	{ on = '<S-k>', run = 'arrow -5' },
 ]

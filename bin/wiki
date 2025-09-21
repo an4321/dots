@@ -13,10 +13,8 @@ def main():
         sys.exit(1)
 
     try:
-        res = requests.get(
-            "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles="
-            + query
-        )
+        url = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles="
+        res = requests.get(url + query)
         res.raise_for_status()
         response = res.json()
 
