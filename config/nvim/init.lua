@@ -43,6 +43,7 @@ vim.keymap.set('n', '<space>tw', ':set wrap!<cr>')
 vim.keymap.set('n', '<space>ts', ':set spell!<cr>')
 vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])
 vim.keymap.set('n', '?', ':%s/')
+vim.keymap.set('n', ',', 'zt')
 
 -- highlight on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
