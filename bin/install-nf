@@ -21,4 +21,4 @@ for font in $fonts
 end
 
 fc-cache -f -v
-printf "\nDone\n\n"
+echo "\nDone\n\n"

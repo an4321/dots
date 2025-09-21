@@ -1,9 +1,10 @@
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.breakindent = true
 vim.opt.confirm = true
+vim.opt.scrolloff = 8
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.inccommand = 'split'
 vim.opt.signcolumn = 'yes'
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -19,17 +20,10 @@ vim.opt.splitbelow = true
 vim.opt.winborder = 'rounded'
 vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
 vim.opt.nrformats = vim.opt.nrformats + { 'unsigned' }
-vim.o.inccommand = 'split'
 
 vim.keymap.set('n', '<esc>', ':nohlsearch<cr>')
 vim.keymap.set('n', 'U', ':redo<cr>')
 vim.keymap.set({ 'n', 'v' }, ';', ':')
-vim.keymap.set({ 'n', 'v' }, '{', '{zzzv')
-vim.keymap.set({ 'n', 'v' }, '}', '}zzzv')
-vim.keymap.set({ 'n', 'v' }, 'n', 'nzzzv')
-vim.keymap.set({ 'n', 'v' }, 'N', 'Nzzzv')
-vim.keymap.set({ 'n', 'v' }, '<c-d>', '<c-d>zz')
-vim.keymap.set({ 'n', 'v' }, '<c-u>', '<c-u>zz')
 vim.keymap.set({ 'n', 'v' }, 'j', 'gj')
 vim.keymap.set({ 'n', 'v' }, 'k', 'gk')
 vim.keymap.set({ 'n', 'v' }, 'L', '$')
@@ -46,7 +40,7 @@ vim.keymap.set('n', '<space>l', ':bnext<cr>')
 vim.keymap.set('n', '<space>h', ':bprevious<cr>')
 vim.keymap.set('n', '<space>j', '<c-w><c-w>')
 vim.keymap.set('n', '<space>tw', ':set wrap!<cr>')
-vim.keymap.set('n', '<space>ts', ':set spell<cr>')
+vim.keymap.set('n', '<space>ts', ':set spell!<cr>')
 vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])
 vim.keymap.set('n', '?', ':%s/')
 
@@ -103,7 +97,7 @@ require('mini.pairs').setup()
 require('gitsigns')
 
 vim.cmd.colorscheme 'catppuccin-mocha'
-vim.keymap.set('n', '<space>e', '<cmd>Oil<cr>')
+vim.keymap.set('n', '<space>e', ':Oil<cr>')
 vim.keymap.set('n', 's', function() require('flash').jump() end)
 vim.keymap.set('n', 'S', function() require('flash').treesitter() end)
 vim.keymap.set('n', '<space>f', ':FzfLua files<cr>')

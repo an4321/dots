@@ -4,7 +4,15 @@ device=$(bluetoothctl devices | grep Device | rofi -dmenu | awk '{print $2}')
 [ -z "$device" ] && exit
 
 if bluetoothctl info | grep -q $device; then
-    bluetoothctl disconnect "$device" || notify-send "error disconnecting"
+    if bluetoothctl disconnect "$device" ;then
+	notify-send "disconnected"
+    else
+	notify-send "error disconnecting ⚠️"
+    fi
 else
-    bluetoothctl connect "$device" || notify-send "error connecting"
+    if bluetoothctl connect "$device" ;then
+	notify-send "connected"
+    else
+	notify-send "error connecting ⚠️"
+    fi
 fi
