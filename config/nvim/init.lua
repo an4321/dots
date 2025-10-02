@@ -6,6 +6,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.inccommand = 'split'
 vim.opt.signcolumn = 'yes'
+vim.opt.list = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = true
@@ -42,8 +43,9 @@ vim.keymap.set('n', '<space>h', ':bprevious<cr>')
 vim.keymap.set('n', '<space>j', '<c-w><c-w>')
 vim.keymap.set('n', '<space>tw', ':set wrap!<cr>')
 vim.keymap.set('n', '<space>ts', ':set spell!<cr>')
-vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])
+vim.keymap.set('n', '-', '1z=')
 vim.keymap.set('n', '?', ':%s/')
+vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])
 
 -- highlight on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -87,7 +89,7 @@ vim.pack.add({
 require('catppuccin').setup({
 	transparent_background = true, float = { transparent = true }
 })
-require('oil').setup({ 
+require('oil').setup({
 	skip_confirm_for_simple_edits = true, delete_to_trash = true,
 	keymaps = { ['<bs>'] = 'actions.parent', ['<tab>'] = 'actions.preview' }
 })
@@ -109,10 +111,10 @@ vim.keymap.set('n', '[g', ':Gitsigns prev_hunk<cr>')
 vim.keymap.set('n', ']g', ':Gitsigns next_hunk<cr>')
 
 -- lsp
-vim.schedule(function() 
+vim.schedule(function()
 	require('mason').setup()
 	require('mason-lspconfig').setup()
-	require('nvim-treesitter.configs').setup({ 
+	require('nvim-treesitter.configs').setup({
 		auto_install = true, highlight = { enable = true }
 	})
 	require('blink.cmp').setup({ fuzzy = { implementation = 'lua' }})
