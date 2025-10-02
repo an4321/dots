@@ -1,45 +1,12 @@
-#!/bin/env python3
+#!/usr/bin/env fish
 
-import sys
-import requests
-import textwrap
+test -z "$argv" && echo "usage: wiki <search term>" && return 1
+set query (string join ' ' $argv)
 
+set url "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles="
+set response (curl -s -f "$url$query")
+test $status -ne 0 && echo "error: curl failed" && return 1
 
-def main():
-    query = " ".join(sys.argv[1:])
-
-    if not query:
-        print("Usage: wiki <search term>")
-        sys.exit(1)
-
-    try:
-        url = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles="
-        res = requests.get(url + query)
-        res.raise_for_status()
-        response = res.json()
-
-        pages = response.get("query", {}).get("pages", {})
-        if not pages:
-            sys.exit(1)
-
-        page_id = next(iter(pages))
-        page = pages[page_id].get("extract", "")
-
-        if page:
-            print_wrapped(page, wrap_length=80)
-        else:
-            sys.exit(1)
-
-    except Exception as e:
-        print("error fetching data:", e, file=sys.stderr)
-        sys.exit(1)
-
-
-def print_wrapped(text, wrap_length=80):
-    wrapper = textwrap.TextWrapper(width=wrap_length)
-    for line in wrapper.wrap(text):
-        print(line)
-
-
-if __name__ == "__main__":
-    main()
+set page (echo $response | jq -r ".query.pages[].extract")
+test -z "$page" && return 1
+echo $page | fold -s -w 80 | less
