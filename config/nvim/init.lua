@@ -89,14 +89,14 @@ vim.pack.add({
 require('catppuccin').setup({
 	transparent_background = true, float = { transparent = true }
 })
-require('oil').setup({
-	skip_confirm_for_simple_edits = true, delete_to_trash = true,
-	keymaps = { ['<bs>'] = 'actions.parent', ['<tab>'] = 'actions.preview' }
-})
-require('flash').setup({ jump = { autojump = true }})
-require('mini.pairs').setup()
-require('gitsigns')
 vim.schedule(function()
+	require('oil').setup({
+		skip_confirm_for_simple_edits = true, delete_to_trash = true,
+		keymaps = { ['<bs>'] = 'actions.parent', ['<tab>'] = 'actions.preview' }
+	})
+	require('flash').setup({ jump = { autojump = true }})
+	require('mini.pairs').setup()
+	require('gitsigns')
 	require('mason').setup()
 	require('mason-lspconfig').setup()
 	require('nvim-treesitter.configs').setup({
