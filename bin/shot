@@ -3,11 +3,11 @@
 set ss "$HOME/Pictures/screenshots/$(date +%F_%H-%M-%S).png"
 
 switch $argv
-    case "" "-s"
-        if test -n "$WAYLAND_DISPLAY"
+	case "" "-s"
+		if test -n "$WAYLAND_DISPLAY"
 			slurp | xargs -r -I {} grim -g {} $ss
 		else
-            import "$ss"
+			import "$ss"
 		end
 	case "-f"
 		if test -n "$WAYLAND_DISPLAY"
@@ -17,4 +17,11 @@ switch $argv
 		end
 end
 
-test -f $ss && notify-send -i "$ss" "screenshot" "$ss"
+if test -f $ss
+	if test -n "$WAYLAND_DISPLAY"
+		wl-copy < $ss
+	else if type -q xsel
+		xsel --clipboard --input --mime-type image/png < "$ss"
+	end
+	notify-send -i "$ss" "screenshot saved" "$ss"
+end
