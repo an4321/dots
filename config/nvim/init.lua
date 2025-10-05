@@ -1,7 +1,7 @@
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.confirm = true
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 10
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.inccommand = 'split'
@@ -36,7 +36,7 @@ vim.keymap.set('v', 'gp', '"_dP')
 vim.keymap.set('v', '<tab>', '>gv', { noremap = true, silent = true })
 vim.keymap.set('v', '<s-tab>', '<gv', { noremap = true, silent = true })
 vim.keymap.set('n', '<space>q', ':q<cr>')
-vim.keymap.set('n', '<space>w', ':w<cr>')
+vim.keymap.set('n', '<space>w', ':update<cr>')
 vim.keymap.set('n', '<space>x', ':bdelete<cr>')
 vim.keymap.set('n', '<space>l', ':bnext<cr>')
 vim.keymap.set('n', '<space>h', ':bprevious<cr>')
@@ -96,6 +96,16 @@ require('oil').setup({
 require('flash').setup({ jump = { autojump = true }})
 require('mini.pairs').setup()
 require('gitsigns')
+vim.schedule(function()
+	require('mason').setup()
+	require('mason-lspconfig').setup()
+	require('nvim-treesitter.configs').setup({
+		auto_install = true, highlight = { enable = true }
+	})
+	require('blink.cmp').setup({ fuzzy = { implementation = 'lua' }})
+	local capabilities = require('blink.cmp').get_lsp_capabilities()
+	vim.lsp.config('*', { capabilities = capabilities })
+end)
 
 vim.cmd.colorscheme 'catppuccin-mocha'
 vim.keymap.set('n', '<space>e', ':Oil<cr>')
@@ -109,18 +119,7 @@ vim.keymap.set('n', '<space>.', ':cd ~/dots | FzfLua files<cr>')
 vim.keymap.set('n', '<space><tab>', ':Gitsigns preview_hunk<cr>')
 vim.keymap.set('n', '[g', ':Gitsigns prev_hunk<cr>')
 vim.keymap.set('n', ']g', ':Gitsigns next_hunk<cr>')
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
+vim.keymap.set('n', 'gq', function() vim.lsp.buf.format({ async = true }) end)
+vim.keymap.set('n', '<space>d', function() vim.diagnostic.jump({count = 1, float = true}) end)
 
--- lsp
-vim.schedule(function()
-	require('mason').setup()
-	require('mason-lspconfig').setup()
-	require('nvim-treesitter.configs').setup({
-		auto_install = true, highlight = { enable = true }
-	})
-	require('blink.cmp').setup({ fuzzy = { implementation = 'lua' }})
-	local capabilities = require('blink.cmp').get_lsp_capabilities()
-	vim.lsp.config('*', { capabilities = capabilities })
-	vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
-	vim.keymap.set('n', 'gq', function() vim.lsp.buf.format({ async = true }) end)
-	vim.keymap.set('n', '<space>d', function() vim.diagnostic.jump({count = 1, float = true}) end)
-end)
