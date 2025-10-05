@@ -46,20 +46,15 @@ vim.keymap.set('n', '<space>ts', ':set spell!<cr>')
 vim.keymap.set('n', '-', '1z=')
 vim.keymap.set('n', '?', ':%s/')
 vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])
+vim.keymap.set('n', '<bs>', ':term ')
+vim.keymap.set('t', '<c-c>', [[<c-\><c-n>]])
 
 -- highlight on yank
-vim.api.nvim_create_autocmd('TextYankPost', {
-	group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
-	callback = function() vim.hl.on_yank() end,
-})
-
+vim.cmd [[ autocmd TextYankPost * lua vim.hl.on_yank() ]]
 -- reopen at last position
 vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
-
--- terminal
+-- terminal start in insert mode
 vim.cmd [[ autocmd TermOpen * startinsert ]]
-vim.keymap.set('t', '<c-c>', [[<c-\><c-n>]])
-vim.keymap.set('n', '<bs>', ':term ')
 
 -- statusline
 vim.opt.cmdheight = 0
