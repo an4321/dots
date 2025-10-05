@@ -4,6 +4,7 @@ set GREEN "\e[32m"
 set YELLOW "\e[33m"
 set BOLD "\e[1m"
 set UNDERLINE "\e[4m"
+set INVERT "\e[7m"
 set RESET "\e[0m"
 
 function die

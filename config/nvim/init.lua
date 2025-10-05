@@ -9,6 +9,7 @@ for k, v in pairs({
 
 vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
 vim.opt.nrformats = vim.opt.nrformats + { 'unsigned' }
+require('vim._extui').enable({}) -- temp
 
 vim.keymap.set('n', '<esc>', ':nohlsearch<cr>')
 vim.keymap.set('n', 'U', ':redo<cr>')
@@ -35,14 +36,13 @@ vim.keymap.set('n', '<bs>', ':term ')
 vim.keymap.set('t', '<c-c>', [[<c-\><c-n>]])
 
 -- highlight on yank
-vim.cmd [[ autocmd TextYankPost * lua vim.hl.on_yank() ]]
+vim.cmd [[ au TextYankPost * lua vim.hl.on_yank() ]]
 -- reopen at last position
 vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
 -- terminal start in insert mode
-vim.cmd [[ autocmd TermOpen * startinsert ]]
+vim.cmd [[ au TermOpen * startinsert ]]
 
 -- statusline
-require('vim._extui').enable({}) -- temp
 function recording_status()
 	return vim.fn.reg_recording() ~= '' and 'recording @' .. vim.fn.reg_recording() or ''
 end
@@ -81,8 +81,7 @@ vim.schedule(function()
 		auto_install = true, highlight = { enable = true }
 	})
 	require('blink.cmp').setup({ fuzzy = { implementation = 'lua' }})
-	local capabilities = require('blink.cmp').get_lsp_capabilities()
-	vim.lsp.config('*', { capabilities = capabilities })
+	vim.lsp.config('*', { capabilities = require('blink.cmp').get_lsp_capabilities() })
 end)
 
 vim.keymap.set('n', '<space>e', ':Oil<cr>')

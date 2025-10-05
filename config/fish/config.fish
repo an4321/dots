@@ -16,6 +16,6 @@ bind -M insert \ck 'commandline -i $(history | fzf-tmux -h -e +s); commandline -
 bind -M insert \cH backward-kill-word
 
 if test (tty) = /dev/tty1
-    # pgrep dwm || startx
-    pgrep Hyprland || Hyprland
+	# pgrep dwm || startx
+	pgrep Hyprland || Hyprland
 end
