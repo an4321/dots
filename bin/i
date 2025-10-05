@@ -34,7 +34,7 @@ else if checkcmd pacman
 			git clone "https://aur.archlinux.org/$argv.git" \
 				"$HOME/.cache/aur/$argv" || die "cloneing"
 		end
-		cd "$HOME/.cache/aur/$argv" && makepkg -si
+		cd "$HOME/.cache/aur/$argv" && makepkg -si --noconfirm
 	end
 else
     die "unsupported distribution"

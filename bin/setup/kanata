@@ -10,7 +10,7 @@ chmod +x kanata-bin
 sudo mv ./kanata-bin /bin/kanata
 
 # step 1 if the uinput group does not exist, create a new group
-sudo groupadd uinput
+sudo groupadd uinput || echo "uinput already exists"
 
 # step 2 add your user to the input and the uinput group
 sudo usermod -aG input $USER

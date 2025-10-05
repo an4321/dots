@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-file "$1" | grep -q text && bat --color always -p --theme=ansi --tabs 2 "$1"

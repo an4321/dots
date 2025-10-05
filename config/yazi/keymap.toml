@@ -7,7 +7,8 @@ mgr.append_keymap = [
     { on = [ 'g', 's' ], run = 'cd ~/Pictures/screenshots', desc = 'Go to Screenshots' },
     { on = [ 'g', 'n' ], run = 'cd ~/notes', desc = 'Go to Notes' },
     { on = [ 'g', '.' ], run = 'cd ~/dots', desc = 'Go to Dots' },
-    { on = [ 'g', ',' ], run = 'cd ~/.config', desc = 'Go to Dots' },
+    { on = [ 'g', ',' ], run = 'cd ~/.config', desc = 'Go to ~/.config' },
+    { on = [ 'g', 'l' ], run = 'cd ~/.local', desc = 'Go to ~/.local' },
 
     { on = [ '.' ], run = 'hidden toggle'},
     { on = [ 'i' ], run = 'shell "$SHELL" --block --confirm'},

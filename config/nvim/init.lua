@@ -1,10 +1,11 @@
 for k, v in pairs({
-	number, relativenumber, confirm, ignorecase, smartcase, list,
-	undofile, autoindent, smartindent, splitright, splitbelow,
-	swapfile = false, backup = false, wrap = false, scrolloff = 15,
-	history = 10000, tabstop = 4, shiftwidth = 4, cmdheight = 0, laststatus = 3,
-	inccommand = "split", signcolumn = 'yes', winborder = 'rounded',
-}) do vim.opt[k] = v and v or true end
+	number = true, relativenumber = true, confirm = true, list = true,
+	wrap = false, ignorecase = true, smartcase = true, undofile = true,
+	autoindent = true, smartindent = true, splitright = true, splitbelow = true,
+	swapfile = false, backup = false, scrolloff = 15, history = 10000,
+	tabstop = 4, shiftwidth = 4, cmdheight = 0, laststatus = 3,
+	inccommand = "split", signcolumn = "yes", winborder = "rounded",
+}) do vim.opt[k] = v end
 
 vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
 vim.opt.nrformats = vim.opt.nrformats + { 'unsigned' }
@@ -86,7 +87,6 @@ end)
 
 vim.keymap.set('n', '<space>e', ':Oil<cr>')
 vim.keymap.set('n', 's', function() require('flash').jump() end)
-vim.keymap.set('n', 'S', function() require('flash').treesitter() end)
 vim.keymap.set('n', '<space>f', ':FzfLua files<cr>')
 vim.keymap.set('n', '<space>b', ':FzfLua buffers<cr>')
 vim.keymap.set('n', '<space>o', ':FzfLua oldfiles<cr>')

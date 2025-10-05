@@ -3,7 +3,6 @@ set this $(status -f)
 
 switch "$argv"
 	case "" "."
-		test $PWD = $HOME && tmux new -A -s "main" && exit
 		exec $this $PWD && exit
 	case "menu" "m"
         set sel $(tmux ls -F '#S' 2>/dev/null \
