@@ -1,4 +1,4 @@
-function j --wraps=cd
+function j --wraps="cd"
     set -l argc (count $argv)
     if test $argc -eq 0
         cd "$HOME/Desktop"
@@ -11,6 +11,7 @@ function j --wraps=cd
     end
 	jump add $PWD >/dev/null
 end
+complete -c j -e -w cd
 
 function ji
 	cd "$(jump list | fzf-tmux || echo .)"
