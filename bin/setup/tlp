@@ -11,6 +11,6 @@ end
 
 sudo tlp start
 
-echo -e "\nSTART_CHARGE_THRESH_BAT0=70\nSTOP_CHARGE_THRESH_BAT0=90" \
+echo -e "\nSTART_CHARGE_THRESH_BAT0=70\nSTOP_CHARGE_THRESH_BAT0=91" \
 	| sudo tee -a /etc/tlp.conf
 sudo systemctl restart tlp

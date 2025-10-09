@@ -2,12 +2,12 @@
 source "$HOME/dots/bin/helper/std.fish"
 
 if checkcmd pacman
-    $HOME/dots/bin/i brave-bin
+	$HOME/dots/bin/i brave-bin
 else
-    curl -fsS "https://dl.brave.com/install.sh" | sh
-
-    accept "create brave script" && begin
-        echo '#!/bin/env sh'
-        echo 'brave-browser --force-device-scale-factor=1.2 $@'
-    end >"$HOME/.local/bin/brave" && chmod +x "$HOME/.local/bin/brave"
+	curl -fsS "https://dl.brave.com/install.sh" | sh
 end
+
+accept "create brave script" && begin
+	echo '#!/bin/env sh'
+	echo 'brave-browser --force-device-scale-factor=1.2 $@'
+end >"$HOME/.local/bin/brave" && chmod +x "$HOME/.local/bin/brave"
