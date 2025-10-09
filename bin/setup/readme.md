@@ -30,12 +30,6 @@ EndSection
 EOF'
 ```
 
-### disable hibernate
-```sh
-sudoedit /etc/systemd/logind.conf
-# add -> HandleLidSwitch=ignore
-```
-
 ### auto login
 * [getty arch wiki](ahttps://wiki.archlinux.org/title/Getty)
 
