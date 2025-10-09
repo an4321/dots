@@ -5,10 +5,10 @@ static const unsigned int gappx[]   = { 5 };    /* default gap between windows i
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
-static const char *fonts[]          = { "JetBrainsMonoNerdFont:size=16" };
+static const char *fonts[]          = { "JetBrainsMonoNerdFont:size=17" };
 static const char col_bg[]          = "#1f2029";
-static const char col_fg[]          = "#DFE4F7";
-static const char accent[]          = "#F9E2AF";
+static const char col_fg[]          = "#ffffff";
+static const char accent[]          = "#f9e2af";
 static const char *colors[][3]      = {
     //                   fg      bg      border
     [SchemeNorm]     = { col_fg, col_bg, col_bg },
@@ -21,7 +21,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
 
 static const Rule rules[] = {
     /* class      instance    title       tags mask     isfloating   monitor */
@@ -69,14 +69,16 @@ static const Key keys[] = {
     { MODKEY,             XK_t,      spawn,          SHCMD("kitty") },
     { MODKEY,             XK_f,      spawn,          SHCMD("kitty -e lf") },
     { MODKEY,             XK_i,      spawn,          SHCMD("kitty -e htop") },
-    { MODKEY,             XK_e,      spawn,          SHCMD("kitty -e $EDITOR") },
+    { MODKEY,             XK_e,      spawn,          SHCMD("kitty -e nvim") },
     { MODKEY,             XK_b,      spawn,          SHCMD("blue") },
-    { MODKEY,             XK_r,      spawn,          SHCMD("setbg") },
+    { MODKEY,             XK_r,      spawn,          SHCMD("setbg -r") },
     { MODKEY,             XK_v,      spawn,          SHCMD("copyq menu") },
     { MODKEY,             XK_c,      spawn,          SHCMD("mate-color-select") },
     { MODKEY,             XK_period, spawn,          SHCMD("cat ~/.config/rofi/{emotes,nf-icons} | rofi -dmenu | cut -d ' ' -f 1 | tr -d '\n' | xsel --clipboard") },
+    { MODKEY,             XK_n,      spawn,          SHCMD("cd ~/notes; kitty nvim $(fd -1 index)") },
     { MODKEY,             XK_s,      spawn,          SHCMD("shot") },
     { MODKEY|ShiftMask,   XK_s,      spawn,          SHCMD("shot -f") },
+    { MODKEY|ControlMask, XK_r,      spawn,          SHCMD("systemctl soft-reboot") },
     { MODKEY|ControlMask, XK_q,      spawn,          SHCMD("systemctl poweroff") },
     { 0, XF86XK_MonBrightnessDown,   spawn,          SHCMD("brightnessctl -e4 -n2 set 5%-") },
     { 0, XF86XK_MonBrightnessUp,     spawn,          SHCMD("brightnessctl -e4 -n2 set 5%+") },
@@ -103,8 +105,6 @@ static const Key keys[] = {
     { MODKEY,             XK_q,      killclient,     {0} },
     { MODKEY,             XK_m,      togglelayout,   {0} },
     { MODKEY,             XK_space,  togglefloating, {0} },
-    { MODKEY,             XK_0,      view,           {.ui = ~0 } },
-    { MODKEY|ShiftMask,   XK_0,      tag,            {.ui = ~0 } },
     { MODKEY,             XK_comma,  focusmon,       {.i = -1 } },
     { MODKEY|ShiftMask,   XK_comma,  tagmon,         {.i = -1 } },
     { MODKEY,             XK_semicolon, focusmon,    {.i = +1 } },
@@ -122,6 +122,7 @@ static const Key keys[] = {
     TAGKEYS(              XK_7,                      6)
     TAGKEYS(              XK_8,                      7)
     TAGKEYS(              XK_9,                      8)
+    TAGKEYS(              XK_0,                      9)
     { MODKEY|ShiftMask,   XK_q,      quit,           {0} },
 };
 
