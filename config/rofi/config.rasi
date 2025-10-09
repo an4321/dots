@@ -1,5 +1,5 @@
 * {
-	font: "JetBrainsMonoNerdFont 14";
+	font: "JetBrainsMonoNerdFont 17";
 	bg: #1E2127DD;
 	fg: #FFFFFF;
 	accent: #F9E2AF;
@@ -8,7 +8,7 @@
 configuration {
 	show-icons: false;
 	case-smart: true;
-	matching: 'regex';
+	matching: "regex";
 }
 
 window {

@@ -1,5 +1,7 @@
 #!/bin/env sh
 
+$HOME/dots/bin/setbg -r
+
 while true; do
 	DATE=$(date +"󰥔 %H:%M | 󰭨 %a %-d %B")
 	BATTERY="󱐋 $(cat /sys/class/power_supply/BAT0/capacity)%"
@@ -7,9 +9,6 @@ while true; do
 	sleep 60
 done &
 
-$HOME/dots/bin/setbg -r
-
 copyq &
 picom --config ~/.config/dwm/lib/picom.conf &
 dunst -conf ~/.config/dwm/lib/dunstrc &
-blueman-applet & 

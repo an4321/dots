@@ -2,10 +2,10 @@ window#waybar {
     font-family: JetBrainsMonoNerd Font;
     font-size: 17px;
     font-weight: 600;
-    color: #eee;
+    color: #fff;
     transition-property: background-color;
     transition-duration: 0.5s;
-    background-color: rgba(31, 32, 41, 0.9);
+    background-color: rgba(31, 32, 41, 0.8);
 }
 
 window#waybar.hidden {

@@ -2,11 +2,11 @@
 source "$HOME/dots/bin/helper/std.fish"
 
 if checkcmd "apt"
-    sudo apt install -y ufw
+	sudo apt install -y ufw
 else if checkcmd "pacman"
-    sudo pacman -S ufw
+	sudo pacman -S ufw
 else
-    die "unsupported distribution"
+	die "unsupported distribution"
 end
 
 sudo systemctl enable ufw

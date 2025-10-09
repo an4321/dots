@@ -1,8 +1,13 @@
 #!/bin/env bash
 
+source ~/.config/alias.sh
+source ~/dots/bin/helper/jump-init.sh
+
+shopt -s autocd
+shopt -s checkwinsize
+shopt -s histappend
+
 export HISTSIZE=5000
-export HISTFILESIZE=10000
-export HISTFILE=$HOME/.local/state/bash_history
 export HISTCONTROL=erasedups:ignoredups:ignorespace
 
 # prompt
@@ -14,13 +19,6 @@ RESET='\[\e[0m\]'
 BASE_PROMPT="${CYAN}\u${RESET}@${GREEN}\h${RESET}:${PINK} \w${RESET} > "
 set_prompt() { [ $? -ne 0 ] && PS1="$RED[Error]$RESET\n$BASE_PROMPT" || PS1="$BASE_PROMPT"; }
 PROMPT_COMMAND=set_prompt
-
-shopt -s autocd
-shopt -s checkwinsize # update window
-shopt -s histappend   # resurrect session history
-
-source ~/.config/alias.sh
-source ~/dots/bin/helper/jump-init.sh
 
 bind 'set completion-ignore-case on'
 bind 'TAB:menu-complete'
