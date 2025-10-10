@@ -22,4 +22,4 @@ else
     tmux new -ds "$session" -c "$target_dir" 2>/dev/null
 end
 
-test -z "$TMUX" && tmux attach -t "$session" || tmux switch -t "$session"
+test -z "$TMUX" && tmux -u attach -t "$session" || tmux -u switch -t "$session"

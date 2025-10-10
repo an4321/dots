@@ -8,10 +8,12 @@ for option in "$@"; do
 			for file in $PWD/config/nonxdg/*; do
 				[ -f "$file" ] && ln -sf "$file" ~/."$(basename $file)"
 			done
+			echo done
 			;;
 		"down")
 			find ~/.config -maxdepth 1 -type l -exec unlink {} \;
 			find ~ -maxdepth 1 -type l -exec unlink {} \;
+			echo done
 			;;
 		"base")
 			if command -v "apt" &>/dev/null ; then

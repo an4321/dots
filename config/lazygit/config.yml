@@ -16,6 +16,8 @@ gui:
       - '#ccc'
 
 os:
-  editAtLine: 'nvim +{{line}} {{filename}}'
+  edit: '$EDITOR {{filename}}'
+  editAtLine: '$EDITOR +{{line}} {{filename}}'
+
 promptToReturnFromSubprocess: false
 disableStartupPopups: false
