@@ -1,0 +1,20 @@
+#!/usr/bin/env fish
+
+set disks (command lsblk -o NAME,SIZE -nr)
+test -z "$disks" && echo "no unmounted disks found" && exit 0
+
+set disk (printf "%s\n" $disks | fzf-tmux | awk '{print $1}')
+test -z "$disk" && echo "no disk selected" && exit 0
+
+set device "/dev/$disk"
+set mountpoint "$HOME/$disk"
+
+command mkdir -p $mountpoint
+sudo mount $device $mountpoint
+
+if test $status -eq 0
+	echo "mounted $device -> $mountpoint"
+else
+	echo "failed to mount $device" >&2
+	exit 1
+end
