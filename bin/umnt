@@ -1,0 +1,17 @@
+#!/usr/bin/env fish
+
+set mounted_drives (command lsblk -o MOUNTPOINT,SIZE -nr | command grep "$HOME")
+test -z "$mounted_drives" && echo "no mounted drives" && exit 1
+
+set sel (printf "%s\n" $mounted_drives | fzf-tmux | awk '{print $1}')
+test -z "$sel" && exit
+
+sudo umount $sel
+
+if test $status -eq 0
+	sudo rmdir $sel
+	echo "unmounted $sel"
+else
+	echo "failed to unmount $sel" >&2
+	exit 1
+end
