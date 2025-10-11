@@ -1,0 +1,15 @@
+#!/bin/env fish
+
+switch "$argv"
+	case "r" "reset"
+		command xrandr --output eDP-1 --gamma 1:1:1 --brightness 1
+	case "*"
+		if test -n "$argv"
+			set bright "$argv"
+			string match -rq '^(0(\.\d+)?|1(\.0*)?)$' -- $bright || exit 1
+		else
+			set bright 0.8
+		end
+		set mon (xrandr | grep '\bconnected' | awk '{print $1}')
+		command xrandr --output $mon --gamma 1.2:1.1:1 --brightness $bright
+end
