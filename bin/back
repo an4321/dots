@@ -25,6 +25,6 @@ for i in $backup_dirs
 	end
 
 	rsync -aPhz \
-		--exclude={node_modules,.next,.svelte-kit,__pycache__,vendor,.venv,vendor} \
+		--exclude={node_modules,.next,.svelte-kit,__pycache__,.venv,vendor} \
 		"$i" "$destination"
 end

@@ -1,20 +1,27 @@
-#!/bin/env bash
-set -eEo pipefail
+#!/bin/env fish
+source "$HOME/dots/bin/helper/std.fish"
 
-command -v pacman &> /dev/null && sudo pacman -S libexif fontconfig inotify-tools imlib2
-command -v apt &> /dev/null && sudo apt install libexif-dev libfontconfig1-dev libinotifytools0-dev libimlib2-dev
+set url "https://codeberg.org/nsxiv/nsxiv.git"
 
-git clone --depth 1 https://codeberg.org/nsxiv/nsxiv.git
-cd nsxiv
-cp config.def.h config.h
+if checkcmd pacman
+	sudo pacman -s --needed libexif fontconfig inotify-tools imlib2
+else if checkcmd apt
+	sudo apt install libexif-dev libfontconfig1-dev libinotifytools0-dev libimlib2-dev
+else
+	die "unsupported distribution"
+end
 
-sed -i '
+command git clone --depth 1 $url || die "cloneing"
+cd nsxiv && cp config.def.h config.h
+
+command sed -i '
 s/{ 32, 64, 96, 128, 160 }/{ 64, 96, 128, 160, 190, 240, 300 }/
 s/THUMB_SIZE = 3/THUMB_SIZE = 4/
 s/{ "Nsxiv.window.background",   "white"/{ "Nsxiv.window.background",   "black"/
 s/{ "Nsxiv.window.foreground",   "black"/{ "Nsxiv.window.foreground",   "white"/
-s/"monospace-8"/"JetBrainsMonoNerdFont-14"/' config.h
+s/"monospace-8"/"JetBrainsMonoNerdFont-17"/' config.h || die "patching"
 
-sudo make install && sudo make install-desktop install-icon
-cd .. && rm -rf nsxiv
+sudo make install || die "installling"
+sudo make install-desktop install-icon
+cd .. && command rm -rf nsxiv
 echo "installed nsxiv successfully"

@@ -15,8 +15,6 @@ map g. cd ~/dots
 map g, cd ~/.config
 map gl cd ~/.local
 
-# c: clear
-# v: invert select
 map J :push 5j
 map K :push 5k
 map . set hidden!
@@ -31,55 +29,45 @@ map i $fish
 map I :& test -n "$TMUX" && tmux new-window || kitty
 map t :& test -n "$TMUX" && tmux new-window -a -n lf 'lf' || kitty -e lf
 map <a-a> !t "$PWD"
+# v: invert selection
 
 cmd jump ${{
-	set result (jump list | fzf --height=100%)
-	lf -remote "send $id cd '$result'"
+	set res (jump list | fzf --height=100%)
+	lf -remote "send $id cd '$res'"
 }}
 map z jump
 
 cmd locate ${{
-	set result $(fd . | fzf --height=100%)
-	lf -remote "send $id select '$result'"
+	set res $(fd . | fzf --height=100%)
+	lf -remote "send $id select '$res'"
 }}
 map <c-f> locate
 
 cmd trash %{{
-	echo " Confirm (y/N): "
-	read response
-	if test "$response" = "y"
-		for file in $fx
-			trash "$file" || echo "ERROR: Failed to trash '$file'"
-		end
-		echo "done"
-	else
-		echo "exited"
-	end
+	echo " confirm (y/N): " && read res
+	test "$res" = "y" && printf "%s\n" $fx | xargs -I {} env trash {}
+	test "$res" = "yes" && printf "%s\n" $fx | xargs -I {} env rm -rf {}
+	echo
 }}
 map d trash
 map <delete> trash
-map D !trash-restore
+map D $trash-restore
 
 cmd mk %{{
-	echo " make: "
-	read response
-	if string match -r '/$' "$response"
-		mkdir -p $response
-		and lf -remote "send $id select '$response'"
-	else if string match -r '\.$' "$response"
-		set name (string replace -r '\.$' '' "$response")
-		mkdir -p "$name" && lf -remote "send $id cd '$name'"
+	echo " make: " && read res
+	test -z "$res" && echo && return
+	if string match -r '/$' "$res"
+		mkdir -p $res
 	else
-		touch "$response" && lf -remote "send $id select '$response'"
+		touch "$res"
 	end
+	lf -remote "send $id select '$res'"
 }}
 map a mk
 
 cmd on-redraw &{{
-	if test "$lf_width" -le 100
-		lf -remote "send $id set ratios 1:2"
-	else
-		lf -remote "send $id set ratios 1:2:3"
-	end
+	set ratio "1:2:3"
+	test "$lf_width" -le 100 && set ratio "1:2"
+	lf -remote "send $id set ratios $ratio"
 }}
 map R on-redraw
