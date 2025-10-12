@@ -1,3 +1,4 @@
+static void togglelayout(const Arg *arg);
 
 void
 togglelayout(const Arg *arg) {

@@ -2,9 +2,9 @@
 source "$HOME/dots/bin/helper/std.fish"
 
 if checkcmd "apt"
-	sudo apt install -y ufw
+	sudo apt install -y tlp
 else if checkcmd "pacman"
-	sudo pacman -S ufw
+	sudo pacman -S tlp
 else
 	die "unsupported distribution"
 end
