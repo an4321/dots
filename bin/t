@@ -5,21 +5,23 @@ switch "$argv"
 	case "" "."
 		exec $this $PWD && exit
 	case "menu" "m"
-        set sel $(tmux ls -F '#S' 2>/dev/null \
-            | fzf-tmux +m -p 40%,30% +s --print-query --prompt='⚡ ' | tail -1)
-        test -z "$sel" && exit
+		set sel $(tmux ls -F '#S' 2>/dev/null \
+			| fzf-tmux +m -p 40%,30% +s --print-query --prompt='⚡ ' | tail -1)
+		test -z "$sel" && exit
 		exec $this $sel >/dev/null && exit
 end
 
 if tmux has -t "$argv" 2>/dev/null
-    set session "$argv"
+	set session "$argv"
 else
-    test -d "$argv" && jump add "$argv"
-    set target_dir $(jump query $argv 2>/dev/null)
-    test ! -d "$target_dir" && echo "error: no match found" && exit 1
+	test -d "$argv" && jump add "$argv"
+	set target_dir $(jump query $argv 2>/dev/null)
+	test ! -d "$target_dir" && echo "error: no match found" && exit 1
 
-    set session "$(basename "$target_dir" | sed 's/\./_/g')"
-    tmux new -ds "$session" -c "$target_dir" 2>/dev/null
+	test -x "$target_dir/t-init" && env "$target_dir/t-init" && exit
+
+	set session "$(basename "$target_dir" | sed 's/\./_/g')"
+	tmux new -ds "$session" -c "$target_dir" 2>/dev/null
 end
 
 test -z "$TMUX" && tmux -u attach -t "$session" || tmux -u switch -t "$session"
