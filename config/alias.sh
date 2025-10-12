@@ -31,6 +31,8 @@ alias ywd="pwd; pwd | y"
 alias fo='runbg xdg-open "$(fd | fzf-tmux -h)"'
 alias x='xargs -I "jk"'
 complete -c x -w env
+alias batt="echo capacity: $(cat /sys/class/power_supply/BAT0/capacity)%; \
+	upower -i $(upower -e | grep 'BAT') | grep 'time to' | xargs"
 
 export IGNORE="node_modules,.next,.svelte-kit,__pycache__,vendor,.venv,vendor"
 alias rg="rg --hidden --smart-case --pretty -g '!{.git,$IGNORE}'"
