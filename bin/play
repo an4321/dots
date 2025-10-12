@@ -4,26 +4,26 @@ format="bestaudio"
 options="--cache-secs=20 --speed=1 --video=auto --quiet "
 
 usage() {
-    echo "Usage: $0 [-n] [-s] [-l|-m|-h] [URL/Search]"
-    echo "  -n: No resume"
-    echo "  -w: Forcw window"
-    echo "  -s: Shuffle playlist"
-    echo "  -l: Low quality video (480p)"
-    echo "  -m: Medium quality video (720p)"
-    echo "  -f: High quality video (1080p)"
+	echo "Usage: $0 [-n] [-s] [-l|-m|-h] [URL/Search]"
+	echo "  -n: No resume"
+	echo "  -w: Forcw window"
+	echo "  -s: Shuffle playlist"
+	echo "  -l: Low quality video (480p)"
+	echo "  -m: Medium quality video (720p)"
+	echo "  -f: High quality video (1080p)"
 }
 
 while getopts "snwlmfh" opt; do
-    case $opt in
-        s) options+="--shuffle " ;;
-        n) options+="--no-resume-playback  " ;;
-        w) options+="--force-window " ;;
-        l) format="bestvideo[height<=480]+bestaudio" ;;
-        m) format="bestvideo[height<=720]+bestaudio" ;;
-        f) format="bestvideo[height<=1080]+bestaudio" ;;
-        h) usage && exit 0 ;;
-        *) usage  && exit 1 ;;
-    esac
+	case $opt in
+		s) options+="--shuffle " ;;
+		n) options+="--no-resume-playback  " ;;
+		w) options+="--force-window " ;;
+		l) format="bestvideo[height<=480]+bestaudio" ;;
+		m) format="bestvideo[height<=720]+bestaudio" ;;
+		f) format="bestvideo[height<=1080]+bestaudio" ;;
+		h) usage && exit 0 ;;
+		*) usage  && exit 1 ;;
+	esac
 done
 
 shift $((OPTIND-1))

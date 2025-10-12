@@ -29,9 +29,9 @@ vim.keymap.set('n', '<space>h', ':bprevious<cr>')
 vim.keymap.set('n', '<space>j', '<c-w><c-w>')
 vim.keymap.set('n', '<space>tw', ':set wrap!<cr>')
 vim.keymap.set('n', '<space>ts', ':set spell!<cr>')
+vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])
 vim.keymap.set('n', '-', '1z=')
 vim.keymap.set('n', '?', ':%s/')
-vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])
 vim.keymap.set('n', '<bs>', ':term ')
 vim.keymap.set('t', '<c-c>', [[<c-\><c-n>]])
 
@@ -67,6 +67,7 @@ require('catppuccin').setup({
 	transparent_background = true, float = { transparent = true }
 })
 vim.cmd.colorscheme 'catppuccin-mocha'
+
 vim.schedule(function()
 	require('oil').setup({
 		skip_confirm_for_simple_edits = true, delete_to_trash = true,

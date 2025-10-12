@@ -2,26 +2,26 @@
 source "$HOME/dots/bin/helper/std.fish"
 
 function menu
-    fzf-tmux -m -e --preview-window=right:55% --preview "$argv"
+	fzf-tmux -m -e --preview-window=right:55% --preview "$argv"
 end
 
 if checkcmd "apt"
-    if test (count $argv) -eq 0
-        set sel (apt list --installed | cut -d/ -f1 | menu 'apt-cache show {}')
-        test -n "$sel" && sudo apt remove $sel
+	if test (count $argv) -eq 0
+		set sel (apt list --installed | cut -d/ -f1 | menu 'apt-cache show {}')
+		test -n "$sel" && sudo apt remove $sel
 	else if test "$argv[1]" = "all" -o "$argv[1]" = "a"
-        sudo apt autoremove --purge $argv[2..-1]
-    else
-        sudo apt remove $argv
+		sudo apt autoremove --purge $argv[2..-1]
+	else
+		sudo apt remove $argv
 	end
 else if checkcmd "pacman"
-    if test (count $argv) -eq 0
-        set sel (pacman -Qq | menu 'pacman -Qi {}')
-        test -n "$sel" && sudo pacman -R $sel
+	if test (count $argv) -eq 0
+		set sel (pacman -Qq | menu 'pacman -Qi {}')
+		test -n "$sel" && sudo pacman -R $sel
 	else if test "$argv[1]" = "all" -o "$argv[1]" = "a"
-        sudo pacman -Rns $argv[2..-1]
-    else
-        sudo pacman -R $argv
+		sudo pacman -Rns $argv[2..-1]
+	else
+		sudo pacman -R $argv
 	end
 else
 	die "unsupported distribution"

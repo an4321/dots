@@ -5,22 +5,22 @@ mode=""
 random=false
 
 help() {
-    echo -e "Usage: $0
-    [-f fit] [-c center] [-t tile] [-z zoom fill] [image]
-    [-r random] [-h help]"
+	echo -e "Usage: $0
+	[-f fit] [-c center] [-t tile] [-z zoom fill] [image]
+	[-r random] [-h help]"
 }
 
 # parse options
 while getopts "fctrh" opt; do
-    case $opt in
-        f) mode="fit" ;;
-        c) mode="center" ;;
-        t) mode="tile" ;;
-        z) mode="fill" ;;
-        r) random=true ;;
-        h) help && exit 0 ;; 
-        \?) help && exit 1 ;;
-    esac
+	case $opt in
+		f) mode="fit" ;;
+		c) mode="center" ;;
+		t) mode="tile" ;;
+		z) mode="fill" ;;
+		r) random=true ;;
+		h) help && exit 0 ;; 
+		\?) help && exit 1 ;;
+	esac
 done
 
 # remove parsed options
@@ -35,15 +35,15 @@ wall_dir=${1:-"$HOME/Pictures/wallpapers"}
 
 # set mode for landscape or portrait
 if [ -z "$mode" ]; then
-    mode="fill"
-    [[ $(identify -format "%[fx:w/h]" "$wall") < 1 ]] && mode="fit" 
+	mode="fill"
+	[[ $(identify -format "%[fx:w/h]" "$wall") < 1 ]] && mode="fit" 
 fi
 
 # set wallpaper
 if [ -n "$WAYLAND_DISPLAY" ]; then
-    killall swaybg
-    nohup swaybg --mode "$mode" --image "$wall" &> /tmp/swaybg.log &
+	killall swaybg
+	nohup swaybg --mode "$mode" --image "$wall" &> /tmp/swaybg.log &
 else
-    [[ "$mode" == "fit" ]] && mode="max"
-    feh --bg-$mode "$wall"
+	[[ "$mode" == "fit" ]] && mode="max"
+	feh --bg-$mode "$wall"
 fi
