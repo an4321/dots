@@ -2,10 +2,13 @@
 
 $HOME/dots/bin/setbg -r
 
+battery="/sys/class/power_supply/BAT0"
+[ ! -d "$battery" ] && battery=""
+
 while true; do
-	DATE=$(date +"󰥔 %H:%M | 󰭨 %a %-d %B")
-	BATTERY="󱐋 $(cat /sys/class/power_supply/BAT0/capacity)%"
-	xsetroot -name " $BATTERY | $DATE "
+	[ $battery ] && BATTERY=" 󱐋 $(cat $battery/capacity)% | "
+	DATE="$(date +"󰥔 %H:%M | 󰭨 %a %-d %B") "
+	xsetroot -name "$BATTERY$DATE"
 	sleep 60
 done &
 
