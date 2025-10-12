@@ -13,11 +13,6 @@ static const char *colors[][3]      = {
     //                   fg      bg      border
     [SchemeNorm]     = { col_fg, col_bg, col_bg },
     [SchemeSel]      = { col_bg, accent, accent },
-    [SchemeStatus]   = { col_fg, col_bg, col_bg }, // Statusbar right 
-    [SchemeTagsSel]  = { col_bg, accent, col_bg }, // Tagbar left selected 
-    [SchemeTagsNorm] = { col_fg, col_bg, col_bg }, // Tagbar left unselected 
-    [SchemeInfoSel]  = { col_fg, col_bg, col_bg }, // infobar middle  selected 
-    [SchemeInfoNorm] = { col_fg, col_bg, col_bg }, // infobar middle  unselected 
 };
 
 /* tagging */
