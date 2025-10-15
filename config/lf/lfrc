@@ -19,6 +19,7 @@ map J :push 5j
 map K :push 5k
 map . set hidden!
 map x :cut
+map X $extract "$f"
 map <esc> clear
 map <tab> !true
 map ; :push &

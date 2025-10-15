@@ -5,6 +5,7 @@ if test -z "$argv"
 else if test -d "$argv"
 	set backup_dirs $HOME/{notes,dots,Desktop,Downloads,Documents,Pictures}
 else
+	test ! -d "$argv[1]" && exit 1
 	for i in $argv
 		test ! -e $i && echo "invalid '$i'" && exit 1
 	end
