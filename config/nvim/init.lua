@@ -11,6 +11,10 @@ vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
 vim.opt.nrformats = vim.opt.nrformats + { 'unsigned' }
 require('vim._extui').enable({}) -- temp
 
+vim.keymap.set({'n', 'v'}, '<c-s>', '<cmd>update<cr>')
+vim.keymap.set('n', '<c-q>', function()
+	vim.cmd(#vim.fn.getbufinfo({ buflisted = 1 }) > 1 and 'bd' or 'q')
+end)
 vim.keymap.set('n', '<esc>', ':nohlsearch<cr>')
 vim.keymap.set('n', 'U', ':redo<cr>')
 vim.keymap.set({ 'n', 'v' }, ';', ':')
@@ -21,14 +25,11 @@ vim.keymap.set({ 'i', 'c' }, '<c-h>', '<c-w>', { noremap = true })
 vim.keymap.set('v', 'gp', '"_dP')
 vim.keymap.set('v', '<tab>', '>gv', { noremap = true, silent = true })
 vim.keymap.set('v', '<s-tab>', '<gv', { noremap = true, silent = true })
-vim.keymap.set('n', '<space>q', ':quit<cr>')
-vim.keymap.set('n', '<space>w', ':update<cr>')
-vim.keymap.set('n', '<space>x', ':bdelete<cr>')
 vim.keymap.set('n', '<space>l', ':bnext<cr>')
 vim.keymap.set('n', '<space>h', ':bprevious<cr>')
 vim.keymap.set('n', '<space>j', '<c-w><c-w>')
-vim.keymap.set('n', '<space>tw', ':set wrap!<cr>')
-vim.keymap.set('n', '<space>ts', ':set spell!<cr>')
+vim.keymap.set('n', '<space>w', ':set wrap!<cr>')
+vim.keymap.set('n', '<space>s', ':set spell!<cr>')
 vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])
 vim.keymap.set('n', '-', '1z=')
 vim.keymap.set('n', '?', ':%s/')
@@ -67,12 +68,16 @@ require('catppuccin').setup({
 	transparent_background = true, float = { transparent = true }
 })
 vim.cmd.colorscheme 'catppuccin-mocha'
+require('oil').setup({
+	skip_confirm_for_simple_edits = true, delete_to_trash = true,
+	keymaps = {
+		['<bs>'] = 'actions.parent',
+		['<tab>'] = 'actions.preview',
+		['<c-s>'] = '<cmd>update<cr>'
+	},
+})
 
 vim.schedule(function()
-	require('oil').setup({
-		skip_confirm_for_simple_edits = true, delete_to_trash = true,
-		keymaps = { ['<bs>'] = 'actions.parent', ['<tab>'] = 'actions.preview' }
-	})
 	require('flash').setup({ jump = { autojump = true }})
 	require('mini.pairs').setup()
 	require('gitsigns')
