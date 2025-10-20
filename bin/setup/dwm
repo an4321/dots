@@ -17,7 +17,7 @@ else
 end
 
 cd ~/.config/dwm
-sudo make clean install && make clean
+sudo make install clean
 
 confirm "install nerd-fonts" && ~/dots/bin/install-nf || warn "nf setup failed"
 confirm "install tlp" && ~/dots/bin/setup/tlp || warn "tlp setup failed"
