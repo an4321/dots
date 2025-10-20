@@ -15,6 +15,7 @@ map g. cd ~/dots
 map g, cd ~/.config
 map gl cd ~/.local
 
+map <c-q> :quit
 map J :push 5j
 map K :push 5k
 map . set hidden!
