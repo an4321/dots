@@ -9,11 +9,15 @@ source ~/dots/bin/helper/jump-init.fish
 bind H beginning-of-line
 bind L end-of-line
 
-bind -M insert \eq exit
-bind -M insert \ef 'lf; commandline -f repaint'
-bind -M insert \ea 't menu; commandline -f repaint'
-bind -M insert \ck 'commandline -i $(history | fzf-tmux -h -e +s); commandline -f repaint'
-bind -M insert \cH backward-kill-word
+function map
+	bind -M insert $argv[1] $argv[2]
+	bind -M default $argv[1] $argv[2]
+end
+
+map \cq exit
+map \cH backward-kill-word
+map \ck 'commandline -i $(history | fzf-tmux -h +s); commandline -f repaint'
+map \ea 't menu; commandline -f repaint'
 
 if test (tty) = /dev/tty1
 	# pgrep dwm || startx
