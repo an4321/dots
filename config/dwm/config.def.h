@@ -63,7 +63,7 @@ static const Key keys[] = {
 	{ MODKEY,             XK_t,      spawn,          SHCMD("kitty") },
 	{ MODKEY,             XK_f,      spawn,          SHCMD("kitty -e lf") },
 	{ MODKEY,             XK_i,      spawn,          SHCMD("kitty -e htop") },
-	{ MODKEY,             XK_e,      spawn,          SHCMD("kitty -e nvim") },
+	{ MODKEY,             XK_e,      spawn,          SHCMD("kitty fish -c nvim") },
 	{ MODKEY,             XK_b,      spawn,          SHCMD("blue") },
 	{ MODKEY,             XK_r,      spawn,          SHCMD("setbg -r") },
 	{ MODKEY,             XK_v,      spawn,          SHCMD("copyq menu") },

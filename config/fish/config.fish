@@ -16,8 +16,6 @@ map \cq exit
 map \cH backward-kill-word
 map \ck 'commandline -i $(history | fzf-tmux -h +s); commandline -f repaint'
 map \ea 't menu; commandline -f repaint'
-map \ee 'rbg kitty nvim'
-map \ef 'rbg kitty lf'
 
 # functions
 function md; mkdir -p "$argv" && cd "$argv"; end

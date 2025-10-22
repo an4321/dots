@@ -7,7 +7,7 @@ battery="/sys/class/power_supply/BAT0"
 
 while true; do
 	[ $battery ] && BATTERY=" 󱐋 $(cat $battery/capacity)% "
-	DATE=" $(date +"󰥔 %H:%M  󰭨 %a %-d %B") "
+	DATE=" $(date +"󰥔 %H:%M  󰭨 %a %-d %b") "
 	xsetroot -name "$BATTERY$DATE"
 	sleep 60
 done &
