@@ -1,7 +1,9 @@
+set ratios "1:2"
 set shell fish
 set scrolloff 10
 set ignorecase true
 set previewer "~/.config/lf/preview"
+set dupfilefmt '%f%n'
 
 map ga cd ~/Desktop
 map gd cd ~/Downloads
@@ -23,7 +25,7 @@ map x :cut
 map X $extract "$f"
 map <esc> clear
 map <tab> !true
-map ; :push &
+map ; :push $
 map o :&xdg-open "$f"
 map e $$EDITOR "$f"
 map E $sudoedit "$f"
@@ -66,10 +68,3 @@ cmd mk %{{
 	lf -remote "send $id select '$res'"
 }}
 map a mk
-
-cmd on-redraw &{{
-	set ratio "1:2:3"
-	test "$lf_width" -le 100 && set ratio "1:2"
-	lf -remote "send $id set ratios $ratio"
-}}
-map R on-redraw

@@ -17,19 +17,19 @@ function up() {
 	for file in $PWD/config/nonxdg/*; do
 		[ -f "$file" ] && ln -sf "$file" ~/."$(basename $file)"
 	done
-	echo done
+	echo laid
 }
 
 function down() {
 	find ~/.config -maxdepth 1 -type l -exec unlink {} \;
 	find ~ -maxdepth 1 -type l -exec unlink {} \;
-	echo done
+	echo unlaid
 }
 
 function base() {
 	if command -v "apt" &>/dev/null ; then
 		sudo apt install -y curl fish tmux lf fzf fd-find ripgrep \
-			htop bat trash-cli wget fastfetch lazygit
+			htop bat trash-cli wget fastfetch lazygit sqlite3
 		ln -sf $(which batcat) ~/.local/bin/bat
 		ln -sf $(which fdfind) ~/.local/bin/fd
 	elif command -v "pacman" &>/dev/null ; then

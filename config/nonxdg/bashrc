@@ -23,8 +23,12 @@ PROMPT_COMMAND=set_prompt
 bind 'set completion-ignore-case on'
 bind 'TAB:menu-complete'
 bind '"\C-H": backward-kill-word'
-bind '"\eq": "exit\n"'
+bind '"\C-q": "exit\n"'
 
 md() { mkdir -p "$1" && cd "$1"; }
 cpg() { cp "$@" && cd "${!#}"; }
 mvg() { mv "$@" && cd "${!#}"; }
+
+if [ "$(tty)" = "/dev/tty1" ]; then
+	startx
+fi
