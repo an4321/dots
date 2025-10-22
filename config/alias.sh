@@ -28,7 +28,7 @@ alias y='test -n "$WAYLAND_DISPLAY" && wl-copy || xsel -b'
 alias p='test -n "$WAYLAND_DISPLAY" && wl-paste || xsel -bo'
 alias yy="history --max=1 | tr -d '\n' | y"
 alias ywd="pwd; pwd | y"
-alias fo='runbg xdg-open "$(fd | fzf-tmux -h)"'
+alias fo='rbg xdg-open "$(fd | fzf-tmux -h)"'
 alias x='xargs -I "jk"'
 complete -c x -w env
 alias batt="echo capacity: $(cat /sys/class/power_supply/BAT0/capacity)%; \
