@@ -19,9 +19,8 @@ static const char *colors[][3]      = {
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
 
 static const Rule rules[] = {
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "float",     NULL,       NULL,       0,            1,           -1 },
-	{ "tile",      NULL,       NULL,       0,            0,           -1 },
+	/* class      instance  title   tags mask   isfloating  monitor */
+	{ "ffplay",   NULL,     NULL,   0,          1,          -1 },
 };
 
 /* layout(s) */
@@ -108,6 +107,7 @@ static const Key keys[] = {
 	{ MODKEY,             XK_equal,  setgaps,        {.i = +5 } },
 	{ MODKEY|ShiftMask,   XK_minus,  setgaps,        {.i = GAP_RESET } },
 	{ MODKEY|ShiftMask,   XK_equal,  setgaps,        {.i = GAP_TOGGLE} },
+	{ MODKEY,             XK_p,      tag,            {.ui = ~0 } },
 	TAGKEYS(              XK_1,                      0)
 	TAGKEYS(              XK_2,                      1)
 	TAGKEYS(              XK_3,                      2)

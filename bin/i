@@ -2,26 +2,26 @@
 source "$HOME/dots/bin/helper/std.fish"
 
 function menu
-    fzf-tmux -m -e --preview-window=right:55% --preview "$argv"
+	fzf-tmux -m -e --preview-window=right:55% --preview "$argv"
 end
 
 if checkcmd apt
 	if test -z "$argv"
-        set sel (apt-cache pkgnames | menu "apt-cache show {}")
-        test -n "$sel" && sudo apt install $sel
-    else if test "$argv" = "update" -o "$argv" = "u"
-        sudo apt update -y && sudo apt upgrade -y
-    else
-        sudo apt install $argv
+		set sel (apt-cache pkgnames | menu "apt-cache show {}")
+		test -n "$sel" && sudo apt install $sel
+	else if test "$argv" = "update" -o "$argv" = "u"
+		sudo apt update -y && sudo apt upgrade -y
+	else
+		sudo apt install $argv
 	end
 else if checkcmd pacman
 	if test -z "$argv"
-        set sel (pacman -Ssq | menu "pacman -Si {}")
-        test -n "$sel" && sudo pacman -S --needed $sel
-    else if test "$argv" = "update" -o "$argv" = "u"
-        sudo pacman -Syu --noconfirm
-    else
-        sudo pacman -S --needed $argv && exit
+		set sel (pacman -Ssq | menu "pacman -Si {}")
+		test -n "$sel" && sudo pacman -S --needed $sel
+	else if test "$argv" = "update" -o "$argv" = "u"
+		sudo pacman -Syu --noconfirm
+	else
+		sudo pacman -S --needed $argv && exit
 
 		# AUR
 		test (count $argv) -gt 1 && die "too many arguments"
@@ -37,5 +37,5 @@ else if checkcmd pacman
 		cd "$HOME/.cache/aur/$argv" && makepkg -si --noconfirm
 	end
 else
-    die "unsupported distribution"
+	die "unsupported distribution"
 end

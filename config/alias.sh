@@ -35,8 +35,8 @@ alias batt="echo capacity: $(cat /sys/class/power_supply/BAT0/capacity)%; \
 	upower -i $(upower -e | grep 'BAT') | grep 'time to' | xargs"
 
 export IGNORE="node_modules,.next,.svelte-kit,__pycache__,vendor,.venv,vendor"
-alias rg="rg --hidden --smart-case --pretty -g '!{.git,$IGNORE}'"
-alias fd="fd --hidden --follow --color auto --exclude={.git,$IGNORE}"
+alias rg="command rg --hidden --smart-case --pretty -g '!{.git,$IGNORE}'"
+alias fd="command fd --hidden --follow --color auto --exclude={.git,$IGNORE}"
 alias rs="rsync -aPhz --update --exclude={$IGNORE}"
 
 alias lg="lazygit"

@@ -19,15 +19,15 @@ end
 cd ~/.config/dwm
 sudo make install clean
 
-confirm "install nerd-fonts" && ~/dots/bin/install-nf || warn "nf setup failed"
-confirm "install tlp" && ~/dots/bin/setup/tlp || warn "tlp setup failed"
-confirm "install ufw" && ~/dots/bin/setup/ufw || warn "ufw setup failed"
+confirm "install nerd-fonts" && (~/dots/bin/install-nf || warn "nf setup failed")
+confirm "install tlp" && (~/dots/bin/setup/tlp || warn "tlp setup failed")
+confirm "install ufw" && (~/dots/bin/setup/ufw || warn "ufw setup failed")
 
 mkdir -p ~/Pictures/wallpapers
 test -z "$(ls $HOME/Pictures/wallpapers)" && confirm "get a wallpaper?" \
-	&& wget -O "$HOME/Pictures/wallpapers/$(uuidgen).png" "https://picsum.photos/1920/1080?random"
+	&& wget -O "$HOME/Pictures/wallpapers/$(random).png" "https://picsum.photos/1920/1080?random"
 
-confirm "create dwm.desktop" && begin
+if confirm "create dwm.desktop file"
 	chmod +x ~/.xinitrc
 	sudo touch /usr/share/xsessions/dwm.desktop
 	echo -e "[Desktop Entry]\nEncoding=utf-8\nName=dwm\nExec=$HOME/.xinitrc\nIcon=dwm\nType=xsession" \
