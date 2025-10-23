@@ -1,11 +1,11 @@
-# DWM
+# dwm patches
 * [functional gaps + pertag](https://dwm.suckless.org/patches/functionalgaps/dwm-functionalgaps+pertag-6.2.diff)
-* [focus adjacent + pertag](file:patches/focusadjacent+pertag.diff)
-    * Based on [focus adjacent tag](https://dwm.suckless.org/patches/focusadjacenttag/dwm-focusadjacenttag-6.3.diff)
+* focusadjacent+pertag.diff based on [focus adjacent tag](https://dwm.suckless.org/patches/focusadjacenttag/dwm-focusadjacenttag-6.3.diff)
 * [fancy bar](https://dwm.suckless.org/patches/fancybar/dwm-fancybar-20220527-d3f93c7.diff)
 * [hide vacant tags](https://dwm.suckless.org/patches/hide_vacant_tags/dwm-hide_vacant_tags-6.4.diff)
 * [always center](https://dwm.suckless.org/patches/alwayscenter/dwm-alwayscenter-20200625-f04cac6.diff)
 * [remove border](https://dwm.suckless.org/patches/removeborder/dwm-removeborder-20220626-d3f93c7.diff)
 * [autostart tags](https://dwm.suckless.org/patches/autostarttags/dwm-autostarttags-6.4.diff)
 * [focus active](https://dwm.suckless.org/patches/focusurgent/dwm-focusurgent-20221004-6.3.diff)
-* [toggle layout](file:patches/toggle_layout.c)
+* toggle-layout.c
+* monocle-offscreen-stack.diff
