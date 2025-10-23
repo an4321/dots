@@ -15,6 +15,10 @@ function warn
 	printf "$YELLOW%s$RESET %s\n" "warning:" "$argv" >&2 && return 1
 end
 
+function success
+	echo -e $GREEN$BOLD"$argv"$RESET
+end
+
 function confirm
 	read -P "$argv (y/N) " yn && string match -qr '^[Yy]$' $yn || return 1
 end

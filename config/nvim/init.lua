@@ -25,8 +25,8 @@ vim.keymap.set({ 'i', 'c' }, '<c-h>', '<c-w>', { noremap = true })
 vim.keymap.set('v', 'gp', '"_dP')
 vim.keymap.set('v', '<tab>', '>gv', { noremap = true, silent = true })
 vim.keymap.set('v', '<s-tab>', '<gv', { noremap = true, silent = true })
-vim.keymap.set('n', '<space>l', '<cmd>bnext<cr>')
-vim.keymap.set('n', '<space>h', '<cmd>bprevious<cr>')
+vim.keymap.set('n', '<space>h', '<cmd>bp<cr>')
+vim.keymap.set('n', '<space>l', '<cmd>bn<cr>')
 vim.keymap.set('n', '<space>j', '<c-w><c-w>')
 vim.keymap.set('n', '<space>tw', '<cmd>set wrap!<cr>')
 vim.keymap.set('n', '<space>ts', '<cmd>set spell!<cr>')
@@ -61,7 +61,7 @@ vim.pack.add({
 	'https://github.com/mason-org/mason.nvim',
 	'https://github.com/mason-org/mason-lspconfig.nvim',
 	{ src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'master' },
-	'https://github.com/Saghen/blink.cmp',
+	'https://github.com/saghen/blink.cmp',
 })
 
 require('catppuccin').setup({
