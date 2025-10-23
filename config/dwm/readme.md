@@ -9,3 +9,4 @@
 * [focus active](https://dwm.suckless.org/patches/focusurgent/dwm-focusurgent-20221004-6.3.diff)
 * toggle-layout.c
 * monocle-offscreen-stack.diff
+* [dwm warp](https://dwm.suckless.org/patches/warp/dwm-warp-6.4.diff)
