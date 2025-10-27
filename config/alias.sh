@@ -1,4 +1,5 @@
 export PATH=$PATH:"/bin:/usr/local/bin:$HOME/.local/bin:$HOME/dots/bin:$HOME/.go/bin:$HOME/.local/go/bin:$HOME/.local/node/bin:$HOME/.bun/bin"
+export IGNORE="node_modules,.next,.svelte-kit,__pycache__,vendor,.venv,vendor,.cache,.bun,.npm,.local/share"
 export ACCENT="yellow"
 export EDITOR="$(which nvim)"
 export MANPAGER="$(which nvim) +Man!"
@@ -28,17 +29,23 @@ alias y='test -n "$WAYLAND_DISPLAY" && wl-copy || xsel -b'
 alias p='test -n "$WAYLAND_DISPLAY" && wl-paste || xsel -bo'
 alias yy="history --max=1 | tr -d '\n' | y"
 alias ywd="pwd; pwd | y"
-alias fo='rbg xdg-open "$(fd | fzf-tmux -h)"'
+alias fo='rbg xdg-open "$(fd -t f --changed-within 100y --exec stat -c "%Y %n" {} | sort -nr | cut -d" " -f2- | fzf-tmux -h)"'
 alias x='xargs -I "jk"'
 complete -c x -w env
+
 alias batt="echo capacity: $(cat /sys/class/power_supply/BAT0/capacity)%; \
 	upower -i $(upower -e | grep 'BAT') | grep 'time to' | xargs"
+alias cam="ffplay -hide_banner -loglevel fatal -stats \
+	-window_title webcam -fflags +nobuffer -fast /dev/video0"
+alias setup='command fd -d 1 -t x . ~/dots/bin/setup \
+	| fzf --height=100% --preview-window=bottom --preview="env cat {}" \
+	| xargs -I {} env {}'
 
-export IGNORE="node_modules,.next,.svelte-kit,__pycache__,vendor,.venv,vendor"
 alias rg="command rg --hidden --smart-case --pretty -g '!{.git,$IGNORE}'"
 alias fd="command fd --hidden --follow --color auto --exclude={.git,$IGNORE}"
 alias rs="rsync -aPhz --update --exclude={$IGNORE}"
 
+alias br="bun run"
 alias lg="lazygit"
 alias gcl="git clone"
 alias gcb="git clone --bare"
