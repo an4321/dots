@@ -10,7 +10,7 @@ read -s -P "password: " pass
 
 if test "$argv[1]" = "new"
 	test -z $argv[2] && die "file name is required"
-	set file "$argv[2]" 
+	set file "$argv[2]"
 	echo | gpg --batch --symmetric --cipher-algo AES256 --passphrase "$pass" --output "$file"
 end
 

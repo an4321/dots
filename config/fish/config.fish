@@ -18,9 +18,9 @@ map \ck 'commandline -i $(history | fzf-tmux -h +s); commandline -f repaint'
 map \ea 't menu; commandline -f repaint'
 
 # functions
-function md; mkdir -p "$argv" && cd "$argv"; end
-function cpg; cp $argv; and cd $argv[-1]; end
-function mvg; mv $argv; and cd $argv[-1]; end
+function md; mkdir -p "$argv" && j "$argv"; end
+function cpg; cp $argv && j $argv[-1]; end
+function mvg; mv $argv && j $argv[-1]; end
 function c; echo "$argv" | sed 's/x/*/g' | bc -l; end
 
 # bang bang
