@@ -69,7 +69,7 @@ static const Key keys[] = {
 	{ MODKEY,             XK_v,      spawn,          SHCMD("copyq menu") },
 	{ MODKEY,             XK_c,      spawn,          SHCMD("mate-color-select") },
 	{ MODKEY,             XK_period, spawn,          SHCMD("cat ~/.config/rofi/{emotes,nf-icons} | rofi -dmenu | cut -d ' ' -f 1 | tr -d '\n' | xsel --clipboard") },
-	{ MODKEY,             XK_n,      spawn,          SHCMD("cd ~/notes; kitty nvim $(fd -1 index)") },
+	{ MODKEY,             XK_n,      spawn,          SHCMD("cd ~/notes; kitty -T notes -e nvim $(fd -1 index.md)") },
 	{ MODKEY,             XK_s,      spawn,          SHCMD("shot") },
 	{ MODKEY|ShiftMask,   XK_s,      spawn,          SHCMD("shot -f") },
 	{ MODKEY|ControlMask, XK_r,      spawn,          SHCMD("systemctl soft-reboot") },

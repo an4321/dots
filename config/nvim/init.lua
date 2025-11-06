@@ -70,11 +70,7 @@ require('catppuccin').setup({
 vim.cmd.colorscheme 'catppuccin-mocha'
 require('oil').setup({
 	skip_confirm_for_simple_edits = true, delete_to_trash = true,
-	keymaps = {
-		['<bs>'] = 'actions.parent',
-		['<tab>'] = 'actions.preview',
-		['<c-s>'] = '<cmd>update<cr>'
-	},
+	keymaps = { ['<bs>'] = 'actions.parent', ['<c-s>'] = '<cmd>w<cr>'},
 })
 
 vim.schedule(function()
