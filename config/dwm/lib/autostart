@@ -6,7 +6,11 @@ battery="/sys/class/power_supply/BAT0"
 [ ! -d "$battery" ] && battery=""
 
 while true; do
-	[ $battery ] && BATTERY=" 󱐋 $(cat $battery/capacity)% "
+	[ $battery ] && {
+		cap=$(cat $battery/capacity)
+		[ $cap -lt 15 ] && notify-send "🪫 low battery"
+		BATTERY=" 󱐋 $cap% "
+	}
 	DATE=" $(date +"󰥔 %H:%M  󰭨 %a %-d %b") "
 	xsetroot -name "$BATTERY$DATE"
 	sleep 60
