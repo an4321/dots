@@ -17,5 +17,5 @@ while true; do
 done &
 
 copyq &
-picom --config ~/.config/dwm/lib/picom.conf &
+picom --vsync &
 dunst -conf ~/.config/dwm/lib/dunstrc &
