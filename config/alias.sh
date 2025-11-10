@@ -21,15 +21,12 @@ alias df="df -h"
 alias free="free -h"
 alias fetch="fastfetch"
 alias cat="bat -p --theme=ansi"
+alias icat="kitty +icat"
 alias e="nvim"
 alias se="sudoedit"
-alias ls="env ls -G --color=auto --group-directories-first"
+alias ls="ls -G --color=auto --group-directories-first"
 alias li="nsxiv -ota ."
-alias y='test -n "$WAYLAND_DISPLAY" && wl-copy || xsel -b'
-alias p='test -n "$WAYLAND_DISPLAY" && wl-paste || xsel -bo'
-alias yy="history --max=1 | tr -d '\n' | y"
 alias ywd="pwd; pwd | y"
-alias fo='rbg xdg-open "$(fd -t f --changed-within 100y --exec stat -c "%Y %n" {} | sort -nr | cut -d" " -f2- | fzf-tmux -h)"'
 alias x='xargs -I "jk"'
 complete -c x -w env
 
@@ -46,9 +43,10 @@ alias fd="command fd --hidden --follow --color auto --exclude={.git,$IGNORE}"
 alias rs="rsync -aPhz --update --exclude={$IGNORE}"
 
 alias br="bun run"
+
 alias lg="lazygit"
+alias lines="git ls-files | xargs cat | wc -l"
 alias gcl="git clone"
-alias gcb="git clone --bare"
 alias gc1="git clone --depth 1"
 alias ga="git add"
 alias gai="git add -p"
@@ -57,15 +55,15 @@ alias gco="git checkout"
 alias gp="git pull"
 alias gP="git push origin"
 alias gcm="git commit"
-alias gcp="git commit && git push"
+alias gcp="git commit && git push origin"
 alias gi="git init"
 alias gm="git merge"
 alias gib="git init --bare"
+alias gcb="git clone --bare"
 alias gw="git worktree"
 alias gwa="git worktree add"
 alias gwr="git worktree remove"
 alias gs="git status --short --branch --show-stash"
-alias gst="git stash && stash branch temp"
+alias gst="git stash && git stash branch temp"
 alias gl='git log --graph --all \
 	--pretty=format:"%C(magenta)%h %C(white) %an  %ar%C(blue)  %D%n%s%n"'
-alias lines="git ls-files | xargs cat | wc -l"

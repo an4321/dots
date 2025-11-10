@@ -36,7 +36,6 @@ function base() {
 		sudo pacman -Syu --noconfirm curl fish tmux lf fzf fd ripgrep \
 			htop bat trash-cli wget fastfetch unzip man-db nvim lazygit
 	fi
-	chsh -s "$(which fish)"
 }
 
 main "$@"

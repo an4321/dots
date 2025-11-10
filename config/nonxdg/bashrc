@@ -11,11 +11,7 @@ export HISTSIZE=5000
 export HISTCONTROL=erasedups:ignoredups:ignorespace
 
 # prompt
-RED='\[\e[31m\]'
-GREEN='\[\e[32m\]'
-CYAN='\[\e[36m\]'
-PINK='\[\e[35m\]'
-RESET='\[\e[0m\]'
+RED='\[\e[31m\]' GREEN='\[\e[32m\]' CYAN='\[\e[36m\]' PINK='\[\e[35m\]' RESET='\[\e[0m\]'
 BASE_PROMPT="${CYAN}\u${RESET}@${GREEN}\h${RESET}:${PINK} \w${RESET} > "
 set_prompt() { [ $? -ne 0 ] && PS1="$RED[Error]$RESET\n$BASE_PROMPT" || PS1="$BASE_PROMPT"; }
 PROMPT_COMMAND=set_prompt

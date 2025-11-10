@@ -5,13 +5,10 @@ fish_hybrid_key_bindings
 source ~/.config/alias.sh
 source ~/dots/bin/helper/jump-init.fish
 
-function map
-	bind -M insert $argv[1] $argv[2]
-	bind -M default $argv[1] $argv[2]
-end
-
 bind H beginning-of-line
 bind L end-of-line
+
+function map; for i in insert default; bind -M $i $argv; end; end
 map \cq exit
 map \cH backward-kill-word
 map \ck 'commandline -i $(history | fzf-tmux -h +s); commandline -f repaint'
@@ -22,6 +19,9 @@ function md; mkdir -p "$argv" && j "$argv"; end
 function cpg; cp $argv && j $argv[-1]; end
 function mvg; mv $argv && j $argv[-1]; end
 function c; echo "$argv" | sed 's/x/*/g' | bc -l; end
+function y; test -n "$WAYLAND_DISPLAY" && wl-copy || xsel -b; end
+function p; test -n "$WAYLAND_DISPLAY" && wl-paste || xsel -bo; end
+function yy; history --max=1 | tr -d '\n' | y; end
 
 # bang bang
 function __history_previous_command

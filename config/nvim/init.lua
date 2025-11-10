@@ -35,6 +35,8 @@ vim.keymap.set('n', '-', '1z=')
 vim.keymap.set('n', '?', ':%s/')
 vim.keymap.set('n', '<bs>', ':term ')
 vim.keymap.set('t', '<c-c>', [[<c-\><c-n>]])
+vim.keymap.set('n', 'j', 'gj')
+vim.keymap.set('n', 'k', 'gk')
 
 -- highlight on yank
 vim.cmd [[ au TextYankPost * lua vim.hl.on_yank() ]]
