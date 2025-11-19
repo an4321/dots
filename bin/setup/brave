@@ -1,7 +1,10 @@
 #!/bin/env fish
-source "$HOME/dots/bin/helper/std.fish"
 
-if checkcmd pacman
+function accept
+	read -P "$argv (Y/n) " yn && string match -qr '^[Yy]?$' $yn || return 1
+end
+
+if command -v $argv &>/dev/null pacman
 	$HOME/dots/bin/i brave-bin
 else
 	curl -fsS "https://dl.brave.com/install.sh" | sh

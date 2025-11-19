@@ -1,5 +1,8 @@
 #!/bin/env fish
-source "$HOME/dots/bin/helper/std.fish"
+
+function die
+	echo "error: $argv" >&2 && exit 1
+end
 
 set fonts "JetBrainsMono"
 test -n "$argv" && set fonts $argv

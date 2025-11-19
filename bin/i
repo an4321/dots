@@ -1,11 +1,19 @@
 #!/bin/env fish
-source "$HOME/dots/bin/helper/std.fish"
 
 function menu
 	fzf-tmux -m -e --preview-window=right:55% --preview "$argv"
 end
 
-if checkcmd apt
+function die
+	echo "error: $argv" >&2 && exit 1
+end
+
+function confirm
+	read -P "$argv (y/N) " yn && string match -qr '^[Yy]$' $yn || return 1
+end
+
+
+if command -v $argv &>/dev/null apt
 	if test -z "$argv"
 		set sel (apt-cache pkgnames | menu "apt-cache show {}")
 		test -n "$sel" && sudo apt install $sel
@@ -14,7 +22,7 @@ if checkcmd apt
 	else
 		sudo apt install $argv
 	end
-else if checkcmd pacman
+else if command -v $argv &>/dev/null pacman
 	if test -z "$argv"
 		set sel (pacman -Ssq | menu "pacman -Si {}")
 		test -n "$sel" && sudo pacman -S --needed $sel

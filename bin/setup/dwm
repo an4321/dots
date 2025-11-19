@@ -1,27 +1,30 @@
 #!/bin/env fish
-source "$HOME/dots/bin/helper/std.fish"
 
-if checkcmd "apt"
+function confirm
+	read -P "$argv (y/N) " yn && string match -qr '^[Yy]$' $yn || return 1
+end
+
+if command -v $argv &>/dev/null "apt"
 	sudo apt install -y \
 		make gcc libx11-dev libxft-dev libxinerama-dev xorg xsel psmisc libxrandr-dev \
 		brightnessctl pamixer pavucontrol playerctl imagemagick libnotify-bin fonts-noto-color-emoji \
 		copyq dunst feh nemo i3lock rofi arandr picom
-	accept "install kitty" && eval "$(dirname (status -f))/kitty"
-else if checkcmd "pacman"
+	confirm "install kitty" && eval "$(dirname (status -f))/kitty"
+else if command -v $argv &>/dev/null "pacman"
 	sudo pacman -S \
 		make gcc xorg xorg-xinit base-devel libx11 libxft libxinerama xsel \
 		brightnessctl pamixer pavucontrol playerctl imagemagick libnotify noto-fonts-emoji \
 		copyq dunst feh nemo i3lock rofi arandr picom kitty
 else
-	die "unsupported distribution"
+	echo "error: unsupported distribution" >&2 && exit 1
 end
 
 cd ~/.config/dwm
 sudo make install clean
 
-confirm "install nerd-fonts" && (~/dots/bin/install-nf || warn "nf setup failed")
-confirm "install tlp" && (~/dots/bin/setup/tlp || warn "tlp setup failed")
-confirm "install ufw" && (~/dots/bin/setup/ufw || warn "ufw setup failed")
+confirm "install nerd-fonts" && (~/dots/bin/install-nf || echo "nf setup failed")
+confirm "install tlp" && (~/dots/bin/setup/tlp || echo "tlp setup failed")
+confirm "install ufw" && (~/dots/bin/setup/ufw || echo "ufw setup failed")
 
 mkdir -p ~/Pictures/wallpapers
 test -z "$(ls $HOME/Pictures/wallpapers)" && confirm "get a wallpaper?" \

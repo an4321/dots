@@ -1,11 +1,14 @@
 #!/bin/env fish
-source "$HOME/dots/bin/helper/std.fish"
+
+function die
+	echo "error: $argv" >&2 && exit 1
+end
 
 function menu
 	fzf-tmux -m -e --preview-window=right:55% --preview "$argv"
 end
 
-if checkcmd "apt"
+if  command -v $argv &>/dev/null "apt"
 	if test (count $argv) -eq 0
 		set sel (apt list --installed | cut -d/ -f1 | menu 'apt-cache show {}')
 		test -n "$sel" && sudo apt remove $sel
@@ -14,7 +17,7 @@ if checkcmd "apt"
 	else
 		sudo apt remove $argv
 	end
-else if checkcmd "pacman"
+else if command -v $argv &>/dev/null "pacman"
 	if test (count $argv) -eq 0
 		set sel (pacman -Qq | menu 'pacman -Qi {}')
 		test -n "$sel" && sudo pacman -R $sel

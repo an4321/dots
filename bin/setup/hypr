@@ -1,5 +1,8 @@
 #!/bin/env fish
-source "$HOME/dots/bin/helper/std.fish"
+
+function confirm
+	read -P "$argv (y/N) " yn && string match -qr '^[Yy]$' $yn || return 1
+end
 
 sudo pacman -S \
     hyprland waybar swaybg swaylock hyprpicker brightnessctl pamixer blueman cliphist \
@@ -9,6 +12,6 @@ confirm "install nerd-fonts?" && ~/dots/bin/install-nf
 confirm "setup tlp?" && sudo pacman -S tlp && sudo tlp start
 confirm "ufw?" && ~/dots/bin/setup/ufw
 
-mkdir -p ~/Pictures/wallpapers
+command mkdir -p ~/Pictures/wallpapers
 test -z "$(ls ~/Pictures/wallpapers)" && confirm "get a random wallpaper?" \
-	&& wget -O "$HOME/Pictures/wallpapers/$(uuidgen).png" "https://picsum.photos/1920/1080?random"
+	&& command wget -O "$HOME/Pictures/wallpapers/$(uuidgen).png" "https://picsum.photos/1920/1080?random"
