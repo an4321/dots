@@ -22,6 +22,7 @@ function c; echo "$argv" | sed 's/x/*/g' | bc -l; end
 function y; test -n "$WAYLAND_DISPLAY" && wl-copy || xsel -b; end
 function p; test -n "$WAYLAND_DISPLAY" && wl-paste || xsel -bo; end
 function yy; history --max=1 | tr -d '\n' | y; end
+function br; test -z "$argv" && bun run dev || bun run $argv; end
 
 # bang bang
 function __history_previous_command

@@ -21,7 +21,7 @@ alias df="df -h"
 alias free="free -h"
 alias fetch="fastfetch"
 alias cat="bat -p --theme=ansi"
-alias icat="kitty +icat"
+alias icat="kitten icat --align left"
 alias e="nvim"
 alias se="sudoedit"
 alias ls="ls -G --color=auto --group-directories-first"
@@ -41,8 +41,6 @@ alias setup='command fd -d 1 -t x . ~/dots/bin/setup \
 alias rg="command rg --hidden --smart-case --pretty -g '!{.git,$IGNORE}'"
 alias fd="command fd --hidden --follow --color auto --exclude={.git,$IGNORE}"
 alias rs="rsync -aPhz --update --exclude={$IGNORE}"
-
-alias br="bun run"
 
 alias lg="lazygit"
 alias lines="git ls-files | xargs cat | wc -l"
@@ -65,5 +63,6 @@ alias gwa="git worktree add"
 alias gwr="git worktree remove"
 alias gs="git status --short --branch --show-stash"
 alias gst="git stash && git stash branch temp"
+alias grm="git rm --cached --ignore-unmatch"
 alias gl='git log --graph --all \
 	--pretty=format:"%C(magenta)%h %C(white) %an  %ar%C(blue)  %D%n%s%n"'

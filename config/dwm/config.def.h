@@ -56,12 +56,13 @@ Autostarttag autostarttaglist[] = {
 static const Key keys[] = {
 	/* modifier           key        function        argument */
 	{ MODKEY,             XK_a,      spawn,          SHCMD("rofi -show run") },
-	{ MODKEY,             XK_z,      spawn,          SHCMD("lock") },
+	{ MODKEY,             XK_Escape, spawn,          SHCMD("lock") },
 	{ MODKEY|ShiftMask,   XK_f,      spawn,          SHCMD("nemo") },
 	{ MODKEY,             XK_w,      spawn,          SHCMD("brave") },
 	{ MODKEY|ShiftMask,   XK_w,      spawn,          SHCMD("brave --incognito") },
 	{ MODKEY,             XK_t,      spawn,          SHCMD("kitty") },
 	{ MODKEY,             XK_f,      spawn,          SHCMD("kitty -e lf") },
+	{ MODKEY,             XK_z,      spawn,          SHCMD("y=(date +%Y) cd ~/notes/$y && ls | command rg .pdf | rofi -dmenu | xargs -r zathura") },
 	{ MODKEY,             XK_i,      spawn,          SHCMD("kitty -e htop") },
 	{ MODKEY,             XK_e,      spawn,          SHCMD("kitty fish -c nvim") },
 	{ MODKEY,             XK_b,      spawn,          SHCMD("blue") },
