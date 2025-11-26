@@ -1,7 +1,7 @@
 #!/bin/env bash
 
-source ~/.config/alias.sh
-source ~/dots/bin/helper/jump-init.sh
+source ~/.config/fish/alias.sh
+source ~/dots/misc/jump/init.sh
 
 shopt -s autocd
 shopt -s checkwinsize

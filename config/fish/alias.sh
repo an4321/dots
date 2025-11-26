@@ -42,6 +42,8 @@ alias rg="command rg --hidden --smart-case --pretty -g '!{.git,$IGNORE}'"
 alias fd="command fd --hidden --follow --color auto --exclude={.git,$IGNORE}"
 alias rs="rsync -aPhz --update --exclude={$IGNORE}"
 
+alias br="bun run"
+
 alias lg="lazygit"
 alias lines="git ls-files | xargs cat | wc -l"
 alias gcl="git clone"

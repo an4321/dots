@@ -1228,6 +1228,7 @@ monocle(Monitor *m)
 	if (n > 0) /* override layout symbol */
 		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
 
+	// maybe add a toggle to it
 	for (c = m->clients; c; c = c->next)
 		if (ISVISIBLE(c)) {
 			if (c == m->sel)

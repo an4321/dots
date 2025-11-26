@@ -46,7 +46,7 @@ static const Layout layouts[] = {
 /* helper for spawning shell commands */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/env", "bash", "-c", cmd, NULL } }
 
-static const char *autostartcmd[] = {"/bin/sh", "-c", "~/.config/dwm/lib/autostart", NULL };
+static const char *autostartcmd[] = {"/bin/sh", "-c", "~/dots/misc/dwm/lib/autostart", NULL };
 Autostarttag autostarttaglist[] = {
 	{.cmd = autostartcmd, .tags = 1 << 0 },
 	{.cmd = NULL,         .tags = 0 },
@@ -61,8 +61,8 @@ static const Key keys[] = {
 	{ MODKEY,             XK_w,      spawn,          SHCMD("brave") },
 	{ MODKEY|ShiftMask,   XK_w,      spawn,          SHCMD("brave --incognito") },
 	{ MODKEY,             XK_t,      spawn,          SHCMD("kitty") },
-	{ MODKEY,             XK_f,      spawn,          SHCMD("kitty -e lf") },
 	{ MODKEY,             XK_z,      spawn,          SHCMD("y=(date +%Y) cd ~/notes/$y && ls | command rg .pdf | rofi -dmenu | xargs -r zathura") },
+	{ MODKEY,             XK_f,      spawn,          SHCMD("kitty -e lf") },
 	{ MODKEY,             XK_i,      spawn,          SHCMD("kitty -e htop") },
 	{ MODKEY,             XK_e,      spawn,          SHCMD("kitty fish -c nvim") },
 	{ MODKEY,             XK_b,      spawn,          SHCMD("blue") },

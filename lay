@@ -14,16 +14,18 @@ function main() {
 function up() {
 	mkdir -p ~/.config ~/.local/bin ~/Desktop ~/Pictures/{wallpapers,screenshots}
 	ln -sf $PWD/config/* ~/.config
+	ln -sf $PWD/misc/jump/main ~/.local/bin/jump
 	for file in $PWD/config/nonxdg/*; do
 		[ -f "$file" ] && ln -sf "$file" ~/."$(basename $file)"
 	done
-	echo laid
+	echo done
 }
 
 function down() {
 	find ~/.config -maxdepth 1 -type l -exec unlink {} \;
 	find ~ -maxdepth 1 -type l -exec unlink {} \;
-	echo unlaid
+	unlink ~/.local/bin/jump
+	echo done
 }
 
 function base() {

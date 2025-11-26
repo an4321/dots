@@ -19,17 +19,17 @@ else
 	echo "error: unsupported distribution" >&2 && exit 1
 end
 
-cd ~/.config/dwm
+cd ~/dots/misc/dwm
 sudo make install clean
 
 confirm "install nerd-fonts" && begin
 	~/dots/bin/install-nf || echo "nf setup failed" >&2
 end
 confirm "install tlp" && begin
-	~/dots/bin/setup/tlp || echo "tlp setup failed" >&2
+	~/dots/setup/tlp || echo "tlp setup failed" >&2
 end
 confirm "install ufw" && begin
-	~/dots/bin/setup/ufw || echo "ufw setup failed" >&2
+	~/dots/setup/ufw || echo "ufw setup failed" >&2
 end
 
 mkdir -p ~/Pictures/wallpapers
