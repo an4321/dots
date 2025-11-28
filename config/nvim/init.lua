@@ -91,17 +91,3 @@ vim.keymap.set('n', ']g', '<cmd>Gitsigns next_hunk<cr>')
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
 vim.keymap.set('n', 'gq', function() vim.lsp.buf.format({ async = true }) end)
 vim.keymap.set('n', '<space>d', function() vim.diagnostic.jump({count = 1, float = true}) end)
-
---  flash test
--- if i made Oil how different would it be? no confirm, actual copy path to clipboard
--- maybe test vim without mason and mason-lspconfig
-
--- vim.opt.path:append '**'
-vim.cmd [[ com! -nargs=* J :exe 'cd ' . system("jump q " . shellescape(<q-args>)) | e . ]]
-vim.keymap.set('n', '<space><space>', ':J ')
-vim.keymap.set('n', 's', ':J ')
-
--- norm
--- vim.keymap.set({ 'n', 'v' }, '<space>n', ':norm ')
--- :g/error/norm I[ERROR]
--- use ctrl+v to paste a key

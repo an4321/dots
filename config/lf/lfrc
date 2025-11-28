@@ -1,5 +1,5 @@
-set ratios "1:2"
 set shell fish
+set ratios "1:2"
 set scrolloff 10
 set ignorecase true
 set previewer "~/.config/lf/preview"
