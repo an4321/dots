@@ -12,6 +12,7 @@ export FZF_DEFAULT_OPTS="--cycle --reverse --no-separator --scroll-off=3 \
 
 alias ..="cd .."
 alias ...="cd ../.."
+alias md="mkdir -p"
 alias cp="cp -vir"
 alias mv="mv -vi"
 alias ln="ln -sv"

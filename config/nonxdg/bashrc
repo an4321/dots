@@ -1,5 +1,3 @@
-#!/bin/env bash
-
 source ~/.config/fish/alias.sh
 source ~/dots/misc/jump/init.sh
 
@@ -20,10 +18,6 @@ bind 'set completion-ignore-case on'
 bind 'TAB:menu-complete'
 bind '"\C-H": backward-kill-word'
 bind '"\C-q": "exit\n"'
-
-md() { mkdir -p "$1" && cd "$1"; }
-cpg() { cp "$@" && cd "${!#}"; }
-mvg() { mv "$@" && cd "${!#}"; }
 
 if [ "$(tty)" = "/dev/tty1" ]; then
 	startx

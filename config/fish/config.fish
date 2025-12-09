@@ -15,9 +15,6 @@ map \ck 'commandline -i $(history | fzf-tmux -h +s); commandline -f repaint'
 map \ea 't menu; commandline -f repaint'
 
 # functions
-function md; mkdir -p "$argv" && j "$argv"; end
-function cpg; cp $argv && j $argv[-1]; end
-function mvg; mv $argv && j $argv[-1]; end
 function c; echo "$argv" | sed 's/x/*/g' | bc -l; end
 function y; test -n "$WAYLAND_DISPLAY" && wl-copy || xsel -b; end
 function p; test -n "$WAYLAND_DISPLAY" && wl-paste || xsel -bo; end

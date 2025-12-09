@@ -44,7 +44,7 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/env", "bash", "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/env", "fish", "-c", cmd, NULL } }
 
 static const char *autostartcmd[] = {"/bin/sh", "-c", "~/dots/misc/dwm/lib/autostart", NULL };
 Autostarttag autostarttaglist[] = {
@@ -91,8 +91,6 @@ static const Key keys[] = {
 	{ MODKEY,             XK_l,      viewtoright,    {0} },
 	{ MODKEY|ShiftMask,   XK_h,      tagtoleft,      {0} },
 	{ MODKEY|ShiftMask,   XK_l,      tagtoright,     {0} },
-	{ MODKEY|ShiftMask,   XK_h,      viewtoleft,     {0} },
-	{ MODKEY|ShiftMask,   XK_l,      viewtoright,    {0} },
 	{ MODKEY,             XK_Left,   setmfact,       {.f = -0.05} },
 	{ MODKEY,             XK_Right,  setmfact,       {.f = +0.05} },
 	{ MODKEY,             XK_Return, zoom,           {0} },

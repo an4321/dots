@@ -11,6 +11,7 @@ j() {
 	jump add "$PWD" >/dev/null
 }
 
-ji() {
-	cd "$(jump list | fzf-tmux || echo .)"
-}
+ji() { cd "$(jump list | fzf-tmux || echo .)"; }
+mdg() { mkdir -p "$1" && cd "$1"; }
+cpg() { cp "$@" && cd "${@: -1}"; }
+mvg() { mv "$@" && cd "${@: -1}"; }

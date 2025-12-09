@@ -3,7 +3,7 @@
 if test -z "$argv"
 	exit 1
 else if test -d "$argv"
-	set backup_dirs $HOME/{notes,dots,Desktop,Downloads,Documents,Pictures}
+	set backup_dirs $HOME/{notes,dots,Desktop,Documents,Pictures}
 else
 	test ! -d "$argv[1]" && exit 1
 	for i in $argv
