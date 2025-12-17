@@ -16,6 +16,8 @@ while true; do
 	sleep 60
 done &
 
-copyq &
+LIB="$HOME/dots/misc/dwm/lib/"
 picom --vsync &
-dunst -conf ~/dots/misc/dwm/lib/dunstrc &
+dunst -conf $LIB/dunstrc &
+ln -svf $LIB/menu ~/.local/bin &
+copyq &
