@@ -1,18 +1,14 @@
 #!/bin/env bash
 
-device=$(bluetoothctl devices | grep Device | tac | rofi -dmenu | awk '{print $2}')
+device=$(bluetoothctl devices | grep Device | tac | menu | awk '{print $2}')
 [ -z "$device" ] && exit
 
 if bluetoothctl info | grep -q $device; then
-	if bluetoothctl disconnect "$device"; then
-		notify-send "disconnected"
-	else
-		notify-send "⚠️ error disconnecting"
-	fi
+	bluetoothctl disconnect "$device" && notify-send "disconnected"
 else
 	if bluetoothctl connect "$device"; then
 		notify-send "connected"
 	else
-		notify-send "⚠️ error connecting"
+		notify-send "error connecting!"
 	fi
 fi
