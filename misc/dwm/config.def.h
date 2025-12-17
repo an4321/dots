@@ -9,6 +9,8 @@ static const char *fonts[]          = { "JetBrainsMonoNerdFont:size=17" };
 static const char col_bg[]          = "#1f2029";
 static const char col_fg[]          = "#ffffff";
 static const char accent[]          = "#f9e2af";
+static unsigned int baralpha        = 0xe6;
+static unsigned int borderalpha     = OPAQUE;
 static const char *colors[][3]      = {
 	//                   fg      bg      border
 	[SchemeNorm]     = { col_fg, col_bg, col_bg },
