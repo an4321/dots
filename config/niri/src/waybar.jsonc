@@ -1,0 +1,61 @@
+[
+	{
+		"layer": "top",
+		"position": "left",
+		"orientation": "vertical",
+		"reload_style_on_change": true,
+		"modules-center": ["niri/workspaces", "group/bottom"],
+		"group/bottom": {
+			"orientation": "inherit",
+			"modules": [
+				// "tray",
+				"group/battery",
+				"custom/separator",
+				"clock"
+			]
+		},
+
+		"niri/workspaces": {
+			"format": "{index}",
+			"all-outputs": true
+		},
+
+		// "tray": {
+		// 	"icon-size": 21,
+		// 	"spacing": 10,
+		// },
+
+		"group/battery": {
+			"orientation": "inherit",
+			"modules": ["battery#icon", "battery"]
+		},
+		"battery#icon": {
+			"states": {
+				"warning": 20,
+				"critical": 10
+			},
+			"events": {
+				"on-discharging-warning": "notify-send '🪫 battery low!'",
+				"on-discharging-critical": "notify-send '⚠️ battery critical!'"
+			},
+			"format": "{icon}",
+			"format-charging": "󰂄",
+			"format-icons": [ "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰁹" ],
+			"interval": 30
+		},
+		"battery": {
+			"format": "{capacity}",
+			"interval": 30
+		},
+
+		"custom/separator": {
+			"format": "",
+		},
+
+		"clock": {
+			"format": "{:%H\n%M}",
+			"tooltip-format": "{:%a %b %d, %Y}",
+			"interval": 30
+		}
+	}
+]

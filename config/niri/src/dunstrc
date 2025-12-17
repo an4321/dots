@@ -1,0 +1,13 @@
+[global]
+    font="JetBrains Mono NF 14"
+    width=360
+    corner_radius=8
+    frame_width=2
+    origin=top-right
+    offset=15x15
+    background="#1c1d25cc"
+    foreground="#DFE4F7"
+    frame_color="#F9E2AF"
+    text_icon_padding=15
+    max_icon_size=100
+    timeout=5

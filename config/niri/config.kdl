@@ -1,0 +1,158 @@
+input {
+    mod-key "Super"
+    mod-key-nested "Alt"
+	touchpad {
+		tap
+		natural-scroll
+	}
+	warp-mouse-to-focus
+	focus-follows-mouse max-scroll-amount="0%"
+}
+
+output "eDP-1" {
+	scale 1.2
+    backdrop-color "#333442"
+}
+
+layout {
+	gaps 10
+	always-center-single-column
+	default-column-width { proportion 0.5; }
+	focus-ring {
+		width 2.5
+		// active-color "#f9e2af"
+		active-color "#ffffff30"
+		inactive-color "#ffffff30"
+	}
+	border {
+		width 0
+		active-color "#00000000"
+		inactive-color "#00000000"
+	}
+	tab-indicator {
+		active-color "#f9e2af"
+		inactive-color "#000000"
+	}
+}
+
+animations {
+	slowdown 0.5
+}
+
+window-rule {
+	geometry-corner-radius 10
+	clip-to-geometry true
+}
+
+window-rule {
+    match app-id="kitty"
+    match app-id="helium"
+    default-column-width { proportion 0.9; }
+}
+
+hotkey-overlay {
+	skip-at-startup
+}
+
+prefer-no-csd
+screenshot-path "~/Pictures/screenshots/%F_%H-%M-%S.png"
+
+spawn-sh-at-startup "~/.config/niri/src/autostart"
+
+binds {
+	Mod+A { spawn-sh "menu run"; }
+	Mod+V { spawn-sh "menu clip"; }
+	Mod+Period { spawn-sh "menu emoji"; }
+	Mod+Z { spawn-sh "menu book"; }
+	Mod+Escape { spawn "lock"; }
+	Mod+Shift+F { spawn "nemo"; }
+	Mod+W { spawn-sh "helium"; }
+	Mod+Shift+W { spawn-sh "helium --incognito"; }
+	Mod+Ctrl+Q { spawn-sh "systemctl poweroff"; }
+	Mod+Ctrl+R { spawn-sh "systemctl soft-reboot"; }
+	Mod+T { spawn "kitty"; }
+	Mod+E { spawn-sh "kitty nvim"; }
+	Mod+N { spawn-sh "cd ~/notes && kitty nvim 2025/index.md"; }
+	Mod+I { spawn-sh "kitty htop"; }
+	Mod+F { spawn-sh "kitty lf"; }
+	Mod+R { spawn-sh "setbg -r"; }
+	Mod+B { spawn-sh "blue"; }
+
+	Mod+Shift+Slash { show-hotkey-overlay; }
+	Mod+O repeat=false { toggle-overview; }
+	Mod+Q repeat=false { close-window; }
+
+	Mod+H { focus-column-left; }
+	Mod+L { focus-column-right; }
+	Mod+Shift+H { move-column-left; }
+	Mod+Shift+L { move-column-right; }
+	Mod+Ctrl+H { focus-column-first; }
+	Mod+Ctrl+L { focus-column-last; }
+	Mod+Return { move-column-to-first; }
+
+	Mod+J { focus-window-or-workspace-down; }
+	Mod+K { focus-window-or-workspace-up; }
+	Mod+Shift+J { move-window-down-or-to-workspace-down; }
+	Mod+Shift+K { move-window-up-or-to-workspace-up; }
+
+	Mod+Semicolon { focus-monitor-next; }
+	Mod+Shift+Semicolon { move-window-to-monitor-next; }
+
+	Mod+1 { focus-workspace 1; }
+	Mod+2 { focus-workspace 2; }
+	Mod+3 { focus-workspace 3; }
+	Mod+4 { focus-workspace 4; }
+	Mod+5 { focus-workspace 5; }
+	Mod+6 { focus-workspace 6; }
+	Mod+7 { focus-workspace 7; }
+	Mod+8 { focus-workspace 8; }
+	Mod+9 { focus-workspace 9; }
+	Mod+Shift+1 { move-column-to-workspace 1; }
+	Mod+Shift+2 { move-column-to-workspace 2; }
+	Mod+Shift+3 { move-column-to-workspace 3; }
+	Mod+Shift+4 { move-column-to-workspace 4; }
+	Mod+Shift+5 { move-column-to-workspace 5; }
+	Mod+Shift+6 { move-column-to-workspace 6; }
+	Mod+Shift+7 { move-column-to-workspace 7; }
+	Mod+Shift+8 { move-column-to-workspace 8; }
+	Mod+Shift+9 { move-column-to-workspace 9; }
+
+	Mod+Tab { focus-workspace-previous; }
+
+	Mod+BracketLeft  { consume-or-expel-window-left; }
+	Mod+BracketRight { consume-or-expel-window-right; }
+
+	Mod+C { center-column; }
+	Mod+M { maximize-column; }
+	Mod+Shift+M { fullscreen-window; }
+	Mod+Space { toggle-window-floating; }
+	Mod+Shift+Space { switch-focus-between-floating-and-tiling; }
+
+	Mod+Minus { set-column-width "-10%"; }
+	Mod+Equal { set-column-width "+10%"; }
+	Mod+Shift+Minus { set-window-height "-10%"; }
+	Mod+Shift+Equal { set-window-height "+10%"; }
+
+	Mod+Shift+T { toggle-column-tabbed-display; }
+
+	Mod+S { screenshot; }
+	Mod+Shift+S { screenshot-screen; }
+	Print { screenshot; }
+	Ctrl+Print { screenshot-screen; }
+	Alt+Print { screenshot-window; }
+
+	Mod+Shift+Q { quit; }
+	Mod+Shift+P { power-off-monitors; }
+	Mod+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+
+	XF86MonBrightnessUp   allow-when-locked=true { spawn-sh "brightnessctl -e4 -n2 set 5%+"; }
+	XF86MonBrightnessDown allow-when-locked=true { spawn-sh "brightnessctl -e4 -n2 set 5%-"; }
+	XF86AudioPlay         allow-when-locked=true { spawn-sh "playerctl play-pause"; }
+	XF86AudioStop         allow-when-locked=true { spawn-sh "playerctl stop"; }
+	XF86AudioPrev         allow-when-locked=true { spawn-sh "playerctl previous"; }
+	XF86AudioNext         allow-when-locked=true { spawn-sh "playerctl next"; }
+	XF86AudioRaiseVolume  allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
+	XF86AudioLowerVolume  allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+	XF86AudioMute         allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+	XF86AudioMicMute      allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+}

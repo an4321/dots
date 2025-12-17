@@ -1,0 +1,90 @@
+@define-color bg       #1f2029;
+@define-color text     #e8e8eb;
+@define-color accent   #f9e2af;
+@define-color error    #f38ba8;
+
+* {
+	border: none;
+	font-family: "JetBrainsMono NF";
+	padding: 0;
+	margin: 0;
+	min-width: 12px;
+	background: transparent;
+}
+window.#waybar {
+	min-width: 40px;
+}
+
+#workspaces,
+#bottom {
+	color: @text;
+	background: alpha(@bg, 0.90);
+	padding: 8px 0;
+	border-radius: 0 14px 14px 0;
+	/* border: 2.5px solid alpha(@text, 0.1); */
+	/* border-left: none; */
+}
+
+#workspaces {
+	min-width: 0;
+	padding: 8px 14px;
+	margin: 10px 0;
+}
+#workspaces button {
+	font-size: 7px;
+	color: transparent;
+	background: alpha(@text, 0.5);
+	transition: all 0.2s ease-in-out;
+	min-width: 0;
+	min-height: 12px;
+	border-radius: 99px;
+	margin: 5px 0;
+}
+#workspaces button.active {
+	background: @accent;
+	min-height: 34px;
+}
+#bottom {
+	padding-right: 5px;
+	padding-left: 5px;
+}
+
+#battery {
+	font-family: "JetBrainsMono NFM";
+	font-size: 16px;
+}
+#battery.warning,
+#battery.critical {
+	color: @error;
+}
+#battery.icon {
+	margin: 0;
+	padding-left: 1px;
+	font-size: 30px;
+}
+#battery > *:last-child * {
+	margin-top: -3px;
+	font-size: 18px;
+	font-weight: bold;
+	color: @text;
+}
+
+tooltip,
+#tray menu {
+	background: alpha(@bg, 0.9);
+	border-radius: 8px;
+	padding: 1px 2px;
+	margin-top: 8px;
+}
+
+#custom-separator {
+	margin: -10px 0;
+	padding-right: 10px;
+	font-size: 30px;
+	color: alpha(@text, 0.4);
+}
+
+#clock {
+	font-size: 21px;
+	font-weight: bold;
+}

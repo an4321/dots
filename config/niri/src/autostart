@@ -1,0 +1,9 @@
+#!/bin/env fish
+
+set SRC "$HOME/.config/niri/src"
+
+setbg -r &
+waybar -c $SRC/waybar.jsonc -s $SRC/waybar.css &
+wl-paste --watch cliphist store &
+dunst -conf $SRC/dunstrc &
+ln -svf $SRC/menu ~/.local/bin &
