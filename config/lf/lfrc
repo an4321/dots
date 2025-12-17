@@ -13,8 +13,8 @@ map gs cd ~/Pictures/screenshots
 map gv cd ~/Videos
 map gm cd ~/Music
 map gn cd ~/notes
-map g. cd ~/dots
-map g, cd ~/.config
+map gc cd ~/dots
+map g. cd ~/.config
 map gl cd ~/.local
 
 map <c-q> :quit
@@ -34,6 +34,7 @@ map I :& test -n "$TMUX" && tmux new-window || kitty
 map t :& test -n "$TMUX" && tmux new-window -a -n lf 'lf' || kitty -e lf
 map <a-a> !t "$PWD"
 # v: invert selection
+map <c-p> set preview!
 
 cmd jump ${{
 	set res (jump list | fzf --height=100%)

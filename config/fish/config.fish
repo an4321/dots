@@ -8,7 +8,12 @@ source ~/dots/misc/jump/init.fish
 bind H beginning-of-line
 bind L end-of-line
 
-function map; for i in insert default; bind -M $i $argv; end; end
+function map
+	for i in insert default
+		bind -M $i $argv
+	end
+end
+
 map \cq exit
 map \cH backward-kill-word
 map \ck 'commandline -i $(history | fzf-tmux -h +s); commandline -f repaint'
