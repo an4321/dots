@@ -12,36 +12,36 @@ export FZF_DEFAULT_OPTS="--cycle --reverse --no-separator --scroll-off=3 \
 
 alias ..="cd .."
 alias ...="cd ../.."
-alias md="mkdir -p"
-alias cp="cp -vir"
-alias mv="mv -vi"
-alias ln="ln -sv"
-alias rm="trash"
+alias md="command mkdir -p"
+alias cp="command cp -vir"
+alias mv="command mv -vi"
+alias ln="command ln -sv"
+alias rm="command trash"
 alias RM="command rm -rf"
-alias df="df -h"
-alias free="free -h"
-alias fetch="fastfetch"
-alias cat="bat -p --theme=ansi"
-alias icat="kitten icat --align left"
-alias e="nvim"
+alias df="command df -h"
+alias free="command free -h"
+alias fetch="command fastfetch"
+alias cat="command bat -p --theme=ansi"
+alias icat="command kitten icat --align left"
+alias e="command nvim"
 alias se="sudoedit"
-alias ls="ls -G --color=auto --group-directories-first"
+alias ls="command ls -G --color=auto --group-directories-first"
 alias li="nsxiv -ota ."
 alias ywd="pwd; pwd | y"
 alias x='xargs -I "jk"'
 complete -c x -w env
 
-alias batt="echo capacity: $(cat /sys/class/power_supply/BAT0/capacity)%; \
+alias batt="echo capacity: $(command cat /sys/class/power_supply/BAT0/capacity)%; \
 	upower -i $(upower -e | grep 'BAT') | grep 'time to' | xargs"
-alias cam="ffplay -hide_banner -loglevel fatal -stats \
+alias cam="command ffplay -hide_banner -loglevel fatal -stats \
 	-window_title webcam -fflags +nobuffer -fast /dev/video0"
 alias setup='command fd -d 1 -t x . ~/dots/bin/setup \
-	| fzf --height=100% --preview-window=bottom --preview="env cat {}" \
+	| command fzf --height=100% --preview-window=bottom --preview="env cat {}" \
 	| xargs -I {} env {}'
 
 alias rg="command rg --hidden --smart-case --pretty -g '!{.git,$IGNORE}'"
 alias fd="command fd --hidden --follow --color auto --exclude={.git,$IGNORE}"
-alias rs="rsync -aPhz --update --exclude={$IGNORE}"
+alias rs="command rsync -aPhz --update --exclude={$IGNORE}"
 
 alias br="bun run"
 
