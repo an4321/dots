@@ -1,0 +1,22 @@
+#!/bin/env fish
+
+function menu
+	rofi -config "$HOME/dots/misc/dwm/lib/rofi.rasi" $argv 2>/dev/null
+end
+function dmenu; menu -dmenu -p '' $argv; end
+function run; menu -show run; end
+
+switch "$argv"
+	case "" "d" "dmenu"
+		dmenu
+	case "r" "run"
+		run
+	case "e" "emoji"
+		command cat ~/dots/misc/{emotes,nf-icons} \
+			| dmenu | awk '{print $1}' | tr -d '\n' | xsel --clipboard
+	case "b" "book"
+		cd $HOME/notes/$(date +%Y)
+		ls | command rg .pdf | dmenu | xargs -r zathura
+	case "*"
+		echo "invalid command!" & exit 1
+end

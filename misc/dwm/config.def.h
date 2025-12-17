@@ -57,13 +57,12 @@ Autostarttag autostarttaglist[] = {
 #include <X11/XF86keysym.h>
 static const Key keys[] = {
 	/* modifier           key        function        argument */
-	{ MODKEY,             XK_a,      spawn,          SHCMD("rofi -show run") },
+	{ MODKEY,             XK_a,      spawn,          SHCMD("menu run") },
 	{ MODKEY,             XK_Escape, spawn,          SHCMD("lock") },
 	{ MODKEY|ShiftMask,   XK_f,      spawn,          SHCMD("nemo") },
 	{ MODKEY,             XK_w,      spawn,          SHCMD("brave") },
 	{ MODKEY|ShiftMask,   XK_w,      spawn,          SHCMD("brave --incognito") },
 	{ MODKEY,             XK_t,      spawn,          SHCMD("kitty") },
-	{ MODKEY,             XK_z,      spawn,          SHCMD("y=(date +%Y) cd ~/notes/$y && ls | command rg .pdf | rofi -dmenu | xargs -r zathura") },
 	{ MODKEY,             XK_f,      spawn,          SHCMD("kitty -e lf") },
 	{ MODKEY,             XK_i,      spawn,          SHCMD("kitty -e htop") },
 	{ MODKEY,             XK_e,      spawn,          SHCMD("kitty fish -c nvim") },
@@ -71,7 +70,8 @@ static const Key keys[] = {
 	{ MODKEY,             XK_r,      spawn,          SHCMD("setbg -r") },
 	{ MODKEY,             XK_v,      spawn,          SHCMD("copyq menu") },
 	{ MODKEY,             XK_c,      spawn,          SHCMD("mate-color-select") },
-	{ MODKEY,             XK_period, spawn,          SHCMD("cat ~/.config/rofi/{emotes,nf-icons} | rofi -dmenu | cut -d ' ' -f 1 | tr -d '\n' | xsel --clipboard") },
+	{ MODKEY,             XK_period, spawn,          SHCMD("menu emoji") },
+	{ MODKEY,             XK_z,      spawn,          SHCMD("menu book") },
 	{ MODKEY,             XK_n,      spawn,          SHCMD("cd ~/notes; kitty -T notes -e nvim $(fd -1 index.md)") },
 	{ MODKEY,             XK_s,      spawn,          SHCMD("shot") },
 	{ MODKEY|ShiftMask,   XK_s,      spawn,          SHCMD("shot -f") },
