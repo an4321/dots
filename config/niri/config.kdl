@@ -16,11 +16,11 @@ output "eDP-1" {
 
 layout {
 	gaps 10
+    background-color "transparent"
 	always-center-single-column
-	default-column-width { proportion 0.5; }
+	default-column-width { proportion 0.9; }
 	focus-ring {
 		width 2.5
-		// active-color "#f9e2af"
 		active-color "#ffffff30"
 		inactive-color "#ffffff30"
 	}
@@ -34,6 +34,9 @@ layout {
 		inactive-color "#000000"
 	}
 }
+layer-rule {
+    place-within-backdrop true
+}
 
 animations {
 	slowdown 0.5
@@ -42,12 +45,6 @@ animations {
 window-rule {
 	geometry-corner-radius 10
 	clip-to-geometry true
-}
-
-window-rule {
-    match app-id="kitty"
-    match app-id="helium"
-    default-column-width { proportion 0.9; }
 }
 
 hotkey-overlay {
