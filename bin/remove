@@ -5,7 +5,7 @@ function die
 end
 
 function menu
-	fzf-tmux -m -e --preview-window=right:55% --preview "$argv"
+	fzf -e --height 100 --preview-window=right:55% --preview "$argv"
 end
 
 if  command -v $argv &>/dev/null "apt"

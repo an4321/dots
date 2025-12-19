@@ -6,7 +6,7 @@ switch "$argv"
 		exec $this $PWD && exit
 	case "menu" "m"
 		set sel $(tmux ls -F '#S' 2>/dev/null \
-			| fzf-tmux +m -p 40%,30% +s --print-query --prompt='⚡ ' | tail -1)
+			| fzf-tmux +m -p 40,10 +s --print-query --prompt='⚡ ' | tail -1)
 		test -z "$sel" && exit
 		exec $this $sel >/dev/null && exit
 end
