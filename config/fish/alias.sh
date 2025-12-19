@@ -9,6 +9,7 @@ export FZF_DEFAULT_OPTS="--cycle --reverse --no-separator --scroll-off=3 \
 	--prompt ' ' --pointer ' ' --marker='* ' -m --height=40% \
 	--bind='ctrl-space:toggle-preview,ctrl-h:backward-kill-word',ctrl-d:half-page-down,ctrl-u:half-page-up \
 	--color=bg+:$ACCENT,hl+:0,prompt:$ACCENT,fg+:black,gutter:-1,border:$ACCENT"
+export LC_ALL=en_US.UTF-8
 
 alias ..="cd .."
 alias ...="cd ../.."
