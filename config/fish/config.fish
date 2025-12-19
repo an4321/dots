@@ -9,14 +9,11 @@ bind H beginning-of-line
 bind L end-of-line
 
 function map
-	for i in insert default
-		bind -M $i $argv
-	end
+	for i in insert default; bind -M $i $argv; end
 end
 
 map \cq exit
 map \cH backward-kill-word
-map \ck 'commandline -i $(history | fzf-tmux -h +s); commandline -f repaint'
 map \ea 't menu; commandline -f repaint'
 
 # functions
@@ -24,6 +21,7 @@ function c; echo "$argv" | sed 's/x/*/g' | bc -l; end
 function y; test -n "$WAYLAND_DISPLAY" && wl-copy || xsel -b; end
 function p; test -n "$WAYLAND_DISPLAY" && wl-paste || xsel -bo; end
 function yy; history --max=1 | tr -d '\n' | y; end
+function hist; commandline -i $(history | fzf); end
 
 # bang bang
 function __history_previous_command
