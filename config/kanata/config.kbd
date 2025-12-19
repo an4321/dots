@@ -9,7 +9,7 @@
 
 (deflayer default
 	tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-	@cap a    s    d    f    g    h    j    k    l    @sc  '    ret
+	@cap a    s    d    f    g    h    j    k    l    @smi '    ret
 	lsft z    x    c    v    b    n    m    ,    .    /    rsft
 	lctl lmet @la           spc             @ra  rmet rctl
 )
@@ -18,13 +18,12 @@
 	_    6    7    8    9    0    _    _    _    _    _    _    _    _
 	_    1    2    3    4    5    left down up   rght grv  _    _
 	_    _    _    _    _    _    _    _    _    _    _    _
-	_    _    _             _               _    _    _
+	_    _    _              _              _    _    _
 )
 
-;; todo alt+c then letter for symbol
 (defalias
 	la (tap-hold-press 200 200 bspc lalt)
 	ra (tap-hold-press 200 200 ret rctl)
 	cap (tap-hold-press 200 200 esc (layer-toggle arrow))
-	sc (tap-hold-press 200 200 ; (layer-toggle arrow))
+	smi (tap-hold-press 200 200 ; (layer-toggle arrow))
 )
