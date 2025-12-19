@@ -1,17 +1,8 @@
 input {
-    mod-key "Super"
-    mod-key-nested "Alt"
-	touchpad {
-		tap
-		natural-scroll
-	}
+    mod-key "Alt"
+	touchpad { tap; natural-scroll; }
 	warp-mouse-to-focus
 	focus-follows-mouse max-scroll-amount="0%"
-}
-
-output "eDP-1" {
-	scale 1.2
-    backdrop-color "#333442"
 }
 
 layout {
@@ -29,17 +20,9 @@ layout {
 		active-color "#00000000"
 		inactive-color "#00000000"
 	}
-	tab-indicator {
-		active-color "#f9e2af"
-		inactive-color "#000000"
-	}
 }
 layer-rule {
     place-within-backdrop true
-}
-
-animations {
-	slowdown 0.5
 }
 
 window-rule {
@@ -47,14 +30,12 @@ window-rule {
 	clip-to-geometry true
 }
 
-hotkey-overlay {
-	skip-at-startup
-}
-
 prefer-no-csd
 screenshot-path "~/Pictures/screenshots/%F_%H-%M-%S.png"
-
 spawn-sh-at-startup "~/.config/niri/src/autostart"
+hotkey-overlay { skip-at-startup; }
+output "eDP-1" { scale 1.2; }
+animations { slowdown 0.5; }
 
 binds {
 	Mod+A { spawn-sh "menu run"; }
@@ -68,8 +49,8 @@ binds {
 	Mod+Ctrl+Q { spawn-sh "systemctl poweroff"; }
 	Mod+Ctrl+R { spawn-sh "systemctl soft-reboot"; }
 	Mod+T { spawn "kitty"; }
-	Mod+E { spawn-sh "kitty nvim"; }
-	Mod+N { spawn-sh "cd ~/notes && kitty nvim 2025/index.md"; }
+	Mod+E { spawn-sh "kitty fish -c nvim"; }
+	Mod+N { spawn-sh "cd ~/notes && kitty fish -c 'nvim 2025/index.md'"; }
 	Mod+I { spawn-sh "kitty htop"; }
 	Mod+F { spawn-sh "kitty lf"; }
 	Mod+R { spawn-sh "setbg -r"; }
@@ -114,11 +95,10 @@ binds {
 	Mod+Shift+8 { move-column-to-workspace 8; }
 	Mod+Shift+9 { move-column-to-workspace 9; }
 
-	Mod+Tab { focus-workspace-previous; }
-
 	Mod+BracketLeft  { consume-or-expel-window-left; }
 	Mod+BracketRight { consume-or-expel-window-right; }
 
+	Mod+Shift+Q { quit; }
 	Mod+C { center-column; }
 	Mod+M { maximize-column; }
 	Mod+Shift+M { fullscreen-window; }
@@ -130,15 +110,9 @@ binds {
 	Mod+Shift+Minus { set-window-height "-10%"; }
 	Mod+Shift+Equal { set-window-height "+10%"; }
 
-	Mod+Shift+T { toggle-column-tabbed-display; }
-
 	Mod+S { screenshot; }
 	Mod+Shift+S { screenshot-screen; }
-	Print { screenshot; }
-	Ctrl+Print { screenshot-screen; }
-	Alt+Print { screenshot-window; }
 
-	Mod+Shift+Q { quit; }
 	Mod+Shift+P { power-off-monitors; }
 	Mod+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
