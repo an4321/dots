@@ -11,3 +11,6 @@
     text_icon_padding=15
     max_icon_size=100
     timeout=5
+
+[urgency_critical]
+    timeout=0
