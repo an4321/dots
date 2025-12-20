@@ -51,7 +51,7 @@ binds {
 	Mod+T { spawn "kitty"; }
 	Mod+E { spawn-sh "kitty fish -c nvim"; }
 	Mod+N { spawn-sh "cd ~/notes && kitty fish -c 'nvim 2025/index.md'"; }
-	Mod+I { spawn-sh "kitty htop"; }
+	Mod+U { spawn-sh "kitty htop"; }
 	Mod+F { spawn-sh "kitty lf"; }
 	Mod+R { spawn-sh "setbg -r"; }
 	Mod+B { spawn-sh "blue"; }
@@ -64,8 +64,8 @@ binds {
 	Mod+L { focus-column-right; }
 	Mod+Shift+H { move-column-left; }
 	Mod+Shift+L { move-column-right; }
-	Mod+Ctrl+H { focus-column-first; }
-	Mod+Ctrl+L { focus-column-last; }
+	Mod+G { focus-column-first; }
+	Mod+Shift+G { focus-column-last; }
 	Mod+Return { move-column-to-first; }
 
 	Mod+J { focus-window-or-workspace-down; }
@@ -106,10 +106,10 @@ binds {
 	Mod+Space { toggle-window-floating; }
 	Mod+Shift+Space { switch-focus-between-floating-and-tiling; }
 
-	Mod+Minus { set-column-width "-10%"; }
-	Mod+Equal { set-column-width "+10%"; }
-	Mod+Shift+Minus { set-window-height "-10%"; }
-	Mod+Shift+Equal { set-window-height "+10%"; }
+	Mod+I { set-column-width "+10%"; }
+	Mod+D { set-column-width "-10%"; }
+	Mod+Shift+I { set-window-height "+10%"; }
+	Mod+Shift+D { set-window-height "-10%"; }
 
 	Mod+S { screenshot; }
 	Mod+Shift+S { screenshot-screen; }
