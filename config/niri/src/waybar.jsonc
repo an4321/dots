@@ -3,7 +3,7 @@
 		"layer": "top",
 		"position": "left",
 		"orientation": "vertical",
-		"reload_style_on_change": true,
+		"reload_style_on_change": false,
 		"modules-center": ["niri/workspaces", "group/bottom"],
 		"group/bottom": {
 			"orientation": "inherit",
@@ -35,8 +35,8 @@
 				"critical": 10
 			},
 			"events": {
-				"on-discharging-warning": "notify-send '🪫 battery low!'",
-				"on-discharging-critical": "notify-send '⚠️ battery critical!'"
+				"on-discharging-warning": "notify-send 'battery low!'",
+				"on-discharging-critical": "notify-send  -u critical 'battery critical!'"
 			},
 			"format": "{icon}",
 			"format-charging": "󰂄",
