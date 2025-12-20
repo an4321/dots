@@ -18,11 +18,11 @@ window.#waybar {
 #workspaces,
 #bottom {
 	color: @text;
-	background: alpha(@bg, 0.90);
+	background: alpha(@bg, 0.9);
 	padding: 8px 0;
-	border-radius: 0 14px 14px 0;
-	/* border: 2.5px solid alpha(@text, 0.1); */
-	/* border-left: none; */
+	border-radius: 0 16px 16px 0;
+	border: 1px solid alpha(@text, 0.1);
+	border-left: none;
 }
 
 #workspaces {
