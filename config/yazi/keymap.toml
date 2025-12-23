@@ -10,14 +10,17 @@ mgr.append_keymap = [
 	{ on = [ 'g', ',' ], run = 'cd ~/.config', desc = 'Go to ~/.config' },
 	{ on = [ 'g', 'l' ], run = 'cd ~/.local', desc = 'Go to ~/.local' },
 
-	{ on = [ '.' ], run = 'hidden toggle'},
-	{ on = [ 'i' ], run = 'shell "$SHELL" --block --confirm'},
-	{ on = [ 'I' ], run = 'shell "nemo" --confirm'},
-	{ on = [ 'e' ], run = 'shell "$EDITOR $@" --block --confirm'},
-	{ on = [ 'E' ], run = 'shell "sudoedit $@" --block --confirm'},
+	{ on = '.', run = 'hidden toggle' },
+	{ on = 'i', run = 'shell "$SHELL" --block --confirm' },
+	{ on = 'I', run = 'shell "nemo" --confirm' },
+	{ on = 'e', run = 'shell "$EDITOR $@" --block --confirm' },
+	{ on = 'E', run = 'shell "sudoedit $@" --block --confirm' },
 ]
 
 mgr.prepend_keymap = [
 	{ on = '<S-j>', run = 'arrow 5' },
 	{ on = '<S-k>', run = 'arrow -5' },
+	{ on = '<c-q>' , run = 'close' },
+	{ on = 'q', run = 'close' },
+	{ on = 'z', run = 'cd --interactive' },
 ]
