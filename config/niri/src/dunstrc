@@ -5,7 +5,7 @@
     frame_width=2
     origin=top-right
     offset=15x15
-    background="#1c1d25cc"
+    background="#1c1d25ee"
     foreground="#DFE4F7"
     frame_color="#F9E2AF"
     text_icon_padding=15

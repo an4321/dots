@@ -14,7 +14,7 @@ end
 
 map \cq exit
 map \cH backward-kill-word
-map \ea 't menu; commandline -f repaint'
+map \ca 't menu; commandline -f repaint'
 
 # functions
 function c; echo "$argv" | sed 's/x/*/g' | bc -l; end

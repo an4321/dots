@@ -7,17 +7,17 @@ function dmenu; menu -dmenu -p '' $argv; end
 function run; menu -show run; end
 
 switch "$argv"
-	case "" "d" "dmenu"
+	case "dmenu" "d" ""
 		dmenu
-	case "r" "run"
+	case "run" "r"
 		run
-	case "c" "clip"
+	case "clip"
 		cliphist list | sed -r 's/([0-9]+)\s+(.*)/\1 \2/' \
 			| dmenu | awk '{print $1}' | xargs cliphist decode | wl-copy
-	case "e" "emoji"
+	case "emoji"
 		command cat ~/dots/misc/{emotes,nf-icons} \
 			| dmenu | awk '{print $1}' | tr -d '\n' | wl-copy
-	case "b" "book"
+	case "book"
 		cd $HOME/notes/$(date +%Y)
 		ls | command rg .pdf | dmenu | xargs -r zathura
 	case "*"
