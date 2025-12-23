@@ -1,19 +1,15 @@
 #!/bin/env fish
 
+function die; echo "error: $argv" >&2 && exit 1; end
+function check; command -v $argv &>/dev/null || return 1 ; end
+function confirm
+	read -P "$argv (y/N) " yn && string match -qr '^[Yy]$' $yn || return 1
+end
 function menu
 	fzf -e --height 100 --preview-window=right:55% --preview "$argv"
 end
 
-function die
-	echo "error: $argv" >&2 && exit 1
-end
-
-function confirm
-	read -P "$argv (y/N) " yn && string match -qr '^[Yy]$' $yn || return 1
-end
-
-
-if command -v $argv &>/dev/null apt
+if check apt
 	if test -z "$argv"
 		set sel (apt-cache pkgnames | menu "apt-cache show {}")
 		test -n "$sel" && sudo apt install $sel
@@ -22,7 +18,8 @@ if command -v $argv &>/dev/null apt
 	else
 		sudo apt install $argv
 	end
-else if command -v $argv &>/dev/null pacman
+
+else if check pacman
 	if test -z "$argv"
 		set sel (pacman -Ssq | menu "pacman -Si {}")
 		test -n "$sel" && sudo pacman -S --needed $sel
@@ -44,6 +41,7 @@ else if command -v $argv &>/dev/null pacman
 		end
 		cd "$HOME/.cache/aur/$argv" && makepkg -si --noconfirm
 	end
+
 else
 	die "unsupported distribution"
 end

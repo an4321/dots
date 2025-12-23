@@ -10,19 +10,19 @@ DESTINATION_DIR="$2"
 [ ! -f "$TARGET" ] && echo "Error: '$TARGET' is not a valid file." && exit 1
 
 case "$TARGET" in
-    *.tar.bz2)    tar xjf "$TARGET" -C "$DESTINATION_DIR" ;;
-    *.tar.gz)     tar xzf "$TARGET" -C "$DESTINATION_DIR" ;;
-    *.bz2)        bunzip2 "$TARGET" && mv "${TARGET%.*}" "$DESTINATION_DIR" ;;
-    *.rar)        unrar x "$TARGET" "$DESTINATION_DIR" ;;
-    *.gz)         gunzip "$TARGET" && mv "${TARGET%.*}" "$DESTINATION_DIR" ;;
-    *.tar)        tar xf "$TARGET" -C "$DESTINATION_DIR" ;;
-    *.tbz2)       tar xjf "$TARGET" -C "$DESTINATION_DIR" ;;
-    *.tgz)        tar xzf "$TARGET" -C "$DESTINATION_DIR" ;;
-    *.zip)        unzip "$TARGET" -d "$DESTINATION_DIR" ;;
-    *.Z)          uncompress "$TARGET" && mv "${TARGET%.*}" "$DESTINATION_DIR" ;;
-    *.7z)         7za e -o"$DESTINATION_DIR" "$TARGET" ;;
-    *.deb)        ar x "$TARGET" && mv * "$DESTINATION_DIR" ;;
-    *.tar.xz)     tar xf "$TARGET" -C "$DESTINATION_DIR" ;;
-    *.tar.zst)    unzstd "$TARGET" && mv "${TARGET%.*}" "$DESTINATION_DIR" ;;
-    *)            echo "'$TARGET' cannot be extracted" ;;
+	*.tar.bz2)    tar xjf "$TARGET" -C "$DESTINATION_DIR" ;;
+	*.tar.gz)     tar xzf "$TARGET" -C "$DESTINATION_DIR" ;;
+	*.bz2)        bunzip2 "$TARGET" && mv "${TARGET%.*}" "$DESTINATION_DIR" ;;
+	*.rar)        unrar x "$TARGET" "$DESTINATION_DIR" ;;
+	*.gz)         gunzip "$TARGET" && mv "${TARGET%.*}" "$DESTINATION_DIR" ;;
+	*.tar)        tar xf "$TARGET" -C "$DESTINATION_DIR" ;;
+	*.tbz2)       tar xjf "$TARGET" -C "$DESTINATION_DIR" ;;
+	*.tgz)        tar xzf "$TARGET" -C "$DESTINATION_DIR" ;;
+	*.zip)        unzip "$TARGET" -d "$DESTINATION_DIR" ;;
+	*.Z)          uncompress "$TARGET" && mv "${TARGET%.*}" "$DESTINATION_DIR" ;;
+	*.7z)         7za e -o"$DESTINATION_DIR" "$TARGET" ;;
+	*.deb)        ar x "$TARGET" && mv * "$DESTINATION_DIR" ;;
+	*.tar.xz)     tar xf "$TARGET" -C "$DESTINATION_DIR" ;;
+	*.tar.zst)    unzstd "$TARGET" && mv "${TARGET%.*}" "$DESTINATION_DIR" ;;
+	*)            echo "'$TARGET' cannot be extracted" ;;
 esac

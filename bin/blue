@@ -4,11 +4,10 @@ set device (bluetoothctl devices | grep Device | tac | menu | awk '{print $2}')
 test -z "$device" && exit
 
 if bluetoothctl info | grep -q $device
-	bluetoothctl disconnect "$device" && notify-send "disconnected"
+	bluetoothctl disconnect "$device" \
+		&& notify-send "disconnected"
 else
-	if bluetoothctl connect "$device"
-		notify-send "connected"
-	else
-		notify-send "error connecting!"
-	end
+	bluetoothctl connect "$device" \
+		&& notify-send "connected" \
+		|| notify-send "error connecting!"
 end
