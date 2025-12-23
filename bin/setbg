@@ -1,14 +1,12 @@
 #!/bin/env bash
 
-wall=""
-mode=""
-random=false
-
 help() {
 	echo -e "Usage: $0
 	[-f fit] [-c center] [-t tile] [-z zoom fill] [image]
 	[-r random] [-h help]"
 }
+
+wall=""; mode=""; random=false
 
 # parse options
 while getopts "fctrh" opt; do

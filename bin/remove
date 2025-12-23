@@ -1,14 +1,12 @@
 #!/bin/env fish
 
-function die
-	echo "error: $argv" >&2 && exit 1
-end
-
+function die; echo "error: $argv" >&2 && exit 1; end
+function check; command -v $argv &>/dev/null; end
 function menu
 	fzf -e --height 100 --preview-window=right:55% --preview "$argv"
 end
 
-if  command -v $argv &>/dev/null "apt"
+if check "apt"
 	if test (count $argv) -eq 0
 		set sel (apt list --installed | cut -d/ -f1 | menu 'apt-cache show {}')
 		test -n "$sel" && sudo apt remove $sel
@@ -17,7 +15,8 @@ if  command -v $argv &>/dev/null "apt"
 	else
 		sudo apt remove $argv
 	end
-else if command -v $argv &>/dev/null "pacman"
+
+else if check "pacman"
 	if test (count $argv) -eq 0
 		set sel (pacman -Qq | menu 'pacman -Qi {}')
 		test -n "$sel" && sudo pacman -R $sel
@@ -26,6 +25,7 @@ else if command -v $argv &>/dev/null "pacman"
 	else
 		sudo pacman -R $argv
 	end
+
 else
 	die "unsupported distribution"
 end

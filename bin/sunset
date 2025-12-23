@@ -2,7 +2,8 @@
 
 switch "$argv"
 	case "r" "reset"
-		command xrandr --output eDP-1 --gamma 1:1:1 --brightness 1
+		test -n "$WAYLAND_DISPLAY" && killall wlsunset || \
+			command xrandr --output eDP-1 --gamma 1:1:1 --brightness 1
 	case "*"
 		if test -n "$argv"
 			set bright "$argv"
@@ -10,7 +11,13 @@ switch "$argv"
 		else
 			set bright 0.8
 		end
-		for mon in (xrandr | grep '\bconnected' | awk '{print $1}')
-			command xrandr --output $mon --gamma 1.2:1.1:1 --brightness $bright
+
+		if test -n "$WAYLAND_DISPLAY"
+			killall wlsunset &>/dev/null
+			wlsunset -t 6000 -T 7000 -g $bright &>/dev/null &
+		else
+			for mon in (xrandr | grep '\bconnected' | awk '{print $1}')
+				command xrandr --output $mon --gamma 1.2:1.1:1 --brightness $bright
+			end
 		end
 end
