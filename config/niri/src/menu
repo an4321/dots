@@ -1,25 +1,23 @@
 #!/bin/env fish
 
-function menu
-	rofi -config "$HOME/.config/niri/src/rofi.rasi" $argv 2>/dev/null
-end
-function dmenu; menu -dmenu -p '' $argv; end
-function run; menu -show run; end
+set conf "$HOME/.config/niri/src/rofi.rasi"
+function menu; rofi -config $conf -dmenu -p '' $argv 2>/dev/null; end
+function run; rofi -config $conf -show run 2>/dev/null; end
 
 switch "$argv"
 	case "dmenu" "d" ""
-		dmenu
+		menu
 	case "run" "r"
 		run
 	case "clip"
 		cliphist list | sed -r 's/([0-9]+)\s+(.*)/\1 \2/' \
-			| dmenu | awk '{print $1}' | xargs cliphist decode | wl-copy
+			| menu | awk '{print $1}' | xargs cliphist decode | wl-copy
 	case "emoji"
 		command cat ~/dots/misc/{emotes,nf-icons} \
-			| dmenu | awk '{print $1}' | tr -d '\n' | wl-copy
+			| menu | awk '{print $1}' | tr -d '\n' | wl-copy
 	case "book"
 		cd $HOME/notes/$(date +%Y)
-		ls | command rg .pdf | dmenu | xargs -r zathura
+		ls | command rg .pdf | menu | xargs -r zathura
 	case "*"
 		echo "invalid command!" & exit 1
 end
