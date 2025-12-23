@@ -36,9 +36,6 @@ alias batt="echo capacity: $(command cat /sys/class/power_supply/BAT0/capacity)%
 	upower -i $(upower -e | grep 'BAT') | grep 'time to' | xargs"
 alias cam="command ffplay -hide_banner -loglevel fatal -stats \
 	-window_title webcam -fflags +nobuffer -fast /dev/video0"
-alias setup='command fd -d 1 -t x . ~/dots/bin/setup \
-	| command fzf --height=100% --preview-window=bottom --preview="env cat {}" \
-	| xargs -I {} env {}'
 
 alias rg="command rg --hidden --smart-case --pretty -g '!{.git,$IGNORE}'"
 alias fd="command fd --hidden --follow --color auto --exclude={.git,$IGNORE}"
