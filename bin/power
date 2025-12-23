@@ -1,0 +1,14 @@
+#!/bin/env fish
+
+set res (echo -e "power off\nsoft reboot\nhard reboot\nexit" | menu)
+
+switch "$res"
+	case "power off"
+		systemctl poweroff
+	case "soft reboot"
+		systemctl soft-reboot
+	case "hard reboot"
+		systemctl reboot
+	case "exit"
+		loginctl terminate-session $XDG_SESSION_ID
+end
