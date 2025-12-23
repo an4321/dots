@@ -25,25 +25,28 @@ vim.keymap.set({ 'i', 'c' }, '<c-h>', '<c-w>', { noremap = true })
 vim.keymap.set('v', 'gp', '"_dP')
 vim.keymap.set('v', '<tab>', '>gv', { noremap = true, silent = true })
 vim.keymap.set('v', '<s-tab>', '<gv', { noremap = true, silent = true })
-vim.keymap.set({'n', 't'}, '<c-h>', '<cmd>bp<cr>')
-vim.keymap.set({'n', 't'}, '<c-l>', '<cmd>bn<cr>')
+vim.keymap.set('n', '<space>h', '<cmd>bp<cr>')
+vim.keymap.set('n', '<space>l', '<cmd>bn<cr>')
 vim.keymap.set('n', '<space>n', '<cmd>enew<cr>')
 vim.keymap.set('n', '<space>j', '<c-w><c-w>')
 vim.keymap.set('n', '<space>w', '<cmd>set wrap!<cr>')
 vim.keymap.set('n', '<space>s', '<cmd>set spell!<cr>')
 vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])
+for _, i in ipairs({ '()', '[]', '{}', '""', '``' }) do
+	vim.keymap.set('i', i:sub(1,1), i .. '<left>')
+end
+
 vim.keymap.set('n', 'S', '1z=')
-vim.keymap.set('n', '-', '<c-x>')
 vim.keymap.set('n', '+', '<c-a>')
+vim.keymap.set('n', '-', '<c-x>')
+vim.keymap.set('v', '+', 'g<c-a>')
+vim.keymap.set('v', '-', 'g<c-x>')
 vim.keymap.set('n', '?', ':%s/')
 vim.keymap.set('n', '<bs>', ':term ')
 vim.keymap.set('t', '<c-c>', [[<c-\><c-n>]])
 vim.keymap.set('n', 'j', 'gj')
 vim.keymap.set('n', 'k', 'gk')
 vim.keymap.set('n', ':', ';')
-for _, i in ipairs({ '()', '[]', '{}' }) do
-	vim.keymap.set('i', i:sub(1,1), i .. '<left>')
-end
 
 -- highlight on yank
 vim.cmd [[ au TextYankPost * lua vim.hl.on_yank() ]]
