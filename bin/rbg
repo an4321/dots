@@ -1,3 +1,0 @@
-#!/bin/env fish
-
-nohup "$argv" &>"/tmp/rbg-$(basename $argv[1]).log" &
