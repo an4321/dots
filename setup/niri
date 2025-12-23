@@ -1,0 +1,24 @@
+#!/bin/env fish
+
+echo "🚧 Under Construction 🚧" && exit
+
+function confirm
+	read -P "$argv (y/N) " yn && string match -qr '^[Yy]$' $yn || return 1
+end
+
+sudo pacman -S \
+	niri waybar swaybg swaylock hyprpicker brightnessctl pamixer blueman cliphist \
+	dunst nemo rofi kitty pavucontrol playerctl libnotify noto-fonts-emoji imagemagick
+
+# xwayland-satellite
+
+# so on debian
+# use arch-box to get :: niri, waybar && maybe rofi, hyprpicker
+# & build :: xwayland-satellite using rust
+
+if confirm "create sessions desktop file"
+	sudo mkdir -p /usr/share/wayland-sessions
+	sudo touch /usr/share/wayland-sessions/niri.desktop
+	echo -e "[Desktop Entry]\nEncoding=utf-8\nName=Niri\nExec=niri --start\nIcon=Niri\nType=Application" \
+		| sudo tee /usr/share/xsessions/dwm.desktop
+end

@@ -1,0 +1,20 @@
+#!/bin/env fish
+
+function die
+	echo "error: $argv" >&2 && exit 1
+end
+function check; command -v "$argv[1]" &>/dev/null; end
+
+if check "apt"
+	sudo apt install -y tlp
+else if  check "pacman"
+	sudo pacman -S tlp
+else
+	die "unsupported distribution"
+end
+
+sudo tlp start
+
+echo -e "\nSTART_CHARGE_THRESH_BAT0=70\nSTOP_CHARGE_THRESH_BAT0=91" \
+	| sudo tee -a /etc/tlp.conf
+sudo systemctl restart tlp

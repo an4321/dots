@@ -1,0 +1,7 @@
+#!/bin/env fish
+
+command curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+command tar xzvf nvim-linux-x86_64.tar.gz
+command rm -rf nvim-linux-x86_64.tar.gz
+command mv ./nvim-linux-x86_64 ~/.local/nvim
+command ln -s ~/.local/nvim/bin/nvim ~/.local/bin

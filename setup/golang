@@ -1,0 +1,8 @@
+#!/bin/env fish
+
+set LATEST_GO_VERSION $(command curl -s https://go.dev/VERSION?m=text | command head -n 1)
+command wget https://go.dev/dl/${LATEST_GO_VERSION}.linux-amd64.tar.gz
+
+test -d $HOME/.local/go && command rm -rf $HOME/.local/go
+command tar -C $HOME/.local -xzf ${LATEST_GO_VERSION}.linux-amd64.tar.gz
+command rm ./${LATEST_GO_VERSION}.linux-amd64.tar.gz

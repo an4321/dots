@@ -1,0 +1,23 @@
+#!/bin/env fish
+
+function die
+	echo "error: $argv" >&2 && exit 1
+end
+function check; command -v "$argv[1]" &>/dev/null; end
+
+if check "apt"
+	sudo apt install -y ufw
+else if check "pacman"
+	sudo pacman -S ufw
+else
+	die "unsupported distribution"
+end
+
+sudo systemctl enable ufw
+sudo systemctl start ufw
+
+sudo ufw default allow outgoing
+sudo ufw default deny incoming
+
+sudo ufw enable
+sudo ufw status verbose
