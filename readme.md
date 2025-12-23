@@ -2,5 +2,5 @@
 
 ```sh
 git clone https://github.com/an4321/dots
-cd dots && setup/lay && setup/base
+dots/bin/lay
 ```
