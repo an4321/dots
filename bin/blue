@@ -1,14 +1,14 @@
-#!/bin/env bash
+#!/bin/env fish
 
-device=$(bluetoothctl devices | grep Device | tac | menu | awk '{print $2}')
-[ -z "$device" ] && exit
+set device (bluetoothctl devices | grep Device | tac | menu | awk '{print $2}')
+test -z "$device" && exit
 
-if bluetoothctl info | grep -q $device; then
+if bluetoothctl info | grep -q $device
 	bluetoothctl disconnect "$device" && notify-send "disconnected"
 else
-	if bluetoothctl connect "$device"; then
+	if bluetoothctl connect "$device"
 		notify-send "connected"
 	else
 		notify-send "error connecting!"
-	fi
-fi
+	end
+end
