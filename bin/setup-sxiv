@@ -1,0 +1,30 @@
+#!/bin/env fish
+
+function die
+	echo "error: $argv" >&2 && exit 1
+end
+
+set url "https://codeberg.org/nsxiv/nsxiv.git"
+
+if command -v $argv &>/dev/null pacman
+	sudo pacman -s --needed libexif fontconfig inotify-tools imlib2
+else if command -v $argv &>/dev/null apt
+	sudo apt install libexif-dev libfontconfig1-dev libinotifytools0-dev libimlib2-dev
+else
+	die "unsupported distribution"
+end
+
+command git clone --depth 1 $url || die "cloneing"
+cd nsxiv && cp config.def.h config.h
+
+command sed -i '
+s/{ 32, 64, 96, 128, 160 }/{ 64, 96, 128, 160, 190, 240, 300 }/
+s/THUMB_SIZE = 3/THUMB_SIZE = 4/
+s/{ "Nsxiv.window.background",   "white"/{ "Nsxiv.window.background",   "black"/
+s/{ "Nsxiv.window.foreground",   "black"/{ "Nsxiv.window.foreground",   "white"/
+s/"monospace-8"/"JetBrainsMonoNerdFont-17"/' config.h || die "patching"
+
+sudo make install || die "installling"
+sudo make install-desktop install-icon
+cd .. && command rm -rf nsxiv
+echo "installed nsxiv successfully"
