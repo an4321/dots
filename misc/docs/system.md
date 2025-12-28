@@ -1,9 +1,13 @@
-### disable boot loader
+### dont show boot loader
 ```sh
 # grub
 sudoedit /etc/default/grub
 # change -> GRUB_TIMEOUT_STYLE=hidden
+
+# on debian
 sudo update-grub
+# on arch
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 # systemd-boot
 sudoedit /boot/loader/loader.conf or /efi/loader/loader.conf
@@ -48,12 +52,9 @@ sudo systemctl enable getty@tty1.servic
 systemctl reboot
 ```
 
-### theming
-* [gtk theme](https://www.pling.com/p/1441725)
-* [icon theme](https://www.pling.com/p/1166289)
-* [cursor theme](https://www.gnome-look.org/p/1197198)
-```sh
-i lxappearance
-# extract gtkTheme to ~/.themes
-# extract iconTheme to ~/.icons
-```
+### misc
+
+* disable sudo for brightnessctl `sudo usermod -aG video $USER`
+  or `sudo visudo` -> <user> ALL=(ALL) NOPASSWD: /usr/bin/brightnessctl
+
+
