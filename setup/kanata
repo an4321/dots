@@ -1,30 +1,35 @@
-#!/bin/env bash
-set -eEo pipefail
-
+#!/bin/env fish
 # setup source https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
 
-# install kanata
-wget --output-document 'kanata-bin' $(curl -s https://api.github.com/repos/jtroo/kanata/releases/latest \
-    | grep -o "https://github.com/jtroo/kanata/releases/download/.*kanata" | head -n 1)
-chmod +x kanata-bin
-sudo mv ./kanata-bin /bin/kanata
+# helper functions
+function confirm
+	read -P "$argv (y/N) " yn && string match -qr '^[Yy]$' $yn || return 1
+end
+function die; echo "error: $argv" >&2 && exit 1; end
 
-# step 1 if the uinput group does not exist, create a new group
+# download
+set latest (curl -s https://api.github.com/repos/jtroo/kanata/releases/latest | \
+	grep -o "github.com/jtroo/kanata/releases/download/.*linux.*x64.zip" | head -n 1)
+wget --output-document 'kanata' $latest || die "downloading"
+chmod +x ./kanata
+sudo mv ./kanata /bin
+
+# if the uinput group does not exist, create a new group
 sudo groupadd uinput || echo "uinput already exists"
 
-# step 2 add your user to the input and the uinput group
+# add your user to the input and the uinput group
 sudo usermod -aG input $USER
 sudo usermod -aG uinput $USER
 
-# step 3 uinput device permissions
+# uinput device permissions
 echo 'KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"' \
     | sudo tee /etc/udev/rules.d/99-input.rules
 sudo udevadm control --reload-rules && sudo udevadm trigger
 
-# step 5 create and enable a systemd daemon service
+# create and enable a systemd daemon service
 mkdir -p ~/.config/systemd/user
 touch ~/.config/systemd/user/kanata.service
-/bin/cat <<EOF > ~/.config/systemd/user/kanata.service
+echo """
 [Unit]
 Description=Kanata keyboard remapper
 Documentation=https://github.com/jtroo/kanata
@@ -32,12 +37,12 @@ Documentation=https://github.com/jtroo/kanata
 [Service]
 Environment=PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin
 Type=simple
-ExecStart=/bin/sh -c '/bin/kanata --cfg ${HOME}/.config/kanata/config.kbd'
+ExecStart=/bin/sh -c '/bin/kanata --cfg $HOME/.config/kanata/config.kbd'
 Restart=no
 
 [Install]
 WantedBy=default.target
-EOF
+""" > ~/.config/systemd/user/kanata.service
 
 systemctl --user daemon-reload
 systemctl --user enable kanata.service
@@ -45,4 +50,4 @@ systemctl --user start kanata.service
 # check whether the service is running
 # systemctl --user status kanata.service
 
-read -p "reboot now (y/N) " yn && [[ $yn =~ ^[Yy]$ ]] && systemctl reboot
+confirm "reboot now" && systemctl reboot
