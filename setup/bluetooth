@@ -1,0 +1,28 @@
+#!/bin/env fish
+
+function die; echo "error: $argv" >&2 && exit 1; end
+function check; command -v "$argv[1]" &>/dev/null; end
+
+if check "apt"
+	sudo apt install -y bluez blueman
+else if  check "pacman"
+	sudo pacman --needed -S bluez bluez-utils blueman
+else
+	die "unsupported distribution" ::
+end
+
+sudo systemctl enable --now bluetooth
+rfkill unblock bluetooth
+
+sudo sed -i 's/#AutoEnable=false/AutoEnable=true/' /etc/bluetooth/main.conf
+
+# tldr bluetoothctl ::
+# power on
+# agent on
+# default-agent
+# scan on
+# pair XX:XX:XX:XX:XX:XX
+# connect XX:XX:XX:XX:XX:XX
+# trust XX:XX:XX:XX:XX:XX
+# scan off
+# exit
