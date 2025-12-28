@@ -32,7 +32,7 @@ map E $sudoedit "$f"
 map i $fish
 map I :& test -n "$TMUX" && tmux new-window || kitty
 map t :& test -n "$TMUX" && tmux new-window -a -n lf 'lf' || kitty -e lf
-map <a-a> !t "$PWD"
+map <c-a> !t "$PWD"
 # v: invert selection
 map <c-p> set preview!
 

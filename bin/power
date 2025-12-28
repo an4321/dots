@@ -9,6 +9,6 @@ switch "$res"
 		systemctl soft-reboot
 	case "hard reboot"
 		systemctl reboot
-	case "exit"
+	case "logout"
 		loginctl terminate-session $XDG_SESSION_ID
 end

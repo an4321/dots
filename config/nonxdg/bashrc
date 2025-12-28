@@ -20,5 +20,5 @@ bind '"\C-H": backward-kill-word'
 bind '"\C-q": "exit\n"'
 
 if [ "$(tty)" = "/dev/tty1" ]; then
-	startx
+	niri
 fi

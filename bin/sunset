@@ -9,7 +9,7 @@ switch "$argv"
 			set bright "$argv"
 			string match -rq '^(0(\.\d+)?|1(\.0*)?)$' -- $bright || exit 1
 		else
-			set bright 0.8
+			set bright 0.9
 		end
 
 		if test -n "$WAYLAND_DISPLAY"

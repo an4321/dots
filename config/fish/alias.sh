@@ -31,6 +31,7 @@ alias li="nsxiv -ota ."
 alias ywd="pwd; pwd | y"
 alias x='xargs -I "jk"'
 complete -c x -w env
+alias fm='yazi'
 
 alias batt="echo capacity: $(command cat /sys/class/power_supply/BAT0/capacity)%; \
 	upower -i $(upower -e | grep 'BAT') | grep 'time to' | xargs"
