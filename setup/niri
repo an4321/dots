@@ -1,24 +1,37 @@
 #!/bin/env fish
 
-echo "🚧 Under Construction 🚧" && exit
-
 function confirm
 	read -P "$argv (y/N) " yn && string match -qr '^[Yy]$' $yn || return 1
 end
 
-sudo pacman -S \
-	niri waybar swaybg swaylock hyprpicker brightnessctl pamixer blueman cliphist \
-	dunst nemo rofi kitty pavucontrol playerctl libnotify noto-fonts-emoji imagemagick
+test command -v "pacman" &>/dev/null || exit 1
 
-# xwayland-satellite
+sudo pacman -S niri waybar swaybg swaylock kitty rofi nemo \
+	cliphist dunst libnotify imagemagick brightnessctl \
+	pavucontrol playerctl pamixer xwayland-satellite
 
-# so on debian
-# use arch-box to get :: niri, waybar && maybe rofi, hyprpicker
-# & build :: xwayland-satellite using rust
+confirm "get fonts?" && sudo pacman -S \
+	ttf-dejavu ttf-liberation ttf-jetbrains-mono-nerd noto-fonts-emoji
+
+confirm "setup ufw?" && ~/dots/setup/ufw
+confirm "setup tlp?" && ~/dots/setup/tlp
+confirm "setup pipewire?" && ~/dots/setup/pipewire
+confirm "setup kanata?" && ~/dots/setup/kanata
+confirm "install helium?" && ~/dots/setup/helium
+
+if confirm "get themes?"
+	sodo pacman -S nwg-look adw-gtk-theme papirus-icon-theme
+	~/dots/bin/i bibata-cursor-theme-bin
+end
 
 if confirm "create sessions desktop file"
 	sudo mkdir -p /usr/share/wayland-sessions
-	sudo touch /usr/share/wayland-sessions/niri.desktop
-	echo -e "[Desktop Entry]\nEncoding=utf-8\nName=Niri\nExec=niri --start\nIcon=Niri\nType=Application" \
-		| sudo tee /usr/share/xsessions/dwm.desktop
+	sudo sh -c 'echo """
+	[Desktop Entry]
+	Name=Niri
+	Comment=Scrollable-tiling Wayland compositor
+	Exec=niri --session
+	Type=Application
+	DesktopNames=niri
+	""" >/usr/share/wayland-sessions/niri.desktop'
 end
