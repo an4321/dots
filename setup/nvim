@@ -1,7 +1,20 @@
 #!/bin/env fish
 
-command curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
-command tar xzvf nvim-linux-x86_64.tar.gz
+function die; echo "error: $argv" >&2 && exit 1; end
+
+switch "$argv"
+	case "latest" "l" ""; set v "latest"
+	case "nightly" "neo" "n"; set v "nightly"
+	case "*"; die "invalid option"
+end
+
+set url "https://github.com/neovim/neovim/releases/$v/download/nvim-linux-x86_64.tar.gz"
+
+command curl -LO "$url" || die "during curl"
+command tar xzf nvim-linux-x86_64.tar.gz || die "extracting"
 command rm -rf nvim-linux-x86_64.tar.gz
+
+test -e ~/.local/nvim-old && command rm -rf ~/.local/nvim-old
+test -e ~/.local/nvim && command mv ~/.local/nvim ~/.local/nvim-old
 command mv ./nvim-linux-x86_64 ~/.local/nvim
-command ln -s ~/.local/nvim/bin/nvim ~/.local/bin
+command ln -sf ~/.local/nvim/bin/nvim ~/.local/bin
