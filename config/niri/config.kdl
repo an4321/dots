@@ -49,7 +49,7 @@ binds {
 	Mod+T { spawn-sh "kitty"; }
 	Mod+E { spawn-sh "kitty fish -c nvim"; }
 	Mod+N { spawn-sh "cd ~/notes && kitty fish -c 'nvim 2025/index.md'"; }
-	Mod+U { spawn-sh "kitty htop"; }
+	Mod+Y { spawn-sh "kitty htop"; }
 	Mod+F { spawn-sh "kitty lf"; }
 	Mod+R { spawn-sh "setbg -r"; }
 	Mod+B { spawn-sh "blue"; }
@@ -91,9 +91,9 @@ binds {
 	Mod+BracketLeft  { consume-or-expel-window-left; }
 	Mod+BracketRight { consume-or-expel-window-right; }
 	Mod+I { set-column-width "+10%"; }
-	Mod+D { set-column-width "-10%"; }
+	Mod+U { set-column-width "-10%"; }
 	Mod+Shift+I { set-window-height "+10%"; }
-	Mod+Shift+D { set-window-height "-10%"; }
+	Mod+Shift+U { set-window-height "-10%"; }
 
 	Mod+S { screenshot; }
 	Mod+Shift+S { screenshot-screen; }

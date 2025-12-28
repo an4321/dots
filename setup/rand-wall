@@ -1,5 +1,4 @@
 #!/bin/env fish
-
 mkdir -p ~/Pictures/wallpapers
-test -z "$(ls $HOME/Pictures/wallpapers)" && accept "get a wallpaper?" \
-    && wget -O "$HOME/Pictures/wallpapers/$(random).png" "https://picsum.photos/1920/1080?random"
+wget -O "$HOME/Pictures/wallpapers/$(random).png" \
+	"https://picsum.photos/1920/1080?random"

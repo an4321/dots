@@ -18,7 +18,8 @@ base() {
 }
 
 up() {
-	mkdir -p ~/.config ~/.local/bin ~/Desktop ~/Pictures/{wallpapers,screenshots}
+	mkdir -p ~/Desktop ~/.config ~/.local/{bin,state} \
+		~/Pictures/{wallpapers,screenshots}
 	ln -sf ~/dots/config/* ~/.config
 	for file in ~/dots/config/nonxdg/*; do
 		[ -f "$file" ] && ln -sf "$file" "$HOME/.$(basename $file)"
