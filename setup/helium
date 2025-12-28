@@ -1,0 +1,17 @@
+#!/bin/env fish
+
+set bin "$HOME/.local/bin"
+
+test -f $bin/helium-browser-old && command rm -rf $bin/helium-browser-old
+test -f $bin/helium-browser && mv $bin/helium-browser $bin/helium-browser-old
+
+command curl -L --output-dir "$bin" --output "helium-browser" \
+	$(curl -s "https://api.github.com/repos/imputnet/helium-linux/releases/latest" \
+	| grep "browser_download_url.*x86_64.AppImage" | cut -d '"' -f 4)
+
+command chmod +x $bin/helium-browser
+
+test ! -f $bin/helium && begin
+	echo '#!/bin/env sh'
+	echo 'helium-browser --force-device-scale-factor=1.2 $@'
+end >"$bin/helium" && chmod +x "$bin/helium"
