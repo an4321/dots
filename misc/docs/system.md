@@ -52,6 +52,20 @@ sudo systemctl enable getty@tty1.servic
 systemctl reboot
 ```
 
+### big tty font
+```sh
+sudo pacman -S terminus-font
+
+ls /usr/share/kbd/consolefonts
+sudoedit /etc/vconsole.conf # FONT=ter-132n
+
+sudoedit /etc/mkinitcpio.conf
+# find HOOKS=(... keyboard keymap consolefont block ...) <- add consolefonts
+
+sudo mkinitcpio -P
+sudo reboot
+```
+
 ### misc
 
 * disable sudo for brightnessctl `sudo usermod -aG video $USER`
