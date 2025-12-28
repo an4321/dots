@@ -71,4 +71,15 @@ sudo reboot
 * disable sudo for brightnessctl `sudo usermod -aG video $USER`
   or `sudo visudo` -> <user> ALL=(ALL) NOPASSWD: /usr/bin/brightnessctl
 
-
+* tldr bluetoothctl ::
+```sh
+power on
+agent on
+default-agent
+scan on
+pair XX:XX:XX:XX:XX:XX
+connect XX:XX:XX:XX:XX:XX
+trust XX:XX:XX:XX:XX:XX
+scan off
+exit
+```

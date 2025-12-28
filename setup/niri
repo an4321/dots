@@ -16,6 +16,7 @@ confirm "get fonts?" && sudo pacman -S \
 confirm "setup ufw?" && ~/dots/setup/ufw
 confirm "setup tlp?" && ~/dots/setup/tlp
 confirm "setup pipewire?" && ~/dots/setup/pipewire
+confirm "setup bluebooth?" && ~/dots/setup/bluetooth
 confirm "setup kanata?" && ~/dots/setup/kanata
 confirm "install helium?" && ~/dots/setup/helium
 
