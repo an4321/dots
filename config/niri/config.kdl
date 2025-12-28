@@ -36,6 +36,7 @@ hotkey-overlay { skip-at-startup; }
 prefer-no-csd
 screenshot-path "~/Pictures/screenshots/%F_%H-%M-%S.png"
 spawn-sh-at-startup "~/.config/niri/src/autostart"
+// cursor { xcursor-theme "Bibata-Modern-Classic"; }
 
 binds {
 	Mod+A { spawn-sh "menu run"; }
