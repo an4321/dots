@@ -6,7 +6,7 @@ function check; command -v "$argv[1]" &>/dev/null; end
 if check "apt"
 	sudo apt install -y bluez blueman
 else if  check "pacman"
-	sudo pacman --needed -S bluez bluez-utils blueman
+	sudo pacman --noconfirm --needed -S bluez bluez-utils blueman
 else
 	die "unsupported distribution" ::
 end

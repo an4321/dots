@@ -47,8 +47,8 @@ binds {
 	Mod+W { spawn-sh "helium"; }
 	Mod+Shift+W { spawn-sh "helium --incognito"; }
 	Mod+T { spawn-sh "kitty"; }
-	Mod+E { spawn-sh "kitty fish -c nvim"; }
-	Mod+N { spawn-sh "cd ~/notes && kitty fish -c 'nvim 2025/index.md'"; }
+	Mod+E { spawn-sh "kitty nvim"; }
+	Mod+N { spawn-sh "cd ~/notes && kitty nvim 2026/index.md"; }
 	Mod+Y { spawn-sh "kitty htop"; }
 	Mod+F { spawn-sh "kitty lf"; }
 	Mod+R { spawn-sh "setbg -r"; }

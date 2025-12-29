@@ -9,14 +9,14 @@ https://wiki.archlinux.org/title/Installation_guide
 - format:
   ```sh
   mkfs.ext4 /dev/root_partition
-  mkswap /dev/swap_partition`
-  mkfs.fat -F 32 /dev/efi_system_partition
+  mkswap /dev/swap_partition
+  mkfs.fat -F 32 /dev/efi_partition
   ```
 - mount:
   ```sh
   mount /dev/root_partition /mnt
   mkdir -p /mnt/boot/efi
-  mount /dev/efi_system_partition /mnt/boot/efi
+  mount /dev/efi_partition /mnt/boot/efi
   swapon /dev/swap_partition
   ```
 - installation:

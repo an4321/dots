@@ -2,12 +2,8 @@
 
 function die; echo "error: $argv" >&2 && exit 1; end
 function check; command -v $argv &>/dev/null || return 1 ; end
-function confirm
-	read -P "$argv (y/N) " yn && string match -qr '^[Yy]$' $yn || return 1
-end
-function menu
-	fzf -e --height 100 --preview-window=right:55% --preview "$argv"
-end
+function confirm; read -P "$argv (y/N) " | string match -qr '^[Yy]$'; end
+function menu; fzf -e --height 100 --preview-window=right:55% --preview "$argv"; end
 
 if check apt
 	if test -z "$argv"

@@ -26,7 +26,7 @@ up() {
 	done
 	ln -sf ~/dots/misc/jump/main ~/.local/bin/jump
 
-	command "fish" || (accept "install base?" && base)
+	check "fish" || (accept "install base?" && base)
 	echo "done"
 }
 

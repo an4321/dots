@@ -1,4 +1,4 @@
-function j --wraps="cd"
+function j
 	set -l argc (count $argv)
 	if test $argc -eq 0
 		cd "$HOME/Desktop"

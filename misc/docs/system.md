@@ -59,6 +59,7 @@ sudo pacman -S terminus-font
 ls /usr/share/kbd/consolefonts
 sudoedit /etc/vconsole.conf # FONT=ter-132n
 
+# should have this by default
 sudoedit /etc/mkinitcpio.conf
 # find HOOKS=(... keyboard keymap consolefont block ...) <- add consolefonts
 

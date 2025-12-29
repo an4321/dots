@@ -1,27 +1,19 @@
 #!/bin/env fish
 
-function confirm
-	read -P "$argv (y/N) " yn && string match -qr '^[Yy]$' $yn || return 1
-end
+function confirm; read -P "$argv (y/N) " | string match -qr '^[Yy]$'; end
 
 test command -v "pacman" &>/dev/null || exit 1
 
-sudo pacman -S niri waybar swaybg swaylock kitty rofi nemo \
+sudo pacman --noconfirm -S \
+	niri waybar swaybg swaylock kitty rofi nemo \
 	cliphist dunst libnotify imagemagick brightnessctl \
 	pavucontrol playerctl pamixer xwayland-satellite
 
-confirm "get fonts?" && sudo pacman -S \
+confirm "get fonts?" && sudo pacman --noconfirm -S \
 	ttf-dejavu ttf-liberation ttf-jetbrains-mono-nerd noto-fonts-emoji
 
-confirm "setup ufw?" && ~/dots/setup/ufw
-confirm "setup tlp?" && ~/dots/setup/tlp
-confirm "setup pipewire?" && ~/dots/setup/pipewire
-confirm "setup bluebooth?" && ~/dots/setup/bluetooth
-confirm "setup kanata?" && ~/dots/setup/kanata
-confirm "install helium?" && ~/dots/setup/helium
-
 if confirm "get themes?"
-	sodo pacman -S nwg-look adw-gtk-theme papirus-icon-theme
+	sudo pacman --noconfirm -S nwg-look adw-gtk-theme papirus-icon-theme
 	~/dots/bin/i bibata-cursor-theme-bin
 end
 

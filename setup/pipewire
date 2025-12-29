@@ -9,7 +9,8 @@ if check "apt"
 		libspa-0.2-bluetooth libspa-0.2-dev libspa-0.2-jack \
 		libspa-0.2-modules pipewire-pulse pipewire-alsa
 else if  check "pacman"
-	sudo pacman -S pipewire pipewire-audio pipewire-pulse pipewire-alsa \
+	sudo pacman --noconfirm -S \
+		pipewire pipewire-audio pipewire-pulse pipewire-alsa \
 		pipewire-jack pipewire-bluetooth wireplumber
 else
 	die "unsupported distribution"

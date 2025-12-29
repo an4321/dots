@@ -3,12 +3,13 @@
 function die; echo "error: $argv" >&2 && exit 1; end
 
 switch "$argv"
-	case "latest" "l" ""; set v "latest"
-	case "nightly" "neo" "n"; set v "nightly"
-	case "*"; die "invalid option"
+	case "latest" "l" ""
+		set url "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
+	case "nightly" "neo" "n"
+		set url "https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz"
+	case "*"
+		die "invalid option"
 end
-
-set url "https://github.com/neovim/neovim/releases/$v/download/nvim-linux-x86_64.tar.gz"
 
 command curl -LO "$url" || die "during curl"
 command tar xzf nvim-linux-x86_64.tar.gz || die "extracting"

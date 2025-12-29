@@ -8,7 +8,7 @@ function check; command -v "$argv[1]" &>/dev/null; end
 if check "apt"
 	sudo apt install -y ufw
 else if check "pacman"
-	sudo pacman -S ufw
+	sudo pacman --noconfirm -S ufw
 else
 	die "unsupported distribution"
 end
