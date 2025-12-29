@@ -1,18 +1,15 @@
 #!/bin/env fish
 # setup source https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
 
-# helper functions
-function confirm
-	read -P "$argv (y/N) " yn && string match -qr '^[Yy]$' $yn || return 1
-end
-function die; echo "error: $argv" >&2 && exit 1; end
+function confirm; read -P "$argv (y/N) " | string match -qr '^[Yy]$'; end
 
 # download
-set latest (curl -s https://api.github.com/repos/jtroo/kanata/releases/latest | \
-	grep -o "github.com/jtroo/kanata/releases/download/.*linux.*x64.zip" | head -n 1)
-wget --output-document 'kanata' $latest || die "downloading"
-chmod +x ./kanata
-sudo mv ./kanata /bin
+if confirm "get kanata bin"
+	wget https://github.com/jtroo/kanata/releases/download/v1.10.1/kanata-linux-binaries-v1.10.1-x64.zip
+	unzip kanata-linux-binaries-v1.10.1-x64.zip
+	sudo mv kanata_linux_x64 /bin/kanata
+	command rm -rf kanata*
+end
 
 # if the uinput group does not exist, create a new group
 sudo groupadd uinput || echo "uinput already exists"
