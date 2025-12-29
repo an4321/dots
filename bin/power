@@ -1,14 +1,33 @@
 #!/bin/env fish
 
-set res (echo -e "power off\nsoft reboot\nhard reboot\nexit" | menu)
+if test -n "$argv"
+	set res "$argv"
+else
+	set res (echo -e "lock\npower off\nsoft reboot\nhard reboot\nlogout" | menu)
+end
 
 switch "$res"
-	case "power off"
+	case ""
+		return 0
+	case "power off" "off"
 		systemctl poweroff
-	case "soft reboot"
+	case "soft reboot" "sreboot"
 		systemctl soft-reboot
-	case "hard reboot"
+	case "hard reboot" "reboot"
 		systemctl reboot
 	case "logout"
 		loginctl terminate-session $XDG_SESSION_ID
+	case "lock"
+		i3lock -c 000000 2>/dev/null || swaylock -f -c 000000 \
+			--indicator-radius 100 --indicator-thickness 7 \
+			--text-color 96ccff --line-color 00000000 \
+			--line-clear-color 00000000 --line-wrong-color 00000000 \
+			--line-ver-color 00000000 --ring-ver-color 96ccff00 \
+			--ring-wrong-color 96ccff00 --ring-clear-color 96ccff00 \
+			--ring-color 96ccff00 --inside-color 1a1c1e \
+			--inside-wrong-color ffaedb --inside-ver-color 9fcaff \
+			--layout-bg-color 00000000 --layout-text-color e2e2e5 \
+			--key-hl-color 96ccff --separator-color 00000000
+	case "*"
+		echo "invalid option" >&2 && return 1
 end

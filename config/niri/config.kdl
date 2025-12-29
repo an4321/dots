@@ -43,7 +43,6 @@ binds {
 	Mod+V { spawn-sh "menu clip"; }
 	Mod+Period { spawn-sh "menu emoji"; }
 	Mod+Z { spawn-sh "menu book"; }
-	Mod+Escape { spawn "lock"; }
 	Mod+Shift+F { spawn "nemo"; }
 	Mod+W { spawn-sh "helium"; }
 	Mod+Shift+W { spawn-sh "helium --incognito"; }
@@ -54,7 +53,8 @@ binds {
 	Mod+F { spawn-sh "kitty lf"; }
 	Mod+R { spawn-sh "setbg -r"; }
 	Mod+B { spawn-sh "blue"; }
-	Mod+Shift+Q { spawn-sh "power"; }
+	Mod+X { spawn-sh "power"; }
+	Mod+Escape { spawn "power lock"; }
 
 	Mod+H { focus-column-left; }
 	Mod+L { focus-column-right; }
