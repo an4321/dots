@@ -34,13 +34,13 @@ wall_dir=${1:-"$HOME/Pictures/wallpapers"}
 # set mode for landscape or portrait
 if [ -z "$mode" ]; then
 	mode="fill"
-	[[ $(identify -format "%[fx:w/h]" "$wall") < 1 ]] && mode="fit" 
+	[[ $(identify -format "%[fx:w/h]" "$wall") < 1 ]] && mode="fit"
 fi
 
 # set wallpaper
 if [ -n "$WAYLAND_DISPLAY" ]; then
-	killall swaybg
-	nohup swaybg --mode "$mode" --image "$wall" &> /tmp/swaybg.log &
+	killall swaybg &>/dev/null
+	nohup swaybg  -c "#000000" -m "$mode" -i "$wall" &>/dev/null &
 else
 	[[ "$mode" == "fit" ]] && mode="max"
 	feh --bg-$mode "$wall"

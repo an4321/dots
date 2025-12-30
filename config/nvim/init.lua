@@ -41,7 +41,7 @@ vim.opt.statusline = '%#StatusLine#  %f %h%w%m%r %{%v:lua.recording_status()%} %
 -- packages
 vim.pack.add({
 	'https://github.com/catppuccin/nvim',
-	'https://github.com/nvim-mini/mini.files',
+	'https://github.com/stevearc/oil.nvim',
 	'https://github.com/ibhagwan/fzf-lua',
 	'https://github.com/lewis6991/gitsigns.nvim',
 	'https://github.com/neovim/nvim-lspconfig',
@@ -51,7 +51,7 @@ vim.pack.add({
 	'https://github.com/saghen/blink.cmp',
 })
 
-require('mini.files').setup({ options = { permanent_delete = false } })
+require('oil').setup({ delete_to_trash = true, keymaps = { ['<bs>'] = 'actions.parent' }})
 require('catppuccin').setup({ transparent_background = true, float = { transparent = true } })
 vim.cmd.colorscheme 'catppuccin-mocha'
 
@@ -64,7 +64,7 @@ vim.schedule(function()
 	vim.lsp.config('*', { capabilities = require('blink.cmp').get_lsp_capabilities() })
 end)
 
-vim.keymap.set('n', '<space>f', '<cmd>lua MiniFiles.open()<cr>')
+vim.keymap.set('n', '<space>f', '<cmd>Oil<cr>')
 vim.keymap.set('n', '<space>a', '<cmd>FzfLua files<cr>')
 vim.keymap.set('n', '<space>g', '<cmd>FzfLua live_grep<cr>')
 vim.keymap.set('n', '<space>c', '<cmd>cd ~/dots | FzfLua files<cr>')
