@@ -2,12 +2,12 @@ input {
     mod-key "Alt"
 	touchpad { tap; natural-scroll; }
 	warp-mouse-to-focus
-	focus-follows-mouse max-scroll-amount="0%"
 }
 
 layout {
 	gaps 10
     background-color "transparent"
+	center-focused-column "on-overflow"
 	always-center-single-column
 	default-column-width { proportion 0.9; }
 	focus-ring {
@@ -43,18 +43,18 @@ binds {
 	Mod+V { spawn-sh "menu clip"; }
 	Mod+Period { spawn-sh "menu emoji"; }
 	Mod+Z { spawn-sh "menu book"; }
-	Mod+Shift+F { spawn "nemo"; }
+	Mod+Shift+F { spawn-sh "nemo"; }
 	Mod+W { spawn-sh "helium"; }
 	Mod+Shift+W { spawn-sh "helium --incognito"; }
 	Mod+T { spawn-sh "kitty"; }
 	Mod+E { spawn-sh "kitty nvim"; }
-	Mod+N { spawn-sh "cd ~/notes && kitty nvim 2026/index.md"; }
+	Mod+N { spawn-sh "cd ~/notes && kitty nvim index.md"; }
 	Mod+Y { spawn-sh "kitty htop"; }
 	Mod+F { spawn-sh "kitty lf"; }
 	Mod+R { spawn-sh "setbg -r"; }
 	Mod+B { spawn-sh "blue"; }
 	Mod+X { spawn-sh "power"; }
-	Mod+Escape { spawn "power lock"; }
+	Mod+Escape { spawn-sh "power lock"; }
 
 	Mod+H { focus-column-left; }
 	Mod+L { focus-column-right; }
@@ -83,7 +83,6 @@ binds {
 
 	Mod+O repeat=false { toggle-overview; }
 	Mod+Q repeat=false { close-window; }
-	Mod+C { center-column; }
 	Mod+M { maximize-column; }
 	Mod+Shift+M { fullscreen-window; }
 	Mod+Space { toggle-window-floating; }

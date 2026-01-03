@@ -22,8 +22,8 @@
 )
 
 (defalias
-	la (tap-hold-press 200 200 bspc lalt)
-	ra (tap-hold-press 200 200 ret rctl)
-	cap (tap-hold-press 200 200 esc (layer-toggle arrow))
-	smi (tap-hold-press 200 200 ; (layer-toggle arrow))
+	la (tap-hold-press 150 150 bspc lalt)
+	ra (tap-hold-press 150 150 ret rctl)
+	cap (tap-hold-press 150 150 esc (layer-toggle arrow))
+	smi (tap-hold-press 150 150 ; (layer-toggle arrow))
 )
