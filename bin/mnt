@@ -1,20 +1,48 @@
 #!/usr/bin/env fish
 
-set disks (command lsblk -o NAME,SIZE -nr)
-test -z "$disks" && echo "no unmounted disks found" && exit 0
+function die; echo "error: $argv" >&2 && exit 1; end
 
-set disk (printf "%s\n" $disks | fzf-tmux | awk '{print $1}')
-test -z "$disk" && echo "no disk selected" && exit 0
+# list block devices (disks + partitions)
+set disks (lsblk -o NAME,TYPE,FSTYPE,SIZE -nr)
+test -z "$disks" && die "no block devices found"
+
+# select device
+set selection (printf "%s\n" $disks | fzf-tmux)
+test -z "$selection" && die "no disk selected"
+
+set disk (echo $selection | awk '{print $1}')
+set type (echo $selection | awk '{print $2}')
+set fstype (echo $selection | awk '{print $3}')
 
 set device "/dev/$disk"
-set mountpoint "$HOME/$disk"
+set mountname "$disk"
+set mountpoint "$HOME/$mountname"
 
-command mkdir -p $mountpoint
+# handle luks-encrypted devices
+if test "$fstype" = "crypto_LUKS"
+    echo "LUKS device detected: $device"
+
+    # mapper name (avoid collisions)
+    set mapper_name "crypt_$disk"
+    set mapper_device "/dev/mapper/$mapper_name"
+
+    # unlock if not already unlocked
+    if not test -e $mapper_device
+        sudo cryptsetup luksOpen $device $mapper_name
+        or die "failed to unlock LUKS device"
+    end
+
+    set device $mapper_device
+    set mountname $mapper_name
+    set mountpoint "$HOME/$mountname"
+end
+
+# mount
+mkdir -p $mountpoint
 sudo mount $device $mountpoint
 
 if test $status -eq 0
-	echo "mounted $device -> $mountpoint"
+    echo "mounted $device -> $mountpoint"
 else
-	echo "failed to mount $device" >&2
-	exit 1
+    die "failed to mount $device"
 end
