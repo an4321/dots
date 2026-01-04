@@ -3,59 +3,37 @@
 		"layer": "top",
 		"position": "left",
 		"orientation": "vertical",
-		"reload_style_on_change": false,
+		"reload_style_on_change": true,
 		"modules-center": ["niri/workspaces", "group/bottom"],
 		"group/bottom": {
 			"orientation": "inherit",
-			"modules": [
-				// "tray",
-				"group/battery",
-				"custom/separator",
-				"clock"
-			]
+			"modules": [ /*"tray",*/ "group/battery", "clock" ]
 		},
 
-		"niri/workspaces": {
-			"format": "{index}",
-			"all-outputs": true
-		},
+		"niri/workspaces": { "format": "{index}", "all-outputs": true },
 
-		// "tray": {
-		// 	"icon-size": 21,
-		// 	"spacing": 10,
-		// },
+		// "tray": { "icon-size": 24, "spacing": 4 },
 
 		"group/battery": {
 			"orientation": "inherit",
-			"modules": ["battery#icon", "battery"]
+			"modules": ["battery#icon", "battery", "custom/separator"]
 		},
 		"battery#icon": {
-			"states": {
-				"warning": 20,
-				"critical": 10
-			},
 			"events": {
-				"on-discharging-warning": "notify-send 'battery low!'",
-				"on-discharging-critical": "notify-send  -u critical 'battery critical!'"
+				"on-discharging-20": "notify-send 'battery low!'",
+				"on-discharging-10": "notify-send  -u critical 'battery critical!'"
 			},
 			"format": "{icon}",
 			"format-charging": "󰂄",
 			"format-icons": [ "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰁹" ],
 			"interval": 30
 		},
-		"battery": {
-			"format": "{capacity}",
-			"interval": 30
-		},
-
-		"custom/separator": {
-			"format": "",
-		},
+		"battery": { "format": "{capacity}", "interval": 30 },
+		"custom/separator": { "format": "" },
 
 		"clock": {
 			"format": "{:%H\n%M}",
 			"tooltip-format": "{:%a %b %d, %Y}",
-			"interval": 30
 		}
 	}
 ]
