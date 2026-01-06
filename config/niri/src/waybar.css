@@ -4,50 +4,41 @@
 @define-color error    #f38ba8;
 
 * {
-	border: none;
 	font-family: "JetBrainsMono NF";
+	border: none;
 	padding: 0;
 	margin: 0;
 	min-width: 12px;
 	background: transparent;
-}
-window.#waybar {
-	min-width: 40px;
+	color: @text;
 }
 
-#workspaces,
-#bottom {
-	color: @text;
+#workspaces, #bottom {
 	background: alpha(@bg, 0.9);
-	padding: 4px 0;
-	border-radius: 0 16px 16px 0;
+	border-radius: 0 14px 14px 0;
 	border: 1px solid alpha(@text, 0.1);
 	border-left: none;
+	padding: 5px;
 }
 
 #workspaces {
 	padding: 8px 14px;
-	margin: 10px 0;
+	margin-bottom: 10px;
 }
 #workspaces button {
 	font-size: 0px;
 	background: alpha(@text, 0.5);
 	transition: all 0.2s ease-in-out;
 	min-height: 12px;
-	border-radius: 99px;
+	border-radius: 9px;
 	margin: 5px 0;
 }
 #workspaces button.active {
 	background: @accent;
 	min-height: 34px;
 }
-#bottom {
-	padding-right: 5px;
-	padding-left: 5px;
-}
 
 #battery {
-	font-family: "JetBrainsMono NFM";
 	font-size: 18px;
 	font-weight: bold;
 	color: @text;
@@ -56,8 +47,8 @@ window.#waybar {
 	color: @error;
 }
 #battery.icon {
-	padding-left: 1px;
-	font-size: 30px;
+	font-size: 36px;
+	margin-bottom: -4px;
 }
 
 #custom-separator {

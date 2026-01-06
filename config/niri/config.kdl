@@ -7,13 +7,12 @@ input {
 layout {
 	gaps 10
     background-color "transparent"
-	center-focused-column "on-overflow"
-	always-center-single-column
+	center-focused-column "always"
 	default-column-width { proportion 0.9; }
 	focus-ring {
 		width 2.5
-		active-color "#ffffff30"
-		inactive-color "#ffffff30"
+		active-color "#ffffff40"
+		inactive-color "#ffffff40"
 	}
 	border {
 		width 0

@@ -1,10 +1,2 @@
 PATH="$HOME/.local/bin:$HOME/dots/bin:$PATH"
-
 [[ -f ~/.bashrc ]] && source ~/.bashrc
-
-# if [[ "$tty" == "/dev/tty1" ]]; then
-# 	export XDG_SESSION_TYPE=wayland
-# 	export MOZ_ENABLE_WAYLAND=1
-# 	export QT_QPA_PLATFORM=wayland
-# 	exec dbus-run-session niri --session
-# fi

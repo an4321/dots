@@ -4,16 +4,17 @@ function confirm; read -P "$argv (y/N) " | string match -qr '^[Yy]$'; end
 
 test command -v "pacman" &>/dev/null || exit 1
 
-sudo pacman --noconfirm -S \
+sudo pacman --needed --noconfirm -S \
 	niri waybar swaybg swaylock kitty rofi nemo \
 	cliphist dunst libnotify imagemagick brightnessctl \
 	pavucontrol playerctl pamixer xwayland-satellite
 
-confirm "get fonts?" && sudo pacman --noconfirm -S \
+confirm "get fonts?" && sudo pacman --needed --noconfirm -S \
 	ttf-dejavu ttf-liberation ttf-jetbrains-mono-nerd noto-fonts-emoji
 
 if confirm "get themes?"
-	sudo pacman --noconfirm -S nwg-look adw-gtk-theme papirus-icon-theme
+	sudo pacman --noconfirm -S --needed \
+		nwg-look adw-gtk-theme papirus-icon-theme
 	~/dots/bin/i bibata-cursor-theme-bin
 end
 

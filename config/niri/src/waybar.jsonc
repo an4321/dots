@@ -3,7 +3,7 @@
 		"layer": "top",
 		"position": "left",
 		"orientation": "vertical",
-		"reload_style_on_change": true,
+		"reload_style_on_change": false,
 		"modules-center": ["niri/workspaces", "group/bottom"],
 		"group/bottom": {
 			"orientation": "inherit",
