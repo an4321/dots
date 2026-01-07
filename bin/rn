@@ -1,0 +1,33 @@
+#!/bin/env fish
+
+function die; echo "error: $argv" >&2 && exit 1; end
+
+set dir $PWD
+test -n "$argv" && set dir (command realpath $argv)
+test ! -d "$dir" && dir "'$dir' is not a valid dir"
+
+set temp_file (mktemp)
+command ls -p --group-directories-first $dir > $temp_file
+set orignal (command cat $temp_file)
+set orignal_len (command cat $temp_file | command wc -l)
+
+$EDITOR $temp_file
+set edited (command cat $temp_file)
+
+if test "$(command cat $temp_file | command wc -l)" != "$orignal_len"
+	die "you can't delete or add files"
+end
+
+for i in (seq (count $edited))
+	set new_name (command realpath "$dir/$edited[$i]")
+	set old_name (command realpath "$dir/$orignal[$i]")
+
+	if test "$new_name" != "$old_name"
+		if test -e "$old_name"
+			echo "$old_name -> $new_name"
+			command mv -- "$old_name" "$new_name"
+		else
+			die "$old_name not found"
+		end
+	end
+end

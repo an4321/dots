@@ -41,7 +41,6 @@ vim.opt.statusline = '%#StatusLine#  %f %h%w%m%r %{%v:lua.recording_status()%} %
 -- packages
 vim.pack.add({
 	'https://github.com/catppuccin/nvim',
-	'https://github.com/stevearc/oil.nvim',
 	'https://github.com/ibhagwan/fzf-lua',
 	'https://github.com/lewis6991/gitsigns.nvim',
 	'https://github.com/neovim/nvim-lspconfig',
@@ -51,7 +50,7 @@ vim.pack.add({
 	'https://github.com/saghen/blink.cmp',
 })
 
-require('oil').setup({ delete_to_trash = true, keymaps = { ['<bs>'] = 'actions.parent' }})
+require('fm').setup()
 require('catppuccin').setup({ transparent_background = true, float = { transparent = true } })
 vim.cmd.colorscheme 'catppuccin-mocha'
 
@@ -64,7 +63,7 @@ vim.schedule(function()
 	vim.lsp.config('*', { capabilities = require('blink.cmp').get_lsp_capabilities() })
 end)
 
-vim.keymap.set('n', '<space>f', '<cmd>Oil<cr>')
+vim.keymap.set('n', '<space>f', '<cmd>Fm<cr>')
 vim.keymap.set('n', '<space>a', '<cmd>FzfLua files<cr>')
 vim.keymap.set('n', '<space>g', '<cmd>FzfLua live_grep<cr>')
 vim.keymap.set('n', '<space>c', '<cmd>cd ~/dots | FzfLua files<cr>')
@@ -105,8 +104,8 @@ vim.keymap.set('v', '-', 'g<c-x>')
 vim.keymap.set('n', 'j', 'gj')
 vim.keymap.set('n', 'k', 'gk')
 vim.keymap.set('n', '?', ':%s/')
-vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])
-vim.keymap.set('n', '<space>w', '<cmd>set wrap!<cr>')
-vim.keymap.set('n', '<space>s', '<cmd>set spell!<cr>')
 vim.keymap.set('n', '<bs>', ':term ')
 vim.keymap.set('t', '<c-c>', [[<c-\><c-n>]])
+vim.keymap.set('n', '<space>w', '<cmd>set wrap!<cr>')
+vim.keymap.set('n', '<space>s', '<cmd>set spell!<cr>')
+vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])
