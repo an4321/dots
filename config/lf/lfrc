@@ -33,6 +33,7 @@ map i $fish
 map I :& test -n "$TMUX" && tmux new-window || kitty
 map t :& test -n "$TMUX" && tmux new-window -a -n lf 'lf' || kitty -e lf
 map <c-a> !t "$PWD"
+map a $mk
 # v: invert selection
 map <c-p> set preview!
 
@@ -58,14 +59,11 @@ map d trash
 map <delete> trash
 map D $trash-restore
 
-cmd mk %{{
-	echo " make: " && read res
+cmd rn ${{
+	read -c (basename $f) -P "rename: " res
 	test -z "$res" && echo && return
-	if string match -r '/$' "$res"
-		mkdir -p $res
-	else
-		touch "$res"
-	end
+	mv (basename $f) "$res"
 	lf -remote "send $id select '$res'"
 }}
-map a mk
+map r rn
+map R $rn "$PWD"

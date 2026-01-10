@@ -13,7 +13,6 @@ export LC_ALL=en_US.UTF-8
 
 alias ..="cd .."
 alias ...="cd ../.."
-alias md="mkdir -p"
 alias cp="cp -vir"
 alias mv="mv -vi"
 alias ln="ln -sv"

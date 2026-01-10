@@ -13,6 +13,6 @@ end
 complete -c j -e -w cd
 
 function ji; cd "$(jump list | fzf-tmux || echo .)"; end
-function mdg; mkdir -p "$argv" && j "$argv"; end
+function md; mkdir -p "$argv" && j "$argv"; end
 function cpg; cp $argv && j $argv[-1]; end
 function mvg; mv $argv && j $argv[-1]; end
