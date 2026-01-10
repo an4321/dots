@@ -6,7 +6,7 @@ check() { command -v "$1" &>/dev/null; }
 base() {
 	if check "apt"; then
 		sudo apt install -y curl fish tmux lf fzf fd-find ripgrep \
-			htop bat trash-cli wget fastfetch lazygit sqlite3
+			htop bat trash-cli wget fastfetch lazygit sqlite3 unzip
 		ln -sf "$(which batcat)" ~/.local/bin/bat
 		ln -sf "$(which fdfind)" ~/.local/bin/fd
 	elif check "pacman"; then

@@ -9,6 +9,7 @@ if confirm "get kanata bin"
 	unzip kanata-linux-binaries-v1.10.1-x64.zip
 	sudo mv kanata_linux_x64 /bin/kanata
 	command rm -rf kanata*
+	or echo "something went wrong"
 end
 
 # if the uinput group does not exist, create a new group

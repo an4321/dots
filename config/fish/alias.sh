@@ -26,6 +26,7 @@ alias icat="kitten icat --align left"
 alias e="command nvim"
 alias se="sudoedit"
 alias ls="ls -G --color=auto --group-directories-first"
+alias la="ls -GA --color=auto --group-directories-first"
 alias li="nsxiv -ota ."
 alias ywd="pwd; pwd | y"
 alias x='xargs -I "jk"'
@@ -41,6 +42,7 @@ alias rg="command rg --hidden --smart-case --pretty -g '!{.git,$IGNORE}'"
 alias fd="command fd --hidden --follow --color auto --exclude={.git,$IGNORE}"
 alias rs="command rsync -aPhz --update --exclude={$IGNORE}"
 
+alias bx="bunx"
 alias br="bun run"
 
 alias lg="lazygit"

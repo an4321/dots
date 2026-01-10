@@ -8,11 +8,9 @@ vim.opt.smartcase = true
 vim.opt.undofile = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
-vim.opt.splitright = true
-vim.opt.splitbelow = true
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.scrolloff = 15
+vim.opt.scrolloff = 20
 vim.opt.history = 10000
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -105,7 +103,7 @@ vim.keymap.set('n', 'j', 'gj')
 vim.keymap.set('n', 'k', 'gk')
 vim.keymap.set('n', '?', ':%s/')
 vim.keymap.set('n', '<bs>', ':term ')
-vim.keymap.set('t', '<c-c>', [[<c-\><c-n>]])
+vim.keymap.set('t', '<c-d>', [[<c-\><c-n>]])
 vim.keymap.set('n', '<space>w', '<cmd>set wrap!<cr>')
 vim.keymap.set('n', '<space>s', '<cmd>set spell!<cr>')
 vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])

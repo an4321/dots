@@ -35,7 +35,17 @@ map t :& test -n "$TMUX" && tmux new-window -a -n lf 'lf' || kitty -e lf
 map <c-a> !t "$PWD"
 map a $mk
 # v: invert selection
-map <c-p> set preview!
+
+cmd toggle-preview %{{
+	if test "$lf_preview" = "true"
+		lf -remote "send $id set nopreview"
+		lf -remote "send $id set ratios 1"
+	else
+		lf -remote "send $id set ratios 1:2"
+		lf -remote "send $id set preview"
+	end
+}}
+map <c-p> toggle-preview
 
 cmd jump ${{
 	set res (jump list | fzf --height=100%)
@@ -47,7 +57,7 @@ cmd locate ${{
 	set res $(fd . | fzf --height=100%)
 	lf -remote "send $id select '$res'"
 }}
-map <c-f> locate
+map F locate
 
 cmd trash %{{
 	echo " confirm (y/N): " && read res
