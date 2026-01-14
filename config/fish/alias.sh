@@ -31,6 +31,7 @@ alias li="nsxiv -ota ."
 alias ywd="pwd; pwd | y"
 alias x='xargs -I "jk"'
 complete -c x -w env
+alias o='setsid xdg-open'
 alias fm='yazi'
 
 alias batt="echo capacity: $(command cat /sys/class/power_supply/BAT0/capacity)%; \
@@ -44,6 +45,7 @@ alias rs="command rsync -aPhz --update --exclude={$IGNORE}"
 
 alias bx="bunx"
 alias br="bun run"
+alias ba="bun add"
 
 alias lg="lazygit"
 alias lines="git ls-files | xargs cat | wc -l"
@@ -57,7 +59,7 @@ alias gp="git pull"
 alias gP="git push origin"
 alias gcm="git commit"
 alias gcp="git commit && git push origin"
-alias gi="git init"
+alias gi="git init && git branch -m main"
 alias gm="git merge"
 alias gib="git init --bare"
 alias gcb="git clone --bare"
