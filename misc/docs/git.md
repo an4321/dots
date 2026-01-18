@@ -9,7 +9,7 @@ ssh-keygen -t ed25519 -C "$email"
 
 # add ssh key to agent
 bash -c "$(ssh-agent -s)"
-ssh-add "$HOME/.ssh/id_ed25519"
+ssh-add ~/.ssh/id_ed25519
 ```
 
 
@@ -20,7 +20,7 @@ ssh-add "$HOME/.ssh/id_ed25519"
   2. in the sidebar, click ssh and gpg keys
   3. click new ssh key or add ssh key
   4. paste this
-    `cat "$HOME/.ssh/id_ed25519.pub"`
+    `cat ~/.ssh/id_ed25519.pub`
   5. test connection
     `ssh -T git@github.com`
 

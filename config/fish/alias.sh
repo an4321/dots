@@ -1,10 +1,8 @@
 export PATH=$PATH:"/bin:/usr/local/bin:$HOME/.local/bin:$HOME/dots/bin:$HOME/.go/bin:$HOME/.local/go/bin:$HOME/.local/node/bin:$HOME/.bun/bin"
 export IGNORE="node_modules,.next,.svelte-kit,__pycache__,vendor,.venv,vendor,.cache,.bun,.npm,.local/share"
 export ACCENT="yellow"
-export EDITOR="$(which nvim)"
-export MANPAGER="$(which nvim) +Man!"
-export GOPATH="$HOME/.go"
-export GOROOT="$HOME/.local/go"
+export EDITOR="nvim"
+export MANPAGER="nvim +Man!"
 export FZF_DEFAULT_OPTS="--cycle --reverse --no-separator --scroll-off=3 \
 	--prompt '  ' --pointer ' ' --marker='* ' -m --height=40% \
 	--bind='ctrl-space:toggle-preview,ctrl-h:backward-kill-word',ctrl-d:half-page-down,ctrl-u:half-page-up \

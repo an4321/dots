@@ -20,18 +20,6 @@ sudoedit /etc/systemd/logind.conf
 # add -> HandleLidSwitch=ignore
 ```
 
-### tap to click & natural scroll
-```sh
-sudo bash -c 'cat <<EOF >> /etc/X11/xorg.conf.d/30-touchpad.conf
-Section "InputClass"
-    Identifier "touchpad"
-    Driver "libinput"
-    Option "Tapping" "on"
-    Option "NaturalScrolling" "true"
-EndSection
-EOF'
-```
-
 ### auto login
 * [getty arch wiki](ahttps://wiki.archlinux.org/title/Getty)
 
@@ -65,6 +53,18 @@ sudoedit /etc/mkinitcpio.conf
 
 sudo mkinitcpio -P
 sudo reboot
+```
+
+### tap to click & natural scroll
+```sh
+sudo bash -c 'cat <<EOF >> /etc/X11/xorg.conf.d/30-touchpad.conf
+Section "InputClass"
+    Identifier "touchpad"
+    Driver "libinput"
+    Option "Tapping" "on"
+    Option "NaturalScrolling" "true"
+EndSection
+EOF'
 ```
 
 ### misc
