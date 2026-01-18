@@ -31,7 +31,7 @@ function help
 end
 
 function die
-	echo "Error: $argv" && exit 1
+	echo "error: $argv" && exit 1
 end
 
 function db
@@ -46,7 +46,7 @@ function add
 		set res (db "select * from main where dir='$dir'")
 		if test -z "$res"
 			db "insert into main values ('$dir')"
-			echo "Added: $dir"
+			echo "added: $dir"
 		end
 	end
 end
@@ -54,16 +54,15 @@ end
 function remove
 	for i in $argv
 		db "delete from main where dir='$i';"
-		echo "Removed: $i"
+		echo "removed: $i"
 	end
 end
 
 function query
 	test $argv[1] = '.' && set argv[1] "$PWD"
 	set q "%$(echo $argv | tr ' ' '%')%"
-	# get results and order by number of slashes
-	set res (db "select * from main where dir like ('$q');" \
-		| tr ' ' '\n' | awk -F'/' '{ print NF-1, $0 }' | sort -n | cut -d' ' -f2-)
+	set res (db "select dir from main where dir like '$q' \
+		order by (length(dir) - length(replace(dir, '/', '')))")
 	test -z "$res" && die 404
 
 	for i in $res
