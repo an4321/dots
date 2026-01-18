@@ -52,8 +52,7 @@ binds {
 	Mod+F { spawn-sh "kitty lf"; }
 	Mod+R { spawn-sh "setbg -r"; }
 	Mod+B { spawn-sh "blue"; }
-	Mod+X { spawn-sh "power"; }
-	Mod+Escape { spawn-sh "power lock"; }
+	mod+escape { spawn-sh "lock"; }
 
 	Mod+H { focus-column-left; }
 	Mod+L { focus-column-right; }
