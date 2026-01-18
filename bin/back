@@ -25,7 +25,7 @@ for i in $backup_dirs
 		command cp -r $backup_destination $old
 	end
 
-	rsync -aPhz \
+	rsync -aPhz --delete \
 		--exclude={node_modules,.next,.svelte-kit,__pycache__,.venv,vendor} \
 		"$i" "$destination"
 end

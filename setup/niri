@@ -2,7 +2,7 @@
 
 function confirm; read -P "$argv (y/N) " | string match -qr '^[Yy]$'; end
 
-test command -v "pacman" &>/dev/null || exit 1
+command -v "pacman" &>/dev/null || exit 1
 
 sudo pacman --needed --noconfirm -S \
 	niri waybar swaybg swaylock kitty rofi nemo \
@@ -29,3 +29,5 @@ if confirm "create sessions desktop file"
 	DesktopNames=niri
 	""" >/usr/share/wayland-sessions/niri.desktop'
 end
+
+echo "all done"

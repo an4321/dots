@@ -24,7 +24,9 @@ up() {
 	for file in ~/dots/config/nonxdg/*; do
 		[ -f "$file" ] && ln -sf "$file" "$HOME/.$(basename $file)"
 	done
+
 	ln -sf ~/dots/misc/jump/main ~/.local/bin/jump
+	sudo sh -c 'echo "complete -c j -e -w cd" >/usr/share/fish/vendor_completions.d/j.fish'
 
 	check "fish" || (accept "install base?" && base)
 	echo "done"
