@@ -15,8 +15,6 @@ switch "$argv"
 	case "emoji"
 		command cat ~/dots/misc/{emotes,nf-icons} \
 			| menu | awk '{print $1}' | tr -d '\n' | wl-copy
-	case "book"
-		cd $HOME/notes && ls *.pdf | menu | xargs -r zathura
 	case "*"
 		echo "invalid command!" & exit 1
 end

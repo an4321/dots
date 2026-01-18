@@ -10,7 +10,6 @@ function j
 	end
 	jump add $PWD >/dev/null
 end
-complete -c j -e -w cd
 
 function ji; cd "$(jump list | fzf-tmux || echo .)"; end
 function md; mkdir -p "$argv" && j "$argv"; end
