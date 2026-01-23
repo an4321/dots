@@ -5,23 +5,20 @@ vim.opt.list = true
 vim.opt.wrap = false
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.undofile = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
+vim.opt.undofile = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.scrolloff = 20
 vim.opt.history = 10000
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.cmdheight = 0
-vim.opt.laststatus = 3
 vim.opt.inccommand = "split"
 vim.opt.signcolumn = "yes"
 vim.opt.winborder = "rounded"
 vim.opt.nrformats = vim.opt.nrformats + { 'unsigned' }
 vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
-require('vim._extui').enable({})
 
 -- highlight on yank
 vim.cmd [[ au TextYankPost * lua vim.hl.on_yank() ]]
@@ -31,6 +28,9 @@ vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | ex
 vim.cmd [[ au TermOpen * startinsert ]]
 
 -- statusline
+vim.opt.cmdheight = 0
+vim.opt.laststatus = 3
+require('vim._extui').enable({})
 function recording_status()
 	return vim.fn.reg_recording() ~= '' and 'recording @' .. vim.fn.reg_recording() or ''
 end
@@ -61,6 +61,7 @@ vim.schedule(function()
 	vim.lsp.config('*', { capabilities = require('blink.cmp').get_lsp_capabilities() })
 end)
 
+-- keymaps
 vim.keymap.set('n', '<space>f', '<cmd>Fm<cr>')
 vim.keymap.set('n', '<space>a', '<cmd>FzfLua files<cr>')
 vim.keymap.set('n', '<space>g', '<cmd>FzfLua live_grep<cr>')
@@ -76,8 +77,7 @@ for _, i in ipairs({ '()', '[]', '{}', '""', '``' }) do
 	vim.keymap.set('i', i:sub(1,1), i .. '<left>')
 end
 vim.keymap.set({'n', 'v'}, '<c-q>', function()
-	vim.cmd((#vim.fn.getbufinfo({ buflisted = 1 }) == 1
-	and vim.api.nvim_buf_get_name(0) == '') and 'q' or 'bd')
+	vim.cmd((#vim.fn.getbufinfo({ buflisted = 1 }) == 1) and 'q' or 'bd')
 end)
 vim.keymap.set({'n', 'v'}, '<c-s>', '<cmd>update<cr>')
 vim.keymap.set('n', '<c-h>', '<cmd>bp<cr>')

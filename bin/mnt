@@ -7,7 +7,7 @@ set disks (lsblk -o NAME,TYPE,FSTYPE,SIZE -nr)
 test -z "$disks" && die "no block devices found"
 
 # select device
-set selection (printf "%s\n" $disks | fzf-tmux)
+set selection (printf "%s\n" $disks | fzf)
 test -z "$selection" && die "no disk selected"
 
 set disk (echo $selection | awk '{print $1}')

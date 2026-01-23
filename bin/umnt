@@ -3,7 +3,7 @@
 set mounted_drives (command lsblk -o MOUNTPOINT,SIZE -nr | command grep "$HOME")
 test -z "$mounted_drives" && echo "no mounted drives" && exit 1
 
-set sel (printf "%s\n" $mounted_drives | fzf-tmux | awk '{print $1}')
+set sel (printf "%s\n" $mounted_drives | fzf | awk '{print $1}')
 test -z "$sel" && exit
 
 sudo umount $sel

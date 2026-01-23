@@ -1,12 +1,12 @@
 input {
-    mod-key "alt"
+	mod-key "alt"
 	touchpad { tap; natural-scroll; }
 	warp-mouse-to-focus
 }
 
 layout {
 	gaps 10
-    background-color "transparent"
+	background-color "transparent"
 	center-focused-column "always"
 	default-column-width { proportion 0.95; }
 	focus-ring {
@@ -21,7 +21,7 @@ layout {
 	}
 }
 layer-rule {
-    place-within-backdrop true
+	place-within-backdrop true
 }
 
 window-rule {
