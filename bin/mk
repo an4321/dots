@@ -4,7 +4,9 @@ set input "$argv"
 test -z "$input" && read -P "make: " input
 test -z "$input" && exit
 
-for i in (string split ' ' -- (string trim -c '\n' "$input"))
+for i in (string split " " -- "$input")
+	test -z "$i" && continue
+
 	if string match -q "*/*" "$i"
 		set parts (string split -r -m1 / -- "$i")
 		command mkdir -p "$parts[1]"
@@ -14,6 +16,7 @@ for i in (string split ' ' -- (string trim -c '\n' "$input"))
 	else
 		command touch "$i"
 	end
+
 	if test "$lf"
 		lf -remote "send $id select '$i'"
 	end
