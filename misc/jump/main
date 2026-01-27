@@ -1,33 +1,35 @@
 #!/bin/env fish
 
+set jump_db "$HOME/.local/state/jump.db"
+
 function main
 	set argc (count $argv)
-	test $argc -eq 0 && help 0
 
-	db "create table if not exists main (dir text primary key);"
+	if test ! -f $jump_db
+		db "create table if not exists main (dir text primary key);"
+	end
 
 	switch $argv[1]
-		case l list
-			db "select * from main;" | tr ' ' '\n'
-		case a add
+		case "" "h" "help"
+			help && exit 0
+		case "l" "list"
+			db "select * from main;"
+		case "a" "add"
 			test $argc -lt 2 && die "nothing to add"
 			add $argv[2..-1]
-		case r remove
+		case "r" "remove"
 			test $argc -lt 2 && die "nothing to remove"
 			remove $argv[2..-1]
-		case q query
+		case "q" "query"
 			test $argc -lt 2 && die "nothing to query"
 			query $argv[2..-1]
-		case h help
-			help 0
 		case "*"
-			help 1
+			help && exit 1
 	end
 end
 
 function help
 	echo "options: [a add] [r remove] [q query] [l list] [h help]"
-	exit $argv
 end
 
 function die
@@ -35,8 +37,8 @@ function die
 end
 
 function db
-	sqlite3 "$HOME/.local/state/jump.db" $argv
-	test $status -ne 0 && die "db operation failed"
+	sqlite3 $jump_db $argv
+	or die "db operation failed"
 end
 
 function add
