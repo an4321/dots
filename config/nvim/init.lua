@@ -14,11 +14,12 @@ vim.opt.scrolloff = 20
 vim.opt.history = 10000
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.inccommand = "split"
-vim.opt.signcolumn = "yes"
-vim.opt.winborder = "rounded"
+vim.opt.inccommand = 'split'
+vim.opt.signcolumn = 'yes'
+vim.opt.winborder = 'rounded'
 vim.opt.nrformats = vim.opt.nrformats + { 'unsigned' }
 vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
+vim.opt.shell = '/usr/bin/env fish'
 
 -- highlight on yank
 vim.cmd [[ au TextYankPost * lua vim.hl.on_yank() ]]

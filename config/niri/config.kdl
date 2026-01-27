@@ -47,7 +47,7 @@ binds {
 	mod+t { spawn-sh "kitty"; }
 	mod+e { spawn-sh "kitty nvim"; }
 	mod+n { spawn-sh "cd ~/notes && kitty nvim index.md"; }
-	mod+y { spawn-sh "kitty htop"; }
+	mod+p { spawn-sh "kitty htop"; }
 	mod+f { spawn-sh "kitty lf"; }
 	mod+r { spawn-sh "setbg -r"; }
 	mod+b { spawn-sh "blue"; }
@@ -62,7 +62,6 @@ binds {
 	mod+k { focus-window-or-workspace-up; }
 	mod+shift+j { move-window-down-or-to-workspace-down; }
 	mod+shift+k { move-window-up-or-to-workspace-up; }
-	mod+return { move-column-to-workspace 10; }
 
 	mod+1 { focus-workspace 1; }
 	mod+2 { focus-workspace 2; }
@@ -91,7 +90,7 @@ binds {
 
 	mod+s { screenshot; }
 	mod+shift+s { screenshot-screen; }
-	mod+shift+p { power-off-monitors; }
+	mod+z { power-off-monitors; }
 	mod+shift+escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 	mod+semicolon { focus-monitor-next; }
 	mod+shift+semicolon { move-window-to-monitor-next; }
