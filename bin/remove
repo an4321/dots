@@ -1,31 +1,31 @@
-#!/bin/env fish
+#!/usr/bin/env fish
 
-function die; echo "error: $argv" >&2 && exit 1; end
 function check; command -v $argv &>/dev/null; end
-function menu
-	fzf -e --height 100 --preview-window=right:55% --preview "$argv"
+function menu; fzf -e --height 100% --preview "$argv"; end
+
+set all 0
+set t $argv
+
+switch "$argv[1]"; case "all" "a"
+	set all 1
+	set t $argv[2..-1]
 end
 
-if check "apt"
-	if test (count $argv) -eq 0
-		set sel (apt list --installed | cut -d/ -f1 | menu 'apt-cache show {}')
-		test -n "$sel" && sudo apt remove $sel
-	else if test "$argv[1]" = "all" -o "$argv[1]" = "a"
-		sudo apt autoremove --purge $argv[2..-1]
-	else
-		sudo apt remove $argv
-	end
+if check "pacman"
+	test (count $t) -eq 0 && set t (pacman -Qq | menu 'pacman -Qi {}')
+	test -z "$t" && exit
 
-else if check "pacman"
-	if test (count $argv) -eq 0
-		set sel (pacman -Qq | menu 'pacman -Qi {}')
-		test -n "$sel" && sudo pacman -R $sel
-	else if test "$argv[1]" = "all" -o "$argv[1]" = "a"
-		sudo pacman -Rns $argv[2..-1]
-	else
-		sudo pacman -R $argv
-	end
+	test $all -eq 1 && sudo pacman -Rns $t
+	or sudo pacman -R $t
+
+else if check "apt"
+	test (count $t) -eq 0 && set t \
+		(apt list --installed | cut -d/ -f1 | menu 'apt-cache show {}')
+	test -z "$t" && exit
+
+	test $all -eq 1 && sudo apt autoremove --purge $t
+	or sudo apt remove $t
 
 else
-	die "unsupported distribution"
+	echo "error: unsupported distribution" >&2 && exit 1
 end
