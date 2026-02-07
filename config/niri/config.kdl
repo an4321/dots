@@ -8,7 +8,7 @@ layout {
 	gaps 10
 	background-color "transparent"
 	center-focused-column "always"
-	default-column-width { proportion 0.95; }
+	default-column-width { proportion 0.9; }
 	focus-ring {
 		width 2.5
 		active-color "#ffffff40"
@@ -51,7 +51,7 @@ binds {
 	mod+f { spawn-sh "kitty lf"; }
 	mod+r { spawn-sh "setbg -r"; }
 	mod+b { spawn-sh "blue"; }
-	mod+escape { spawn-sh "lock"; }
+	mod+escape { spawn-sh "niri msg action power-off-monitors && lock"; }
 
 	mod+h { focus-column-left; }
 	mod+l { focus-column-right; }

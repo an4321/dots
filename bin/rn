@@ -24,8 +24,8 @@ for i in (seq (count $edited))
 
 	if test "$new_name" != "$old_name"
 		if test -e "$old_name"
-			echo "$old_name -> $new_name"
 			command mv -- "$old_name" "$new_name"
+			echo "$old_name -> $new_name"
 		else
 			die "$old_name not found"
 		end

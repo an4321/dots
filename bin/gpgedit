@@ -1,8 +1,6 @@
 #!/bin/env fish
 
-function die
-	echo "Error: $argv" && exit 1
-end
+function die; echo "error: $argv" && exit 1; end
 
 test -z "$argv" && die "no file specified"
 set file "$argv"
@@ -17,8 +15,8 @@ end
 test ! -f "$file" && die "'$file' is not a valid file."
 set temp_file "$(mktemp).$(basename $file)"
 
-gpg --batch --passphrase "$pass" --decrypt "$file" > "$temp_file" 2>/dev/null \
-	|| die "decryption failed"
+gpg --batch --passphrase "$pass" --decrypt "$file" > "$temp_file" 2>/dev/null
+or die "decryption failed"
 
 $EDITOR "$temp_file" && shred -uz "$file"
 

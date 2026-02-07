@@ -11,7 +11,7 @@ function j
 	jump add $PWD >/dev/null
 end
 
-function ji; cd "$(jump list | fzf-tmux || echo .)"; end
+function ji; cd "$(jump list | fzf || echo .)"; end
 function md; mkdir -p "$argv" && j "$argv"; end
 function cpg; cp $argv && j $argv[-1]; end
 function mvg; mv $argv && j $argv[-1]; end
