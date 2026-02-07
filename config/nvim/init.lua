@@ -25,8 +25,8 @@ vim.opt.shell = '/usr/bin/env fish'
 vim.cmd [[ au TextYankPost * lua vim.hl.on_yank() ]]
 -- reopen at last position
 vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
--- terminal start in insert mode
-vim.cmd [[ au TermOpen * startinsert ]]
+-- terminal start in insert mode & disable spellcheck
+vim.cmd [[ au TermOpen * setlocal nospell | startinsert ]]
 
 -- statusline
 vim.opt.cmdheight = 0

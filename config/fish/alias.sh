@@ -44,6 +44,10 @@ alias bx="bunx"
 alias br="bun run"
 alias ba="bun add"
 
+alias poweroff="systemctl poweroff"
+alias reboot="systemctl soft-reboot"
+alias hard-reboot="systemctl reboot"
+
 alias lg="lazygit"
 alias lines="git ls-files | xargs cat | wc -l"
 alias gcl="git clone"
