@@ -17,7 +17,7 @@ alias ln="ln -sv"
 alias rm="trash"
 alias df="df -h"
 alias free="free -h"
-alias fetch="fastfetch"
+alias ff="fastfetch"
 alias cat="bat -p --theme=ansi"
 alias icat="kitten icat --align left"
 alias e="command nvim"
@@ -29,7 +29,10 @@ alias ywd="pwd; pwd | y"
 alias x='xargs -I "jk"'
 complete -c x -w env
 alias o='setsid xdg-open'
-alias fm='yazi'
+
+alias poweroff="systemctl poweroff"
+alias reboot="systemctl soft-reboot"
+alias hard-reboot="systemctl reboot"
 
 alias batt="echo capacity: $(command cat /sys/class/power_supply/BAT0/capacity)%; \
 	upower -i $(upower -e | grep 'BAT') | grep 'time to' | xargs"
@@ -43,10 +46,6 @@ alias rs="command rsync -aPhz --update --exclude={$IGNORE}"
 alias bx="bunx"
 alias br="bun run"
 alias ba="bun add"
-
-alias poweroff="systemctl poweroff"
-alias reboot="systemctl soft-reboot"
-alias hard-reboot="systemctl reboot"
 
 alias lg="lazygit"
 alias lines="git ls-files | xargs cat | wc -l"
