@@ -22,8 +22,6 @@ else
 	tmux new -ds "$session" -c "$target_dir" 2>/dev/null
 end
 
-if test -n "$TERM"
-	tmux -u (test -n "$TMUX" && echo "switch" || echo "attach") -t "$session"
-else
-	kitty sh -c "tmux -u attach -t $session"
-end
+tty -s
+and tmux -u (test -n "$TMUX" && echo "switch" || echo "attach") -t "$session"
+or kitty sh -c "tmux -u attach -t $session"
