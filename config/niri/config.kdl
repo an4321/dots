@@ -45,10 +45,9 @@ binds {
 	mod+w { spawn-sh "helium"; }
 	mod+shift+w { spawn-sh "helium --incognito"; }
 	mod+t { spawn-sh "kitty"; }
-	mod+e { spawn-sh "kitty nvim"; }
+	mod+e { spawn-sh "kitty nvim ."; }
 	mod+n { spawn-sh "cd ~/notes && kitty nvim index.md"; }
 	mod+p { spawn-sh "kitty htop"; }
-	mod+f { spawn-sh "kitty lf"; }
 	mod+r { spawn-sh "setbg -r"; }
 	mod+b { spawn-sh "blue"; }
 	mod+escape { spawn-sh "niri msg action power-off-monitors && lock"; }

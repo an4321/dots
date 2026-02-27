@@ -11,6 +11,7 @@ bind -M insert \cq exit
 bind -M insert \cH backward-kill-word
 
 # functions
+function e; test -n "$argv" && $EDITOR $argv || $EDITOR . ; end
 function c; echo "$argv" | sed 's/x/*/g' | bc -l; end
 function y; test -n "$WAYLAND_DISPLAY" && wl-copy || xsel -b; end
 function p; test -n "$WAYLAND_DISPLAY" && wl-paste || xsel -bo; end

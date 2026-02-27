@@ -2,7 +2,6 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.confirm = true
 vim.opt.list = true
-vim.opt.wrap = false
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.autoindent = true
@@ -63,7 +62,7 @@ vim.schedule(function()
 end)
 
 -- keymaps
-vim.keymap.set('n', '<space>f', '<cmd>Fm<cr>')
+vim.keymap.set('n', '<space>e', '<cmd>Fm<cr>')
 vim.keymap.set('n', '<space>a', '<cmd>FzfLua files<cr>')
 vim.keymap.set('n', '<space>g', '<cmd>FzfLua live_grep<cr>')
 vim.keymap.set('n', '<space>c', '<cmd>cd ~/dots | FzfLua files<cr>')
@@ -72,7 +71,7 @@ vim.keymap.set('n', '[g', '<cmd>Gitsigns prev_hunk<cr>')
 vim.keymap.set('n', ']g', '<cmd>Gitsigns next_hunk<cr>')
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
 vim.keymap.set('n', 'gq', function() vim.lsp.buf.format({ async = true }) end)
-vim.keymap.set('n', '<space>d', function() vim.diagnostic.jump({count = 1, float = true}) end)
+vim.keymap.set('n', '<space>d', function() vim.diagnostic.jump({ count = 1, float = true }) end)
 
 for _, i in ipairs({ '()', '[]', '{}', '""', '``' }) do
 	vim.keymap.set('i', i:sub(1,1), i .. '<left>')
@@ -93,8 +92,8 @@ vim.keymap.set('v', 'gp', '"_dP')
 vim.keymap.set('v', '<tab>', '>gv')
 vim.keymap.set('v', '<s-tab>', '<gv')
 vim.keymap.set('n', '<bs>', ':term ')
-vim.keymap.set('t', '<c-d>', [[<c-\><c-n>]])
-vim.keymap.set('n', 'ss', '1z=')
+vim.keymap.set('t', '<c-esc>', [[<c-\><c-n>]])
+vim.keymap.set('n', '-', '1z=')
 vim.keymap.set('n', '<space>s', '<cmd>set spell!<cr>')
 vim.keymap.set('n', '<space>w', '<cmd>set wrap!<cr>')
 vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])
