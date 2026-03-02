@@ -62,7 +62,7 @@ end
 
 local function scandir(path, show_hidden)
 	local entries = fn.readdir(path)
-	
+
 	table.sort(entries, function(a, b)
 		local a_dir = fn.isdirectory(path .. "/" .. a) == 1
 		local b_dir = fn.isdirectory(path .. "/" .. b) == 1
@@ -119,7 +119,7 @@ local function update_statusline(buf, state)
 	local clip = read_clipboard()
 	local clip_count = vim.tbl_count(clip.items)
 	local clip_str = ""
-	
+
 	if clip_count > 0 then
 		clip_str = clip.action == "cut"
 		and (" %#ErrorMsg# [" .. clip_count .. "] ")
@@ -128,7 +128,7 @@ local function update_statusline(buf, state)
 
 	local short_path = fn.fnamemodify(state.path, ":~")
 	local win = fn.bufwinid(buf)
-	
+
 	if win ~= -1 then
 		vim.wo[win].winbar = "" -- clear winbar just in case
 		vim.wo[win].statusline = " %#Normal# " .. short_path .. clip_str .. "%="
@@ -202,17 +202,17 @@ local function update_preview(buf)
 		local p_width = math.floor(win_width * 0.5)
 		vim.cmd("botright " .. p_width .. "vnew")
 		state.preview_win = api.nvim_get_current_win()
-		
+
 		local p_buf = api.nvim_get_current_buf()
 		vim.bo[p_buf].buftype = "nofile"
 		vim.bo[p_buf].bufhidden = "wipe"
 		vim.bo[p_buf].swapfile = false
-		
+
 		vim.wo[state.preview_win].number = false
 		vim.wo[state.preview_win].relativenumber = false
 		vim.wo[state.preview_win].signcolumn = "no"
 		vim.wo[state.preview_win].wrap = false
-		
+
 		api.nvim_set_current_win(fn.bufwinid(buf))
 		buf_set_state(buf, state)
 	end
@@ -220,7 +220,7 @@ local function update_preview(buf)
 	local p_buf = api.nvim_win_get_buf(state.preview_win)
 	vim.bo[p_buf].modifiable = true
 	api.nvim_buf_clear_namespace(p_buf, ns, 0, -1)
-	
+
 	if fn.isdirectory(full) == 1 then
 		local lines = scandir(full, state.show_hidden)
 		api.nvim_buf_set_lines(p_buf, 0, -1, false, lines)
@@ -234,7 +234,9 @@ local function update_preview(buf)
 			end
 		end
 	elseif is_text_file(full) then
-		local lines = fn.readfile(full, "", 200)
+		-- inline sanitization for some filetype (like pdf)
+		local lines = vim.split(table.concat(fn.readfile(full, "", 200), "\n"), "[\r\n]+")
+
 		api.nvim_buf_set_lines(p_buf, 0, -1, false, lines)
 		local ok_ft, ft = pcall(vim.filetype.match, { filename = full })
 		if ok_ft and ft then vim.bo[p_buf].filetype = ft end
@@ -242,7 +244,7 @@ local function update_preview(buf)
 		api.nvim_buf_set_lines(p_buf, 0, -1, false, {"Binary"})
 		vim.bo[p_buf].filetype = ""
 	end
-	
+
 	vim.bo[p_buf].modifiable = false
 end
 
@@ -251,7 +253,7 @@ local function toggle_preview()
 	local state = buf_get_state(buf)
 	state.preview_open = not state.preview_open
 	buf_set_state(buf, state)
-	
+
 	if not state.preview_open then
 		close_preview(state)
 	else
@@ -293,7 +295,7 @@ local function system_open()
 	local buf = current_buf()
 	local state = buf_get_state(buf)
 	local full = state.path .. "/" .. cursor_entry()
-	
+
 	-- use native neovim open if available (0.10+), otherwise fallback
 	if vim.ui.open then
 		vim.ui.open(full)
@@ -353,7 +355,7 @@ local function rename_single()
 	local state = buf_get_state(buf)
 	local old = cursor_entry()
 	local new = fn.input(" rename " .. old .. " to: ", old)
-	
+
 	if new ~= "" and new ~= old then
 		fn.rename(state.path .. "/" .. old, state.path .. "/" .. new)
 		render(buf)
@@ -364,7 +366,7 @@ end
 local function delete_to_trash()
 	local buf = current_buf()
 	local state = buf_get_state(buf)
-	
+
 	local targets = {}
 	if vim.tbl_count(state.selections) > 0 then
 		for name, _ in pairs(state.selections) do
@@ -379,7 +381,7 @@ local function delete_to_trash()
 	or ("Trash " .. #targets .. " items?")
 
 	local ans = fn.confirm(msg, "&Yes\n&No", 2)
-	
+
 	if ans == 1 then
 		for _, target in ipairs(targets) do
 			-- check for common trash cli utilities, fallback to hard delete
@@ -404,11 +406,11 @@ local function toggle_select()
 	local buf = current_buf()
 	local state = buf_get_state(buf)
 	local name = cursor_entry()
-	
+
 	state.selections[name] = not state.selections[name] and true or nil
 	buf_set_state(buf, state)
 	fast_render(buf)
-	
+
 	local r, _ = unpack(api.nvim_win_get_cursor(0))
 	if r < #state.cached_lines then
 		api.nvim_win_set_cursor(0, {r + 1, 0})
@@ -441,7 +443,7 @@ local function mark_clipboard(action)
 	local buf = current_buf()
 	local state = buf_get_state(buf)
 	local targets = {}
-	
+
 	if vim.tbl_count(state.selections) > 0 then
 		for name, _ in pairs(state.selections) do
 			targets[state.path .. "/" .. name] = true
@@ -466,7 +468,7 @@ local function get_safe_path(dir, name)
 	local base = fn.fnamemodify(name, ":r")
 	local ext = fn.fnamemodify(name, ":e")
 	if ext ~= "" then ext = "." .. ext end
-	
+
 	local new_name = name
 	local i = 1
 	while fn.empty(fn.glob(dir .. "/" .. new_name)) == 0 do
@@ -485,7 +487,7 @@ local function paste_entries()
 	for src_path, _ in pairs(clip.items) do
 		local filename = fn.fnamemodify(src_path, ":t")
 		local dest_path = get_safe_path(state.path, filename)
-		
+
 		if clip.action == "cut" then
 			fn.rename(src_path, dest_path)
 		elseif clip.action == "yank" then
@@ -510,7 +512,7 @@ local function bulk_rename()
 
 	local r_buf = api.nvim_create_buf(false, true)
 	api.nvim_set_current_buf(r_buf)
-	
+
 	local clean_lines = {}
 	for i, line in ipairs(state.cached_lines) do 
 		clean_lines[i] = line:gsub("/$", "") 
@@ -518,10 +520,10 @@ local function bulk_rename()
 
 	api.nvim_buf_set_lines(r_buf, 0, -1, false, clean_lines)
 	api.nvim_win_set_cursor(0, cursor_pos)
-	
+
 	vim.bo[r_buf].buftype = "acwrite"
 	api.nvim_buf_set_name(r_buf, "bulk_rename")
-	
+
 	api.nvim_create_autocmd("BufWriteCmd", {
 		buffer = r_buf,
 		callback = function()
@@ -547,7 +549,7 @@ local function bulk_rename()
 			for _, change in ipairs(changes) do
 				prompt = prompt .. string.format("  %s  ->  %s\n", change.old, change.new)
 			end
-			
+
 			local confirm = fn.confirm(prompt, "&Yes\n&No", 2)
 			if confirm == 1 then
 				for _, change in ipairs(changes) do
@@ -571,6 +573,7 @@ local function set_keymaps(buf)
 	end
 
 	map("q", quit_fm)
+	map("<c-q>", quit_fm)
 	map("l", open_entry)
 	map("<cr>", open_entry)
 	map("h", go_up)
@@ -612,7 +615,7 @@ local function set_keymaps(buf)
 			api.nvim_win_set_cursor(0, {1, 0})
 		end)
 	end
-	
+
 	api.nvim_create_autocmd("CursorMoved", {
 		buffer = buf,
 		callback = function() update_preview(buf) end,
@@ -622,7 +625,7 @@ end
 function M.open(path)
 	local start_path = path or fn.expand("%:p")
 	local is_dir = fn.isdirectory(start_path) == 1
-	
+
 	local target_path = is_dir and start_path or fn.fnamemodify(start_path, ":h")
 	local target_file = not is_dir and fn.fnamemodify(start_path, ":t") or nil
 	if target_path == "" then target_path = fn.getcwd() end
@@ -645,10 +648,10 @@ function M.open(path)
 		preview_open = config.preview_by_default,
 		cached_lines = {}
 	})
-	
+
 	set_keymaps(buf)
 	render(buf)
-	
+
 	if target_file and target_file ~= "" then
 		set_cursor_to(buf, target_file)
 	end
@@ -656,7 +659,7 @@ end
 
 function M.setup(opts)
 	config = vim.tbl_deep_extend("force", config, opts or {})
-	
+
 	api.nvim_set_hl(0, "FmDir", { link = "Directory", default = true })
 	api.nvim_set_hl(0, "FmExec", { link = "String", default = true })
 	api.nvim_set_hl(0, "FmCut", { link = "DiagnosticError", default = true })
