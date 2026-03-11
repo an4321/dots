@@ -15,6 +15,7 @@ local config = {
 	bookmarks = {
 		["gh"] = "~",
 		["ga"] = "~/Desktop",
+		["gt"] = "~/Desktop/things",
 		["gd"] = "~/Downloads",
 		["gD"] = "~/Documents",
 		["gv"] = "~/Videos",
