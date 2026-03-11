@@ -23,20 +23,16 @@ alias icat="kitten icat --align left"
 alias se="sudoedit"
 alias ls="ls -G --color=auto --group-directories-first"
 alias la="ls -GA --color=auto --group-directories-first"
-alias li="nsxiv -ota ."
-alias ywd="pwd; pwd | y"
+alias li="iv -ota . | tee /dev/tty | y"
+alias ywd="pwd | tee /dev/tty | y"
 alias x='xargs -I "jk"'
 complete -c x -w env
 alias o='setsid xdg-open'
+alias ex='extract'
 
 alias poweroff="systemctl poweroff"
 alias reboot="systemctl soft-reboot"
 alias hard-reboot="systemctl reboot"
-
-alias batt="echo capacity: $(command cat /sys/class/power_supply/BAT0/capacity)%; \
-	upower -i $(upower -e | grep 'BAT') | grep 'time to' | xargs"
-alias cam="command ffplay -hide_banner -loglevel fatal -stats \
-	-window_title webcam -fflags +nobuffer -fast /dev/video0"
 
 alias rg="command rg --hidden --smart-case --pretty -g '!{.git,$IGNORE}'"
 alias fd="command fd --hidden --follow --color auto --exclude={.git,$IGNORE}"
@@ -54,13 +50,14 @@ alias ga="git add"
 alias gai="git add -p"
 alias gb="git branch"
 alias gco="git checkout"
+alias gm="git merge"
 alias gp="git pull"
 alias gP="git push origin"
 alias gcm="git commit"
+alias gac="git add . && git commit"
 alias gcp="git commit && git push origin"
 alias gi="git init && git branch -m main"
-alias gm="git merge"
-alias gib="git init --bare"
+alias gib="git init --bare && git branch -m main"
 alias gcb="git clone --bare"
 alias gw="git worktree"
 alias gwa="git worktree add"
@@ -70,3 +67,12 @@ alias gst="git stash && git stash branch temp"
 alias grm="git rm --cached --ignore-unmatch"
 alias gl='git log --graph --all \
 	--pretty=format:"%C(magenta)%h %C(white) %an  %ar%C(blue)  %D%n%s%n"'
+
+alias fman="man -k . | awk '{print \$1, \$2}' | fzf --height=100% \
+    --preview 'echo {1} | xargs man 2>/dev/null' \
+    --preview-window=right:60% | awk '{print \$1}' | xargs -r man"
+alias batt="echo capacity: $(command cat /sys/class/power_supply/BAT0/capacity)%; \
+	upower -i $(upower -e | grep 'BAT') | grep 'time to' | xargs"
+alias cam="command ffplay -hide_banner -loglevel fatal -stats \
+	-window_title webcam -fflags +nobuffer -fast /dev/video0"
+
