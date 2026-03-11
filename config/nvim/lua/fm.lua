@@ -234,8 +234,13 @@ local function update_preview(buf)
 			end
 		end
 	elseif is_text_file(full) then
-		-- inline sanitization for some filetype (like pdf)
-		local lines = vim.split(table.concat(fn.readfile(full, "", 200), "\n"), "[\r\n]+")
+		local lines = vim.fn.readfile(full, "", 200)
+
+		-- sanitization for some filetype (like pdf)
+		for i, line in ipairs(lines) do
+			-- remove trailing \r, and replace internal \n ie NUL with a safe string
+			lines[i] = line:gsub("\r$", ""):gsub("\n", "^@")
+		end
 
 		api.nvim_buf_set_lines(p_buf, 0, -1, false, lines)
 		local ok_ft, ft = pcall(vim.filetype.match, { filename = full })
