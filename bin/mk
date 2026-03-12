@@ -1,21 +1,24 @@
 #!/bin/env fish
 
 set input "$argv"
-test -z "$input" && read -P "make: " input
+if test -z "$input"
+	read -P "make: " input
+	set input (string trim -- "$input")
+end
+
 test -z "$input" && exit
 
-for i in (string split " " -- "$input")
+for i in (string split -n " " -- "$input")
+	set i (string trim -- "$i")
 	test -z "$i" && continue
 
 	if string match -q "*/*" "$i"
 		set parts (string split -r -m1 / -- "$i")
-		command mkdir -p "$parts[1]"
+		if test -n "$parts[1]"
+			command mkdir -p "$parts[1]"
+		end
 		test -n "$parts[2]" && command touch "$i"
 	else
 		command touch "$i"
-	end
-
-	if test "$lf"
-		lf -remote "send $id select '$i'"
 	end
 end
