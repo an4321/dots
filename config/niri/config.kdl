@@ -8,7 +8,7 @@ layout {
 	gaps 10
 	background-color "transparent"
 	center-focused-column "always"
-	default-column-width { proportion 0.9; }
+	default-column-width { proportion 0.8; }
 	focus-ring {
 		width 2.5
 		active-color "#ffffff40"
@@ -35,7 +35,7 @@ hotkey-overlay { skip-at-startup; }
 prefer-no-csd
 screenshot-path "~/Pictures/screenshots/%F_%H-%M-%S.png"
 spawn-sh-at-startup "~/.config/niri/src/autostart"
-// cursor { xcursor-theme "Bibata-Modern-Classic"; }
+cursor { xcursor-theme "Bibata-Modern-Classic"; }
 
 binds {
 	mod+a { spawn-sh "menu run"; }
