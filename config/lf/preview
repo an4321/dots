@@ -1,3 +1,0 @@
-#!/usr/bin/env fish
-
-file $argv[1] | grep -q text && bat -p --color always --theme=ansi --tabs 2 $argv[1]
