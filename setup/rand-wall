@@ -1,4 +1,5 @@
 #!/bin/env fish
+
 mkdir -p ~/Pictures/wallpapers
 wget -O "$HOME/Pictures/wallpapers/$(random).png" \
 	"https://picsum.photos/1920/1080?random"
