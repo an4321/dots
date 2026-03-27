@@ -1,0 +1,63 @@
+#!/bin/env python3
+
+import os
+import argparse
+
+BLUE, GREEN, RESET = "\033[94m", "\033[92m", "\033[0m"
+
+
+def print_tree(path, prefix="", show_all=False):
+    """Recursively prints the directory tree with color coding."""
+    try:
+        # get directory contents and filter hidden files if necessary
+        entries = os.listdir(path)
+        if not show_all:
+            entries = [e for e in entries if not e.startswith(".")]
+
+        entries.sort()  # keep it tidy
+    except PermissionError:
+        print(f"{prefix}└── [Permission Denied]")
+        return
+
+    for i, entry in enumerate(entries):
+        full_path = os.path.join(path, entry)
+        is_last = i == len(entries) - 1
+        connector = "└── " if is_last else "├── "
+
+        # determine color logic
+        if os.path.isdir(full_path):
+            color = BLUE
+            display_name = entry + "/"
+        elif os.access(full_path, os.X_OK):
+            color = GREEN
+            display_name = entry
+        else:
+            color = RESET
+            display_name = entry
+
+        # print the current line
+        print(f"{prefix}{connector}{color}{display_name}{RESET}")
+
+        # recurse if it's a directory
+        if os.path.isdir(full_path):
+            extension = "    " if is_last else "│   "
+            print_tree(full_path, prefix + extension, show_all)
+
+
+# argparse
+parser = argparse.ArgumentParser(description="tree command")
+parser.add_argument(
+    "-a", "--all", action="store_true", help="list hidden files as well"
+)
+parser.add_argument("dir", nargs="?", default=".", help="target dir (default: current)")
+
+args = parser.parse_args()
+
+target_path = args.dir
+if not os.path.exists(target_path):
+    print(f"invalid path {target_path}")
+    os._exit(1)
+
+# init
+print(f"{BLUE}{target_path}{RESET}")
+print_tree(target_path, show_all=args.all)
