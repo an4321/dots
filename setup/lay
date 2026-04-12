@@ -6,12 +6,11 @@ check() { command -v "$1" &>/dev/null; }
 base() {
 	if check "apt"; then
 		sudo apt install -y curl fish tmux lf fzf fd-find ripgrep \
-			htop bat trash-cli wget fastfetch lazygit sqlite3 unzip
-		ln -sf "$(which batcat)" ~/.local/bin/bat
+			htop trash-cli wget fastfetch lazygit sqlite3 unzip
 		ln -sf "$(which fdfind)" ~/.local/bin/fd
 	elif check "pacman"; then
 		sudo pacman -Syu --noconfirm curl fish tmux lf fzf fd ripgrep \
-			htop bat trash-cli wget fastfetch unzip man-db nvim lazygit
+			htop trash-cli wget fastfetch unzip man-db nvim lazygit
 	else
 		echo "unsupported distribution"
 	fi
@@ -29,7 +28,7 @@ up() {
 	sudo sh -c 'echo "complete -c j -e -w cd" >/usr/share/fish/vendor_completions.d/j.fish'
 
 	check "fish" || (accept "install base?" && base)
-	echo "done"
+	echo "all done"
 }
 
 down() {

@@ -1,6 +1,7 @@
 #!/bin/env fish
 
-set device (bluetoothctl devices | grep Device | tac | menu | awk '{print $2}')
+set device (bluetoothctl devices | grep Device | tac \
+	| vicinae dmenu | awk '{print $2}')
 test -z "$device" && exit
 
 if bluetoothctl info | grep -q $device
