@@ -31,23 +31,24 @@ window-rule {
 
 output "eDP-1" { scale 1.2; }
 animations { slowdown 0.5; }
+cursor { xcursor-theme "Bibata-Modern-Classic"; }
+screenshot-path "~/Pictures/screenshots/%F_%H-%M-%S.png"
 hotkey-overlay { skip-at-startup; }
 prefer-no-csd
-screenshot-path "~/Pictures/screenshots/%F_%H-%M-%S.png"
-spawn-sh-at-startup "~/.config/niri/src/autostart"
-cursor { xcursor-theme "Bibata-Modern-Classic"; }
+
+spawn-sh-at-startup "setbg -r"
+spawn-sh-at-startup "XDG_CONFIG_HOME=~/.config/niri waybar"
+spawn-sh-at-startup "XDG_CONFIG_HOME=~/.config/niri dunst"
+spawn-sh-at-startup "vicinae server"
 
 binds {
-	mod+a { spawn-sh "menu run"; }
-	mod+v { spawn-sh "menu clip"; }
-	mod+period { spawn-sh "menu emoji"; }
-	mod+shift+f { spawn-sh "nemo"; }
+	mod+a { spawn-sh "vicinae toggle"; }
+	mod+v { spawn-sh "vicinae vicinae://extensions/vicinae/clipboard/history"; }
 	mod+w { spawn-sh "helium"; }
 	mod+shift+w { spawn-sh "helium --incognito"; }
 	mod+t { spawn-sh "kitty"; }
 	mod+e { spawn-sh "kitty nvim ."; }
 	mod+n { spawn-sh "cd ~/notes && kitty nvim index.md"; }
-	mod+p { spawn-sh "kitty htop"; }
 	mod+r { spawn-sh "setbg -r"; }
 	mod+b { spawn-sh "blue"; }
 	mod+escape { spawn-sh "niri msg action power-off-monitors && lock"; }

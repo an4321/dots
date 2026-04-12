@@ -1,0 +1,9 @@
+#!/bin/env fish
+
+set url "https://github.com/vicinaehq/vicinae/releases/latest/download/Vicinae-x86_64.AppImage"
+command curl -LO "$url"
+if test ! -f ./Vicinae-x86_64.AppImage
+	echo "something went wrong" >&2 && exit 1
+end
+command chmod +x ./Vicinae-x86_64.AppImage
+mv ./Vicinae-x86_64.AppImage ~/.local/bin/vicinae

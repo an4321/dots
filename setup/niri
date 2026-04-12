@@ -5,9 +5,8 @@ function confirm; read -P "$argv (y/N) " | string match -qr '^[Yy]$'; end
 command -v "pacman" &>/dev/null || exit 1
 
 sudo pacman --needed --noconfirm -S \
-	niri waybar swaybg swaylock kitty rofi nemo \
-	cliphist dunst libnotify imagemagick brightnessctl \
-	pavucontrol playerctl pamixer xwayland-satellite
+	niri xwayland-satellite waybar swaybg swaylock kitty nemo dunst \
+	libnotify imagemagick brightnessctl pavucontrol playerctl pamixer
 
 confirm "get fonts?" && sudo pacman --needed --noconfirm -S \
 	ttf-dejavu ttf-liberation ttf-jetbrains-mono-nerd noto-fonts-emoji
