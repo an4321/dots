@@ -686,6 +686,8 @@ function M.setup(opts)
 		callback = function()
 			local arg = vim.fn.argv(0)
 			if arg ~= "" and vim.fn.isdirectory(arg) == 1 then
+				-- cd into target
+				vim.cmd.cd(arg)
 				-- clear the directory buffer
 				vim.cmd("bwipeout")
 				-- defer terminal creation until ui is ready

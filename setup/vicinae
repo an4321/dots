@@ -5,5 +5,9 @@ command curl -LO "$url"
 if test ! -f ./Vicinae-x86_64.AppImage
 	echo "something went wrong" >&2 && exit 1
 end
+
 command chmod +x ./Vicinae-x86_64.AppImage
+test -f ~/.local/bin/vicinae && trash ~/.local/bin/vicinae
 mv ./Vicinae-x86_64.AppImage ~/.local/bin/vicinae
+
+echo "kitty.desktop" >~/.config/xdg-terminals.list

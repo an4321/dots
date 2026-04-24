@@ -2,8 +2,11 @@
 
 switch "$argv"
 	case "r" "reset"
-		test -n "$WAYLAND_DISPLAY" && killall wlsunset || \
+		if test -n "$WAYLAND_DISPLAY"
+			killall wlsunset
+		else
 			command xrandr --output eDP-1 --gamma 1:1:1 --brightness 1
+		end
 	case "*"
 		if test -n "$argv"
 			set bright "$argv"
