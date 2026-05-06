@@ -1,0 +1,15 @@
+#!/bin/env fish
+
+if test -n "$NVIM"
+    if test -n "$argv"
+        nvim --server $NVIM --remote $(realpath $argv)
+    else
+        nvim --server $NVIM --remote .
+    end
+else
+    if test -n "$argv"
+        $EDITOR $argv
+    else
+        $EDITOR .
+    end
+end
