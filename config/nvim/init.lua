@@ -31,7 +31,7 @@ vim.cmd [[ au TermOpen * setlocal nospell | startinsert ]]
 -- statusline
 vim.opt.cmdheight = 0
 vim.opt.laststatus = 3
-require('vim._extui').enable({})
+require('vim._core.ui2').enable({ msg = { targets = 'msg' } })
 function recording_status()
 	return vim.fn.reg_recording() ~= '' and 'recording @' .. vim.fn.reg_recording() or ''
 end
@@ -46,7 +46,7 @@ vim.pack.add({
 	'https://github.com/mason-org/mason.nvim',
 	'https://github.com/mason-org/mason-lspconfig.nvim',
 	{ src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'master' },
-	'https://github.com/saghen/blink.cmp',
+	'https://github.com/saghen/blink.lib', 'https://github.com/saghen/blink.cmp',
 })
 
 require('fm').setup()
