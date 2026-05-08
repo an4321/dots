@@ -1,47 +1,44 @@
-#!/bin/env bash
+#!/bin/env fish
 
-help() {
-	echo -e "Usage: $0
-	[-f fit] [-c center] [-t tile] [-z zoom fill] [image]
-	[-r random] [-h help]"
-}
+function rand
+	ls "$argv"/*.{png,jpg,jpeg,webp} 2>/dev/null | shuf -n 1
+end
 
-wall=""; mode=""; random=false
+if test -z "$argv"
+	set wall $(rand ~/Pictures/wallpapers)
+else if test -d "$argv"
+	set wall $(rand $argv)
+else if test -f "$argv"
+	set wall "$argv"
+end
 
-# parse options
-while getopts "fctrh" opt; do
-	case $opt in
-		f) mode="fit" ;;
-		c) mode="center" ;;
-		t) mode="tile" ;;
-		z) mode="fill" ;;
-		r) random=true ;;
-		h) help && exit 0 ;; 
-		\?) help && exit 1 ;;
-	esac
-done
+test ! -f "$wall" && echo "error: invalid input" && exit 1
 
-# remove parsed options
-shift $((OPTIND-1))
-wall_dir=${1:-"$HOME/Pictures/wallpapers"}
+set portrait false
+test $(identify -format "%[fx:w/h]" "$wall") -lt 1 && set portrait true
 
-# some logical gymnastics
-[ -d "$wall_dir" ] && [[ "$random" == false ]] && wall=$(nsxiv -otf $wall_dir)
-[ -f "$wall_dir" ] && wall=$wall_dir
-[ -z "$wall" ] && wall=$(ls $wall_dir/*.{png,jpg,jpeg,webp} 2>/dev/null | shuf -n 1)
-[ ! -f "$wall" ] && echo "Error: wallpaper not found" && exit 1
-
-# set mode for landscape or portrait
-if [ -z "$mode" ]; then
-	mode="fill"
-	[[ $(identify -format "%[fx:w/h]" "$wall") < 1 ]] && mode="fit"
-fi
-
-# set wallpaper
-if [ -n "$WAYLAND_DISPLAY" ]; then
-	killall swaybg &>/dev/null
-	nohup swaybg  -c "#000000" -m "$mode" -i "$wall" &>/dev/null &
+# set the wallpaper
+if string match -qi "*gnome*" "$XDG_CURRENT_DESKTOP"
+	if "$portrait"
+		gsettings set org.gnome.desktop.background picture-options 'scaled'
+		gsettings set org.gnome.desktop.background primary-color '#000000'
+	else
+		gsettings set org.gnome.desktop.background picture-options 'zoom'
+	end
+	gsettings set org.gnome.desktop.background picture-uri "$wall"
+	gsettings set org.gnome.desktop.background picture-uri-dark "$wall"
+else if test -n "$WAYLAND_DISPLAY"
+	set old $(pidof swaybg)
+	if "$portrait"
+		nohup swaybg -c "#000000" -m "fit" -i "$wall" &>/dev/null &
+	else
+		nohup swaybg -m "fill" -i "$wall" &>/dev/null &
+	end
+	test -n "$old" && kill "$old"
 else
-	[[ "$mode" == "fit" ]] && mode="max"
-	feh --bg-$mode "$wall"
-fi
+	if "$portrait"
+		feh --bg-max "$wall"
+	else
+		feh --bg-fill "$wall"
+	end
+end
