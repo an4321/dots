@@ -1,7 +1,7 @@
 function j
 	set -l argc (count $argv)
 	if test $argc -eq 0
-		cd "$HOME/Desktop"
+		cd "$HOME/Projects"
 	else if test $argc -eq 1 -a -d $argv[1]
 		cd $argv[1]
 	else

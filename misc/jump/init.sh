@@ -1,6 +1,6 @@
 j() {
 	if [ $# -eq 0 ]; then
-		cd ~/Desktop
+		cd ~/Projects
 	elif [ $# -eq 1 ] && [ -d "$1" ]; then
 		cd "$1"
 	else
