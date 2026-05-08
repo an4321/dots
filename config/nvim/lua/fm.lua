@@ -673,7 +673,26 @@ function M.setup(opts)
 	api.nvim_set_hl(0, "FmSelect", { link = "Visual", default = true })
 
 	api.nvim_create_user_command("Fm", function(cmd_opts)
-		M.open(cmd_opts.args ~= "" and cmd_opts.args or nil)
+		local dir = nil
+
+		if cmd_opts.args ~= "" then
+			dir = cmd_opts.args
+		elseif vim.bo.buftype == "terminal" then
+			-- get pwd via process-id
+			local terminal_pid = vim.b.terminal_job_pid
+			if terminal_pid then
+				dir = vim.fn.resolve(string.format("/proc/%s/cwd", terminal_pid))
+
+				-- macos doesnot have /proc, so we use lsof as a fallback
+				if vim.fn.has("mac") == 1 then
+					local handle = io.popen("lsof -p " .. terminal_pid .. " | grep cwd | awk '{print $NF}'")
+					dir = handle:read("*a"):gsub("%s+", "")
+					handle:close()
+				end
+			end
+		end
+
+		M.open(dir)
 	end, { nargs = "?" })
 
 	-- disable netrw
