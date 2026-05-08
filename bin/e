@@ -7,9 +7,7 @@ if test -n "$NVIM"
         nvim --server $NVIM --remote .
     end
 else
-    if test -n "$argv"
-        $EDITOR $argv
-    else
-        $EDITOR .
-    end
+	set target "."
+	test -n "$argv" && set target "$argv"
+	nvim $target
 end

@@ -32,6 +32,7 @@ alias ex='extract'
 alias poweroff="systemctl poweroff"
 alias reboot="systemctl soft-reboot"
 alias hard-reboot="systemctl reboot"
+alias logout="pkill -u $USER"
 
 alias rg="command rg --hidden --smart-case --pretty -g '!{.git,$IGNORE}'"
 alias fd="command fd --hidden --follow --color auto --exclude={.git,$IGNORE}"

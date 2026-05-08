@@ -36,7 +36,7 @@ screenshot-path "~/Pictures/screenshots/%F_%H-%M-%S.png"
 hotkey-overlay { skip-at-startup; }
 prefer-no-csd
 
-spawn-sh-at-startup "setbg -r"
+spawn-sh-at-startup "setbg"
 spawn-sh-at-startup "XDG_CONFIG_HOME=~/.config/niri waybar"
 spawn-sh-at-startup "XDG_CONFIG_HOME=~/.config/niri dunst"
 spawn-sh-at-startup "vicinae server"
@@ -49,7 +49,7 @@ binds {
 	mod+t { spawn-sh "kitty"; }
 	mod+e { spawn-sh "kitty nvim ."; }
 	mod+n { spawn-sh "cd ~/notes && kitty nvim index.md"; }
-	mod+r { spawn-sh "setbg -r"; }
+	mod+r { spawn-sh "setbg"; }
 	mod+b { spawn-sh "blue"; }
 	mod+escape { spawn-sh "niri msg action power-off-monitors && lock"; }
 
