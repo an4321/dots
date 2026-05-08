@@ -1,15 +1,29 @@
 #!/bin/env fish
 
+set exclude_dir "$HOME/.cache/exclude.txt"
+echo -e "node_modules\n.next\n.svelte-kit\n__pycache__\n.venv\n.astro" \
+	>$exclude_dir
+
+function die; echo "error: $argv" >&2 && exit 1; end
+
+function copy
+	rsync -aPhz --delete --exclude-from=$exclude_dir \
+		"$argv[1]" "$argv[2]" || die "rsync failed"
+end
+
 if test -z "$argv"
-	exit 1
+	# help message
+	echo "usage: $(basename (status filename)) [destination] [target dirs...]"
+	exit 0
 else if test -d "$argv"
-	set backup_dirs $HOME/{notes,dots,Desktop,Documents,Pictures}
+	set backup_dirs $HOME/{notes,dots,Projects,Documents,Pictures}
 else
-	test ! -d "$argv[1]" && exit 1
-	for i in $argv
-		test ! -e $i && echo "invalid '$i'" && exit 1
-	end
+	# validate files
+	test ! -d "$argv[1]" && die "'$argv[1]' is not a directory"
 	set backup_dirs $argv[2..-1]
+	for i in $backup_dirs
+		test ! -e $i && die "'$i' not found"
+	end
 end
 
 set destination "$argv[1]/backup"
@@ -25,7 +39,5 @@ for i in $backup_dirs
 		command cp -r $backup_destination $old
 	end
 
-	rsync -aPhz --delete \
-		--exclude={node_modules,.next,.svelte-kit,__pycache__,.venv,vendor} \
-		"$i" "$destination"
+	copy "$i" "$destination"
 end
