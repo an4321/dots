@@ -11,6 +11,8 @@ switch "$argv"
 		die "invalid option"
 end
 
+command mkdir -p ~/.local/bin ~/.local/share/applications
+
 command curl -LO "$url" || die "during curl"
 command tar xzf nvim-linux-x86_64.tar.gz || die "extracting"
 command rm -rf nvim-linux-x86_64.tar.gz
@@ -18,4 +20,19 @@ command rm -rf nvim-linux-x86_64.tar.gz
 test -e ~/.local/nvim-old && command rm -rf ~/.local/nvim-old
 test -e ~/.local/nvim && command mv ~/.local/nvim ~/.local/nvim-old
 command mv ./nvim-linux-x86_64 ~/.local/nvim
-command ln -sf ~/.local/nvim/bin/nvim ~/.local/bin
+command ln -sf ~/.local/nvim/bin/nvim ~/.local/bin/nvim
+
+if test ! -e ~/.local/share/applications/nvim.desktop
+	echo '''
+	[Desktop Entry]
+	Type=Application
+	Name=Neovim
+	GenericName=Text Editor
+	Exec=nvim %F
+	Terminal=true
+	Icon=nvim
+	Categories=Utility;TextEditor;Development;
+	Keywords=Text;Editor;Vim;
+	MimeType=text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-python;application/x-php;application/javascript;application/xml;text/markdown;
+	''' >~/.local/share/applications/nvim.desktop
+end
