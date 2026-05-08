@@ -1,5 +1,7 @@
 #!/bin/env fish
 
+function confirm; read -P "$argv (y/N) " | string match -qr '^[Yy]$'; end
+
 set bin "$HOME/.local/bin"
 
 test -f $bin/helium-browser-old && command rm -rf $bin/helium-browser-old
@@ -11,7 +13,30 @@ curl -L "$url" -o "$bin/helium-browser"
 
 command chmod +x $bin/helium-browser
 
-if test ! -f $bin/helium
-	echo -e '#!/bin/env sh\nhelium-browser --force-device-scale-factor=1.2 $@' \
-		>"$bin/helium" && chmod +x "$bin/helium"
+if test ! -e ~/.local/share/applications/helium.desktop
+	echo '''
+	[Desktop Entry]
+	Version=1.0
+	Type=Application
+	Name=Helium
+	GenericName=Web Browser
+	Exec=helium-browser --password-store=basic --force-device-scale-factor=1.0 %u
+	Terminal=false
+	Icon=helium
+	Categories=Network;WebBrowser;
+	MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;
+	StartupNotify=true
+	StartupWMClass=helium
+	''' >~/.local/share/applications/helium.desktop
+end
+
+if test ! -e ~/.local/share/icons/helium.png
+	wget -O ~/.local/share/icons/helium.png 'https://github.com/imputnet/helium/blob/main/resources/branding/app_icon/raw.png?raw=true'
+end
+
+if confirm "make helium the default-web-browser for gnome"
+	update-desktop-database ~/.local/share/applications
+	xdg-settings set default-web-browser helium.desktop
+	xdg-mime default helium.desktop x-scheme-handler/http
+	xdg-mime default helium.desktop x-scheme-handler/https
 end
