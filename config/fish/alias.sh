@@ -29,6 +29,11 @@ complete -c x -w env
 alias o='setsid xdg-open'
 alias ex='extract'
 
+alias cam="command ffplay -hide_banner -loglevel fatal -stats \
+	-window_title webcam -fflags +nobuffer -fast /dev/video0"
+alias batt="printf 'capacity: ' && cat /sys/class/power_supply/BAT0/capacity && \
+	upower -e | grep 'BAT' | xargs upower -i | grep 'time to' | xargs"
+
 alias poweroff="systemctl poweroff"
 alias reboot="systemctl soft-reboot"
 alias hard-reboot="systemctl reboot"
@@ -70,12 +75,3 @@ alias gst="git stash && git stash branch temp"
 alias grm="git rm --cached --ignore-unmatch"
 alias gl='git log --graph --all \
 	--pretty=format:"%C(magenta)%h %C(white) %an  %ar%C(blue)  %D%n%s%n"'
-
-alias fman="man -k . | awk '{print \$1, \$2}' | fzf --height=100% \
-    --preview 'echo {1} | xargs man 2>/dev/null' \
-    --preview-window=right:60% | awk '{print \$1}' | xargs -r man"
-alias batt="echo capacity: $(command cat /sys/class/power_supply/BAT0/capacity)%; \
-	upower -i $(upower -e | grep 'BAT') | grep 'time to' | xargs"
-alias cam="command ffplay -hide_banner -loglevel fatal -stats \
-	-window_title webcam -fflags +nobuffer -fast /dev/video0"
-
