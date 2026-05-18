@@ -46,7 +46,7 @@ local function current_buf() return api.nvim_get_current_buf() end
 
 local function cursor_entry()
 	local line = api.nvim_get_current_line()
-	return line:gsub("/$", "")
+	return line and line:gsub("/$", "") or ""
 end
 
 local function set_cursor_to(buf, target_name)
@@ -62,7 +62,11 @@ end
 -- section: filesystem
 
 local function scandir(path, show_hidden)
-	local entries = fn.readdir(path)
+	local ok, entries = pcall(fn.readdir, path)
+	if not ok or type(entries) ~= "table" then
+		api.nvim_echo({{"Cannot read directory: " .. tostring(path), "WarningMsg"}}, false, {})
+		return {}
+	end
 
 	table.sort(entries, function(a, b)
 		local a_dir = fn.isdirectory(path .. "/" .. a) == 1
@@ -114,11 +118,18 @@ local function write_clipboard(action, items)
 	end
 end
 
+-- helper: count items safely (works on neovim >= 0.7)
+local function tbl_count(t)
+	local count = 0
+	for _ in pairs(t or {}) do count = count + 1 end
+	return count
+end
+
 -- section: rendering_and_ui
 
 local function update_statusline(buf, state)
 	local clip = read_clipboard()
-	local clip_count = vim.tbl_count(clip.items)
+	local clip_count = tbl_count(clip.items)
 	local clip_str = ""
 
 	if clip_count > 0 then
@@ -131,7 +142,7 @@ local function update_statusline(buf, state)
 	local win = fn.bufwinid(buf)
 
 	if win ~= -1 then
-		vim.wo[win].winbar = "" -- clear winbar just in case
+		vim.wo[win].winbar = ""
 		vim.wo[win].statusline = " %#Normal# " .. short_path .. clip_str .. "%="
 	end
 end
@@ -194,11 +205,20 @@ local function update_preview(buf)
 	local state = buf_get_state(buf)
 	if not state or not state.preview_open then return end
 
+	-- if preview window was closed manually, reset
+	if state.preview_win and not api.nvim_win_is_valid(state.preview_win) then
+		state.preview_win = nil
+	end
+
 	local name = cursor_entry()
-	if not name or name == "" then return end
+	if not name or name == "" then
+		-- cursor on empty line, close preview if open
+		if state.preview_win then close_preview(state) end
+		return
+	end
 	local full = state.path .. "/" .. name
 
-	if not state.preview_win or not api.nvim_win_is_valid(state.preview_win) then
+	if not state.preview_win then
 		local win_width = api.nvim_win_get_width(0)
 		local p_width = math.floor(win_width * 0.5)
 		vim.cmd("botright " .. p_width .. "vnew")
@@ -236,13 +256,10 @@ local function update_preview(buf)
 		end
 	elseif is_text_file(full) then
 		local lines = vim.fn.readfile(full, "", 200)
-
-		-- sanitization for some filetype (like pdf)
+		-- sanitize for binary bytes
 		for i, line in ipairs(lines) do
-			-- remove trailing \r, and replace internal \n ie NUL with a safe string
 			lines[i] = line:gsub("\r$", ""):gsub("\n", "^@")
 		end
-
 		api.nvim_buf_set_lines(p_buf, 0, -1, false, lines)
 		local ok_ft, ft = pcall(vim.filetype.match, { filename = full })
 		if ok_ft and ft then vim.bo[p_buf].filetype = ft end
@@ -302,12 +319,11 @@ local function system_open()
 	local state = buf_get_state(buf)
 	local full = state.path .. "/" .. cursor_entry()
 
-	-- use native neovim open if available (0.10+), otherwise fallback
 	if vim.ui.open then
 		vim.ui.open(full)
 	else
 		local cmd = fn.has("mac") == 1 and "open" or (fn.has("win32") == 1 and "start" or "xdg-open")
-		fn.system({ cmd, fn.shellescape(full) })
+		fn.system({ cmd, full })
 	end
 end
 
@@ -335,13 +351,20 @@ end
 local function create_items()
 	local buf = current_buf()
 	local state = buf_get_state(buf)
-	local input = fn.input(" ceate: ")
+
+	local input = fn.input(" create: ")
 	if input == "" then return end
 
+	local items = vim.fn.split(input)
+	if #items == 0 then return end
+
 	local first_created = nil
-	for item in string.gmatch(input, "%S+") do
+	for _, item in ipairs(items) do
+		-- sanitize: remove any accidental leading/trailing spaces
+		item = vim.fn.trim(item)
+		if item == "" then goto continue end
 		local full = state.path .. "/" .. item
-		-- create dir if it ends with a slash
+		-- create dir or file
 		if item:match("/$") then
 			fn.mkdir(full, "p")
 		else
@@ -350,6 +373,7 @@ local function create_items()
 			if f then f:close() end
 		end
 		if not first_created then first_created = item:match("^[^/]+") end
+		::continue::
 	end
 
 	render(buf)
@@ -374,7 +398,7 @@ local function delete_to_trash()
 	local state = buf_get_state(buf)
 
 	local targets = {}
-	if vim.tbl_count(state.selections) > 0 then
+	if tbl_count(state.selections) > 0 then
 		for name, _ in pairs(state.selections) do
 			table.insert(targets, state.path .. "/" .. name)
 		end
@@ -390,7 +414,6 @@ local function delete_to_trash()
 
 	if ans == 1 then
 		for _, target in ipairs(targets) do
-			-- check for common trash cli utilities, fallback to hard delete
 			if fn.executable("trash-put") == 1 then
 				fn.system({ "trash-put", target })
 			elseif fn.executable("trash") == 1 then
@@ -426,9 +449,13 @@ end
 local function unselect_all()
 	local buf = current_buf()
 	local state = buf_get_state(buf)
-	state.selections = {}
-	buf_set_state(buf, state)
-	fast_render(buf)
+	if tbl_count(state.selections) == 0 then
+		vim.cmd("nohlsearch")
+	else
+		state.selections = {}
+		buf_set_state(buf, state)
+		fast_render(buf)
+	end
 end
 
 local function invert_selection()
@@ -450,7 +477,7 @@ local function mark_clipboard(action)
 	local state = buf_get_state(buf)
 	local targets = {}
 
-	if vim.tbl_count(state.selections) > 0 then
+	if tbl_count(state.selections) > 0 then
 		for name, _ in pairs(state.selections) do
 			targets[state.path .. "/" .. name] = true
 		end
@@ -488,7 +515,7 @@ local function paste_entries()
 	local buf = current_buf()
 	local state = buf_get_state(buf)
 	local clip = read_clipboard()
-	if clip.action == "none" or vim.tbl_count(clip.items) == 0 then return end
+	if clip.action == "none" or tbl_count(clip.items) == 0 then return end
 
 	for src_path, _ in pairs(clip.items) do
 		local filename = fn.fnamemodify(src_path, ":t")
@@ -509,7 +536,6 @@ local function paste_entries()
 	render(buf)
 end
 
--- bulk rename
 local function bulk_rename()
 	local buf = current_buf()
 	local state = buf_get_state(buf)
@@ -520,8 +546,8 @@ local function bulk_rename()
 	api.nvim_set_current_buf(r_buf)
 
 	local clean_lines = {}
-	for i, line in ipairs(state.cached_lines) do 
-		clean_lines[i] = line:gsub("/$", "") 
+	for i, line in ipairs(state.cached_lines) do
+		clean_lines[i] = line:gsub("/$", "")
 	end
 
 	api.nvim_buf_set_lines(r_buf, 0, -1, false, clean_lines)
@@ -534,9 +560,14 @@ local function bulk_rename()
 		buffer = r_buf,
 		callback = function()
 			local new_lines = api.nvim_buf_get_lines(r_buf, 0, -1, false)
-			local changes = {}
 
-			-- identify what changed
+			-- check that the number of lines hasn't changed
+			if #new_lines ~= #clean_lines then
+				api.nvim_echo({{"line count changed! rename cancelled.", "WarningMsg"}}, false, {})
+				return
+			end
+
+			local changes = {}
 			for i, old_name in ipairs(clean_lines) do
 				local new_name = new_lines[i]
 				if new_name and new_name ~= "" and old_name ~= new_name then
@@ -550,7 +581,6 @@ local function bulk_rename()
 				return
 			end
 
-			-- build confirmation message
 			local prompt = "confirm changes:\n"
 			for _, change in ipairs(changes) do
 				prompt = prompt .. string.format("  %s  ->  %s\n", change.old, change.new)
@@ -678,12 +708,9 @@ function M.setup(opts)
 		if cmd_opts.args ~= "" then
 			dir = cmd_opts.args
 		elseif vim.bo.buftype == "terminal" then
-			-- get pwd via process-id
 			local terminal_pid = vim.b.terminal_job_pid
 			if terminal_pid then
 				dir = vim.fn.resolve(string.format("/proc/%s/cwd", terminal_pid))
-
-				-- macos doesnot have /proc, so we use lsof as a fallback
 				if vim.fn.has("mac") == 1 then
 					local handle = io.popen("lsof -p " .. terminal_pid .. " | grep cwd | awk '{print $NF}'")
 					dir = handle:read("*a"):gsub("%s+", "")
@@ -705,11 +732,8 @@ function M.setup(opts)
 		callback = function()
 			local arg = vim.fn.argv(0)
 			if arg ~= "" and vim.fn.isdirectory(arg) == 1 then
-				-- cd into target
 				vim.cmd.cd(arg)
-				-- clear the directory buffer
 				vim.cmd("bwipeout")
-				-- defer terminal creation until ui is ready
 				vim.schedule(function() M.open() end)
 			end
 		end,
