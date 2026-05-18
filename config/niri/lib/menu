@@ -1,0 +1,18 @@
+#!/bin/env fish
+
+function menu
+	rofi -config "$HOME/.config/niri/lib/rofi.rasi" $argv 2>/dev/null
+end
+
+switch "$argv"
+	case "" "d" "dmenu"
+		menu -dmenu -p ''
+	case "r" "run"
+		menu -show run
+	case "c" "clip"
+		cliphist list | sed -r 's/([0-9]+)\s+(.*)/\1 \2/' \
+			| menu -dmenu -p 'cliphist' | awk '{print $1}' \
+			| xargs cliphist decode | wl-copy
+	case "*"
+		echo "invalid command!" & exit 1
+end

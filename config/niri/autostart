@@ -1,0 +1,6 @@
+#!/bin/sh
+setbg &
+waybar -c ~/.config/niri/lib/waybar.jsonc -s ~/.config/niri/lib/waybar.css &
+dunst --config ~/.config/niri/lib/dunstrc &
+wl-paste --watch cliphist store &
+ln -svf ~/.config/niri/lib/menu ~/.local/bin/ &
