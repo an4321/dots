@@ -1,0 +1,20 @@
+#!/usr/bin/env fish
+
+set theme (gsettings get org.gnome.desktop.interface color-scheme)
+
+if test "$theme" = "'default'"
+	gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+	command ln -sf ~/.config/kitty/theme-dark.conf ~/.cache/kitty-theme.conf
+	set nvim_bg "dark"
+else
+	gsettings set org.gnome.desktop.interface color-scheme 'default'
+	command ln -sf ~/.config/kitty/theme-light.conf ~/.cache/kitty-theme.conf
+	set nvim_bg "light"
+end
+
+# reload kitty
+pkill -USR1 -f kitty
+# reload nvim
+for server in (ls /run/user/(id -u)/nvim.* 2>/dev/null)
+    nvim --server "$server" --remote-send ":set background=$nvim_bg<CR>" >/dev/null 2>&1 &
+end
