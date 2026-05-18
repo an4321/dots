@@ -31,7 +31,6 @@ if check "pacman"
 		sudo pacman -S --needed $argv
 		or check_aur $argv
 	end
-
 else if check "apt"
 	if test -z "$argv"
 		set sel (apt-cache pkgnames | menu "apt-cache show {}")
@@ -41,7 +40,7 @@ else if check "apt"
 	else
 		sudo apt install $argv
 	end
-
 else
 	die "unsupported distribution"
 end
+exit 0

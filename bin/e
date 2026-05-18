@@ -1,13 +1,8 @@
 #!/bin/env fish
 
 if test -n "$NVIM"
-    if test -n "$argv"
-        nvim --server $NVIM --remote $(realpath $argv)
-    else
-        nvim --server $NVIM --remote .
-    end
+	set file (realpath $argv)
+	test -f $file && nvim --server $NVIM --remote $file
 else
-	set target "."
-	test -n "$argv" && set target $argv
-	nvim $target
+	test -n "$argv" && nvim $argv || nvim .
 end

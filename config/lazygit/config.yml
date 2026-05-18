@@ -5,7 +5,6 @@ gui:
   showCommandLog: false
   showPanelJumps: false
   showBottomLine: true
-  # border: hidden
   statusPanelView: allBranchesLog
   theme:
     selectedLineBgColor:
@@ -16,8 +15,8 @@ gui:
       - '#ccc'
 
 os:
-  edit: '$EDITOR {{filename}}'
-  editAtLine: '$EDITOR +{{line}} {{filename}}'
+  edit: 'e {{filename}}'
+  editAtLine: 'e +{{line}} {{filename}}'
 
 promptToReturnFromSubprocess: false
 disableStartupPopups: false
