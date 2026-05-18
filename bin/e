@@ -8,6 +8,6 @@ if test -n "$NVIM"
     end
 else
 	set target "."
-	test -n "$argv" && set target "$argv"
+	test -n "$argv" && set target $argv
 	nvim $target
 end

@@ -23,16 +23,5 @@ command mv ./nvim-linux-x86_64 ~/.local/nvim
 command ln -sf ~/.local/nvim/bin/nvim ~/.local/bin/nvim
 
 if test ! -e ~/.local/share/applications/nvim.desktop
-	echo '''
-	[Desktop Entry]
-	Type=Application
-	Name=Neovim
-	GenericName=Text Editor
-	Exec=nvim %F
-	Terminal=true
-	Icon=nvim
-	Categories=Utility;TextEditor;Development;
-	Keywords=Text;Editor;Vim;
-	MimeType=text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-python;application/x-php;application/javascript;application/xml;text/markdown;
-	''' >~/.local/share/applications/nvim.desktop
+	command ln -sf ~/.local/nvim/share/applications/nvim.desktop ~/.local/share/applications/
 end

@@ -2,7 +2,7 @@ export LC_ALL=en_US.UTF-8
 export ACCENT="yellow"
 export EDITOR="nvim"
 export MANPAGER="nvim +Man!"
-export PATH=$PATH:"/bin:/usr/local/bin:$HOME/.local/bin:$HOME/dots/bin:$HOME/.go/bin:$HOME/.local/go/bin:$HOME/.local/node/bin:$HOME/.bun/bin"
+export PATH=$PATH:"/bin:/usr/local/bin:$HOME/.local/bin:$HOME/dots/bin:$HOME/.go/bin:$HOME/.local/go/bin:$HOME/.local/node/bin:$HOME/.bun/bin:/snap/bin"
 export FZF_DEFAULT_OPTS="--cycle --reverse --no-separator --scroll-off=3 \
 	--prompt '  ' --pointer ' ' --marker='* ' -m --height=40% \
 	--bind='ctrl-space:toggle-preview,ctrl-h:backward-kill-word',ctrl-d:half-page-down,ctrl-u:half-page-up \
@@ -18,14 +18,11 @@ alias rm="trash"
 alias df="df -h"
 alias free="free -h"
 alias ff="fastfetch"
-alias icat="kitten icat --align left"
 alias se="sudoedit"
 alias ls="ls -G --color=auto --group-directories-first"
 alias la="ls -GA --color=auto --group-directories-first"
-alias li="iv -ota . | tee /dev/tty | y"
 alias ywd="pwd | tee /dev/tty | y"
-alias x='xargs -I "jk"'
-complete -c x -w env
+alias li="iv -ota . | tee /dev/tty | y"
 alias o='setsid xdg-open'
 alias ex='extract'
 
@@ -51,27 +48,17 @@ alias pr="pnpm run"
 alias px="pnpm dlx"
 
 alias lg="lazygit"
-alias lines="git ls-files | xargs cat | wc -l"
 alias gcl="git clone"
 alias gc1="git clone --depth 1"
-alias ga="git add"
-alias gai="git add -p"
 alias gb="git branch"
 alias gco="git checkout"
-alias gm="git merge"
-alias gp="git pull"
-alias gP="git push origin"
+alias gpo="git push origin"
 alias gcm="git commit"
-alias gac="git add . && git commit"
-alias gcp="git commit && git push origin"
 alias gi="git init && git branch -m main"
-alias gib="git init --bare && git branch -m main"
-alias gcb="git clone --bare"
 alias gw="git worktree"
-alias gwa="git worktree add"
-alias gwr="git worktree remove"
 alias gs="git status --short --branch --show-stash"
 alias gst="git stash && git stash branch temp"
 alias grm="git rm --cached --ignore-unmatch"
 alias gl='git log --graph --all \
 	--pretty=format:"%C(magenta)%h %C(white) %an  %ar%C(blue)  %D%n%s%n"'
+alias lines="git ls-files | xargs cat | wc -l"

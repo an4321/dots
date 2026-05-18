@@ -1,5 +1,6 @@
 #!/bin/env fish
 
-mkdir -p ~/Pictures/wallpapers
-wget -O "$HOME/Pictures/wallpapers/$(random).png" \
-	"https://picsum.photos/1920/1080?random"
+mkdir -p ~/Pictures/Wallpapers
+curl -s "https://www.bing.com/HPImageArchive.aspx?format=xml&idx=0&n=1&mkt=en-US" | \
+	grep -oP "<url>.*?</url>" | cut -d ">" -f 2 | cut -d "<" -f 1 | \
+	xargs -I {} wget "$HOME/Pictures/Wallpapers/$(random).png" "https://www.bing.com{}"

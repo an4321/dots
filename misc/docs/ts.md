@@ -19,7 +19,7 @@ mv node* "$HOME/.local/"
 set file (ls -d $HOME/.local/node*)
 set bins (ls $file"/bin")
 for i in $bins
-	ln -svf $file"/bin/"$i "$HOME/.local/bin/$i"
+	ln -sf $file"/bin/"$i "$HOME/.local/bin/$i"
 end
 ```
 

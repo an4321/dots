@@ -1,11 +1,12 @@
 #!/bin/env fish
 
 function rand
+	test ! -d $argv && return 1
 	ls "$argv"/*.{png,jpg,jpeg,webp} 2>/dev/null | shuf -n 1
 end
 
 if test -z "$argv"
-	set wall $(rand ~/Pictures/wallpapers)
+	set wall $(rand ~/Pictures/Wallpapers)
 else if test -d "$argv"
 	set wall $(rand $argv)
 else if test -f "$argv"
