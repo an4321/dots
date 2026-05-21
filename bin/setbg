@@ -16,7 +16,9 @@ end
 test ! -f "$wall" && echo "error: invalid input" && exit 1
 
 set portrait false
-test $(identify -format "%[fx:w/h]" "$wall") -lt 1 && set portrait true
+if command -v "identify" &>/dev/null
+	test $(identify -format "%[fx:w/h]" "$wall") -lt 1 && set portrait true
+end
 
 # set the wallpaper
 if string match -qi "*gnome*" "$XDG_CURRENT_DESKTOP"
