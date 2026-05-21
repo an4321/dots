@@ -45,8 +45,9 @@ vim.pack.add({
 	'https://github.com/neovim/nvim-lspconfig',
 	'https://github.com/mason-org/mason.nvim',
 	'https://github.com/mason-org/mason-lspconfig.nvim',
-	{ src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'master' },
-	'https://github.com/saghen/blink.lib', 'https://github.com/saghen/blink.cmp',
+	'https://github.com/romus204/tree-sitter-manager.nvim',
+	'https://github.com/saghen/blink.lib',
+	'https://github.com/saghen/blink.cmp',
 })
 
 require('fm').setup()
@@ -57,7 +58,7 @@ vim.schedule(function()
 	require('gitsigns')
 	require('mason').setup()
 	require('mason-lspconfig').setup()
-	require('nvim-treesitter.configs').setup({ auto_install = true, highlight = { enable = true }})
+	require("tree-sitter-manager").setup({ auto_install = true })
 	require('blink.cmp').setup({ fuzzy = { implementation = 'lua' }})
 	vim.lsp.config('*', { capabilities = require('blink.cmp').get_lsp_capabilities() })
 end)
@@ -93,7 +94,7 @@ vim.keymap.set('v', 'gp', '"_dP')
 vim.keymap.set('v', '<tab>', '>gv')
 vim.keymap.set('v', '<s-tab>', '<gv')
 vim.keymap.set('n', '<bs>', ':term ')
-vim.keymap.set('t', '<c-d>', [[<c-\><c-n>]])
+vim.keymap.set('t', '<c-w>', [[<c-\><c-n>]])
 vim.keymap.set('n', '-', '1z=')
 vim.keymap.set('n', '<space>s', '<cmd>set spell!<cr>')
 vim.keymap.set('n', '<space>w', '<cmd>set wrap!<cr>')
