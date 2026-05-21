@@ -1,0 +1,19 @@
+#!/bin/env fish
+
+function confirm; read -P "$argv (y/N) " | string match -qr '^[Yy]$'; end
+
+test -e ~/.local/node-old && command rm -rf ~/.local/node-old
+test -e ~/.local/node && mv ~/.local/node ~/.local/node-old
+
+set url "https://nodejs.org"
+set latest (curl $url"/dist/latest/" \
+	| grep -o '"[^"]*"' | cut -d '"' -f 2 | grep "linux-x64.tar.gz")
+
+set name (basename $latest)
+echo "getting $name"
+wget $url$latest && extract $name && rm -rf $name
+
+mv node* "$HOME/.local/node"
+
+confirm "get pnpm" && npm install -g pnpm
+exit 0

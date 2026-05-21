@@ -1,0 +1,17 @@
+#!/bin/env fish
+
+function confirm; read -P "$argv (y/N) " | string match -qr '^[Yy]$'; end
+
+test -e ~/.local/go-old && command rm -rf ~/.local/go-old
+test -e ~/.local/go && mv ~/.local/go ~/.local/go-old
+
+set latest (curl -s "https://go.dev/VERSION?m=text" | head -n 1)
+echo "getting $latest"
+wget "https://go.dev/dl/$latest.linux-amd64.tar.gz"
+
+tar -C ~/.local -xzf "$latest.linux-amd64.tar.gz"
+command rm -rf "$latest.linux-amd64.tar.gz"
+
+for i in (ls ~/.local/go/bin)
+	command ln -sf ~/.local/go/bin/$i ~/.local/bin/$i
+end
