@@ -14,7 +14,7 @@ curl -L "$url" -o "$bin/helium-browser"
 command chmod +x $bin/helium-browser
 
 if test ! -e ~/.local/share/applications/helium.desktop
-	echo '''
+	echo """
 	[Desktop Entry]
 	Version=1.0
 	Type=Application
@@ -24,14 +24,16 @@ if test ! -e ~/.local/share/applications/helium.desktop
 	Terminal=false
 	Icon=helium
 	Categories=Network;WebBrowser;
-	MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;
+	MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;\
+		application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;
 	StartupNotify=true
 	StartupWMClass=helium
-	''' >~/.local/share/applications/helium.desktop
+	""" >~/.local/share/applications/helium.desktop
 end
 
 if test ! -e ~/.local/share/icons/helium.png
-	wget -O ~/.local/share/icons/helium.png 'https://github.com/imputnet/helium/blob/main/resources/branding/app_icon/raw.png?raw=true'
+	wget -O ~/.local/share/icons/helium.png \
+		'https://github.com/imputnet/helium/blob/main/resources/branding/app_icon/raw.png?raw=true'
 end
 
 if confirm "make helium the default-web-browser for gnome"
