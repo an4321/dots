@@ -1,14 +1,3 @@
-export LC_ALL=en_US.UTF-8
-export ACCENT="yellow"
-export EDITOR="nvim"
-export MANPAGER="nvim +Man!"
-export PATH=$PATH:"/bin:/usr/local/bin:$HOME/.local/bin:$HOME/dots/bin:$HOME/.go/bin:$HOME/.local/go/bin:$HOME/.local/node/bin:$HOME/.bun/bin:/snap/bin"
-export FZF_DEFAULT_OPTS="--cycle --reverse --no-separator --scroll-off=3 \
-	--prompt '  ' --pointer ' ' --marker='* ' -m --height=40% \
-	--bind='ctrl-space:toggle-preview,ctrl-h:backward-kill-word',ctrl-d:half-page-down,ctrl-u:half-page-up \
-	--color=bg+:$ACCENT,hl+:0,prompt:$ACCENT,fg+:black,gutter:-1,border:$ACCENT"
-export IGNORE="node_modules,.next,.svelte-kit,__pycache__,.venv,.cache,.bun,.npm,.local/share"
-
 alias ..="cd .."
 alias ...="cd ../.."
 alias cp="cp -vir"
