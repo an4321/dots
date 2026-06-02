@@ -5,6 +5,7 @@ export MANPAGER="nvim +Man!"
 export ACCENT="yellow"
 export FZF_DEFAULT_OPTS="--cycle --reverse --no-separator --scroll-off=3 \
 	--prompt '  ' --pointer ' ' --marker='* ' -m --height=40% \
-	--bind='ctrl-space:toggle-preview,ctrl-h:backward-kill-word',ctrl-d:half-page-down,ctrl-u:half-page-up \
-	--color=bg+:$ACCENT,hl+:0,prompt:$ACCENT,fg+:black,gutter:-1,border:$ACCENT"
+	--color=bg+:$ACCENT,hl+:0,prompt:$ACCENT,fg+:black,gutter:-1,border:$ACCENT" \
+	--bind='ctrl-space:toggle-preview,ctrl-h:backward-kill-word,\
+		ctrl-bs:backward-kill-word,ctrl-d:half-page-down,ctrl-u:half-page-up'
 export IGNORE="node_modules,.next,.svelte-kit,__pycache__,.venv,.cache,.bun,.npm,.local/share"

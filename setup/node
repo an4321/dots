@@ -11,7 +11,7 @@ set latest (curl $url"/dist/latest/" \
 
 set name (basename $latest)
 echo "getting $name"
-wget $url$latest && extract $name && rm -rf $name
+wget $url$latest && tar xzf $name && rm -rf $name
 
 mv node* "$HOME/.local/node"
 

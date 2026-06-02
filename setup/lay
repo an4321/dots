@@ -1,7 +1,12 @@
 #!/bin/env bash
 
-accept() { read -r -p "$1 [Y/n] " r; [[ $r =~ ^([yY])*$ ]]; }
-check() { command -v $@ &>/dev/null; }
+accept() {
+	read -r -p "$1 [Y/n] " r; [[ $r =~ ^([yY])*$ ]];
+}
+
+check() {
+	command -v $@ &>/dev/null;
+}
 
 base() {
 	if check "apt"; then

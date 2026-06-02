@@ -631,7 +631,7 @@ local function set_keymaps(buf)
 	map("p", paste_entries)
 	map("<c-c>", clear_clipboard)
 
-	map("<c-p>", toggle_preview)
+	map("<c-space>", toggle_preview)
 
 	-- open terminal
 	map("i", function()
