@@ -1,0 +1,54 @@
+#!/bin/env fish
+
+function confirm; read -P "$argv (y/N) " | string match -qr '^[Yy]$'; end
+
+confirm "remove the minimize & maximize buttons?" && \
+	gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:close'
+
+if confirm "set 10 fixed workspaces"
+	gsettings set org.gnome.mutter dynamic-workspaces false
+	gsettings set org.gnome.desktop.wm.preferences num-workspaces 10
+end
+
+if confirm "set system keybindings"
+	for i in (seq 1 9)
+		# switch to workspace
+		gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-$i "['<alt>$i']"
+		# move window to workspace
+		gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-$i "['<alt><shift>$i']"
+	end
+	# special case for workspace 10
+	gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-10 "['<alt>0']"
+	gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-10 "['<alt><shift>0']"
+
+	# next/prev workspace
+	gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-left "['<alt>h']"
+	gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right "['<alt>l']"
+	gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-left "['<alt><shift>h']"
+	gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-right "['<alt><shift>l']"
+
+	gsettings set org.gnome.desktop.wm.keybindings close "['<alt>q']"
+	gsettings set org.gnome.desktop.wm.keybindings toggle-fullscreen "['<alt><shift>m']"
+	gsettings set org.gnome.desktop.wm.keybindings toggle-maximized "['<alt>m']"
+	gsettings set org.gnome.shell.keybindings toggle-overview "['<alt>o', '<alt>a']"
+	gsettings set org.gnome.shell.keybindings show-screenshot-ui "['<alt>s', 'Print']"
+end
+
+if confirm "set custom keybindings"
+	gkb set "<alt>z" "xdg-screensaver lock"
+	gkb set "<alt>t" "xdg-terminal-exec"
+	gkb set "<alt>e" "xdg-terminal-exec e"
+	gkb set "<alt>i" "xdg-terminal-exec htop"
+	gkb set "<alt>w" "xdg-open http://"
+	gkb set "<shift><alt>w" "helium --incognito"
+	gkb set "<alt>f" "xdg-open file://$HOME"
+	gkb set "<alt>r" "setbg"
+	gkb set "<alt>n" "sh -c 'cd $HOME/notes && kitty -1 nvim index.md'"
+end
+
+if confirm "set kitty as the default terminal"
+	echo "kitty.desktop" >~/.config/xdg-terminals.list
+end
+
+confirm "get a nerd-font?" && ~/dots/setup/nf
+confirm "setup kanata?" && ~/dots/setup/kanata
