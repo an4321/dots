@@ -1,0 +1,118 @@
+#!/usr/bin/env fish
+
+set schema "org.gnome.settings-daemon.plugins.media-keys"
+set key "custom-keybindings"
+set path_prefix "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/"
+
+function die
+	echo -e "error: $argv" >&2 && exit 1
+end
+
+# helper function to get a clean Fish array of existing custom binding paths
+function get_bindings_list
+	set -l raw_list (gsettings get $schema $key)
+	if test "$raw_list" = "@as []" -o "$raw_list" = "[]"
+		return
+	end
+
+	# strip brackets, remove single quotes, and split into a fish array
+	set -l clean_list (string replace -r '^\\[' '' $raw_list | string replace -r '\\]$' '' | string replace -a "'" "")
+	string split ", " $clean_list
+end
+
+switch "$argv[1]"
+	case "list" "l"
+		set -l bindings (get_bindings_list)
+		test (count $bindings) -eq 0 && die "no custom keyboard shortcuts found."
+
+		set i 1
+		for b in $bindings
+			set -l item_schema "$schema.custom-keybinding:$b"
+
+			set binding (gsettings get $item_schema binding | string trim -c "'")
+			set command (gsettings get $item_schema command | string trim -c "'")
+
+			echo "[$i] "(set_color green)"$binding"(set_color normal)" -> "(set_color cyan)"$command"(set_color normal)
+			set i (math $i + 1)
+		end
+
+	case "set" "s"
+		test (count $argv) -lt 3 && die "missing 'binding' or 'command'"
+
+		set new_binding $argv[2]
+		set new_command $argv[3]
+		set new_name "custom_$new_command"
+
+		set bindings (get_bindings_list)
+
+		# generate a unique path using a timestamp
+		set -l new_id "custom_"(date +%s)
+		set -l new_path "$path_prefix$new_id/"
+
+		# set the properties in the relocated schema first
+		set -l item_schema "$schema.custom-keybinding:$new_path"
+		gsettings set $item_schema name "$new_name"
+		gsettings set $item_schema command "$new_command"
+		gsettings set $item_schema binding "$new_binding"
+
+		# append the new path to our fish array
+		set -a bindings "$new_path"
+
+		# format the fish array back into a gsettings string: ['/path/1/', '/path/2/']
+		set formatted_array "["
+		set num_bindings (count $bindings)
+		for i in (seq $num_bindings)
+			set formatted_array "$formatted_array'$bindings[$i]'"
+			if test $i -lt $num_bindings
+				set formatted_array "$formatted_array, "
+			end
+		end
+		set formatted_array "$formatted_array]"
+
+		# save the main array
+		gsettings set $schema $key "$formatted_array"
+		echo "shortcut added: $new_binding -> $new_command"
+
+	case "delete" "del" "d"
+		test (count $argv) -lt 2 && die "no index specified"
+
+		set -l index $argv[2]
+		set -l bindings (get_bindings_list)
+
+		test $index -le 0 -o $index -gt (count $bindings) && die "index not found"
+
+		set -l target_path $bindings[$index]
+
+		# remove the item from the fish array
+		set -e bindings[$index]
+
+		# format back to a gsettings string
+		set -l formatted_array "["
+		set -l num_bindings (count $bindings)
+		if test $num_bindings -gt 0
+			for i in (seq $num_bindings)
+				set formatted_array "$formatted_array'$bindings[$i]'"
+				if test $i -lt $num_bindings
+					set formatted_array "$formatted_array, "
+				end
+			end
+		end
+		set formatted_array "$formatted_array]"
+
+		# save the updated array
+		if test "$formatted_array" = "[]"
+			gsettings set $schema $key "@as []"
+		else
+			gsettings set $schema $key "$formatted_array"
+		end
+
+		# clean up the orphaned schema keys so dconf doesn't get bloated
+		gsettings reset-recursively "$schema.custom-keybinding:$target_path"
+
+		echo "done"
+
+	case "*"
+		echo -e "invalid arguments '$argv[1]'"
+		echo "usage: gkb [ list | set <key> <command> | delete <index> ]"
+		exit 1
+end
