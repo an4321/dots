@@ -616,22 +616,24 @@ local function set_keymaps(buf)
 	map("-", go_up)
 	map(".", toggle_hidden)
 	map("o", system_open)
-
 	map("s", toggle_select)
 	map("<esc>", unselect_all)
 	map("v", invert_selection)
-
 	map("a", create_items)
 	map("r", rename_single)
 	map("R", bulk_rename)
 	map("d", delete_to_trash)
-
 	map("x", function() mark_clipboard("cut") end)
 	map("y", function() mark_clipboard("yank") end)
 	map("p", paste_entries)
 	map("<c-c>", clear_clipboard)
-
 	map("<c-space>", toggle_preview)
+
+	map("c", function()
+		local state = buf_get_state(buf)
+		vim.cmd.cd(state.path)
+		print("cd " .. state.path)
+	end)
 
 	-- open terminal
 	map("i", function()
