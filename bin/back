@@ -7,8 +7,8 @@ echo -e "node_modules\n.next\n.svelte-kit\n__pycache__\n.venv\n.astro" \
 function die; echo "error: $argv" >&2 && exit 1; end
 
 function copy
-	rsync -aPhz --delete --exclude-from=$exclude_dir \
-		"$argv[1]" "$argv[2]" || die "rsync failed"
+	rsync -aPhz --delete --exclude-from=$exclude_dir "$argv[1]" "$argv[2]"
+	or die "rsync failed"
 end
 
 if test -z "$argv"

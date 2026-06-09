@@ -15,7 +15,7 @@ if tmux has -t "$argv" 2>/dev/null
 	set session "$argv"
 else
 	test -d "$argv" && jump add "$argv"
-	set target_dir $(jump query $argv 2>/dev/null)
+	set target_dir $(jump query (realpath $argv) 2>/dev/null)
 	test ! -d "$target_dir" && echo "error: no match found" && exit 1
 
 	set session "$(basename "$target_dir" | sed 's/\./_/g')"
