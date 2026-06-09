@@ -37,7 +37,7 @@ end
 if confirm "set custom keybindings"
 	gkb set "<alt>z" "xdg-screensaver lock"
 	gkb set "<alt>t" "xdg-terminal-exec"
-	gkb set "<alt>e" "xdg-terminal-exec e"
+	gkb set "<alt>e" "xdg-terminal-exec e $HOME/Projects"
 	gkb set "<alt>i" "xdg-terminal-exec htop"
 	gkb set "<alt>w" "xdg-open http://"
 	gkb set "<shift><alt>w" "helium --incognito"
