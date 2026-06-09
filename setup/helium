@@ -14,24 +14,23 @@ curl -L "$url" -o "$bin/helium-browser"
 command chmod +x $bin/helium-browser
 
 if test ! -e ~/.local/share/applications/helium.desktop
-	echo """
-	[Desktop Entry]
-	Version=1.0
-	Type=Application
-	Name=Helium
-	GenericName=Web Browser
-	Exec=helium-browser --password-store=basic --force-device-scale-factor=1.0 %u
-	Terminal=false
-	Icon=helium
-	Categories=Network;WebBrowser;
-	MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;\
-		application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;
-	StartupNotify=true
-	StartupWMClass=helium
-	""" >~/.local/share/applications/helium.desktop
+	echo """[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Helium
+GenericName=Web Browser
+Exec=helium-browser --password-store=basic --force-device-scale-factor=1.0 %u
+Terminal=false
+Icon=helium
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;
+StartupNotify=true
+StartupWMClass=helium
+""" >~/.local/share/applications/helium.desktop
 end
 
 if test ! -e ~/.local/share/icons/helium.png
+	mkdir -p  ~/.local/share/icons
 	wget -O ~/.local/share/icons/helium.png \
 		'https://github.com/imputnet/helium/blob/main/resources/branding/app_icon/raw.png?raw=true'
 end

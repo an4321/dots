@@ -11,12 +11,12 @@
 	tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
 	@cap a    s    d    f    g    h    j    k    l    @smi '    ret
 	lsft z    x    c    v    b    n    m    ,    .    /    rsft
-	lctl lmet @la           spc             @ra  rmet rctl
+	lctl lmet @la            spc            @ra  rmet rctl
 )
 
 (deflayer arrow
 	_    6    7    8    9    0    _    _    _    _    _    _    _    _
-	_    1    2    3    4    5    left down up   rght grv  _    _
+	_    1    2    3    4    5    left down up   rght ;    _    _
 	_    _    _    _    _    _    _    _    _    _    _    _
 	_    _    _              _              _    _    _
 )
