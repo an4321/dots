@@ -50,5 +50,17 @@ if confirm "set kitty as the default terminal"
 	echo "kitty.desktop" >~/.config/xdg-terminals.list
 end
 
+if confirm "make the animatations faster"
+	echo "GNOME_SHELL_SLOWDOWN_FACTOR=0.5" > ~/.config/environment.d/90-gnome-speed.conf
+end
+
+if confirm "enable custom extenstions"
+	command mkdir -p ~/.local/share/gnome-shell/extensions/
+	command ln -sf ~/dots/misc/gnome/thin-panel@anurag ~/.local/share/gnome-shell/extensions/
+	gnome-extensions enable thin-panel@anurag
+	command ln -sf ~/dots/misc/gnome/workspace-indicator@anurag/ ~/.local/share/gnome-shell/extensions/
+	gnome-extensions enable workspace-indicator@anurag
+end
+
 confirm "get a nerd-font?" && ~/dots/setup/nf
 confirm "setup kanata?" && ~/dots/setup/kanata

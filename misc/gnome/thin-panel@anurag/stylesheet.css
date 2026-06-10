@@ -1,0 +1,8 @@
+.my-thin-panel {
+	height: 26px !important;
+}
+
+.my-thin-panel .panel-button {
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+}

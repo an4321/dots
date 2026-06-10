@@ -1,0 +1,6 @@
+{
+	"name": "Workspace Indicator",
+	"description": "Replaces the default activities button with workspace list",
+	"uuid": "workspace-indicator@anurag",
+	"shell-version": [ "49", "50" ]
+}
