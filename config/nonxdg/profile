@@ -2,9 +2,5 @@ PATH="/bin:/snap/bin:/usr/local/bin:$HOME/.local/bin:$HOME/dots/bin:$HOME/go/bin
 export LC_ALL=en_US.UTF-8
 export EDITOR="nvim"
 export MANPAGER="nvim +Man!"
-export FZF_DEFAULT_OPTS="--cycle --reverse --no-separator --scroll-off=3 \
-	--prompt '  ' --pointer ' ' --marker='* ' -m --height=40% \
-	--color=bg+:yellow,hl+:0,prompt:yellow,fg+:black,gutter:-1,border:yellow" \
-	--bind='ctrl-space:toggle-preview,ctrl-h:backward-kill-word,\
-		ctrl-bs:backward-kill-word,ctrl-d:half-page-down,ctrl-u:half-page-up'
+export FZF_DEFAULT_OPTS="--cycle --reverse --no-separator --scroll-off=3 --prompt ' > ' --pointer ' ' --marker='* ' -m --height=40% --color=bg+:yellow,hl+:0,prompt:yellow,fg+:black,gutter:-1,border:yellow --bind='ctrl-space:toggle-preview,ctrl-h:backward-kill-word,ctrl-bs:backward-kill-word,ctrl-d:half-page-down,ctrl-u:half-page-up'"
 export IGNORE="node_modules,.next,.svelte-kit,__pycache__,.venv,.cache,.bun,.npm,.local/share"
