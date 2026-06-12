@@ -12,16 +12,12 @@ end
 
 if confirm "set system keybindings"
 	for i in (seq 1 9)
-		# switch to workspace
 		gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-$i "['<alt>$i']"
-		# move window to workspace
 		gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-$i "['<alt><shift>$i']"
 	end
-	# special case for workspace 10
 	gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-10 "['<alt>0']"
 	gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-10 "['<alt><shift>0']"
 
-	# next/prev workspace
 	gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-left "['<alt>h']"
 	gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right "['<alt>l']"
 	gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-left "['<alt><shift>h']"
@@ -47,10 +43,11 @@ if confirm "set custom keybindings"
 end
 
 if confirm "set kitty as the default terminal"
-	echo "kitty.desktop" >~/.config/xdg-terminals.list
+	echo "kitty.desktop" > ~/.config/xdg-terminals.list
 end
 
 if confirm "make the animatations faster"
+	command mkdir -p ~/.config/environment.d/
 	echo "GNOME_SHELL_SLOWDOWN_FACTOR=0.5" > ~/.config/environment.d/90-gnome-speed.conf
 end
 
@@ -64,3 +61,4 @@ end
 
 confirm "get a nerd-font?" && ~/dots/setup/nf
 confirm "setup kanata?" && ~/dots/setup/kanata
+return 0

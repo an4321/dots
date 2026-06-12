@@ -71,6 +71,7 @@ switch "$argv[1]"
 
 		# save the main array
 		gsettings set $schema $key "$formatted_array"
+		sleep 1
 		echo "shortcut added: $new_binding -> $new_command"
 
 	case "delete" "del" "d"
@@ -108,7 +109,7 @@ switch "$argv[1]"
 
 		# clean up the orphaned schema keys so dconf doesn't get bloated
 		gsettings reset-recursively "$schema.custom-keybinding:$target_path"
-
+		sleep 1
 		echo "done"
 
 	case "*"
