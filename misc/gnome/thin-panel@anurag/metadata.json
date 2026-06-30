@@ -1,6 +1,0 @@
-{
-	"name": "Thin Panel",
-	"description": "Make the panel thinner",
-	"uuid": "thin-panel@anurag",
-	"shell-version": [ "49", "50" ]
-}
