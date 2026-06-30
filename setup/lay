@@ -32,6 +32,8 @@ up() {
 	sudo sh -c 'echo "complete -c j -e -w cd" >/usr/share/fish/vendor_completions.d/j.fish'
 
 	check "lazygit" || (accept "install base?" && base)
+	check "kitty" && echo "kitty.desktop" > ~/.config/xdg-terminals.list
+
 	echo "all done"
 }
 
