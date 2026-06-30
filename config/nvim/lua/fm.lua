@@ -681,7 +681,7 @@ function M.open(path)
 
 	buf_set_state(buf, {
 		path = target_path,
-		show_hidden = false,
+		show_hidden = true,
 		selections = {},
 		preview_open = config.preview_by_default,
 		cached_lines = {}

@@ -15,6 +15,7 @@ end
 # reload kitty
 pkill -USR1 -f kitty
 # reload nvim
+pgrep -l nvim 2>/dev/null || return
 for server in (ls /run/user/(id -u)/nvim.* 2>/dev/null)
     nvim --server "$server" --remote-send ":set background=$nvim_bg<CR>" >/dev/null 2>&1 &
 end
