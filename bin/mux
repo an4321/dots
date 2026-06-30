@@ -1,0 +1,83 @@
+#!/usr/bin/env python3
+
+import sys
+import os
+import subprocess
+import threading
+import signal
+import time
+
+RESET, BOLD = "\033[0m", "\033[1m"
+COLORS = ["\033[36m", "\033[32m", "\033[35m", "\033[33m", "\033[34m", "\033[31m"]
+
+processes = []
+shutting_down = False
+
+
+def log_output(prefix, color, stream):
+    for line in stream:
+        print(f"{color}[{prefix}]{RESET} {line.rstrip()}")
+
+
+def shutdown_all(signum=None, frame=None):
+    global shutting_down
+    if shutting_down:
+        return
+    shutting_down = True
+
+    print(f"\n{BOLD}[exiting]{RESET}")
+    for p in processes:
+        if p.poll() is None:  # if still running
+            try:
+                os.killpg(p.pid, signal.SIGTERM)
+            except ProcessLookupError:
+                pass
+
+    sys.exit(0)
+
+
+def main():
+    args = sys.argv[1:]
+    if len(args) < 2 or len(args) % 2 != 0:
+        sys.exit(f'{BOLD}Usage:{RESET} concurrently "name1" "cmd1" "name2" "cmd2" ...')
+
+    signal.signal(signal.SIGINT, shutdown_all)
+    signal.signal(signal.SIGTERM, shutdown_all)
+
+    # spawn processes
+    for i in range(0, len(args), 2):
+        name, cmd = args[i], args[i + 1]
+        color = COLORS[(i // 2) % len(COLORS)]
+
+        print(f"{color}[system]{RESET} Starting script: {BOLD}{cmd}{RESET}")
+
+        # start_new_session=True replaces the deprecated preexec_fn=os.setsid
+        p = subprocess.Popen(
+            cmd,
+            shell=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            bufsize=1,
+            start_new_session=True,
+        )
+        processes.append(p)
+
+        threading.Thread(
+            target=log_output, args=(name, color, p.stdout), daemon=True
+        ).start()
+
+    # monitor processes
+    while not shutting_down:
+        time.sleep(0.1)
+        for i, p in enumerate(processes):
+            if p.poll() is not None:
+                process_name = args[i * 2]
+                print(
+                    f"\n{BOLD}[system] Process '{process_name}' exited with code {p.returncode}.{RESET}"
+                )
+                shutdown_all()
+
+
+if __name__ == "__main__":
+    main()
