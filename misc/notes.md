@@ -23,6 +23,49 @@ ssh-add ~/.ssh/id_ed25519
 
 ## system
 
+### Gnome
+```fish
+# options
+gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:close'
+gsettings set org.gnome.mutter dynamic-workspaces false
+gsettings set org.gnome.desktop.wm.preferences num-workspaces 5
+
+# faster animations
+command mkdir -p ~/.config/environment.d/
+echo "GNOME_SHELL_SLOWDOWN_FACTOR=0.5" > ~/.config/environment.d/90-gnome-speed.conf
+
+# workspaces
+set workspaces a s d f g
+for i in (seq (count $workspaces))
+    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-$i "['<alt>$workspaces[$i]']"
+    gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-$i "['<alt><shift>$workspaces[$i]']"
+end
+
+# next / preview
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-left "['<alt>h']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right "['<alt>l']"
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-left "['<alt><shift>h']"
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-right "['<alt><shift>l']"
+
+# system keybindings
+gsettings set org.gnome.desktop.wm.keybindings close "['<alt>q']"
+gsettings set org.gnome.desktop.wm.keybindings toggle-fullscreen "['<alt><shift>m']"
+gsettings set org.gnome.desktop.wm.keybindings toggle-maximized "['<alt>m']"
+gsettings set org.gnome.shell.keybindings toggle-overview "['<alt>a']"
+gsettings set org.gnome.shell.keybindings show-screenshot-ui "['<alt>s', 'Print']"
+
+# custom keybindings
+gkb set "<alt>z" "xdg-screensaver lock"
+gkb set "<alt>t" "xdg-terminal-exec"
+gkb set "<alt>e" "xdg-terminal-exec e $HOME/Projects"
+gkb set "<alt>i" "xdg-terminal-exec htop"
+gkb set "<alt>w" "xdg-open http://"
+gkb set "<shift><alt>w" "helium --incognito"
+gkb set "<alt>f" "xdg-open file://$HOME"
+gkb set "<alt>r" "setbg"
+gkb set "<alt>n" "sh -c 'cd $HOME/notes && kitty -1 nvim index.md'"
+```
+
 ### dont show boot loader
 ```sh
 # grub
