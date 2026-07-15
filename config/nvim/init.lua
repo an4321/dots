@@ -100,3 +100,16 @@ vim.keymap.set('n', '-', '1z=')
 vim.keymap.set('n', '<space>s', '<cmd>set spell!<cr>')
 vim.keymap.set('n', '<space>w', '<cmd>set wrap!<cr>')
 vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])
+
+-- check theme on startup
+local handle = io.popen("gsettings get org.gnome.desktop.interface color-scheme")
+if handle then
+	local result = handle:read("*a")
+	handle:close()
+	result = result:gsub("%s+", ""):gsub("'", "")
+	if result == "prefer-dark" then
+		vim.o.background = "dark"
+	else
+		vim.o.background = "light"
+	end
+end
