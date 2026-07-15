@@ -113,3 +113,16 @@ if handle then
 		vim.o.background = "light"
 	end
 end
+
+-- better marks
+vim.keymap.set("n", "m", function()
+	local ch = vim.fn.getcharstr():upper()
+	if ch:match("^%u$") then
+		vim.cmd("normal! m" .. ch)
+		print("Mark set at: " .. ch)
+	end
+end)
+vim.keymap.set("n", "s", function()
+	local ch = vim.fn.getcharstr():upper()
+	if ch:match("^%u$") then vim.cmd("normal! '" .. ch) end
+end)
