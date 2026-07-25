@@ -41,18 +41,18 @@ for i in (seq (count $workspaces))
     gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-$i "['<alt><shift>$workspaces[$i]']"
 end
 
-# next / preview
-gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-left "['<alt>h']"
-gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right "['<alt>l']"
-gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-left "['<alt><shift>h']"
-gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-right "['<alt><shift>l']"
+# # next / preview
+# gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-left "['<alt>h']"
+# gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right "['<alt>l']"
+# gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-left "['<alt><shift>h']"
+# gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-right "['<alt><shift>l']"
 
 # system keybindings
 gsettings set org.gnome.desktop.wm.keybindings close "['<alt>q']"
 gsettings set org.gnome.desktop.wm.keybindings toggle-fullscreen "['<alt><shift>m']"
 gsettings set org.gnome.desktop.wm.keybindings toggle-maximized "['<alt>m']"
-gsettings set org.gnome.shell.keybindings toggle-overview "['<alt>a']"
-gsettings set org.gnome.shell.keybindings show-screenshot-ui "['<alt>s', 'Print']"
+gsettings set org.gnome.shell.keybindings toggle-overview "['<alt>o']"
+gsettings set org.gnome.shell.keybindings show-screenshot-ui "['<alt>c', 'Print']"
 
 # custom keybindings
 gkb set "<alt>z" "xdg-screensaver lock"
