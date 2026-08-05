@@ -100,6 +100,7 @@ vim.keymap.set('n', '-', '1z=')
 vim.keymap.set('n', '<space>s', '<cmd>set spell!<cr>')
 vim.keymap.set('n', '<space>w', '<cmd>set wrap!<cr>')
 vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])
+vim.keymap.set('n', '<tab>', 'za')
 
 -- check theme on startup
 local handle = io.popen("gsettings get org.gnome.desktop.interface color-scheme")
@@ -115,6 +116,7 @@ if handle then
 end
 
 -- better marks
+vim.opt.shada = "!,'0,<50,s10,h"
 vim.keymap.set("n", "m", function()
 	local ch = vim.fn.getcharstr():upper()
 	if ch:match("^%u$") then
@@ -124,5 +126,5 @@ vim.keymap.set("n", "m", function()
 end)
 vim.keymap.set("n", "s", function()
 	local ch = vim.fn.getcharstr():upper()
-	if ch:match("^%u$") then vim.cmd("normal! '" .. ch) end
+	if ch:match("^%u$") then pcall(vim.cmd, "normal! '" .. ch) end
 end)
