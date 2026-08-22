@@ -15,7 +15,6 @@ local config = {
 	bookmarks = {
 		["gh"] = "~",
 		["ga"] = "~/Projects",
-		["gt"] = "~/Projects/things",
 		["gd"] = "~/Downloads",
 		["gD"] = "~/Documents",
 		["gv"] = "~/Videos",
@@ -24,7 +23,6 @@ local config = {
 		["gl"] = "~/.local",
 		["g."] = "~/.config",
 		["gc"] = "~/dots",
-		["gn"] = "~/notes",
 	},
 	preview_by_default = false,
 }
@@ -638,7 +636,7 @@ local function set_keymaps(buf)
 		if os.getenv("TMUX") then
 			fn.system(string.format("tmux rename-window '%s'", dir_name))
 		else
-			io.write(string.format("\027]0;neovim - %s\007", dir_name))
+			io.write(string.format("\027]0;nvim: %s\007", dir_name))
 		end
 	end)
 

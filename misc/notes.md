@@ -26,6 +26,7 @@ ssh-add ~/.ssh/id_ed25519
 ### Gnome
 ```fish
 # options
+gsettings set org.gnome.desktop.interface clock-show-weekday true
 gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:close'
 gsettings set org.gnome.mutter dynamic-workspaces false
 gsettings set org.gnome.desktop.wm.preferences num-workspaces 5
