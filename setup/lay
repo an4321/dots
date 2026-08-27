@@ -13,6 +13,9 @@ base() {
 		sudo apt install -y curl fish tmux fzf fd-find ripgrep \
 			htop trash-cli wget fastfetch lazygit sqlite3 unzip
 		ln -sf "$(which fdfind)" ~/.local/bin/fd
+	elif check "dnf"; then
+        	sudo dnf install -y curl fish tmux fzf fd-find ripgrep \
+            		htop trash-cli wget fastfetch sqlite3 unzip
 	elif check "pacman"; then
 		sudo pacman -Syu --noconfirm curl fish tmux fzf fd ripgrep \
 			htop trash-cli wget fastfetch man-db nvim lazygit unzip
