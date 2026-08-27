@@ -1,0 +1,10 @@
+node_modules
+.next
+.svelte-kit
+__pycache__
+.venv
+.cache
+.bun
+.npm
+.local/share
+.git
