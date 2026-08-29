@@ -20,6 +20,7 @@ vim.opt.winborder = 'rounded'
 vim.opt.nrformats = vim.opt.nrformats + { 'unsigned' }
 vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
 vim.opt.shell = '/usr/bin/env fish'
+vim.cmd.colorscheme 'term'
 
 -- highlight on yank
 vim.cmd [[ au TextYankPost * lua vim.hl.on_yank() ]]
@@ -39,7 +40,6 @@ vim.opt.statusline = '%#StatusLine#  %f %h%w%m%r %{%v:lua.recording_status()%} %
 
 -- packages
 vim.pack.add({
-	'https://github.com/catppuccin/nvim',
 	'https://github.com/ibhagwan/fzf-lua',
 	'https://github.com/lewis6991/gitsigns.nvim',
 	'https://github.com/neovim/nvim-lspconfig',
@@ -51,9 +51,6 @@ vim.pack.add({
 })
 
 require('fm').setup()
-require('catppuccin').setup({ transparent_background = true, float = { transparent = true } })
-vim.cmd.colorscheme 'catppuccin-mocha'
-
 vim.schedule(function()
 	require('gitsigns')
 	require('mason').setup()
@@ -101,19 +98,6 @@ vim.keymap.set('n', '<space>s', '<cmd>set spell!<cr>')
 vim.keymap.set('n', '<space>w', '<cmd>set wrap!<cr>')
 vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])
 vim.keymap.set('n', '<tab>', 'za')
-
--- check theme on startup
-local handle = io.popen("gsettings get org.gnome.desktop.interface color-scheme")
-if handle then
-	local result = handle:read("*a")
-	handle:close()
-	result = result:gsub("%s+", ""):gsub("'", "")
-	if result == "prefer-dark" then
-		vim.o.background = "dark"
-	else
-		vim.o.background = "light"
-	end
-end
 
 -- better marks
 vim.opt.shada = "!,'0,<50,s10,h"
