@@ -1,0 +1,34 @@
+#!/usr/bin/env fish
+
+function die
+	echo "error: $argv" >&2 && exit 1
+end
+
+test (count $argv) -lt 2 && die "usage: back [dest] [target dirs...]"
+
+set dest "$argv[1]/backup"
+set targets $argv[2..-1]
+
+# validate input paths
+test ! -d "$argv[1]" && die "'$argv[1]' is not a directory"
+for target in $targets
+	test ! -e "$target" && die "'$target' not found"
+end
+
+mkdir -p "$dest"
+or die "failed to create destination '$dest'"
+
+# backup & rotation
+for target in $targets
+	set target_dest "$dest/(basename $target)"
+
+	if test -e "$target_dest"
+		set old "$target_dest-old"
+		rm -rf "$old"
+		cp -r "$target_dest" "$old"
+	end
+
+	rsync -aPhz --delete --exclude=node_modules --exclude=.next --exclude=.svelte-kit \
+		--exclude=__pycache__ --exclude=.venv --exclude=.astro "$target" "$dest/"
+	or die "rsync failed for '$target'"
+end
