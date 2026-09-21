@@ -1,0 +1,16 @@
+#!/bin/env fish
+
+set ss "$HOME/Pictures/Screenshots/$(date +%F_%H-%M-%S).png"
+
+switch $argv
+	case "" "-s"
+		test -n "$WAYLAND_DISPLAY"
+		and slurp | xargs -r -I {} grim -g {} $ss
+		or import "$ss"
+	case "-f"
+		test -n "$WAYLAND_DISPLAY"
+		and grim "$ss"
+		or import -window root "$ss"
+end
+
+test -f $ss && notify-send -i "$ss" "screenshot saved" "$ss"
