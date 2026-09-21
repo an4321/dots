@@ -15,7 +15,6 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.inccommand = 'split'
 vim.opt.signcolumn = 'yes'
-vim.opt.foldmethod = 'marker'
 vim.opt.winborder = 'rounded'
 vim.opt.nrformats = vim.opt.nrformats + { 'unsigned' }
 vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
@@ -60,12 +59,9 @@ vim.schedule(function()
 	vim.lsp.config('*', { capabilities = require('blink.cmp').get_lsp_capabilities() })
 end)
 
--- keymaps
 vim.keymap.set('n', '<space>f', '<cmd>Fm<cr>')
 vim.keymap.set('n', '<space>a', '<cmd>FzfLua files<cr>')
 vim.keymap.set('n', '<space>g', '<cmd>FzfLua live_grep<cr>')
-vim.keymap.set('n', '<space>m', '<cmd>FzfLua manpages<cr>')
-vim.keymap.set('n', '<space>c', '<cmd>cd ~/dots | FzfLua files<cr>')
 vim.keymap.set('n', '<space><tab>', '<cmd>Gitsigns preview_hunk<cr>')
 vim.keymap.set('n', '[g', '<cmd>Gitsigns prev_hunk<cr>')
 vim.keymap.set('n', ']g', '<cmd>Gitsigns next_hunk<cr>')
@@ -88,7 +84,6 @@ vim.keymap.set({ 'n', 'v' }, 'L', '$')
 vim.keymap.set({ 'n', 'v' }, 'H', '^')
 vim.keymap.set({ 'i', 'c' }, '<c-bs>', '<c-w>')
 vim.keymap.set({ 'i', 'c' }, '<c-h>', '<c-w>')
-vim.keymap.set('v', 'gp', '"_dP')
 vim.keymap.set('v', '<tab>', '>gv')
 vim.keymap.set('v', '<s-tab>', '<gv')
 vim.keymap.set('n', '<bs>', ':term ')
@@ -97,18 +92,3 @@ vim.keymap.set('n', '-', '1z=')
 vim.keymap.set('n', '<space>s', '<cmd>set spell!<cr>')
 vim.keymap.set('n', '<space>w', '<cmd>set wrap!<cr>')
 vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])
-vim.keymap.set('n', '<tab>', 'za')
-
--- better marks
-vim.opt.shada = "!,'0,<50,s10,h"
-vim.keymap.set("n", "m", function()
-	local ch = vim.fn.getcharstr():upper()
-	if ch:match("^%u$") then
-		vim.cmd("normal! m" .. ch)
-		print("Mark set at: " .. ch)
-	end
-end)
-vim.keymap.set("n", "s", function()
-	local ch = vim.fn.getcharstr():upper()
-	if ch:match("^%u$") then pcall(vim.cmd, "normal! '" .. ch) end
-end)
