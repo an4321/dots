@@ -1,0 +1,9 @@
+#!/usr/bin/env fish
+
+set t "$HOME/.config/kitty/themes/"
+
+command ls $t \
+	| command fzf \
+	| xargs -r -I {} ln -sf "$t{}" ~/.cache/kitty-theme.conf
+
+and pkill -USR1 -f kitty
