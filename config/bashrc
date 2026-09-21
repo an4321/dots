@@ -1,6 +1,6 @@
-PATH="/bin::/usr/local/bin:$HOME/.local/bin:$HOME/dots/bin:$HOME/go/bin"
+PATH="/bin::/usr/local/bin:$HOME/.local/bin:$HOME/go/bin"
 source ~/.config/fish/alias.sh
-source ~/dots/misc/jump/init.sh
+source ~/.config/jump/init.sh
 shopt -s autocd
 shopt -s checkwinsize
 shopt -s histappend

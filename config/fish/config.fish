@@ -1,6 +1,6 @@
 set -gx fish_greeting
 fish_hybrid_key_bindings
-fish_add_path ~/.local/bin ~/dots/bin ~/go/bin ~/.local/node/bin ~/.local/share/pnpm/bin
+fish_add_path ~/.local/bin ~/go/bin ~/.local/node/bin ~/.local/share/pnpm/bin
 set -gx LC_ALL en_US.UTF-8
 set -gx EDITOR nvim
 set -gx MANPAGER "nvim +Man!"
@@ -8,7 +8,7 @@ set -gx FZF_DEFAULT_OPTS "--cycle --reverse --no-separator --scroll-off=3 --prom
 set -gx IGNORE "node_modules,.next,.svelte-kit,__pycache__,.venv,.cache,.bun,.npm,.local/share"
 
 source ~/.config/fish/alias.sh
-source ~/dots/misc/jump/init.fish
+source ~/.config/jump/init.fish
 
 bind H beginning-of-line
 bind L end-of-line

@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+
+mkdir -p ~/Desktop ~/Pictures/Wallpapers ~/.config ~/.local/{bin,state}
+
+# Link configs
+for i in "$dir"/config/*; do
+	[ -d "$i" ] && ln -svf "$i" ~/.config/
+done
+ln -svf "$dir/config/bashrc" ~/.bashrc
+
+# Link scripts
+for file in "$dir"/scripts/*; do
+	[ -f "$file" ] || continue
+	target_name=$(basename "$file")
+	ln -svf "$file" "$HOME/.local/bin/$target_name"
+done
+
+# Link setup scripts
+if [ -d "$dir/scripts/setup" ]; then
+	for file in "$dir"/scripts/setup/*; do
+		[ -f "$file" ] || continue
+		target_name="setup-$(basename "$file")"
+		ln -svf "$file" "$HOME/.local/bin/$target_name"
+	done
+fi
+
+# Setup completions jump
+[ -d /usr/share/fish/vendor_completions.d ] &&
+	sudo sh -c 'echo "complete -c j -e -w cd" > /usr/share/fish/vendor_completions.d/j.fish'
+
+echo "all done"

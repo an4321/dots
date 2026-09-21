@@ -14,7 +14,7 @@ confirm "get fonts?" && sudo pacman --needed --noconfirm -S \
 if confirm "get themes?"
 	sudo pacman --noconfirm -S --needed \
 		nwg-look adw-gtk-theme papirus-icon-theme
-	~/dots/bin/i bibata-cursor-theme-bin
+	i bibata-cursor-theme-bin
 end
 
 if confirm "create sessions desktop file"

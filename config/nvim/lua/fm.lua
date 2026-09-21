@@ -14,7 +14,7 @@ local fn = vim.fn
 local config = {
 	bookmarks = {
 		["gh"] = "~",
-		["ga"] = "~/Projects",
+		["ga"] = "~/Desktop",
 		["gd"] = "~/Downloads",
 		["gD"] = "~/Documents",
 		["gv"] = "~/Videos",
@@ -23,7 +23,6 @@ local config = {
 		["gs"] = "~/Pictures/Screenshots",
 		["gl"] = "~/.local",
 		["g."] = "~/.config",
-		["gc"] = "~/dots",
 	},
 	preview_by_default = false,
 }

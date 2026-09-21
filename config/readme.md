@@ -1,3 +1,5 @@
+# Configuration Notes
+
 ## git
 ```fish
 git config --global user.name "$name"
@@ -58,7 +60,7 @@ gsettings set org.gnome.shell.keybindings show-screenshot-ui "['<alt>c', 'Print'
 # custom keybindings
 gkb set "<alt>z" "xdg-screensaver lock"
 gkb set "<alt>t" "xdg-terminal-exec"
-gkb set "<alt>e" "xdg-terminal-exec e $HOME/Projects"
+gkb set "<alt>e" "xdg-terminal-exec e $HOME/Desktop"
 gkb set "<alt>i" "xdg-terminal-exec htop"
 gkb set "<alt>w" "xdg-open http://"
 gkb set "<shift><alt>w" "helium --incognito"
