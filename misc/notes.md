@@ -65,6 +65,9 @@ gkb set "<shift><alt>w" "helium --incognito"
 gkb set "<alt>f" "xdg-open file://$HOME"
 gkb set "<alt>r" "setbg"
 gkb set "<alt>n" "sh -c 'cd $HOME/notes && kitty -1 nvim index.md'"
+
+# set kitty as the default terminal
+echo "kitty.desktop" > ~/.config/xdg-terminals.list
 ```
 
 ### dont show boot loader
