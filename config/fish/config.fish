@@ -4,7 +4,7 @@ fish_add_path ~/.local/bin ~/dots/bin ~/go/bin ~/.local/node/bin ~/.local/share/
 set -gx LC_ALL en_US.UTF-8
 set -gx EDITOR nvim
 set -gx MANPAGER "nvim +Man!"
-set -gx FZF_DEFAULT_OPTS "--cycle --reverse --no-separator --scroll-off=3 --prompt ' > ' --pointer ' ' --marker='* ' -m --color=bg+:yellow,hl+:0,prompt:yellow,fg+:black,gutter:-1,border:yellow --bind='ctrl-space:toggle-preview,ctrl-h:backward-kill-word,ctrl-bs:backward-kill-word,ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-o:execute(xdg-open {} >/dev/null 2>&1 &)'"
+set -gx FZF_DEFAULT_OPTS "--cycle --reverse --no-separator --scroll-off=3 --prompt ' > ' --pointer ' ' --marker='* ' -m --color=bg+:yellow,hl+:0,prompt:yellow,fg+:black,gutter:-1,border:yellow --bind='ctrl-space:toggle-preview,ctrl-h:backward-kill-word,ctrl-bs:backward-kill-word,ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-o:execute(xdg-open {} >/dev/null 2>&1 &),ctrl-v:toggle-all'"
 set -gx IGNORE "node_modules,.next,.svelte-kit,__pycache__,.venv,.cache,.bun,.npm,.local/share"
 
 source ~/.config/fish/alias.sh

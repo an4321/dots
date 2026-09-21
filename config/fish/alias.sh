@@ -12,8 +12,9 @@ alias ls="ls -G --color=auto --group-directories-first"
 alias la="ls -GA --color=auto --group-directories-first"
 alias ywd="pwd | tee /dev/tty | y"
 alias li="iv -ota . | tee /dev/tty | y"
-alias o='setsid xdg-open'
-alias ex='extract'
+alias o="setsid xdg-open"
+alias ex="extract"
+alias x="xargs -I jk"
 
 alias cam="command ffplay -hide_banner -loglevel fatal -stats \
 	-window_title webcam -fflags +nobuffer -fast /dev/video0"

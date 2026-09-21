@@ -18,6 +18,7 @@ local config = {
 		["gd"] = "~/Downloads",
 		["gD"] = "~/Documents",
 		["gv"] = "~/Videos",
+		["gm"] = "~/Music",
 		["gp"] = "~/Pictures",
 		["gs"] = "~/Pictures/Screenshots",
 		["gl"] = "~/.local",
