@@ -1,0 +1,26 @@
+#!/bin/env fish
+
+switch "$argv"
+	case "r" "reset"
+		if test -n "$WAYLAND_DISPLAY"
+			killall wlsunset
+		else
+			command xrandr --output eDP-1 --gamma 1:1:1 --brightness 1
+		end
+	case "*"
+		if test -n "$argv"
+			set bright "$argv"
+			string match -rq '^(0(\.\d+)?|1(\.0*)?)$' -- $bright || exit 1
+		else
+			set bright 0.9
+		end
+
+		if test -n "$WAYLAND_DISPLAY"
+			killall wlsunset &>/dev/null
+			wlsunset -t 6000 -T 7000 -g $bright &>/dev/null &
+		else
+			for mon in (xrandr | grep '\bconnected' | awk '{print $1}')
+				command xrandr --output $mon --gamma 1.2:1.1:1 --brightness $bright
+			end
+		end
+end
