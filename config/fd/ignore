@@ -8,3 +8,5 @@ __pycache__
 .npm
 .local/share
 .git
+.var
+go/pkg/

@@ -26,8 +26,4 @@ if [ -d "$dir/scripts/setup" ]; then
 	done
 fi
 
-# Setup completions jump
-[ -d /usr/share/fish/vendor_completions.d ] &&
-	sudo sh -c 'echo "complete -c j -e -w cd" > /usr/share/fish/vendor_completions.d/j.fish'
-
 echo "all done"

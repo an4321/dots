@@ -15,3 +15,6 @@ function ji; cd "$(jump list | fzf || echo .)"; end
 function md; mkdir -p "$argv" && j "$argv"; end
 function cpg; cp $argv && j $argv[-1]; end
 function mvg; mv $argv && j $argv[-1]; end
+
+# Setup completions
+# echo "complete -c j -e -w cd" > ~/.config/fish/completions/j.fish

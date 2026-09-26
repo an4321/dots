@@ -10,7 +10,7 @@ if test -z "$argv"
 else if test -d "$argv"
 	set wall $(rand $argv)
 else if test -f "$argv"
-	set wall "$argv"
+	set wall $(realpath "$argv")
 end
 
 test ! -f "$wall" && echo "error: invalid input" && exit 1
