@@ -172,6 +172,10 @@ end
 local function render(buf)
 	local state = buf_get_state(buf)
 	if not state then return end
+
+	-- automatically set buffer-local directory (bcd) for Neovim v0.13+
+	pcall(function() vim.cmd("bcd " .. fn.fnameescape(state.path)) end)
+
 	state.cached_lines = scandir(state.path, state.show_hidden)
 
 	vim.bo[buf].modifiable = true
