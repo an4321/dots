@@ -713,6 +713,19 @@ function M.setup(opts)
 	api.nvim_set_hl(0, "FmYank", { link = "DiagnosticWarn", default = true })
 	api.nvim_set_hl(0, "FmSelect", { link = "Visual", default = true })
 
+	-- map 'gf' in normal mode to open directories in FM
+	vim.keymap.set("n", "gf", function()
+		local cfile = fn.expand("<cfile>")
+		if cfile and cfile ~= "" then
+			local target = fn.fnamemodify(cfile, ":p"):gsub("/$", "")
+			if fn.isdirectory(target) == 1 then
+				M.open(target)
+				return
+			end
+		end
+		vim.cmd("normal! gf")
+	end, { desc = "Open directory under cursor in FM" })
+
 	api.nvim_create_user_command("Fm", function(cmd_opts)
 		local dir = nil
 
