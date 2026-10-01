@@ -5,7 +5,7 @@ function die; echo "error: $argv" >&2 && exit 1; end
 switch "$argv"
 	case "latest" "l" ""
 		set url "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
-	case "nightly" "neo" "n"
+	case "nightly" "neo" "n" "beta" "b"
 		set url "https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz"
 	case "*"
 		die "invalid option"

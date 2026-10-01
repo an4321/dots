@@ -631,7 +631,7 @@ local function set_keymaps(buf)
 		local state = buf_get_state(buf)
 		vim.cmd.cd(state.path)
 		print("cd " .. state.path)
-		-- set dir to to title
+		-- set dir to title
 		local dir_name = vim.fs.basename(state.path)
 		if os.getenv("TMUX") then
 			fn.system(string.format("tmux rename-window '%s'", dir_name))
