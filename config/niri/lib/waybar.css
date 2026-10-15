@@ -27,10 +27,10 @@
 }
 #workspaces button.active {
 	color: @accent;
-	font-size: 30px;
+	font-size: 26px;
 }
 
-#battery {
+#battery, #clock {
 	font-size: 18px;
 	color: @fg;
 }
@@ -38,7 +38,7 @@
 	color: @error;
 }
 #battery.icon {
-	font-size: 36px;
+	font-size: 32px;
 	margin-bottom: -4px;
 }
 

@@ -22,7 +22,7 @@ vim.opt.shell = '/usr/bin/env fish'
 vim.cmd.colorscheme 'term'
 
 -- highlight on yank
-vim.cmd [[ au TextYankPost * lua vim.hl.on_yank() ]]
+vim.cmd [[ au TextYankPost * lua vim.hl.hl_op() ]]
 -- reopen at last position
 vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
 -- terminal start in insert mode & disable spellcheck
@@ -44,7 +44,7 @@ vim.pack.add({
 	'https://github.com/neovim/nvim-lspconfig',
 	'https://github.com/mason-org/mason.nvim',
 	'https://github.com/mason-org/mason-lspconfig.nvim',
-	'https://github.com/romus204/tree-sitter-manager.nvim',
+	-- 'https://github.com/romus204/tree-sitter-manager.nvim',
 	'https://github.com/saghen/blink.lib',
 	'https://github.com/saghen/blink.cmp',
 })
@@ -54,12 +54,11 @@ vim.schedule(function()
 	require('gitsigns')
 	require('mason').setup()
 	require('mason-lspconfig').setup()
-	require('tree-sitter-manager').setup({ auto_install = true })
+	-- require('tree-sitter-manager').setup({ auto_install = true })
 	require('blink.cmp').setup({ fuzzy = { implementation = 'lua' }})
 	vim.lsp.config('*', { capabilities = require('blink.cmp').get_lsp_capabilities() })
 end)
 
-vim.keymap.set('n', '<space>f', '<cmd>Fm<cr>')
 vim.keymap.set('n', '<space>a', '<cmd>FzfLua files<cr>')
 vim.keymap.set('n', '<space>g', '<cmd>FzfLua live_grep<cr>')
 vim.keymap.set('n', '<space><tab>', '<cmd>Gitsigns preview_hunk<cr>')
@@ -88,7 +87,7 @@ vim.keymap.set('v', '<tab>', '>gv')
 vim.keymap.set('v', '<s-tab>', '<gv')
 vim.keymap.set('n', '<bs>', ':term ')
 vim.keymap.set('t', '<c-w>', [[<c-\><c-n>]])
-vim.keymap.set('n', '-', '1z=')
+vim.keymap.set('n', 's', '1z=')
 vim.keymap.set('n', '<space>s', '<cmd>set spell!<cr>')
 vim.keymap.set('n', '<space>w', '<cmd>set wrap!<cr>')
 vim.keymap.set('n', '<space>r', [[:%s/\<<c-r><c-w>\>/<c-r><c-w>/gI<Left><Left><Left>]])

@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-set mounted_drives (command lsblk -o MOUNTPOINT,SIZE -nr | command grep "$HOME")
+set mounted_drives (command lsblk -o MOUNTPOINT,SIZE -nr | command grep "$HOME/Desktop")
 test -z "$mounted_drives" && echo "no mounted drives" && exit 1
 
 set sel (printf "%s\n" $mounted_drives | fzf | awk '{print $1}')

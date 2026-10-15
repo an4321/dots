@@ -66,7 +66,6 @@ gkb set "<alt>w" "xdg-open http://"
 gkb set "<shift><alt>w" "helium --incognito"
 gkb set "<alt>f" "xdg-open file://$HOME"
 gkb set "<alt>r" "setbg"
-gkb set "<alt>n" "sh -c 'cd $HOME/notes && kitty -1 nvim index.md'"
 
 # set kitty as the default terminal
 echo "kitty.desktop" > ~/.config/xdg-terminals.list
@@ -146,21 +145,7 @@ EOF'
 * disable sudo for brightnessctl `sudo usermod -aG video $USER`
   or `sudo visudo` -> <user> ALL=(ALL) NOPASSWD: /usr/bin/brightnessctl
 
-* tldr bluetoothctl ::
-```sh
-power on
-agent on
-default-agent
-scan on
-pair XX:XX:XX:XX:XX:XX
-connect XX:XX:XX:XX:XX:XX
-trust XX:XX:XX:XX:XX:XX
-scan off
-exit
-```
-
 * firefox `about:config`
   toggle alt menu: `ui.key.menuAccessKeyFocuses`
   scale: `devPixelsPerPx`
   gestures: `browser.gesture.swipe`
-

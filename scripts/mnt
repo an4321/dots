@@ -16,7 +16,7 @@ set fstype (echo $selection | awk '{print $3}')
 
 set device "/dev/$disk"
 set mountname "$disk"
-set mountpoint "$HOME/$mountname"
+set mountpoint "$HOME/Desktop/$mountname"
 
 # handle luks-encrypted devices
 if test "$fstype" = "crypto_LUKS"
@@ -34,7 +34,7 @@ if test "$fstype" = "crypto_LUKS"
 
     set device $mapper_device
     set mountname $mapper_name
-    set mountpoint "$HOME/$mountname"
+    set mountpoint "$HOME/Desktop/$mountname"
 end
 
 # mount

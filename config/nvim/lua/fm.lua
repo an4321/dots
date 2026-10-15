@@ -713,6 +713,8 @@ function M.setup(opts)
 	api.nvim_set_hl(0, "FmYank", { link = "DiagnosticWarn", default = true })
 	api.nvim_set_hl(0, "FmSelect", { link = "Visual", default = true })
 
+	vim.keymap.set('n', '-', '<cmd>Fm<cr>')
+
 	-- map 'gf' in normal mode to open directories in FM
 	vim.keymap.set("n", "gf", function()
 		local cfile = fn.expand("<cfile>")
