@@ -41,17 +41,17 @@ vim.pack.add({
 	'https://github.com/neovim/nvim-lspconfig',
 	'https://github.com/mason-org/mason.nvim',
 	'https://github.com/mason-org/mason-lspconfig.nvim',
-	-- 'https://github.com/romus204/tree-sitter-manager.nvim',
+	'https://github.com/romus204/tree-sitter-manager.nvim',
 	'https://github.com/saghen/blink.lib',
 	'https://github.com/saghen/blink.cmp',
 })
 
 require('fm').setup()
+require('tree-sitter-manager').setup({ auto_install = true })
 vim.schedule(function()
 	require('gitsigns')
 	require('mason').setup()
 	require('mason-lspconfig').setup()
-	-- require('tree-sitter-manager').setup({ auto_install = true })
 	require('blink.cmp').setup({ fuzzy = { implementation = 'lua' }})
 	vim.lsp.config('*', { capabilities = require('blink.cmp').get_lsp_capabilities() })
 end)

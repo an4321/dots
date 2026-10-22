@@ -25,8 +25,8 @@ in {
 		waybar rofi dunst swaybg swaylock grim slurp libnotify
 		wl-clipboard cliphist networkmanagerapplet brightnessctl
 		mpv nautilus foliate # gnome-disk-utility
-		kitty neovim wget ripgrep fd fzf htop lazygit fastfetch trash-cli
-		imagemagick nodejs pnpm gnupg
+		kitty gcc neovim tree-sitter wget ripgrep fd fzf htop
+		lazygit trash-cli fastfetch imagemagick nodejs pnpm gnupg
 	]);
 
 	# theming

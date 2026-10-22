@@ -72,7 +72,7 @@ hl.bind("ALT + r", hl.dsp.exec_cmd("rofi -config ~/.config/hypr/lib/rofi.rasi -s
 hl.bind("ALT + v", hl.dsp.exec_cmd("cliphist list | rofi -config ~/.config/hypr/lib/rofi.rasi " ..
 	"-dmenu -p cliphist | awk '{print $1}' | xargs -r cliphist decode | wl-copy"))
 hl.bind("ALT + SHIFT + r", hl.dsp.exec_cmd("setbg"))
-hl.bind("ALT + t", hl.dsp.exec_cmd("kitty"))
+hl.bind("ALT + t", hl.dsp.exec_cmd("kitty ~/Desktop"))
 hl.bind("ALT + e", hl.dsp.exec_cmd("kitty nvim ~/Desktop"))
 hl.bind("ALT + q", hl.dsp.window.close())
 hl.bind("ALT + w", hl.dsp.exec_cmd("helium"))
