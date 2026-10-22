@@ -22,10 +22,11 @@ in {
 	}; }) configs);
 
 	home.packages = (map mkScript scriptNames) ++ (with pkgs; [
-		wget ripgrep fd fzf htop lazygit fastfetch trash-cli
-		libnotify wl-clipboard cliphist networkmanagerapplet brightnessctl
-		kitty waybar rofi dunst swaybg swaylock grim slurp
-		neovim nemo mpv foliate
+		waybar rofi dunst swaybg swaylock grim slurp libnotify
+		wl-clipboard cliphist networkmanagerapplet brightnessctl
+		mpv nautilus foliate # gnome-disk-utility
+		kitty neovim wget ripgrep fd fzf htop lazygit fastfetch trash-cli
+		imagemagick nodejs pnpm gnupg
 	]);
 
 	# theming

@@ -37,29 +37,6 @@ hl.config({
 	animations = { enabled = true },
 })
 
-hl.curve("easeOutQuint", { type = "bezier", points = { {0.23, 1}, {0.32, 1} } })
-hl.curve("easeInOutCubic", { type = "bezier", points = { {0.65, 0.05}, {0.36, 1} } })
-hl.curve("linear", { type = "bezier", points = { {0, 0}, {1, 1} } })
-hl.curve("almostLinear", { type = "bezier", points = { {0.5, 0.5}, {0.75, 1} } })
-hl.curve("quick", { type = "bezier", points = { {0.15, 0}, {0.1, 1} } })
-hl.curve("easy", { type = "spring", mass = 1, stiffness = 220, dampening = 32 })
-hl.animation({ leaf = "global", enabled = true, speed = 8, bezier = "default" })
-hl.animation({ leaf = "windows", enabled = true, speed = 5.5, spring = "easy" })
-hl.animation({ leaf = "windowsIn", enabled = true, speed = 5, spring = "easy", style = "popin 92%" })
-hl.animation({ leaf = "windowsOut", enabled = true, speed = 4, bezier = "easeOutQuint", style = "popin 92%" })
-hl.animation({ leaf = "fadeIn", enabled = true, speed = 5, bezier = "easeOutQuint" })
-hl.animation({ leaf = "fadeOut", enabled = true, speed = 4, bezier = "easeOutQuint" })
-hl.animation({ leaf = "fade", enabled = true, speed = 5, bezier = "quick" })
-hl.animation({ leaf = "layers", enabled = true, speed = 5, bezier = "easeOutQuint" })
-hl.animation({ leaf = "layersIn", enabled = true, speed = 5, bezier = "easeOutQuint", style = "fade" })
-hl.animation({ leaf = "layersOut", enabled = true, speed = 4, bezier = "easeOutQuint", style = "fade" })
-hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 4.5, bezier = "easeOutQuint" })
-hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 4, bezier = "easeOutQuint" })
-hl.animation({ leaf = "workspaces", enabled = true, speed = 2.2, bezier = "easeOutQuint", style = "slidevert" })
-hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.2, bezier = "easeOutQuint", style = "slidevert" })
-hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.2, bezier = "easeOutQuint", style = "slidevert" })
-hl.animation({ leaf = "zoomFactor", enabled = true, speed = 8, bezier = "easeOutQuint" })
-
 hl.config({
 	scrolling = {
 		column_width = 0.8,
@@ -74,9 +51,9 @@ hl.config({
 		follow_mouse = 2,
 		sensitivity = 0,
 		touchpad = { natural_scroll = true },
+		follow_mouse = 1,
 	},
 })
-
 
 hl.gesture({
 	fingers = 3,
@@ -100,7 +77,7 @@ hl.bind("ALT + e", hl.dsp.exec_cmd("kitty nvim ~/Desktop"))
 hl.bind("ALT + q", hl.dsp.window.close())
 hl.bind("ALT + w", hl.dsp.exec_cmd("helium"))
 hl.bind("ALT + SHIFT + w", hl.dsp.exec_cmd("helium --incognito"))
-hl.bind("ALT + SHIFT + e", hl.dsp.exec_cmd("nemo"))
+hl.bind("ALT + SHIFT + e", hl.dsp.exec_cmd("nautilus"))
 hl.bind("ALT + space", hl.dsp.window.float({ action = "toggle" }))
 hl.bind("ALT + escape", hl.dsp.exec_cmd("lock"))
 hl.bind("ALT + z", hl.dsp.dpms({ action = "toggle" }))
@@ -134,3 +111,27 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+
+-- animations
+hl.curve("easeOutQuint", { type = "bezier", points = { {0.23, 1}, {0.32, 1} } })
+hl.curve("easeInOutCubic", { type = "bezier", points = { {0.65, 0.05}, {0.36, 1} } })
+hl.curve("linear", { type = "bezier", points = { {0, 0}, {1, 1} } })
+hl.curve("almostLinear", { type = "bezier", points = { {0.5, 0.5}, {0.75, 1} } })
+hl.curve("quick", { type = "bezier", points = { {0.15, 0}, {0.1, 1} } })
+hl.curve("easy", { type = "spring", mass = 1, stiffness = 220, dampening = 32 })
+hl.animation({ leaf = "global", enabled = true, speed = 8, bezier = "default" })
+hl.animation({ leaf = "windows", enabled = true, speed = 5.5, spring = "easy" })
+hl.animation({ leaf = "windowsIn", enabled = true, speed = 5, spring = "easy", style = "popin 92%" })
+hl.animation({ leaf = "windowsOut", enabled = true, speed = 4, bezier = "easeOutQuint", style = "popin 92%" })
+hl.animation({ leaf = "fadeIn", enabled = true, speed = 5, bezier = "easeOutQuint" })
+hl.animation({ leaf = "fadeOut", enabled = true, speed = 4, bezier = "easeOutQuint" })
+hl.animation({ leaf = "fade", enabled = true, speed = 5, bezier = "quick" })
+hl.animation({ leaf = "layers", enabled = true, speed = 5, bezier = "easeOutQuint" })
+hl.animation({ leaf = "layersIn", enabled = true, speed = 5, bezier = "easeOutQuint", style = "fade" })
+hl.animation({ leaf = "layersOut", enabled = true, speed = 4, bezier = "easeOutQuint", style = "fade" })
+hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 4.5, bezier = "easeOutQuint" })
+hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 4, bezier = "easeOutQuint" })
+hl.animation({ leaf = "workspaces", enabled = true, speed = 2.2, bezier = "easeOutQuint", style = "slidevert" })
+hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.2, bezier = "easeOutQuint", style = "slidevert" })
+hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.2, bezier = "easeOutQuint", style = "slidevert" })
+hl.animation({ leaf = "zoomFactor", enabled = true, speed = 8, bezier = "easeOutQuint" })

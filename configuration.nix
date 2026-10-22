@@ -5,8 +5,20 @@
 
 	nixpkgs.config.allowUnfree = true;
 
+	swapDevices = lib.mkForce [];
+	zramSwap.enable = true;
+	zramSwap.memoryPercent = 50;
+
 	boot.loader.systemd-boot.enable = true;
 	boot.loader.efi.canTouchEfiVariables = true;
+	boot.loader.timeout = 0;
+
+	console = {
+		earlySetup = true;
+		packages = [ pkgs.terminus_font ];
+		font = "ter-v32n";
+		keyMap = "us";
+	};
 
 	networking.hostName = "nix";
 	networking.networkmanager.enable = true;
