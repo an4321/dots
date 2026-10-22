@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-	dotfiles = "${config.home.homeDirectory}/nixos/config";
+	dotfiles = "${config.home.homeDirectory}/.config/nixos/config";
 	configs = [ "hypr" "kitty" "fish" "nvim" "lazygit" "fd" "mpv" ];
 
 	scriptNames = lib.attrNames (lib.filterAttrs (_: type: type == "regular") (builtins.readDir ./scripts));
