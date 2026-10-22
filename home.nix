@@ -2,7 +2,7 @@
 
 let
 	dotfiles = "${config.home.homeDirectory}/.config/nixos/config";
-	configs = [ "hypr" "kitty" "fish" "nvim" "lazygit" "fd" "mpv" ];
+	configs = [ "hypr" "kitty" "fish" "nvim" "lazygit" "fd" "mpv" "zathura" ];
 
 	scriptNames = lib.attrNames (lib.filterAttrs (_: type: type == "regular") (builtins.readDir ./scripts));
 	mkScript = name: pkgs.writeScriptBin name (builtins.readFile ./scripts/${name});
@@ -24,7 +24,7 @@ in {
 	home.packages = (map mkScript scriptNames) ++ (with pkgs; [
 		waybar rofi dunst swaybg swaylock grim slurp libnotify
 		wl-clipboard cliphist networkmanagerapplet brightnessctl
-		mpv nautilus foliate # gnome-disk-utility
+		nautilus mpv zathura zathuraPkgs.zathura_pdf_mupdf zathuraPkgs.zathura_djvu
 		kitty gcc neovim tree-sitter wget ripgrep fd fzf htop
 		lazygit trash-cli fastfetch imagemagick nodejs pnpm gnupg
 	]);

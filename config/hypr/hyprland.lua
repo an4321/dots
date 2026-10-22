@@ -41,6 +41,7 @@ hl.config({
 	scrolling = {
 		column_width = 0.8,
 		focus_fit_method = 0,
+		fullscreen_on_one_column = false,
 	},
 	misc = {
 		force_default_wallpaper = 0,
@@ -74,6 +75,7 @@ hl.bind("ALT + v", hl.dsp.exec_cmd("cliphist list | rofi -config ~/.config/hypr/
 hl.bind("ALT + SHIFT + r", hl.dsp.exec_cmd("setbg"))
 hl.bind("ALT + t", hl.dsp.exec_cmd("kitty ~/Desktop"))
 hl.bind("ALT + e", hl.dsp.exec_cmd("kitty nvim ~/Desktop"))
+hl.bind("ALT + p", hl.dsp.exec_cmd("kitty htop"))
 hl.bind("ALT + q", hl.dsp.window.close())
 hl.bind("ALT + w", hl.dsp.exec_cmd("helium"))
 hl.bind("ALT + SHIFT + w", hl.dsp.exec_cmd("helium --incognito"))
