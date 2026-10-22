@@ -1,4 +1,4 @@
-#!/bin/env fish
+#!/usr/bin/env fish
 
 function die; echo "error: $argv" && exit 1; end
 

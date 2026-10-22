@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+mkdir -p ~/Desktop ~/Documents ~/Downloads ~/Music ~/Pictures
+
+DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
+TARGET="$HOME/.config/nixos"
+
+if [ "$(readlink -f "$TARGET" 2>/dev/null)" != "$DIR" ]; then
+	ln -sfn "$DIR" "$TARGET"
+	echo "linked $DIR -> $TARGET"
+fi
+
+sudo nixos-rebuild switch --flake "$TARGET#nix" --impure

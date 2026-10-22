@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/usr/bin/env sh
 
 [ $# -eq 0 ] && echo "Usage: extract TARGET [DESTINATION_DIR]" && exit 1
 

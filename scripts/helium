@@ -1,0 +1,56 @@
+#!/usr/bin/env fish
+
+function confirm; read -P "$argv (y/N) " | string match -qr '^[Yy]$'; end
+
+set d "$HOME/.local/helium"
+mkdir -p $d
+
+if not type -q appimage-run
+	echo "Error: 'appimage-run' is required on NixOS to run AppImages."
+	exit 1
+end
+
+set cmd "appimage-run $d/helium-browser --password-store=basic --force-device-scale-factor=1.1"
+
+set desktopFile """[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Helium
+GenericName=Web Browser
+Exec=$cmd %u
+Terminal=false
+Icon=helium
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;
+StartupNotify=true
+StartupWMClass=helium
+"""
+
+switch $argv[1]
+	case "i" "install"
+		set url (curl -s "https://api.github.com/repos/imputnet/helium-linux/releases/latest" \
+			| grep -m 1 "browser_download_url.*x86_64.AppImage" | cut -d '"' -f 4)
+
+		if test -f $d/helium-browser
+			command rm -rf $d/helium-browser-old
+			mv $d/helium-browser $d/helium-browser-old
+		end
+		curl -L "$url" -o "$d/helium-browser"
+		command chmod +x $d/helium-browser
+
+		if test ! -e ~/.local/share/applications/helium.desktop
+			mkdir -p ~/.local/share/applications
+			echo $desktopFile >~/.local/share/applications/helium.desktop
+		end
+
+		if test ! -e ~/.local/share/icons/helium.png
+			mkdir -p  ~/.local/share/icons
+			wget -O ~/.local/share/icons/helium.png \
+				'https://github.com/imputnet/helium/blob/main/resources/branding/app_icon/raw.png?raw=true'
+		end
+
+		echo "Installation complete!"
+
+	case "" "*"
+		eval $cmd $argv[2..-1]
+end

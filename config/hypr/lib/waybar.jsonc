@@ -4,24 +4,23 @@
 		"position": "left",
 		"orientation": "vertical",
 		"reload_style_on_change": false,
-		"modules-center": ["tray", "niri/workspaces", "group/bottom"],
+		"modules-center": [ "tray", "hyprland/workspaces", "group/bottom" ],
 		"group/bottom": {
 			"orientation": "inherit",
 			"modules": [ "group/battery", "clock" ]
 		},
+		"hyprland/workspaces": { "format": "{icon}", "all-outputs": true },
 
-		"niri/workspaces": { "format": "{index}", "all-outputs": true },
-
-		"tray": { "icon-size": 30, "spacing": 4 },
+		"tray": { "icon-size": 28, "spacing": 4 },
 
 		"group/battery": {
 			"orientation": "inherit",
-			"modules": ["battery#icon", "battery", "custom/separator"]
+			"modules": [ "battery#icon", "battery", "custom/separator" ]
 		},
 		"battery#icon": {
 			"events": {
 				"on-discharging-20": "notify-send 'battery low!'",
-				"on-discharging-10": "notify-send  -u critical 'battery critical!'"
+				"on-discharging-10": "notify-send -u critical 'battery critical!'"
 			},
 			"format": "{icon}",
 			"format-charging": "󰂄",
@@ -33,7 +32,7 @@
 
 		"clock": {
 			"format": "{:%H\n%M}",
-			"tooltip-format": "{:%a %b %d, %Y}",
+			"tooltip-format": "{:%a %b %d, %Y}"
 		}
 	}
 ]

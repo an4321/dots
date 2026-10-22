@@ -18,11 +18,8 @@ vim.opt.signcolumn = 'yes'
 vim.opt.winborder = 'rounded'
 vim.opt.nrformats = vim.opt.nrformats + { 'unsigned' }
 vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
-vim.opt.shell = '/usr/bin/env fish'
 vim.cmd.colorscheme 'term'
 
--- highlight on yank
-vim.cmd [[ au TextYankPost * lua vim.hl.hl_op() ]]
 -- reopen at last position
 vim.cmd [[ au BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
 -- terminal start in insert mode & disable spellcheck

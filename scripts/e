@@ -1,4 +1,4 @@
-#!/bin/env fish
+#!/usr/bin/env fish
 
 if test -n "$NVIM"
 	set file (realpath $argv)
