@@ -23,11 +23,11 @@ in {
 
 	home.packages = (map mkScript scriptNames) ++ (with pkgs; [
 		waybar rofi dunst swaybg swaylock grim slurp libnotify wl-clipboard
-		cliphist networkmanagerapplet brightnessctl nautilus mpv
+		cliphist networkmanagerapplet brightnessctl nautilus loupe mpv
 		zathura zathuraPkgs.zathura_pdf_mupdf zathuraPkgs.zathura_djvu
 		kitty gcc tree-sitter wget ripgrep fd fzf htop lazygit trash-cli
-		fastfetch imagemagick nodejs pnpm gnupg
-	]) ++ [ pkgsUnstable.neovim ];
+		fastfetch imagemagick nodejs gnupg
+	]) ++ (with pkgsUnstable; [ neovim pnpm ]);
 
 	# theming
 	gtk = {

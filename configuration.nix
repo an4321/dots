@@ -75,6 +75,13 @@
 
 	fonts.packages = [ pkgs.nerd-fonts.jetbrains-mono ];
 
+	services.gvfs.enable = true;
+
+	xdg.portal = {
+		enable = true;
+		extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+	};
+
 	nix.settings = {
 		experimental-features = [ "nix-command" "flakes" ];
 		auto-optimise-store = true;

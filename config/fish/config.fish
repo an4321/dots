@@ -1,4 +1,5 @@
 source ~/.config/fish/alias.sh
+source ~/.config/fish/jump.fish
 fish_hybrid_key_bindings
 set -gx fish_greeting
 set -gx LC_ALL en_US.UTF-8

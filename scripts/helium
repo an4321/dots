@@ -51,6 +51,6 @@ switch $argv[1]
 
 		echo "Installation complete!"
 
-	case "" "*"
-		eval $cmd $argv[2..-1]
+	case "*"
+		eval $cmd $argv
 end
