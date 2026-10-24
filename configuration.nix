@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgsUnstable, ... }:
 
 {
 	imports = [ /etc/nixos/hardware-configuration.nix ];
@@ -42,6 +42,7 @@
 
 	programs.hyprland = {
 		enable = true;
+		package = pkgsUnstable.hyprland;
 		withUWSM = true;
 	};
 	environment.sessionVariables.NIXOS_OZONE_WL = "1";

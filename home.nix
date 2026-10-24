@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, pkgsUnstable, ... }:
 
 let
 	dotfiles = "${config.home.homeDirectory}/.config/nixos/config";
@@ -12,8 +12,8 @@ in {
 	home.stateVersion = "26.05";
 	programs.git = {
 		enable = true;
-		userName = "anurag";
-		userEmail = "anuragp.5984@gmail.com";
+		settings.user.name = "anurag";
+		settings.user.email = "anuragp.5984@gmail.com";
 	};
 
 	xdg.configFile = builtins.listToAttrs (map (name: {inherit name; value = {
@@ -22,12 +22,12 @@ in {
 	}; }) configs);
 
 	home.packages = (map mkScript scriptNames) ++ (with pkgs; [
-		waybar rofi dunst swaybg swaylock grim slurp libnotify
-		wl-clipboard cliphist networkmanagerapplet brightnessctl
-		nautilus mpv zathura zathuraPkgs.zathura_pdf_mupdf zathuraPkgs.zathura_djvu
-		kitty gcc neovim tree-sitter wget ripgrep fd fzf htop
-		lazygit trash-cli fastfetch imagemagick nodejs pnpm gnupg
-	]);
+		waybar rofi dunst swaybg swaylock grim slurp libnotify wl-clipboard
+		cliphist networkmanagerapplet brightnessctl nautilus mpv
+		zathura zathuraPkgs.zathura_pdf_mupdf zathuraPkgs.zathura_djvu
+		kitty gcc tree-sitter wget ripgrep fd fzf htop lazygit trash-cli
+		fastfetch imagemagick nodejs pnpm gnupg
+	]) ++ [ pkgsUnstable.neovim ];
 
 	# theming
 	gtk = {
