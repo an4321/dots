@@ -11,7 +11,7 @@
 }
 
 #workspaces, #bottom, #tray {
-	background: alpha(@bg, 0.85);
+	background: alpha(@bg, 0.9);
 	border-radius: 0 12px 12px 0;
 	border: 1px solid alpha(@fg, 0.1);
 	border-left: none;
