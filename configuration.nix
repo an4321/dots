@@ -92,6 +92,9 @@
 		options = "--delete-older-than 14d";
 	};
 
+	programs.nix-ld.enable = true;
+	programs.nix-ld.libraries = with pkgs; [ ];
+
 	hardware.graphics.enable = true;
 	system.stateVersion = "26.05";
 }
