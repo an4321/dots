@@ -85,7 +85,7 @@ hl.bind("ALT + space", hl.dsp.window.float({ action = "toggle" }))
 hl.bind("ALT + escape", hl.dsp.exec_cmd("lock"))
 hl.bind("ALT + z", hl.dsp.dpms({ action = "toggle" }))
 hl.bind("ALT + c", hl.dsp.exec_cmd("sh -c 'f=~/Pictures/Screenshots/$(date +%F_%H-%M-%S).png; grim -g \"$(slurp)\" $f'"))
-hl.bind("ALT + SHIFT + c", hl.dsp.exec_cmd("sh -c 'f=~/Pictures/Screenshots/$(date +%F_%H-%M-%S).png; grim $f"))
+hl.bind("ALT + SHIFT + c", hl.dsp.exec_cmd("sh -c 'f=~/Pictures/Screenshots/$(date +%F_%H-%M-%S).png; grim $f'"))
 
 hl.bind("ALT + h", hl.dsp.focus({ direction = "left" }))
 hl.bind("ALT + l", hl.dsp.focus({ direction = "right" }))
