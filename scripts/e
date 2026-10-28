@@ -1,8 +1,9 @@
 #!/usr/bin/env fish
 
-if test -n "$NVIM"
-	set file (realpath $argv)
-	test -f $file && nvim --server $NVIM --remote $file
+if test (count $argv) -eq 0
+	exec nvim .
+else if set -q NVIM; and test -n "$NVIM"
+	nvim --server "$NVIM" --remote (realpath -m $argv 2>/dev/null)
 else
-	test -n "$argv" && nvim $argv || nvim .
+	exec nvim $argv
 end

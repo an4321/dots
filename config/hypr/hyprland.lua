@@ -19,35 +19,16 @@ hl.config({
 	decoration = {
 		rounding = 10,
 		rounding_power = 2,
-		active_opacity = 1.0,
 		inactive_opacity = 0.9,
-		shadow = {
-			enabled = true,
-			range = 4,
-			render_power = 3,
-			color = 0xee1a1a1a,
-		},
-		blur = {
-			enabled = true,
-			size = 3,
-			passes = 1,
-			vibrancy = 0.1,
-		},
+		blur = { size = 3 },
 	},
 	animations = { enabled = true },
-})
-
-hl.config({
 	scrolling = {
 		column_width = 0.8,
 		focus_fit_method = 0,
 		fullscreen_on_one_column = false,
 	},
-	misc = {
-		force_default_wallpaper = 0,
-		disable_hyprland_logo = true,
-		focus_on_activate = true,
-	},
+	cursor = { hide_on_key_press = true },
 	input = {
 		kb_layout = "us",
 		follow_mouse = 2,
@@ -55,20 +36,15 @@ hl.config({
 		touchpad = { natural_scroll = true },
 		follow_mouse = 1,
 	},
+	misc = {
+		force_default_wallpaper = 0,
+		disable_hyprland_logo = true,
+		focus_on_activate = true,
+	},
 })
 
-hl.gesture({
-	fingers = 3,
-	direction = "horizontal",
-	action = "scroll_move",
-	scale = 2.5,
-})
-hl.gesture({
-	fingers = 3,
-	direction = "vertical",
-	action = "workspace",
-	scale = 2.0,
-})
+hl.gesture({ fingers = 3, direction = "horizontal", action = "scroll_move", scale = 2.5 })
+hl.gesture({ fingers = 3, direction = "vertical", action = "workspace", scale = 2.0 })
 
 hl.bind("ALT + r", hl.dsp.exec_cmd("rofi -config ~/.config/hypr/lib/rofi.rasi -show run"))
 hl.bind("ALT + v", hl.dsp.exec_cmd("cliphist list | rofi -config ~/.config/hypr/lib/rofi.rasi " ..

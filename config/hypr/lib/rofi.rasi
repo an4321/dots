@@ -1,5 +1,5 @@
 * {
-	font: "JetBrainsMonoNerdFont 15";
+	font: "JetBrainsMonoNerdFont 14.5";
 	bg: #1E2127DD;
 	fg: #FFFFFF;
 	accent: #F9E2AF;
@@ -15,7 +15,7 @@ window {
 	transparency: "real";
 	location: center;
 	anchor: center;
-	width: 600px;
+	width: 520px;
 	border: 2px solid;
 	border-radius: 12px;
 	border-color: @accent;
