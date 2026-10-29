@@ -5,12 +5,8 @@ function confirm; read -P "$argv (y/N) " | string match -qr '^[Yy]$'; end
 set d "$HOME/.local/helium"
 mkdir -p $d
 
-if not type -q appimage-run
-	echo "Error: 'appimage-run' is required on NixOS to run AppImages."
-	exit 1
-end
-
-set cmd "appimage-run $d/helium-browser --password-store=basic --force-device-scale-factor=1.1"
+set cmd "$d/helium-browser --password-store=basic --force-device-scale-factor=1.1"
+type -q appimage-run && set cmd "appimage-run $cmd"
 
 set desktopFile """[Desktop Entry]
 Version=1.0
@@ -45,7 +41,7 @@ switch $argv[1]
 
 		if test ! -e ~/.local/share/icons/helium.png
 			mkdir -p  ~/.local/share/icons
-			wget -O ~/.local/share/icons/helium.png \
+			curl -sL -o ~/.local/share/icons/helium.png \
 				'https://github.com/imputnet/helium/blob/main/resources/branding/app_icon/raw.png?raw=true'
 		end
 
